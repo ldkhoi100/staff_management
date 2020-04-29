@@ -74,7 +74,11 @@
             <a href="{{ url('/home') }}">Home</a>
             @else
             <a href="{{ route('login') }}">Login</a>
+<<<<<<< HEAD
             <a href="{{ url('/') }}">Khôi mới update say oh yer nguyeen</a>
+=======
+            <a href="{{ url('/') }}">Khôi mới update nguyeen sang</a>
+>>>>>>> 2ce2a618284d420bfb1725711a70c2f22d4e1a72
 
             @if (Route::has('register'))
             <a href="{{ route('register') }}">Register</a>
@@ -89,7 +93,7 @@
             </div>
 
             <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
+                <a href="https://laravel.com/docs">Hiển đã Join</a>
                 <a href="https://laracasts.com">Laracasts</a>
                 <a href="https://laravel-news.com">News</a>
                 <a href="https://blog.laravel.com">Blog</a>
@@ -97,6 +101,7 @@
                 <a href="https://forge.laravel.com">Forge</a>
                 <a href="https://vapor.laravel.com">Vapor</a>
                 <a href="https://github.com/laravel/laravel">GitHub</a>
+            </div>
             </div>
         </div>
     </div>
