@@ -2,21 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Auth::routes(['verify' => true]);
+
+//->middleware('password.confirm');
+//->middleware('verified');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Log in with google and facebook account
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');
+
+//Reset password
+Route::post('reset-password', 'ResetPasswordController@sendMail');
+Route::put('reset-password/{token}', 'ResetPasswordController@reset')->name('reset.password');
+
+//Logout
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');

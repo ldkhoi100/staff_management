@@ -51,8 +51,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'username' => ['required', 'string', 'min:5', 'max:30', 'unique:users', 'regex:/^[a-zA-Z0-9]{5,}$/'],
+            'email' => ['required', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', 'email:rfc,dns', 'max:99', 'unique:users'],
+            // 'phone' => ['required', 'numeric', 'unique:users', 'min:9'],
+            // 'address' => ['required', 'string', 'min:3', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'g-recaptcha-response' => ['required', 'captcha'],
         ]);
     }
 
@@ -66,7 +70,10 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            // 'username' => $data['username'],
             'email' => $data['email'],
+            // 'phone' => $data['phone'],
+            // 'address' => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
     }
