@@ -17,8 +17,7 @@ class CreateNhanVienTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('MaCV')->index('MaCV');
 			$table->integer('Ma_Luong')->index('Ma_Luong');
-			$table->integer('Ma_TDHV')->index('Ma_TDHV');
-			$table->integer('Ma_PB')->index('Ma_PB');
+			$table->integer('Ma_LV')->index('Ma_PB');
 			$table->string('Ho_Ten');
 			$table->string('Gioi_Tinh', 20);
 			$table->integer('So_Dien_Thoai');

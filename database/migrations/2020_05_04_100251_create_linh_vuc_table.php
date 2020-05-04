@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTrinhDoHocVanTable extends Migration {
+class CreateLinhVucTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,10 @@ class CreateTrinhDoHocVanTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('trinh_do_hoc_van', function(Blueprint $table)
+		Schema::create('linh_vuc', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('Ten_TDHV');
-			$table->string('Chuyen_Nghanh');
+			$table->string('Ten_LV');
 			$table->timestamps();
 		});
 	}
@@ -29,7 +28,7 @@ class CreateTrinhDoHocVanTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('trinh_do_hoc_van');
+		Schema::drop('linh_vuc');
 	}
 
 }
