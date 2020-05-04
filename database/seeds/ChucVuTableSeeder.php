@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class LinhVucTableSeeder extends Seeder
+class ChucVuTableSeeder extends Seeder
 {
 
     /**
@@ -14,30 +14,34 @@ class LinhVucTableSeeder extends Seeder
     {
 
 
-        \DB::table('linh_vuc')->delete();
+        \DB::table('chuc_vu')->delete();
 
-        \DB::table('linh_vuc')->insert(array(
+        \DB::table('chuc_vu')->insert(array(
             0 =>
             array(
-                'Ten_LV' => 'Giám Đốc',
+                'Ten_CV' => 'Giám Đốc',
+                'Cong_Viec' => 'Ngồi chơi xơi nước',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             1 =>
             array(
-                'Ten_LV' => 'Quản Lý',
+                'Ten_CV' => 'Quản Lý',
+                'Cong_Viec' => 'Quản lý nhân viên',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             2 =>
             array(
-                'Ten_LV' => 'Pha Chế',
+                'Ten_CV' => 'Pha Chế',
+                'Cong_Viec' => 'Pha chế đồ uống',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             3 =>
             array(
-                'Ten_LV' => 'Phục Vụ',
+                'Ten_CV' => 'Phục Vụ',
+                'Cong_Viec' => 'Bồi bàn, dọn dẹp',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Repositories\CustomerRepository;
+use App\Repositories\Impl\CustomerRepositoryImpl;
+use App\Services\CustomerService;
+use App\Services\Impl\CustomerServiceImpl;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +28,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(
+            CustomerRepository::class,
+            CustomerRepositoryImpl::class
+        );
+
+        $this->app->singleton(
+            CustomerService::class,
+            CustomerServiceImpl::class
+        );
     }
 }
