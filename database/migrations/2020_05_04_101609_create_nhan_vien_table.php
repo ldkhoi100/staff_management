@@ -15,9 +15,8 @@ class CreateNhanVienTable extends Migration {
 		Schema::create('nhan_vien', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('MaCV')->index('MaCV');
+			$table->integer('MaLV')->index('MaCV');
 			$table->integer('Ma_Luong')->index('Ma_Luong');
-			$table->integer('Ma_LV')->index('Ma_PB');
 			$table->string('Ho_Ten');
 			$table->string('Gioi_Tinh', 20);
 			$table->integer('So_Dien_Thoai');
