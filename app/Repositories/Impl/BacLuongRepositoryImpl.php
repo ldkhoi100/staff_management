@@ -16,7 +16,7 @@ class BacLuongRepositoryImpl extends EloquentRepository implements BacLuongRepos
 
     public function findOnlyTrashed($id)
     {
-        $result = $this->model->onlyTrashed($id)->where('id', $id)->get();
+        $result = $this->model->onlyTrashed($id)->where('id', $id)->first();
         return $result;
     }
 }
