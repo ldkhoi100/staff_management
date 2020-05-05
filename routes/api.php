@@ -27,3 +27,9 @@ Route::post('/users', 'UserApiController@store')->name('users.store');
 Route::put('/users/{customerId}', 'UserApiController@update')->name('users.update');
 
 Route::delete('/users/{customerId}', 'UserApiController@destroy')->name('users.destroy');
+
+
+Route::resource('/factor-salary', 'BacLuongController');
+
+Route::get('/factor-salary/{id}/restore', 'BacLuongController@restore');
+Route::get('/factor-salary/{id}/delete', 'BacLuongController@delete');
