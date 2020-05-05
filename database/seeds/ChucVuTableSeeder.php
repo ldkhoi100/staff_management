@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChucVuTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class ChucVuTableSeeder extends Seeder
     {
 
 
-        \DB::table('chuc_vu')->delete();
+        DB::table('chuc_vu')->delete();
 
-        \DB::table('chuc_vu')->insert(array(
+        DB::table('chuc_vu')->insert(array(
             0 =>
             array(
                 'Ten_CV' => 'Giám Đốc',
