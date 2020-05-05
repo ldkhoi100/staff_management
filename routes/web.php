@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -38,6 +41,7 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
+<<<<<<< HEAD
 Route::get('test', 'UserController@index');
 
 Route::resource('test', 'UserController');
@@ -45,3 +49,6 @@ Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
 Route::get('show/{id}', 'UserController@show')->name('test.show');
 Route::get('test2', 'UserController@index2');
 Route::post('test', 'UserController@store');
+=======
+// Route::resource('/factor-salary', 'BacLuongController');
+>>>>>>> 0d882da968b3758c94d349770d129b946d820823

@@ -13,16 +13,16 @@ class BacLuong extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'LuongCB', 'Bac_Luong', 'HS_Luong'
+        'Bac_Luong'
     ];
 
     public function luong_co_ban()
     {
-        return $this->belongsTo("App\Model\LuongCoBan", 'LuongCB', 'id');
+        return $this->belongsTo(LuongCoBan::class, 'LuongCB');
     }
 
     public function nhan_vien()
     {
-        return $this->hasMany("App\Model\NhanVien", 'Ma_Luong', 'id');
+        return $this->hasMany(NhanVien::class, 'Ma_Luong', 'id');
     }
 }
