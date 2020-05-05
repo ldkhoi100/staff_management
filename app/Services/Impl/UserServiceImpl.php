@@ -5,13 +5,6 @@ namespace App\Services\Impl;
 use App\Repositories\CustomerRepository;
 use App\Services\CustomerService;
 
-/**
- * Created by PhpStorm.
- * User: dungduong
- * Date: 10/28/2018
- * Time: 2:25 PM
- */
-
 class CustomerServiceImpl implements CustomerService
 {
     protected $customerRepository;
@@ -37,10 +30,10 @@ class CustomerServiceImpl implements CustomerService
         if (!$customer)
             $statusCode = 404;
 
-            $data = [
-                'statusCode' => $statusCode,
-                'customers' => $customer
-            ];
+        $data = [
+            'statusCode' => $statusCode,
+            'customers' => $customer
+        ];
 
         return $data;
     }
@@ -98,5 +91,4 @@ class CustomerServiceImpl implements CustomerService
         ];
         return $data;
     }
-
 }
