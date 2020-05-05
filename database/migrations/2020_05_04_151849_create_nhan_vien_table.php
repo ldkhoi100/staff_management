@@ -29,6 +29,7 @@ class CreateNhanVienTable extends Migration {
 			$table->integer('Phu_Cap')->default(0);
 			$table->integer('Tam_Ung')->default(0);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

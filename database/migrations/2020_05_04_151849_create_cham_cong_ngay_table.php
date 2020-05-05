@@ -21,6 +21,7 @@ class CreateChamCongNgayTable extends Migration {
 			$table->dateTime('Ngay_Hien_Tai');
 			$table->string('Tinh_Trang')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
