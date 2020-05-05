@@ -3,5 +3,11 @@
 namespace App\Repositories;
 
 
-interface CustomerRepository extends Repository
-{ }
+interface UserRepository extends Repository
+{
+    public function getSoftDeletes();
+
+    public function restore($object);
+
+    public function delete($object);
+}
