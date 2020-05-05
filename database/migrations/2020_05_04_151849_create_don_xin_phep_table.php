@@ -21,6 +21,7 @@ class CreateDonXinPhepTable extends Migration {
 			$table->text('NoiDung', 65535);
 			$table->integer('TinhTrang');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

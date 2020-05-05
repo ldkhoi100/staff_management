@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBacLuongTable extends Migration {
+class CreateBacLuongTable extends Migration
+{
 
 	/**
 	 * Run the migrations.
@@ -13,13 +14,13 @@ class CreateBacLuongTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bac_luong', function(Blueprint $table)
-		{
+		Schema::create('bac_luong', function (Blueprint $table) {
 			$table->integer('id', true);
 			$table->integer('LuongCB')->index('LuongCB');
 			$table->integer('Bac_Luong')->unique('Bac_Luong');
 			$table->integer('HS_Luong');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
@@ -33,5 +34,4 @@ class CreateBacLuongTable extends Migration {
 	{
 		Schema::drop('bac_luong');
 	}
-
 }
