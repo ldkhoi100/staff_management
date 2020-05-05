@@ -1,15 +1,8 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: dungduong
- * Date: 10/28/2018
- * Time: 1:46 PM
- */
-
 namespace App\Repositories\Impl;
 
-use App\Customer;
+use App\Model\Customer;
 use App\Repositories\CustomerRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
