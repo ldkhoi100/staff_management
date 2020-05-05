@@ -37,3 +37,11 @@ Route::get('/animation', 'AdminController@animation')->name('animation');
 Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
+
+Route::get('test', 'UserController@index');
+
+Route::resource('test', 'UserController');
+Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
+Route::get('show/{id}', 'UserController@show')->name('test.show');
+Route::get('test2', 'UserController@index2');
+Route::post('test', 'UserController@store');

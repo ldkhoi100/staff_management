@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Validator;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('test', compact('users'));
+    }
+
+    public function index2()
+    {
+        $users = User::all();
+        return view('test2', compact('users'));
     }
 
     /**
@@ -35,7 +45,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // dd($request->all());
+        if ($validator->passes()) {
+            $user = new User();
+            $user->username = request('username');
+            $user->email = request('email');
+            $user->password = Hash::make(request('password'));
+            $user->save();
+            return response()->json(['success' => 'Added new records.']);
+        } else {
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
     }
 
     /**
@@ -46,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return response()->json(['data' => $user]);
     }
 
     /**
@@ -57,7 +83,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return response()->json($user);
     }
 
     /**
@@ -69,7 +96,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id],
+            'email' => ['required', 'email', 'unique:users,email,' . $id]
+        ]);
+        // dd($request->all());
+        if ($validator->passes()) {
+            $user = User::find($id);
+            $user->username = request('username');
+            $user->email = request('email');
+            $user->save();
+            return response()->json(['success' => 'Updated new records.']);
+        } else {
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
     }
 
     /**
