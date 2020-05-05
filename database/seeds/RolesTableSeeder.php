@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RolesTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class RolesTableSeeder extends Seeder
     {
 
 
-        \DB::table('roles')->delete();
+        DB::table('roles')->delete();
 
-        \DB::table('roles')->insert(array(
+        DB::table('roles')->insert(array(
             0 =>
             array(
                 'name' => 'ROLE_USER',
