@@ -19,6 +19,7 @@ class CreateChucVuTable extends Migration {
 			$table->string('Ten_CV');
 			$table->string('Cong_Viec');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

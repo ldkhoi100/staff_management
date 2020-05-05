@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean('block')->default(0);
 			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

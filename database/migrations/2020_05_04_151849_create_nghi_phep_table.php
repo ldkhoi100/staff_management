@@ -20,6 +20,7 @@ class CreateNghiPhepTable extends Migration {
 			$table->dateTime('Tu_Ngay')->nullable();
 			$table->dateTime('Den_Ngay')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

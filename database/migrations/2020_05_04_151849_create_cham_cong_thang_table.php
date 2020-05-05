@@ -22,6 +22,7 @@ class CreateChamCongThangTable extends Migration {
 			$table->integer('Nghi_Phep');
 			$table->integer('Nghi_Khong_Luong');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Impl;
 
-use App\Customer;
+use App\Model\Customer;
 use App\Repositories\CustomerRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
