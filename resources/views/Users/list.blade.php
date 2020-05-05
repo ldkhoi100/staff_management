@@ -1,6 +1,6 @@
 @extends('admin.layouts')
 
-@section('title', 'Dashboard')
+@section('title', 'Manager')
 
 @section('content')
 
@@ -9,14 +9,14 @@
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <a href="{{ route('product.create') }}" class="btn btn-primary">Tạo sản phẩm mới</a>
-        <a href="{{ route('product.trash') }}" class="btn btn-danger">Thùng rác</a>
+        <a href="{{ route('product.create') }}" class="btn btn-primary">User</a>
+        <a href="{{ route('product.trash') }}" class="btn btn-danger">Trash</a>
     </p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Sản phẩm</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Manager user</h6>
         </div>
 
         <div class="col-sm-12">@include('partials.message')</div>
@@ -28,12 +28,11 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Tên bánh</th>
-                            <th width='10%'>Loại bánh</th>
-                            <th width='6%'>Mô tả</th>
-                            <th>Giá gốc</th>
-                            <th>Giá giảm</th>
-                            <th>Ảnh</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Email verified</th>
+                            <th>Block</th>
+                            <th>Created at</th>
                             <th>Đơn vị</th>
                             <th>Nổi bật</th>
                             <th>Người tạo</th>

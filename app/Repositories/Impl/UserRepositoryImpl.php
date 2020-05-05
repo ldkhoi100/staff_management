@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Impl;
 
-use App\Model\Customer;
-use App\Repositories\CustomerRepository;
+use App\User;
+use App\Repositories\UserRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
-class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepository
+class UserRepositoryImpl extends EloquentRepository implements UserRepository
 {
     /**
      * get Model
@@ -14,7 +14,7 @@ class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepo
      */
     public function getModel()
     {
-        $model = Customer::class;
+        $model = User::class;
         return $model;
     }
 }
