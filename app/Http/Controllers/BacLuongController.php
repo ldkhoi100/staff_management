@@ -29,7 +29,6 @@ class BacLuongController extends Controller
         return view('factorSalarys.create');
     }
 
-
     public function store(Request $request)
     {
         $data = $request->all();

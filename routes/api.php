@@ -31,5 +31,5 @@ Route::delete('/users/{customerId}', 'UserApiController@destroy')->name('users.d
 
 Route::resource('/factor-salary', 'BacLuongController');
 
-Route::get('/factor-salary/{id}/restore', 'BacLuongController@restore');
-Route::get('/factor-salary/{id}/delete', 'BacLuongController@delete');
+Route::get('/factor-salary-restore/{id}', 'BacLuongController@restore');
+Route::get('/factor-salary-delete/{id}', 'BacLuongController@delete');
