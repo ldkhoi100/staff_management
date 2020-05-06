@@ -70,12 +70,12 @@
                             </td>
 
                             @if($user->block == 1)
-                            <td><a href="" style="color:#32CD32; font-weight: bold;"
-                                    onclick="return confirm('Do you want removed block this user?')">Yes</a>
+                            <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold;"
+                                    onclick="block({{ $user->id }})">Yes</a>
                             </td>
                             @else
-                            <td><a href="" style="color:red; font-weight: bold;"
-                                    onclick="return confirm('Do you want block this user?')">No</a>
+                            <td><a href="javascript:void(0);" style="color:red; font-weight: bold;"
+                                    onclick="block({{ $user->id }})">No</a>
                             </td>
                             @endif
 
@@ -86,7 +86,7 @@
 
                             <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
 
-                            <td><button data-url="{{ route('users.edit', $user) }}" ​ type="button"
+                            <td><button data-url="{{ route('users.edit', $user) }}" ​type="button"
                                     data-target="#editUser" data-toggle="modal" class="btn btn-info editUser btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></button>
                             </td>
@@ -119,6 +119,13 @@
 
 
 @push('CRUD')
+
+<script>
+    //Block user
+    function block(id){
+        var conf = confirm()
+    }
+</script>
 
 <script>
     $(document).ready(function() {

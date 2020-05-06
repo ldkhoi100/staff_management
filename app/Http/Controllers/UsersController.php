@@ -106,4 +106,14 @@ class UsersController extends Controller
 
         return response()->json($dataUser['message'], $dataUser['statusCode']);
     }
+
+    public function block($id)
+    {
+        // $dataUser = $this->userService->findById($id);
+        $user = User::find($id);
+        $user->block = !$user->block;
+        $user->save();
+
+        return response()->json($dataUser['message'], $dataUser['statusCode']);
+    }
 }
