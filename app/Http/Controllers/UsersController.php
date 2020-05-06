@@ -73,7 +73,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
             $this->userService->update($request->all(), $id);
             
-            return response()->json(['success' => 'Updated this records.']);
+            return response()->json(['success' => 'Updated this user.']);
         } else {
             return response()->json(['error' => $validator->errors()->messages()]);
         }
@@ -109,8 +109,7 @@ class UsersController extends Controller
 
     public function block($id)
     {
-        $dataUser = $this->userService->blockUser($id);
-        
-        return UsersController::showUserAjax();
+        $this->userService->blockUser($id);
+        return response()->json(['success' => 'Updated this user.']);
     }
 }

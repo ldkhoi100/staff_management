@@ -1,5 +1,5 @@
 <!-- Modal Create User-->
-<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,9 +13,6 @@
 
                 <div class="alert alert-danger print-error-msg" style="display:none">
                     <ul></ul>
-                </div>
-
-                <div class="alert alert-success print-success-msg" style="display:none">
                 </div>
 
                 <form>
