@@ -56,8 +56,8 @@ Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete')
 // Route::post('test', 'UserController@store');..
 
 Route::group(['prefix' => '/factor-salary'], function () {
-    Route::view('/', 'factor_salaries.index')->name('factor.salary');
-    Route::resource('/index', 'BacLuongController')->parameter('index', 'id')->names('fs');
+    Route::view('/view', 'factor_salaries.index')->name('factor.salary');
+    Route::resource('/', 'BacLuongController')->parameter('', 'id')->names('fs');
     Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });

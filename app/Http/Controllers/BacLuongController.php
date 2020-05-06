@@ -14,8 +14,15 @@ class BacLuongController extends Controller
     public function __construct(BacLuongService $factorSalaryService)
     {
         // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
+        // $this->middleware('role:ROLE_ADMIN')->only('index');
         // $this->middleware('role:ROLE_SUPERADMIN');
+        $this->middleware(function ($request, $next) {
+            if ($request->ajax()) {
+                return $next($request);
+            }
+            abort(404);
+        });
+
         $this->factorSalaryService = $factorSalaryService;
     }
 
@@ -23,7 +30,11 @@ class BacLuongController extends Controller
     {
         $factorSalaries = $this->factorSalaryService->getAll();
 
-        return view('factor_salaries.all', compact('factorSalaries'));
+        $data =  view('factor_salaries.all', compact('factorSalaries'));
+
+        return response()->make($data, 200);
+
+        // return view('factor_salaries.all', compact('factorSalaries'));
 
         // return response()->json($factorSalaries, 200);
     }
@@ -31,7 +42,9 @@ class BacLuongController extends Controller
 
     public function create()
     {
-        return view('factor_salaries.crud.edit');
+        $data = view('factor_salaries.crud.create');
+
+        return response()->make($data, 200);
     }
 
     public function store(Request $request)
@@ -39,28 +52,28 @@ class BacLuongController extends Controller
 
         $data = $request->all();
         $validator = Validator::make($data, [
-            'Bac_Luong' => ['required', 'min:1', 'max:5', 'unique:bac_luong']
+            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', 'unique:bac_luong']
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 202);
         } else {
             $factorSalary = $this->factorSalaryService->create($data);
-
+            return response('', 200);
             // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
         }
     }
 
-    public function show($id)
-    {
-        $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
+    // public function show($id)
+    // {
+    //     $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return view('factor_salaries.crud.show', compact('factorSalary'));
+    // return view('factor_salaries.crud.show', compact('factorSalary'));
 
-        // $factorSalary = $this->factorSalaryService->findById($id);
+    // $factorSalary = $this->factorSalaryService->findById($id);
 
-        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
-    }
+    // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+    // }
 
 
     public function edit($id)
@@ -79,7 +92,7 @@ class BacLuongController extends Controller
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'Bac_Luong' => ['required', 'min:1', 'max:5', "unique:bac_luong,Bac_Luong,$id,id"]
+            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:bac_luong"]
         ]);
 
         if ($validator->fails()) {
@@ -87,7 +100,7 @@ class BacLuongController extends Controller
         } else {
             $factorSalary = $this->factorSalaryService->update($request->all(), $id);
 
-            // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+            return response()->json('', $factorSalary['statusCode']);
         }
     }
 

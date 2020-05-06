@@ -15,9 +15,9 @@
             <td class="text-right">{{ $fs->luong_co_ban->Tien_Luong }}</td>
             <td class="text-right">{{ $fs->Bac_Luong }}</td>
             <td class="text-center d-flex">
-                <button class="btn btn-show btn-success" data-url="{{ route('fs.show', $fs) }}">Show</button>
-                <button class="btn btn-edit btn-success" data-url="{{ route('fs.edit', $fs) }}">Edit</button>
-                <button class="btn btn-trash btn-success" data-url="{{ route('fs.destroy', $fs) }}">Trash</button>
+                {{-- <button class="btn btn-show btn-success" data-url="{{ route('fs.show', $fs) }}" onclick="FS.Show(this)">Show</button> --}}
+                <button class="btn btn-edit btn-success" data-url="{{ route('fs.edit', $fs) }}" onclick="FS.Edit(this)">Edit</button>
+                <button class="btn btn-trash btn-success" data-url="{{ route('fs.destroy', $fs) }}" onclick="FS.Delete(this)">Trash</button>
             </td>
         </tr>
         @empty
