@@ -76,7 +76,7 @@ class UsersController extends Controller
             $user['username'] = request('username');
             $user['email'] = request('email');
             
-            $this->userService->update($user, $id);
+            $this->userService->update($request->all(), $id);
 
             return response()->json(['success' => 'Updated new records.']);
         } else {
