@@ -41,4 +41,9 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
-// Route::resource('/factor-salary', 'BacLuongController');
+Route::group(['prefix' => '/factor-salary'], function () {
+    Route::view('/', 'factor_salaries.index')->name('factor.salary');
+    Route::resource('/index', 'BacLuongController')->parameter('index', 'id')->names('fs');
+    Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
+    Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
+});
