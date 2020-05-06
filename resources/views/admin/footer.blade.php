@@ -53,17 +53,24 @@
 <script src="sb-admin-2/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="sb-admin-2/js/demo/chart-area-demo.js"></script>
-<script src="sb-admin-2/js/demo/chart-pie-demo.js"></script>
-<script src="sb-admin-2/js/demo/chart-bar-demo.js"></script>
+{{-- <script src="sb-admin-2/js/demo/chart-area-demo.js"></script> --}}
+{{-- <script src="sb-admin-2/js/demo/chart-pie-demo.js"></script> --}}
+{{-- <script src="sb-admin-2/js/demo/chart-bar-demo.js"></script> --}}
 
 <script src="sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
 
 <script>
+    // Auto add CSRF token to all Ajax requests
+
+</script>
+
+@stack('CRUD')
+
+<script>
     // Script Ckeditor 4
-    CKEDITOR.replace("content");
+    // CKEDITOR.replace("content");
 
     //Image onchange
     function readURL(event) {

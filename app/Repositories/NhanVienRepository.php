@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-interface UserRepository extends Repository
+interface NhanVienRepository extends Repository
 {
     public function getSoftDeletes();
 

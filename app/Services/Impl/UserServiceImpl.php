@@ -9,7 +9,6 @@ class UserServiceImpl implements UserService
 {
     protected $userRepository;
 
-
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -26,51 +25,51 @@ class UserServiceImpl implements UserService
     {
         $User = $this->userRepository->findById($id);
 
-        $statusCode = 200;
-        if (!$User)
-            $statusCode = 404;
+        // $statusCode = 200;
+        // if (!$User)
+        //     $statusCode = 404;
 
-        $data = [
-            'statusCode' => $statusCode,
-            'users' => $User
-        ];
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $User
+        // ];
 
-        return $data;
+        return $User;
     }
 
     public function create($request)
     {
         $User = $this->userRepository->create($request);
 
-        $statusCode = 201;
-        if (!$User)
-            $statusCode = 500;
+        // $statusCode = 201;
+        // if (!$User)
+        //     $statusCode = 500;
 
-        $data = [
-            'statusCode' => $statusCode,
-            'users' => $User
-        ];
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $User
+        // ];
 
-        return $data;
+        return $User;
     }
 
     public function update($request, $id)
     {
         $oldUser = $this->userRepository->findById($id);
 
-        if (!$oldUser) {
-            $newUser = null;
-            $statusCode = 404;
-        } else {
-            $newUser = $this->userRepository->update($request, $oldUser);
-            $statusCode = 200;
-        }
+        // if (!$oldUser) {
+        //     $newUser = null;
+        //     $statusCode = 404;
+        // } else {
+        $newUser = $this->userRepository->update($request, $oldUser);
+        // $statusCode = 200;
+        // }
 
-        $data = [
-            'statusCode' => $statusCode,
-            'users' => $newUser
-        ];
-        return $data;
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $newUser
+        // ];
+        return $newUser;
     }
 
     public function destroy($id)
@@ -101,7 +100,7 @@ class UserServiceImpl implements UserService
 
     public function restore($id)
     {
-        $User = $this->userRepository->findById($id);
+        $User = $this->userRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";
@@ -120,7 +119,7 @@ class UserServiceImpl implements UserService
 
     public function delete($id)
     {
-        $User = $this->userRepository->findById($id);
+        $User = $this->userRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";

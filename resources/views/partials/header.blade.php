@@ -18,10 +18,12 @@
     <!-- Fonts Style -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="css/fontawesome.min.css" type="text/css">
+    {{-- <link rel="stylesheet" href="css/fontawesome.min.css" type="text/css"> --}}
 
     <!-- Styles Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+    {{-- <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"> --}}
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
 
 </head>

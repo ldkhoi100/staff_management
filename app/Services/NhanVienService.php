@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface UserService
+interface NhanVienService
 {
     public function getAll();
 

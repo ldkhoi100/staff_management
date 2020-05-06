@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Impl;
 
-use App\User;
-use App\Repositories\UserRepository;
+use App\Model\NhanVien;
+use App\Repositories\NhanVienRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
-class UserRepositoryImpl extends EloquentRepository implements UserRepository
+class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepository
 {
     /**
      * get Model
@@ -14,7 +14,7 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
      */
     public function getModel()
     {
-        $model = User::class;
+        $model = NhanVien::class;
         return $model;
     }
 
