@@ -86,7 +86,7 @@
 
                             <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
 
-                            <td><button data-url="{{ route('test.edit',$user->id) }}" ​ type="button"
+                            <td><button data-url="{{ route('users.edit', $user) }}" ​ type="button"
                                     data-target="#editUser" data-toggle="modal" class="btn btn-info editUser btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></button>
                             </td>
@@ -161,10 +161,11 @@
                     $(".print-success-msg").html(data.success);
                 }else {
                         $(".print-success-msg").css('display','none');
-                        printErrorMsgEdit(data.error);
+                        printErrorMsg(data.error);
                     }
                 }
             });
+
             $.ajax({
                 url: "/usersAjax",
                 type:'GET',
@@ -206,15 +207,16 @@
                 data: {_token: _token, username:username, email:email, password:password, password_confirmation:password_confirmation},
                 success: function(data) {
                 if($.isEmptyObject(data.error)) {
-                    $(".print-error-msg-create").css('display','none');
-                    $(".print-success-msg-create").css('display','block');
-                    $(".print-success-msg-create").html(data.success);
+                    $(".print-error-msg").css('display','none');
+                    $(".print-success-msg").css('display','block');
+                    $(".print-success-msg").html(data.success);
                 } else {
-                        $(".print-success-msg-create").css('display','none');
-                        printErrorMsgCreate(data.error);
+                        $(".print-success-msg").css('display','none');
+                        printErrorMsg(data.error);
                     }
                 }
             });
+
             $.ajax({
                 url: "/usersAjax",
                 type:'GET',
@@ -242,15 +244,7 @@
         });
     });
 
-    function printErrorMsgCreate (msg) {
-            $(".print-error-msg").find("ul").html('');
-            $(".print-error-msg").css('display','block');
-            $.each( msg, function( key, value ) {
-            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-        });
-    }
-
-    function printErrorMsgEdit (msg) {
+    function printErrorMsg (msg) {
             $(".print-error-msg").find("ul").html('');
             $(".print-error-msg").css('display','block');
             $.each( msg, function( key, value ) {
