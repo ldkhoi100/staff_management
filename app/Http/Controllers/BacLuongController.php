@@ -12,7 +12,8 @@ class BacLuongController extends Controller
 
     public function __construct(BacLuongService $factorSalaryService)
     {
-        // $this->middleware('role:ROLE_ADMIN|ROLE_SUPERADMIN');
+        // $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
+        // $this->middleware('role:ROLE_SUPERADMIN');
         $this->factorSalaryService = $factorSalaryService;
     }
 
