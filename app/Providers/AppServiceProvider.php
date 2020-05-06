@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\Impl\RoleRepositoryImpl;
 use App\Repositories\BacLuongRepository;
 use App\Repositories\Impl\BacLuongRepositoryImpl;
+use App\Repositories\RoleRepository;
+use App\Services\Impl\RoleServiceImpl;
+use App\Services\RoleService;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\UserRepository;
@@ -50,6 +54,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             BacLuongService::class,
             BacLuongServiceImpl::class
+        );
+
+        $this->app->singleton(
+            RoleService::class,
+            RoleServiceImpl::class
+        );
+
+        $this->app->singleton(
+            RoleRepository::class,
+            RoleRepositoryImpl::class
         );
     }
 }

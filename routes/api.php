@@ -33,3 +33,8 @@ Route::resource('/factor-salary', 'BacLuongController');
 
 Route::get('/factor-salary-restore/{id}', 'BacLuongController@restore');
 Route::get('/factor-salary-delete/{id}', 'BacLuongController@delete');
+
+Route::resource('/role', 'RoleController');
+
+Route::get('/role-restore/{id}', 'RoleController@restore');
+Route::get('/role-delete/{id}', 'RoleController@delete');
