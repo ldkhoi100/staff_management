@@ -59,7 +59,6 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        // dd($id);
         $dataUser = $this->userService->findById($id);
         return response()->json($dataUser);
     }
@@ -72,18 +71,12 @@ class UsersController extends Controller
         ]);
 
         if ($validator->passes()) {
-            $user = [];
-            $user['username'] = request('username');
-            $user['email'] = request('email');
-            
             $this->userService->update($request->all(), $id);
-
-            return response()->json(['success' => 'Updated new records.']);
+            
+            return response()->json(['success' => 'Updated this records.']);
         } else {
             return response()->json(['error' => $validator->errors()->all()]);
         }
-        
-        // $dataUser = $this->userService->update($request->all(), $id);
     }
 
     public function destroy($id)
