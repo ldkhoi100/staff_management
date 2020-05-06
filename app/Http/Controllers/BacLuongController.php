@@ -12,7 +12,9 @@ class BacLuongController extends Controller
 
     public function __construct(BacLuongService $factorSalaryService)
     {
-        // $this->middleware('role:ROLE_ADMIN|ROLE_SUPERADMIN');
+        // $this->middleware('auth');
+        // $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
+        // $this->middleware('role:ROLE_SUPERADMIN');
         $this->factorSalaryService = $factorSalaryService;
     }
 
@@ -20,13 +22,15 @@ class BacLuongController extends Controller
     {
         $factorSalaries = $this->factorSalaryService->getAll();
 
-        return response()->json($factorSalaries, 200);
+        return view('factor_salaries.all', compact('factorSalaries'));
+
+        // return response()->json($factorSalaries, 200);
     }
 
 
     public function create()
     {
-        return view('factorSalarys.create');
+        return view('factor_salaries.crud.create');
     }
 
     public function store(Request $request)
@@ -34,27 +38,36 @@ class BacLuongController extends Controller
         $data = $request->all();
         $factorSalary = $this->factorSalaryService->create($data);
 
-        return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
     }
 
     public function show($id)
     {
-        $factorSalary = $this->factorSalaryService->findById($id);
+        $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        return view('admin.products.show', compact('factorSalary'));
+
+        // $factorSalary = $this->factorSalaryService->findById($id);
+
+        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
     }
 
 
     public function edit($id)
     {
-        $factorSalary = $this->factorSalaryService->findById($id);
+        $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        return view('factor_salaries.crud.edit', compact('factorSalary'));
+
+        // $factorSalary = $this->factorSalaryService->findById($id);
+
+        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
     }
 
 
     public function update(Request $request, $id)
     {
+        return dd($request->all());
         $factorSalary = $this->factorSalaryService->update($request->all(), $id);
 
         return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);

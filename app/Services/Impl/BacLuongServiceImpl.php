@@ -119,7 +119,7 @@ class BacLuongServiceImpl implements BacLuongService
 
     public function delete($id)
     {
-        $bac_luong = $this->bac_luong_Repository->findById($id);
+        $bac_luong = $this->bac_luong_Repository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "bac_luong not found";
