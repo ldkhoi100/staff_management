@@ -19,4 +19,6 @@ interface UserService
     public function restore($id);
 
     public function delete($id);
+
+    public function blockUser($id);
 }

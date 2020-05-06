@@ -1,5 +1,5 @@
 <!-- Modal Create User-->
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -16,34 +16,35 @@
                 </div>
 
                 <div class="alert alert-success print-success-msg" style="display:none">
-
                 </div>
 
                 <form>
-                    <div class="form-group has-error has-feedback">
+                    <div class="form-group">
                         <label>Username:</label>
-                        <input type="text" name="username-create" class="form-control is-invalid"
+                        <input type="text" name="username-create" class="form-control create_modal"
                             placeholder="Username">
                     </div>
 
-                    <div class="form-group @error('email') has-error has-feedback @enderror">
+                    <div class="form-group">
                         <label>Email:</label>
-                        <input type="text" name="email-create" class="form-control" placeholder="email">
+                        <input type="text" name="email-create" class="form-control create_modal" placeholder="email">
                     </div>
 
                     <div class="form-group">
                         <strong>Password:</strong>
-                        <input type="password" name="password-create" class="form-control" placeholder="password">
+                        <input type="password" name="password-create" class="form-control create_modal"
+                            placeholder="password">
                     </div>
                     <div class="form-group">
                         <strong>Confirm Password:</strong>
-                        <input type="password" name="password_confirmation-create" class="form-control"
-                            placeholder="password">
+                        <input type="password" name="password_confirmation-create"
+                            class="form-control passwordConfirm create_modal" placeholder="password">
                     </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-warning reset_form">Reset</button>
                 <button type="button" class="btn btn-primary btn-create">Create</button>
             </div>
 

@@ -70,7 +70,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $user_block = User::where('block', 1)->where('username', request('username'))->first();
+        $user_block = User::where('block', 1)->where('username', request('username'))->orWhere('email', request('username'))->first();
         if ($user_block == true) {
             return back()->with('delete', 'Your account has been blocked, Contact us for more details!');
         }

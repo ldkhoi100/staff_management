@@ -135,4 +135,10 @@ class UserServiceImpl implements UserService
         ];
         return $data;
     }
+
+    public function blockUser($id)
+    {
+        $user = $this->userRepository->blockUser($id);
+        return $user;
+    }
 }
