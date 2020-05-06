@@ -10,4 +10,6 @@ interface UserRepository extends Repository
     public function restore($object);
 
     public function delete($object);
+
+    public function findOnlyTrashed($id);
 }

@@ -18,15 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/users', 'UserApiController@index')->name('users.all');
-
-Route::get('/users/{customerId}', 'UserApiController@show')->name('users.show');
-
-Route::post('/users', 'UserApiController@store')->name('users.store');
-
-Route::put('/users/{customerId}', 'UserApiController@update')->name('users.update');
-
-Route::delete('/users/{customerId}', 'UserApiController@destroy')->name('users.destroy');
+Route::resource('users', 'UserApiController');
+Route::get('/users-restore/{id}', 'UserApiController@restore');
+Route::get('/users-delete/{id}', 'UserApiController@delete');
 
 
 Route::resource('/factor-salary', 'BacLuongController');

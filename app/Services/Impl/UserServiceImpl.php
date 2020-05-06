@@ -9,7 +9,6 @@ class UserServiceImpl implements UserService
 {
     protected $userRepository;
 
-
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -101,7 +100,7 @@ class UserServiceImpl implements UserService
 
     public function restore($id)
     {
-        $User = $this->userRepository->findById($id);
+        $User = $this->userRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";
@@ -120,7 +119,7 @@ class UserServiceImpl implements UserService
 
     public function delete($id)
     {
-        $User = $this->userRepository->findById($id);
+        $User = $this->userRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";

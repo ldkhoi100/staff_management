@@ -17,7 +17,6 @@ class UserApiController extends Controller
     public function index()
     {
         $users = $this->userService->getAll();
-        // dd($users);
         return response()->json($users, 200);
     }
 
@@ -30,13 +29,10 @@ class UserApiController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->password;
-        // return response()->json($request->all());
         $array = [];
         $array = $request->except($request->password);
         $array['password'] = bcrypt($request->password);
         $dataUser = $this->userService->create($array);
-
 
         return response()->json($dataUser['users'], $dataUser['statusCode']);
     }

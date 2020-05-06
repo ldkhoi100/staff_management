@@ -16,7 +16,7 @@ interface UserService
 
     public function getSoftDeletes();
 
-    public function restore($object);
+    public function restore($id);
 
-    public function delete($object);
+    public function delete($id);
 }

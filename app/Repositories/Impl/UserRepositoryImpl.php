@@ -17,4 +17,10 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         $model = User::class;
         return $model;
     }
+
+    public function findOnlyTrashed($id)
+    {
+        $result = $this->model->onlyTrashed()->find($id);
+        return $result;
+    }
 }
