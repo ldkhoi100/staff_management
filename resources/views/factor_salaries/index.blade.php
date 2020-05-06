@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,56 +12,26 @@
 </head>
 <body>
     <div class="container">
+        <button class="btn btn-success btn-create my-2 mx-auto" data-url="{{ route('fs.create') }}">Create</button>
         <div class="allfs">
-            @include('fs.all')
+            @include('factor_salaries.all')
         </div>
     </div>
-    <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div id="modal" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="my-modal-title">Title</h5>
+                    <h5 class="modal-title" id="my-modal-title"></h5>
                     <button class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Content</p>
-                </div>
-                <div class="modal-footer">
-                    Footer
+                    @include('factor_salaries.crud.edit')
                 </div>
             </div>
         </div>
     </div>
 </body>
-<script>
-    $(document).ready(function(){
-        $('.allfs').load('/factor-salary', function(){
-            $('.btn-show').click(function(e){
-                e.preventDefault();
-                let url = $(this).data('url');
-                $.get(url, function(data){
-
-                });
-            });
-
-            $('.btn-edit').click(function(e){
-                e.preventDefault();
-                let data = $(this).parent('form').serialize();
-                $.ajax({
-                    url: $(this).data('url'),
-                    method: 'put',
-                    data: data,
-                    success: function(data){
-
-                    },
-                    error: function(){
-                        alert("Ngu. thế mà cũng lỗi");
-                    }
-                });
-            });
-        });
-    });
-</script>
+<script src="{{ asset('js/factor_salary.js') }}"></script>
 </html>

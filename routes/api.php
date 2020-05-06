@@ -23,7 +23,7 @@ Route::get('/users-restore/{id}', 'UsersController@restore');
 Route::get('/users-delete/{id}', 'UsersController@delete');
 
 
-Route::resource('/factor-salary', 'BacLuongController');
+// Route::resource('/factor-salary', 'BacLuongController');
 
 Route::get('/factor-salary-restore/{id}', 'BacLuongController@restore');
 Route::get('/factor-salary-delete/{id}', 'BacLuongController@delete');
