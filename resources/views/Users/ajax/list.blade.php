@@ -25,8 +25,8 @@
 
     <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
 
-    <td><button data-url="{{ route('users.edit', $user) }}" ​type="button" data-target="#editUser" data-toggle="modal"
-            class="btn btn-info editUser btn-sm">
+    <td><button data-url="{{ route('users.edit', $user->id) }}" type="button" data-target="#editModal"
+            data-toggle="modal" class="btn btn-info editModal btn-sm">
             <i class="fa fa-edit" title="Edit"></i></button>
     </td>
 

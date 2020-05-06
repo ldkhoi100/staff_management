@@ -21,6 +21,7 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function findOnlyTrashed($id)
     {
         $result = $this->model->onlyTrashed()->find($id);
+
         return $result;
     }
 
@@ -29,6 +30,7 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         $result = $this->model->withTrashed()->find($id);
         $result->block = !$result->block;
         $result->save();
+
         return $result;
     }
 }
