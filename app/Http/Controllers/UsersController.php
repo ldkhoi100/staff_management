@@ -17,8 +17,8 @@ class UsersController extends Controller
     public function index()
     {
         $users = $this->userService->getAll();
-        // return view('users.list', compact('users'));
-        return response()->json($users, 200);
+        return view('users.list', compact('users'));
+        // return response()->json($users, 200);
     }
 
     public function showUserAjax()

@@ -44,13 +44,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             UserRepository::class,
             UserRepositoryImpl::class,
+        );
+        $this->app->singleton(
             UserService::class,
             UserServiceImpl::class
         );
 
         $this->app->singleton(
             BacLuongRepository::class,
-            BacLuongRepositoryImpl::class,
+            BacLuongRepositoryImpl::class
+        );
+        $this->app->singleton(
             BacLuongService::class,
             BacLuongServiceImpl::class
         );
@@ -58,6 +62,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             NhanVienRepository::class,
             NhanVienRepositoryImpl::class,
+        );
+        $this->app->singleton(
             NhanVienService::class,
             NhanVienServiceImpl::class
         );
