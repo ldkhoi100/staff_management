@@ -12,8 +12,8 @@ class NhanVienController extends Controller
     public function __construct(NhanVienService $nhan_vien_Service)
     {
         $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
-        // $this->middleware('role:ROLE_SUPERADMIN')->only(['index', 'show']);
+        $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
+        $this->middleware('role:ROLE_SUPERADMIN')->only(['index', 'show']);
         $this->nhan_vien_Service = $nhan_vien_Service;
     }
 
