@@ -25,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-//Admin manager
+// Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
 Route::get('/blank', 'AdminController@blank')->name('blank');
@@ -41,7 +41,7 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
-Route::group(['prefix' => '/factor-salary'], function () {
+Route::group(['prefix' => 'factor-salary'], function () {
     Route::view('/', 'factor_salaries.index')->name('factor.salary');
     Route::resource('/index', 'BacLuongController')->parameter('index', 'id')->names('fs');
     Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
