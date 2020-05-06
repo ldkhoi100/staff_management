@@ -113,7 +113,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->block = !$user->block;
         $user->save();
-
-        return response()->json($dataUser['message'], $dataUser['statusCode']);
+        $users = $this->userService->getAll();
+        return view('users.ajax.list', compact('users'));
     }
 }
