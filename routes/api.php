@@ -18,9 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('users', 'UserApiController');
-Route::get('/users-restore/{id}', 'UserApiController@restore');
-Route::get('/users-delete/{id}', 'UserApiController@delete');
+Route::resource('/users', 'UsersController');
+Route::get('/users-restore/{id}', 'UsersController@restore');
+Route::get('/users-delete/{id}', 'UsersController@delete');
 
 
 Route::resource('/factor-salary', 'BacLuongController');

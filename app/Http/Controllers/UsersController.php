@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
-class UserApiController extends Controller
+class UsersController extends Controller
 {
     protected $userService;
 
@@ -17,7 +17,15 @@ class UserApiController extends Controller
     public function index()
     {
         $users = $this->userService->getAll();
+        // return view('users.list', compact('users'));
         return response()->json($users, 200);
+    }
+
+    public function showUserAjax()
+    {
+        $users = $this->userService->getAll();
+        return view('users.list', compact('users'));
+        // return response()->json($users, 200);
     }
 
     public function show($id)

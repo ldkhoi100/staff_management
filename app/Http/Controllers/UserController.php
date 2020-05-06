@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use App\User;
 use Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Services\UserService;
 use Auth;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('test', compact('users'));
+        $users = $this->userService->getAll();
+        return view('users.list', compact('users'));
     }
 
-    public function index2()
+    public function showUserAjax()
     {
         $users = User::all();
         return view('test2', compact('users'));
