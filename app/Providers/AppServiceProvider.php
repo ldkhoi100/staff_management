@@ -69,10 +69,12 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->singleton(
             NhanVienService::class,
-            NhanVienServiceImpl::class,
-            RoleService::class,
-            RoleServiceImpl::class
+            NhanVienServiceImpl::class
         );
+        $this->app->singleton(
+        RoleService::class,
+            RoleServiceImpl::class
+    );
 
         $this->app->singleton(
             RoleRepository::class,

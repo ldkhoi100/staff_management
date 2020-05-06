@@ -61,3 +61,5 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
+
+Route::resource('roles','RolesController');
