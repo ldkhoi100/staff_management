@@ -4,7 +4,8 @@
 
 @section('content')
 
-@include('edit')
+@include('users.modal.create')
+@include('users.modal.edit')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -54,7 +55,7 @@
                             <th>Delete</th>
                         </tr>
                     </tfoot>
-                    <tbody>
+                    <tbody id="reload_table">
 
                         @foreach ($users as $key => $user)
 
@@ -85,8 +86,9 @@
 
                             <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
 
-                            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fa fa-edit" title="Edit"></i></a>
+                            <td><button data-url="{{ route('test.edit',$user->id) }}" ​ type="button"
+                                    data-target="#editUser" data-toggle="modal" class="btn btn-info editUser btn-sm">
+                                    <i class="fa fa-edit" title="Edit"></i></button>
                             </td>
 
                             <td>
@@ -112,45 +114,24 @@
 </div>
 <!-- /.container-fluid -->
 
+
 @endsection
 
 
 @push('CRUD')
 
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    //Create user
     $(document).ready(function() {
 
-        $('.showUser').click(function(){
-            var url = $(this).data('url');
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function(response) {
-                    $('h4#username').html(response.data.username)
-                    $('span#email').html("Email: " + response.data.email)
-                    $('span#created_at').html("Created at: " + response.data.created_at)
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    //
-                }
-            })
-        });
-
+        //Modal edit user
         $('.editUser').click(function(){
             var url = $(this).data('url');
             $.ajax({
                 type: 'GET',
                 url: url,
                 success: function(response) {
-                    $(".print-success-msg-edit").css('display','none');
-                    $(".print-error-msg-edit").css('display','none');
+                    $(".print-success-msg").css('display','none');
+                    $(".print-error-msg").css('display','none');
                     $('#editUser').find('#id').val(response.id);
                     $('#editUser').find('#username').val(response.username);
                     $('#editUser').find('#email').val(response.email);
@@ -161,47 +142,34 @@
             });
         });
 
+        //Edit user
         $(".btn-edit").click(function(e){
             e.preventDefault();
 
             var id = $("input[name='id']").val();
             var username = $("input[name='username-edit']").val();
             var email = $("input[name='email-edit']").val();
+            var _token = $("meta[name=token]").attr('content');
             $.ajax({
-                url: "/test/"+id,
+                url: "/users/"+id,
                 type:'PUT',
-                data: {username:username, email:email},
+                data: {_token:_token, username:username, email:email},
                 success: function(data) {
                 if($.isEmptyObject(data.error)) {
-                    $(".print-error-msg-edit").css('display','none');
-                    $(".print-success-msg-edit").css('display','block');
-                    $(".print-success-msg-edit").html(data.success);
+                    $(".print-error-msg").css('display','none');
+                    $(".print-success-msg").css('display','block');
+                    $(".print-success-msg").html(data.success);
                 }else {
-                        $(".print-success-msg-edit").css('display','none');
-                        printErrorMsg(data.error);
+                        $(".print-success-msg").css('display','none');
+                        printErrorMsgEdit(data.error);
                     }
                 }
             });
             $.ajax({
-                url: "/test2",
+                url: "/usersAjax",
                 type:'GET',
             }).done(function(res) {
-                $("#tableuser").html(res);
-                $('.showUser').click(function(){
-                    var url = $(this).data('url');
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
-                        success: function(response) {
-                            $('h4#username').html(response.data.username)
-                            $('span#email').html("Email: " + response.data.email)
-                            $('span#created_at').html("Created at: " + response.data.created_at)
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            //
-                        }
-                    });
-                });
+                $("#reload_table").html(res);
 
                 $('.editUser').click(function(){
                     var url = $(this).data('url');
@@ -209,8 +177,8 @@
                         type: 'GET',
                         url: url,
                         success: function(response) {
-                            $(".print-success-msg-edit").css('display','none');
-                            $(".print-error-msg-edit").css('display','none');
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
                             $('#editUser').find('#id').val(response.id);
                             $('#editUser').find('#username').val(response.username);
                             $('#editUser').find('#email').val(response.email);
@@ -223,6 +191,7 @@
             });
         });
 
+        //Create user
         $(".btn-create").click(function(e){
             e.preventDefault();
 
@@ -230,48 +199,36 @@
             var email = $("input[name='email-create']").val();
             var password = $("input[name='password-create']").val();
             var password_confirmation = $("input[name='password_confirmation-create']").val();
+            var _token = $("meta[name=token]").attr('content');
             $.ajax({
-                url: "/test",
+                url: "/users",
                 type:'POST',
-                data: {username:username, email:email, password:password, password_confirmation:password_confirmation},
+                data: {_token: _token, username:username, email:email, password:password, password_confirmation:password_confirmation},
                 success: function(data) {
                 if($.isEmptyObject(data.error)) {
-                    $(".print-error-msg").css('display','none');
-                    $(".print-success-msg").css('display','block');
-                    $(".print-success-msg").html(data.success);
-                }else {
-                        printErrorMsg(data.error);
+                    $(".print-error-msg-create").css('display','none');
+                    $(".print-success-msg-create").css('display','block');
+                    $(".print-success-msg-create").html(data.success);
+                } else {
+                        $(".print-success-msg-create").css('display','none');
+                        printErrorMsgCreate(data.error);
                     }
                 }
             });
             $.ajax({
-                url: "/test2",
+                url: "/usersAjax",
                 type:'GET',
             }).done(function(res) {
-                $("#tableuser").html(res);
-                $('.showUser').click(function(){
-                    var url = $(this).data('url');
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
-                        success: function(response) {
-                            $('h4#username').html(response.data.username)
-                            $('span#email').html("Email: " + response.data.email)
-                            $('span#created_at').html("Created at: " + response.data.created_at)
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            //
-                        }
-                    });
-                });
+                $("#reload_table").html(res);
+
                 $('.editUser').click(function(){
                     var url = $(this).data('url');
                     $.ajax({
                         type: 'GET',
                         url: url,
                         success: function(response) {
-                            $(".print-success-msg-edit").css('display','none');
-                            $(".print-error-msg-edit").css('display','none');
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
                             $('#editUser').find('#id').val(response.id);
                             $('#editUser').find('#username').val(response.username);
                             $('#editUser').find('#email').val(response.email);
@@ -285,13 +242,22 @@
         });
     });
 
-    function printErrorMsg (msg) {
+    function printErrorMsgCreate (msg) {
             $(".print-error-msg").find("ul").html('');
             $(".print-error-msg").css('display','block');
             $.each( msg, function( key, value ) {
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
         });
     }
+
+    function printErrorMsgEdit (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+        });
+    }
+
 </script>
 
 @endpush

@@ -58,7 +58,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        // dd($request->all());
+
         if ($validator->passes()) {
             $user = new User();
             $user->username = request('username');
@@ -108,7 +108,7 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id],
             'email' => ['required', 'email', 'unique:users,email,' . $id]
         ]);
-        // dd($request->all());
+
         if ($validator->passes()) {
             $user = User::find($id);
             $user->username = request('username');

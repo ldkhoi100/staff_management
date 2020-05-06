@@ -42,6 +42,7 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 Route::resource('/users', 'UsersController');
+Route::get('/usersAjax', 'UsersController@showUserAjax');
 Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
 Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
