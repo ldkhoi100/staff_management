@@ -12,8 +12,7 @@
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <button href="{{ route('users.create') }}" class="btn btn-success" data-toggle="modal"
-            data-target="#createModal">Create user</button>
+        <button class="btn btn-success show-modal-create">Create user</button>
         <a href="{{ route('users.trash') }}" class="btn btn-danger" style="float: right">Trash</a>
     </p>
 
@@ -57,53 +56,7 @@
                     </tfoot>
                     <tbody id="reload_table">
 
-                        @foreach ($users as $key => $user)
-
-                        <tr>
-                            <td>{{ ++$key }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                @foreach ($user->roles as $role)
-                                {{ $role->name }}
-                                @endforeach
-                            </td>
-
-                            @if($user->block == 1)
-                            <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold;"
-                                    onclick="block({{ $user->id }})">Yes</a>
-                            </td>
-                            @else
-                            <td><a href="javascript:void(0);" style="color:red; font-weight: bold;"
-                                    onclick="block({{ $user->id }})">No</a>
-                            </td>
-                            @endif
-
-                            <td>
-                                @if(!empty($user->email_verified_at))
-                                {{ date("d-m-y H:i:s", strtotime($user->email_verified_at)) }}
-                                @endif</td>
-
-                            <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
-
-                            <td><button data-url="{{ route('users.edit', $user) }}" ​type="button"
-                                    data-target="#editUser" data-toggle="modal" class="btn btn-info editUser btn-sm">
-                                    <i class="fa fa-edit" title="Edit"></i></button>
-                            </td>
-
-                            <td>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" id="my-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Do you want delete user {{$user->name}} ?')"
-                                        class="btn btn-danger btn-sm" id="btn-submit" style="border: none"><i
-                                            class="fa fa-backspace"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-
-                        @endforeach
+                        @include('users.ajax.list')
 
                     </tbody>
                 </table>
@@ -123,14 +76,33 @@
 <script>
     //Block user
     function block(id){
-        var conf = confirm("Do you want block this user?");
+        var conf = confirm("Do you want change block column this user?");
         $.ajax({
             url : 'users/block/'+id,
             type : 'get' 
         }).done(function(res){
             if(conf){
                 $("#reload_table").html(res);
-                toastr.success("Update coupons success");
+                toastr.success("Changed column block of this user!");
+
+                $('.editUser').click(function(){
+                    var url = $(this).data('url');
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(response) {
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
+                            $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
+                            $('#editUser').find('#id').val(response.id);
+                            $('#editUser').find('#username').val(response.username);
+                            $('#editUser').find('#email').val(response.email);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //
+                        }
+                    });
+                });
             }
         });
     }
@@ -175,9 +147,12 @@
                     $(".print-error-msg").css('display','none');
                     $(".print-success-msg").css('display','block');
                     $(".print-success-msg").html(data.success);
+                    toastr.success("Updated this user!");
+                    $("#editUser").modal("hide");
+                    $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
                 }else {
                         $(".print-success-msg").css('display','none');
-                        printErrorMsg(data.error);
+                        printErrorMsgEdit(data.error, '-edit');
                     }
                 }
             });
@@ -196,6 +171,7 @@
                         success: function(response) {
                             $(".print-success-msg").css('display','none');
                             $(".print-error-msg").css('display','none');
+                            $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
                             $('#editUser').find('#id').val(response.id);
                             $('#editUser').find('#username').val(response.username);
                             $('#editUser').find('#email').val(response.email);
@@ -206,6 +182,13 @@
                     });
                 });
             });
+        });
+
+        //Show modal create
+        $(".show-modal-create").click(function(e){
+            $("#createUser").modal("show");
+            $('.create_modal').removeClass('is-invalid').removeClass('is-valid');
+            $(".print-error-msg").css('display', 'none');
         });
 
         //Create user
@@ -226,9 +209,13 @@
                     $(".print-error-msg").css('display','none');
                     $(".print-success-msg").css('display','block');
                     $(".print-success-msg").html(data.success);
+                    toastr.success("Created new user!");
+                    $("#createUser").modal("hide");
+                    $(".reset_form").click();
+                    $('.create_modal').removeClass('is-invalid').removeClass('is-valid');
                 } else {
                         $(".print-success-msg").css('display','none');
-                        printErrorMsg(data.error);
+                        printErrorMsgCreate(data.error,'-create');
                     }
                 }
             });
@@ -260,13 +247,28 @@
         });
     });
 
-    function printErrorMsg (msg) {
-            $(".print-error-msg").find("ul").html('');
-            $(".print-error-msg").css('display','block');
-            $.each( msg, function( key, value ) {
+    function printErrorMsgCreate (msg, text) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $('.create_modal').removeClass('is-invalid').addClass('is-valid');
+        $(".passwordConfirm").removeClass('is-valid');
+        $.each( msg, function( key, value ) {
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            $(`input[name=${key}${text}]`).addClass('is-invalid');
         });
     }
+
+    function printErrorMsgEdit (msg, text) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $('.edit_modal').removeClass('is-invalid').addClass('is-valid');
+        $(".passwordConfirm").removeClass('is-valid');
+        $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            $(`input[name=${key}${text}]`).addClass('is-invalid');
+        });
+    }
+    
 
 </script>
 

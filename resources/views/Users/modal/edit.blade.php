@@ -22,9 +22,9 @@
                 <form>
                     <input type="hidden" id="id" name="id">
                     Username
-                    <input type="text" id="username" name="username-edit" class="form-control"> <br>
+                    <input type="text" id="username" name="username-edit" class="form-control edit_modal"> <br>
                     Email
-                    <input type="email" id="email" name="email-edit" class="form-control">
+                    <input type="email" id="email" name="email-edit" class="form-control edit_modal">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
