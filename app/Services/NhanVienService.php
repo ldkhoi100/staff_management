@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface UserService
+interface NhanVienService
 {
     public function getAll();
 
@@ -19,6 +19,4 @@ interface UserService
     public function restore($id);
 
     public function delete($id);
-
-    public function blockUser($id);
 }

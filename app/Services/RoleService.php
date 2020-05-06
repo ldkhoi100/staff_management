@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Services;
 
-interface UserService
+interface RoleService
 {
     public function getAll();
 
@@ -19,6 +18,4 @@ interface UserService
     public function restore($id);
 
     public function delete($id);
-
-    public function blockUser($id);
 }

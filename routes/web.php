@@ -41,9 +41,25 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
-Route::group(['prefix' => 'factor-salary'], function () {
+//User
+Route::resource('/users', 'UsersController');
+Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
+Route::get('/usersAjax', 'UsersController@showUserAjax');
+Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
+Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
+Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+
+// Route::resource('test', 'UserController');
+// Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
+// Route::get('show/{id}', 'UserController@show')->name('test.show');
+// Route::get('test2', 'UserController@index2');
+// Route::post('test', 'UserController@store');..
+
+Route::group(['prefix' => '/factor-salary'], function () {
     Route::view('/', 'factor_salaries.index')->name('factor.salary');
     Route::resource('/index', 'BacLuongController')->parameter('index', 'id')->names('fs');
     Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
+
+Route::resource('roles','RolesController');

@@ -1,10 +1,9 @@
 <?php
+namespace  App\Repositories;
 
-namespace App\Repositories;
-
-
-interface UserRepository extends Repository
+interface RoleRepository extends Repository
 {
+
     public function getSoftDeletes();
 
     public function restore($object);
@@ -13,5 +12,4 @@ interface UserRepository extends Repository
 
     public function findOnlyTrashed($id);
 
-    public function blockUser($id);
 }

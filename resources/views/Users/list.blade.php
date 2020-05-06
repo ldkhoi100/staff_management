@@ -1,16 +1,19 @@
 @extends('admin.layouts')
 
-@section('title', 'Manager')
+@section('title', 'Manager User')
 
 @section('content')
+
+@include('users.modal.create')
+@include('users.modal.edit')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <a href="{{ route('product.create') }}" class="btn btn-primary">User</a>
-        <a href="{{ route('product.trash') }}" class="btn btn-danger">Trash</a>
+        <button class="btn btn-success show-modal-create">Create user</button>
+        <a href="{{ route('users.trash') }}" class="btn btn-danger" style="float: right">Trash</a>
     </p>
 
     <!-- DataTales Example -->
@@ -30,73 +33,30 @@
                             <th>#</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Email verified</th>
+                            <th>Role</th>
                             <th>Block</th>
+                            <th>Verified Mail</th>
                             <th>Created at</th>
-                            <th>Đơn vị</th>
-                            <th>Nổi bật</th>
-                            <th>Người tạo</th>
-                            <th>Người sửa</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Tên bánh</th>
-                            <th width='10%'>Loại bánh</th>
-                            <th width='6%'>Mô tả</th>
-                            <th>Giá gốc</th>
-                            <th>Giá giảm</th>
-                            <th>Ảnh</th>
-                            <th>Đơn vị</th>
-                            <th>Nổi bật</th>
-                            <th>Người tạo</th>
-                            <th>Người sửa</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Block</th>
+                            <th>Verified Mail</th>
+                            <th>Created at</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </tfoot>
-                    <tbody>
+                    <tbody id="reload_table">
 
-                        @foreach ($products as $key => $product)
-
-                        <tr>
-                            <td>{{ ++$key }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->type_products->name }}</td>
-                            <td><a href="{{ route('product.show', $product->id) }}">Chi tiết</a></td>
-                            <td>{{ $product->unit_price }}</td>
-                            <td>{{ $product->promotion_price }}</td>
-                            <td><img src="source/image/product/{{ $product->image }}" alt="" srcset="" width="75px">
-                            </td>
-                            <td>{{ $product->unit }}</td>
-                            @if($product->new == 1)
-                            <td>Có</td>
-                            @else
-                            <td>Không</td>
-                            @endif
-                            <td><b style="color:orange">{{ $product->user_created }}</b> <br> {{ $product->created_at }}
-                            </td>
-                            <td><b style="color:red">{{ $product->user_updated }}</b> <br> {{ $product->updated_at }}
-                            </td>
-                            <td><a href="{{ route('product.edit', $product->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fa fa-edit" title="Sửa"></i></a>
-                            </td>
-                            <td>
-                                <form action="{{ route('product.destroy', $product->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"
-                                            title="Xóa"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-
-                        @endforeach
+                        @include('users.ajax.list')
 
                     </tbody>
                 </table>
@@ -107,4 +67,209 @@
 </div>
 <!-- /.container-fluid -->
 
+
 @endsection
+
+
+@push('CRUD')
+
+<script>
+    //Block user
+    function block(id){
+        var conf = confirm("Do you want change block column this user?");
+        $.ajax({
+            url : 'users/block/'+id,
+            type : 'get' 
+        }).done(function(res){
+            if(conf){
+                $("#reload_table").html(res);
+                toastr.success("Changed column block of this user!");
+
+                $('.editUser').click(function(){
+                    var url = $(this).data('url');
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(response) {
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
+                            $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
+                            $('#editUser').find('#id').val(response.id);
+                            $('#editUser').find('#username').val(response.username);
+                            $('#editUser').find('#email').val(response.email);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //
+                        }
+                    });
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        //Modal edit user
+        $('.editUser').click(function(){
+            var url = $(this).data('url');
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(response) {
+                    $(".print-success-msg").css('display','none');
+                    $(".print-error-msg").css('display','none');
+                    $('#editUser').find('#id').val(response.id);
+                    $('#editUser').find('#username').val(response.username);
+                    $('#editUser').find('#email').val(response.email);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //
+                }
+            });
+        });
+
+        //Edit user
+        $(".btn-edit").click(function(e){
+            e.preventDefault();
+
+            var id = $("input[name='id']").val();
+            var username = $("input[name='username-edit']").val();
+            var email = $("input[name='email-edit']").val();
+            var _token = $("meta[name=token]").attr('content');
+            $.ajax({
+                url: "/users/"+id,
+                type:'PUT',
+                data: {_token:_token, username:username, email:email},
+                success: function(data) {
+                if($.isEmptyObject(data.error)) {
+                    $(".print-error-msg").css('display','none');
+                    $(".print-success-msg").css('display','block');
+                    $(".print-success-msg").html(data.success);
+                    toastr.success("Updated this user!");
+                    $("#editUser").modal("hide");
+                    $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
+                }else {
+                        $(".print-success-msg").css('display','none');
+                        printErrorMsgEdit(data.error, '-edit');
+                    }
+                }
+            });
+
+            $.ajax({
+                url: "/usersAjax",
+                type:'GET',
+            }).done(function(res) {
+                $("#reload_table").html(res);
+
+                $('.editUser').click(function(){
+                    var url = $(this).data('url');
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(response) {
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
+                            $('.edit_modal').removeClass('is-invalid').removeClass('is-valid');
+                            $('#editUser').find('#id').val(response.id);
+                            $('#editUser').find('#username').val(response.username);
+                            $('#editUser').find('#email').val(response.email);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //
+                        }
+                    });
+                });
+            });
+        });
+
+        //Show modal create
+        $(".show-modal-create").click(function(e){
+            $("#createUser").modal("show");
+            $('.create_modal').removeClass('is-invalid').removeClass('is-valid');
+            $(".print-error-msg").css('display', 'none');
+        });
+
+        //Create user
+        $(".btn-create").click(function(e){
+            e.preventDefault();
+
+            var username = $("input[name='username-create']").val();
+            var email = $("input[name='email-create']").val();
+            var password = $("input[name='password-create']").val();
+            var password_confirmation = $("input[name='password_confirmation-create']").val();
+            var _token = $("meta[name=token]").attr('content');
+            $.ajax({
+                url: "/users",
+                type:'POST',
+                data: {_token: _token, username:username, email:email, password:password, password_confirmation:password_confirmation},
+                success: function(data) {
+                if($.isEmptyObject(data.error)) {
+                    $(".print-error-msg").css('display','none');
+                    $(".print-success-msg").css('display','block');
+                    $(".print-success-msg").html(data.success);
+                    toastr.success("Created new user!");
+                    $("#createUser").modal("hide");
+                    $(".reset_form").click();
+                    $('.create_modal').removeClass('is-invalid').removeClass('is-valid');
+                } else {
+                        $(".print-success-msg").css('display','none');
+                        printErrorMsgCreate(data.error,'-create');
+                    }
+                }
+            });
+
+            $.ajax({
+                url: "/usersAjax",
+                type:'GET',
+            }).done(function(res) {
+                $("#reload_table").html(res);
+
+                $('.editUser').click(function(){
+                    var url = $(this).data('url');
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(response) {
+                            $(".print-success-msg").css('display','none');
+                            $(".print-error-msg").css('display','none');
+                            $('#editUser').find('#id').val(response.id);
+                            $('#editUser').find('#username').val(response.username);
+                            $('#editUser').find('#email').val(response.email);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //
+                        }
+                    });
+                });
+            });
+        });
+    });
+
+    function printErrorMsgCreate (msg, text) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $('.create_modal').removeClass('is-invalid').addClass('is-valid');
+        $(".passwordConfirm").removeClass('is-valid');
+        $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            $(`input[name=${key}${text}]`).addClass('is-invalid');
+        });
+    }
+
+    function printErrorMsgEdit (msg, text) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $('.edit_modal').removeClass('is-invalid').addClass('is-valid');
+        $(".passwordConfirm").removeClass('is-valid');
+        $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            $(`input[name=${key}${text}]`).addClass('is-invalid');
+        });
+    }
+    
+
+</script>
+
+@endpush

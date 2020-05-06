@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-interface UserRepository extends Repository
+interface NhanVienRepository extends Repository
 {
     public function getSoftDeletes();
 
@@ -12,6 +12,4 @@ interface UserRepository extends Repository
     public function delete($object);
 
     public function findOnlyTrashed($id);
-
-    public function blockUser($id);
 }
