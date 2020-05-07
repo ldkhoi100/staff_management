@@ -1,33 +1,65 @@
 let FS = {} || FS;
 
+FS.id = '';
+
 FS.RenderData = function () {
     $.get('/factor-salary').done(function (data) {
         $('.render-data').html(data);
+        $('.btn-edit').click(function () {
+            FS.Edit(this);
+        });
+
+        $('.btn-trash').click(function () {
+            confirm('Confirm Delete') ? FS.Delete(this) : '';
+        });
+
+        $('.btn-show').click(function () {
+            FS.Show(this);
+        });
     });
 }
 
+FS.setId = function (id) {
+    return this.id = id;
+}
+
+FS.getId = function () {
+    return this.id;
+};
+
 FS.Create = function () {
     $.get('/factor-salary/create').done(function (data) {
-        $('.crud-fator-salary').html(data).find('.modal').modal('show');
+        let modal = $('.modal-fator-salary').html(data).find('.modal').modal('show');
+        modal.find('.btn-store').click(function (e) {
+            e.preventDefault();
+            confirm('Confirm save data') ? FS.Store(this) : '';
+        });
     });
 }
 
 FS.Edit = function (btn) {
-    let url = $(btn).data('url');
+    let id = $(btn).parent().find('.id').val();
+    id = FS.setId(id);
+    let url = `/factor-salary/${id}/edit`;
     $.get(url).done(function (data) {
-        $('.crud-fator-salary').html(data).find('.modal').modal('show');
+        let modal = $('.modal-fator-salary').html(data).find('.modal').modal('show');
+        modal.find('.btn-update').click(function (e) {
+            e.preventDefault();
+            confirm('Confirm Update') ? FS.Update(this) : '';
+        });
     });
 }
 
 // FS.Show = function (btn) {
 //     let url = $(btn).data('url');
 //     $.get(url).done(function (data) {
-//         $('.crud-fator-salary').html(data).find('.modal').modal('show');
+//         $('.modal-fator-salary').html(data).find('.modal').modal('show');
 //     });
 // }
 
 FS.Delete = function (btn) {
-    let url = $(btn).data('url');
+    let id = $(btn).parent().find('.id').val();
+    let url = `/factor-salary/${id}`;
     $.ajax({
         url: url,
         method: 'delete'
@@ -36,8 +68,8 @@ FS.Delete = function (btn) {
     });
 }
 
-FS.Store = function (form) {
-    let data = $(form).serialize();
+FS.Store = function (btn) {
+    let data = $(btn.form).serialize();
     $.post('/factor-salary', data).done(function (data) {
         if (data) {
             $.each(data, function (k, v) {
@@ -50,7 +82,8 @@ FS.Store = function (form) {
 }
 
 FS.Update = function (btn) {
-    let url = $(btn).data('url');
+    let id = FS.getId();
+    let url = `/factor-salary/${id}`;
     let data = $(btn.form).serialize();
     $.ajax({
         url: url,
@@ -69,16 +102,20 @@ FS.Update = function (btn) {
 
 FS.Noti = function (msg) {
     FS.RenderData();
-    $('.modal').modal('hide')
-    $('.container').prepend($('<div>').addClass('alert alert-success').text(msg));
-    setTimeout(function () {
-        $('.alert').remove();
-    }, 5000);
+    $('.modal').modal('hide');
+    $.toast({
+        heading: 'Success',
+        text: msg,
+        hideAfter: 5000,
+        position: 'bottom-right',
+        showHideTransition: 'slide',
+        icon: 'success'
+    })
 }
 
 FS.Errors = function (k, v) {
     $(`input[name=${k}]`).addClass('is-invalid').data('content', v[0]).data('placement', 'top').data('toggle', 'popover').popover("show");
-    $('.crud-fator-salary').change(function () {
+    $('.modal-fator-salary').change(function () {
         $('.is-invalid').removeClass('is-invalid').removeData('placement').removeData('toggle').removeData('content');
     });
 }
@@ -91,4 +128,7 @@ $.ajaxSetup({
 
 $(document).ready(function () {
     FS.RenderData();
+    $('.btn-create').click(function () {
+        FS.Create();
+    });
 });

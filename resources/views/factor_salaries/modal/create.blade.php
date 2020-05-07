@@ -8,10 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="row">
-                    <span class="ml-5">New Factor Salary</span>
-                    <input type="number" min="1" max="10" required class="form-control mx-auto" name="Bac_Luong" value="1">
-                    <input type="button" class="btn btn-success mx-auto my-2" value="Save" onclick="FS.Store(this.form)">
+                <form>
+                    <div class="container">
+                        <span>Value:</span>
+                        <input type="number" min="1" max="10" required class="form-control my-2" name="Bac_Luong" value="1">
+                        <button class="btn btn-success btn-store mx-auto btn-block ml-3">
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
