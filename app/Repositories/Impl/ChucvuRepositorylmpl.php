@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Repositories\Impl;
-use App\Model\ChucVu;
 
-use App\Repositories\CustomerRepository;
+use App\Model\ChucVu;
+use App\Repositories\ChucvuRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
-class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepository
+class ChucvuRepositoryImpl extends EloquentRepository  implements ChucvuRepository
 {
     /**
      * get Model
@@ -14,8 +13,7 @@ class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepo
      */
     public function getModel()
     {
-        $model = ChucVu::class;
+        $model = Chucvu::class;
         return $model;
     }
-
 }

@@ -37,3 +37,8 @@ Route::get('/animation', 'AdminController@animation')->name('animation');
 Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
+
+
+Route::resource('/chucvu','ChucvuController');
+Route::post('/chucvu/create','ChucvuController@store');
+Route::view('chuc_vu','Chuc_vu.index');

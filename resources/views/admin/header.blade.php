@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
@@ -159,6 +160,7 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
+                        <a class="collapse-item" href="{{ route('chucvu.index') }}">Chức vụ</a>
                     </div>
                 </div>
             </li>
