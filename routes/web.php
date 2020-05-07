@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-//Admin manager
+// Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
 Route::get('/blank', 'AdminController@blank')->name('blank');
@@ -42,3 +45,25 @@ Route::get('/orther', 'AdminController@orther')->name('orther');
 Route::resource('/chucvu','ChucvuController');
 Route::post('/chucvu/create','ChucvuController@store');
 Route::view('chuc_vu','Chuc_vu.index');
+//User
+Route::resource('/users', 'UsersController');
+Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
+Route::get('/usersAjax', 'UsersController@showUserAjax');
+Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
+Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
+Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+
+// Route::resource('test', 'UserController');
+// Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
+// Route::get('show/{id}', 'UserController@show')->name('test.show');
+// Route::get('test2', 'UserController@index2');
+// Route::post('test', 'UserController@store');..
+
+Route::group(['prefix' => '/factor-salary'], function () {
+    Route::view('/view', 'factor_salaries.index')->name('factor.salary');
+    Route::resource('/', 'BacLuongController')->parameter('', 'id')->names('fs');
+    Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
+    Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
+});
+
+Route::resource('roles', 'RolesController');

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface CustomerService
+interface UserService
 {
     public function getAll();
 
@@ -13,4 +13,12 @@ interface CustomerService
     public function update($request, $id);
 
     public function destroy($id);
+
+    public function getSoftDeletes();
+
+    public function restore($id);
+
+    public function delete($id);
+
+    public function blockUser($id);
 }

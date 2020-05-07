@@ -16,9 +16,8 @@ class CreateBacLuongTable extends Migration
 	{
 		Schema::create('bac_luong', function (Blueprint $table) {
 			$table->integer('id', true);
-			$table->integer('LuongCB')->index('LuongCB');
-			$table->integer('Bac_Luong')->unique('Bac_Luong');
-			$table->integer('HS_Luong');
+			$table->integer('LuongCB')->default(1);
+			$table->decimal('Bac_Luong', 3, 1)->unique('Bac_Luong');
 			$table->timestamps();
 			$table->softDeletes();
 		});

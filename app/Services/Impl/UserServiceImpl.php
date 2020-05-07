@@ -2,85 +2,84 @@
 
 namespace App\Services\Impl;
 
-use App\Repositories\CustomerRepository;
-use App\Services\CustomerService;
+use App\Repositories\UserRepository;
+use App\Services\UserService;
 
-class CustomerServiceImpl implements CustomerService
+class UserServiceImpl implements UserService
 {
-    protected $customerRepository;
+    protected $userRepository;
 
-
-    public function __construct(CustomerRepository $customerRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->customerRepository = $customerRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function getAll()
     {
-        $customers = $this->customerRepository->getAll();
+        $users = $this->userRepository->getAll();
 
-        return $customers;
+        return $users;
     }
 
     public function findById($id)
     {
-        $customer = $this->customerRepository->findById($id);
+        $User = $this->userRepository->findById($id);
 
-        $statusCode = 200;
-        if (!$customer)
-            $statusCode = 404;
+        // $statusCode = 200;
+        // if (!$User)
+        //     $statusCode = 404;
 
-        $data = [
-            'statusCode' => $statusCode,
-            'customers' => $customer
-        ];
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $User
+        // ];
 
-        return $data;
+        return $User;
     }
 
     public function create($request)
     {
-        $customer = $this->customerRepository->create($request);
+        $User = $this->userRepository->create($request);
 
-        $statusCode = 201;
-        if (!$customer)
-            $statusCode = 500;
+        // $statusCode = 201;
+        // if (!$User)
+        //     $statusCode = 500;
 
-        $data = [
-            'statusCode' => $statusCode,
-            'customers' => $customer
-        ];
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $User
+        // ];
 
-        return $data;
+        return $User;
     }
 
     public function update($request, $id)
     {
-        $oldCustomer = $this->customerRepository->findById($id);
+        $oldUser = $this->userRepository->findById($id);
 
-        if (!$oldCustomer) {
-            $newCustomer = null;
-            $statusCode = 404;
-        } else {
-            $newCustomer = $this->customerRepository->update($request, $oldCustomer);
-            $statusCode = 200;
-        }
+        // if (!$oldUser) {
+        //     $newUser = null;
+        //     $statusCode = 404;
+        // } else {
+        $newUser = $this->userRepository->update($request, $oldUser);
+        // $statusCode = 200;
+        // }
 
-        $data = [
-            'statusCode' => $statusCode,
-            'customers' => $newCustomer
-        ];
-        return $data;
+        // $data = [
+        //     'statusCode' => $statusCode,
+        //     'users' => $newUser
+        // ];
+        return $newUser;
     }
 
     public function destroy($id)
     {
-        $customer = $this->customerRepository->findById($id);
+        $User = $this->userRepository->findById($id);
 
         $statusCode = 404;
         $message = "User not found";
-        if ($customer) {
-            $this->customerRepository->destroy($customer);
+        if ($User) {
+            $this->userRepository->destroy($User);
             $statusCode = 200;
             $message = "Delete success!";
         }
@@ -90,5 +89,56 @@ class CustomerServiceImpl implements CustomerService
             'message' => $message
         ];
         return $data;
+    }
+
+    public function getSoftDeletes()
+    {
+        $users = $this->userRepository->getSoftDeletes();
+
+        return $users;
+    }
+
+    public function restore($id)
+    {
+        $User = $this->userRepository->findOnlyTrashed($id);
+
+        $statusCode = 404;
+        $message = "User not found";
+        if ($User) {
+            $this->userRepository->restore($User);
+            $statusCode = 200;
+            $message = "Restore success!";
+        }
+
+        $data = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+        return $data;
+    }
+
+    public function delete($id)
+    {
+        $User = $this->userRepository->findOnlyTrashed($id);
+
+        $statusCode = 404;
+        $message = "User not found";
+        if ($User) {
+            $this->userRepository->delete($User);
+            $statusCode = 200;
+            $message = "Delete success!";
+        }
+
+        $data = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+        return $data;
+    }
+
+    public function blockUser($id)
+    {
+        $user = $this->userRepository->blockUser($id);
+        return $user;
     }
 }

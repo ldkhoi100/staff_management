@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
 
+    <meta name="token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
@@ -25,8 +26,10 @@
     <!-- CK editor 4 installed-->
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
+    <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
+
     <!-- Font Awesome-->
-    <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
 
 </head>
 

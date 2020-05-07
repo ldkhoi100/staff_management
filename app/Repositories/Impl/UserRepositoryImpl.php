@@ -3,10 +3,11 @@
 namespace App\Repositories\Impl;
 use App\Model\ChucVu;
 
-use App\Repositories\CustomerRepository;
+use App\User;
+use App\Repositories\UserRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
-class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepository
+class UserRepositoryImpl extends EloquentRepository implements UserRepository
 {
     /**
      * get Model
@@ -14,8 +15,23 @@ class CustomerRepositoryImpl extends EloquentRepository  implements CustomerRepo
      */
     public function getModel()
     {
-        $model = ChucVu::class;
+        $model = User::class;
         return $model;
     }
 
+    public function findOnlyTrashed($id)
+    {
+        $result = $this->model->onlyTrashed()->find($id);
+
+        return $result;
+    }
+
+    public function blockUser($id)
+    {
+        $result = $this->model->withTrashed()->find($id);
+        $result->block = !$result->block;
+        $result->save();
+
+        return $result;
+    }
 }
