@@ -41,6 +41,10 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
+
+Route::resource('/chucvu','ChucvuController');
+Route::post('/chucvu/create','ChucvuController@store');
+Route::view('chuc_vu','Chuc_vu.index');
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');

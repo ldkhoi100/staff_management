@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+
     <meta name="token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
@@ -161,6 +163,7 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
+                        <a class="collapse-item" href="{{ route('chucvu.index') }}">Chức vụ</a>
                     </div>
                 </div>
             </li>

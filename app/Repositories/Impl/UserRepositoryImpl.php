@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Impl;
+use App\Model\ChucVu;
 
 use App\User;
 use App\Repositories\UserRepository;
