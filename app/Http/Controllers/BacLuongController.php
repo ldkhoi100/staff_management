@@ -14,8 +14,8 @@ class BacLuongController extends Controller
     public function __construct(BacLuongService $factorSalaryService)
     {
         // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->only('index');
-        // $this->middleware('role:ROLE_SUPERADMIN');
+        // $this->middleware('role:admin')->only('index');
+        // $this->middleware('role:superAdmin');
         $this->middleware(function ($request, $next) {
             if ($request->ajax()) {
                 return $next($request);
@@ -42,7 +42,7 @@ class BacLuongController extends Controller
 
     public function create()
     {
-        $data = view('factor_salaries.crud.create');
+        $data = view('factor_salaries.modal.create');
 
         return response()->make($data, 200);
     }
@@ -68,7 +68,7 @@ class BacLuongController extends Controller
     // {
     //     $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-    // return view('factor_salaries.crud.show', compact('factorSalary'));
+    // return view('factor_salaries.modal.show', compact('factorSalary'));
 
     // $factorSalary = $this->factorSalaryService->findById($id);
 
@@ -80,13 +80,12 @@ class BacLuongController extends Controller
     {
         $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return view('factor_salaries.crud.edit', compact('factorSalary'));
+        return view('factor_salaries.modal.edit', compact('factorSalary'));
 
         // $factorSalary = $this->factorSalaryService->findById($id);
 
         // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
     }
-
 
     public function update(Request $request, $id)
     {

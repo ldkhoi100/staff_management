@@ -62,4 +62,4 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
 
-Route::resource('roles','RolesController');
+Route::resource('roles', 'RolesController');
