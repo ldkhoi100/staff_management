@@ -60,13 +60,13 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
 
-<<<<<<< HEAD
+
 Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
     Route::resource('/', 'RolesController')->names('role')->parameter('','id');
     Route::get('trash','RolesController@getSoftDeletes')->name('role.trash');
     Route::get('/role/restore','RolesController@restore')->name('role.restore');
 });
-=======
-Route::resource('roles', 'RolesController');
->>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
+
+
+
