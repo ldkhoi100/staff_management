@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+<<<<<<< HEAD
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+=======
 
 
     <meta name="token" content="{{ csrf_token() }}">
-
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
