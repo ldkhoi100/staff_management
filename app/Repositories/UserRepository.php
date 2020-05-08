@@ -12,4 +12,6 @@ interface UserRepository extends Repository
     public function delete($object);
 
     public function findOnlyTrashed($id);
+
+    public function blockUser($id);
 }

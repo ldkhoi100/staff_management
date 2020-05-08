@@ -25,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-//Admin manager
+// Admin manager
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
 Route::get('/blank', 'AdminController@blank')->name('blank');
@@ -41,6 +41,10 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
+
+Route::resource('/chucvu','ChucvuController');
+Route::post('/chucvu/create','ChucvuController@store');
+Route::view('chuc_vu','Chuc_vu.index');
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
@@ -50,15 +54,19 @@ Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restor
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
 
 Route::group(['prefix' => '/factor-salary'], function () {
-    Route::view('/', 'factor_salaries.index')->name('factor.salary');
-    Route::resource('/index', 'BacLuongController')->parameter('index', 'id')->names('fs');
+    Route::view('/view', 'factor_salaries.index')->name('factor.salary');
+    Route::resource('/', 'BacLuongController')->parameter('', 'id')->names('fs');
     Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
 
+<<<<<<< HEAD
 Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
     Route::resource('/', 'RolesController')->names('role')->parameter('','id');
     Route::get('trash','RolesController@getSoftDeletes')->name('role.trash');
     Route::get('/role/restore','RolesController@restore')->name('role.restore');
 });
+=======
+Route::resource('roles', 'RolesController');
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4

@@ -7,7 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+<<<<<<< HEAD
     <meta name="csrf-token" content="{{ csrf_token() }}">
+=======
+
+
+    <meta name="token" content="{{ csrf_token() }}">
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
@@ -22,6 +28,8 @@
 
     <!-- CK editor 4 installed-->
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+    <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
@@ -158,6 +166,7 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
+                        <a class="collapse-item" href="{{ route('chucvu.index') }}">Chức vụ</a>
                     </div>
                 </div>
             </li>

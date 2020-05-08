@@ -15,35 +15,43 @@
                     <ul></ul>
                 </div>
 
-                <div class="alert alert-success print-success-msg" style="display:none">
-
-                </div>
-
                 <form>
-                    <div class="form-group has-error has-feedback">
+                    <div class="form-group">
                         <label>Username:</label>
+<<<<<<< HEAD
                         <input type="text" name="username-create" class="form-control is-invalid"
                                placeholder="Username">
+=======
+                        <input type="text" name="username-create" class="form-control create_modal"
+                            placeholder="Username">
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
                     </div>
 
-                    <div class="form-group @error('email') has-error has-feedback @enderror">
+                    <div class="form-group">
                         <label>Email:</label>
-                        <input type="text" name="email-create" class="form-control" placeholder="email">
+                        <input type="text" name="email-create" class="form-control create_modal" placeholder="email">
                     </div>
 
                     <div class="form-group">
                         <strong>Password:</strong>
-                        <input type="password" name="password-create" class="form-control" placeholder="password">
+                        <input type="password" name="password-create" class="form-control create_modal"
+                            placeholder="password">
                     </div>
                     <div class="form-group">
                         <strong>Confirm Password:</strong>
+<<<<<<< HEAD
                         <input type="password" name="password_confirmation-create" class="form-control"
                                placeholder="password">
+=======
+                        <input type="password" name="password_confirmation-create"
+                            class="form-control passwordConfirm create_modal" placeholder="password">
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
                     </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-warning reset_form">Reset</button>
                 <button type="button" class="btn btn-primary btn-create">Create</button>
             </div>
 

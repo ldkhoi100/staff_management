@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -15,16 +15,12 @@
                     <ul></ul>
                 </div>
 
-                <div class="alert alert-success print-success-msg" style="display:none">
-
-                </div>
-
                 <form>
                     <input type="hidden" id="id" name="id">
                     Username
-                    <input type="text" id="username" name="username-edit" class="form-control"> <br>
+                    <input type="text" id="username" name="username-edit" class="form-control edit_modal"> <br>
                     Email
-                    <input type="email" id="email" name="email-edit" class="form-control">
+                    <input type="email" id="email" name="email-edit" class="form-control edit_modal">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

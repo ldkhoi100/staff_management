@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\BacLuongService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BacLuongController extends Controller
 {
@@ -13,8 +14,15 @@ class BacLuongController extends Controller
     public function __construct(BacLuongService $factorSalaryService)
     {
         // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
-        // $this->middleware('role:ROLE_SUPERADMIN');
+        // $this->middleware('role:admin')->only('index');
+        // $this->middleware('role:superAdmin');
+        $this->middleware(function ($request, $next) {
+            if ($request->ajax()) {
+                return $next($request);
+            }
+            abort(404);
+        });
+
         $this->factorSalaryService = $factorSalaryService;
     }
 
@@ -22,7 +30,11 @@ class BacLuongController extends Controller
     {
         $factorSalaries = $this->factorSalaryService->getAll();
 
-        return view('factor_salaries.all', compact('factorSalaries'));
+        $data =  view('factor_salaries.all', compact('factorSalaries'));
+
+        return response()->make($data, 200);
+
+        // return view('factor_salaries.all', compact('factorSalaries'));
 
         // return response()->json($factorSalaries, 200);
     }
@@ -30,47 +42,65 @@ class BacLuongController extends Controller
 
     public function create()
     {
-        return view('factor_salaries.crud.create');
+        $data = view('factor_salaries.modal.create');
+
+        return response()->make($data, 200);
     }
 
     public function store(Request $request)
     {
+
         $data = $request->all();
-        $factorSalary = $this->factorSalaryService->create($data);
+        $validator = Validator::make($data, [
+            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', 'unique:bac_luong']
+        ]);
 
-        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->messages(), 202);
+        } else {
+            $factorSalary = $this->factorSalaryService->create($data);
+            return response('', 200);
+            // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        }
     }
 
-    public function show($id)
-    {
-        $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
+    // public function show($id)
+    // {
+    //     $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return view('admin.products.show', compact('factorSalary'));
+    // return view('factor_salaries.modal.show', compact('factorSalary'));
 
-        // $factorSalary = $this->factorSalaryService->findById($id);
+    // $factorSalary = $this->factorSalaryService->findById($id);
 
-        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
-    }
+    // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+    // }
 
 
     public function edit($id)
     {
         $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
 
-        return view('factor_salaries.crud.edit', compact('factorSalary'));
+        return view('factor_salaries.modal.edit', compact('factorSalary'));
 
         // $factorSalary = $this->factorSalaryService->findById($id);
 
         // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
     }
 
-
     public function update(Request $request, $id)
     {
-        return dd($request->all());
-        $factorSalary = $this->factorSalaryService->update($request->all(), $id);
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:bac_luong"]
+        ]);
 
-        return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->messages(), 202);
+        } else {
+            $factorSalary = $this->factorSalaryService->update($request->all(), $id);
+
+            return response()->json('', $factorSalary['statusCode']);
+        }
     }
 
 

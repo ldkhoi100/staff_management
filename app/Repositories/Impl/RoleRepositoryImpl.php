@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Repositories\Impl;
+
+namespace App\Repositories\Impl;
 
 use App\Model\Role;
 use App\Repositories\RoleRepository;
@@ -9,8 +10,8 @@ class RoleRepositoryImpl extends EloquentRepository implements RoleRepository
 {
     public function getModel()
     {
-       $model = Role::class;
-       return $model;
+        $model = Role::class;
+        return $model;
     }
 
     public function findOnlyTrashed($id)
@@ -19,4 +20,3 @@ class RoleRepositoryImpl extends EloquentRepository implements RoleRepository
         return $result;
     }
 }
-

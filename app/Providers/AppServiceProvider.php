@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Repositories\Impl\RoleRepositoryImpl;
+use App\Repositories\Impl\RoleRepositoryImpl;
 use App\Repositories\RoleRepository;
 use App\Services\Impl\RoleServiceImpl;
 use App\Services\RoleService;
@@ -22,9 +22,12 @@ use App\Services\UserService;
 
 use App\Services\BacLuongService;
 use App\Repositories\BacLuongRepository;
-
+use App\Repositories\ChucvuRepository;
+use App\Repositories\Impl\ChucvuRepositoryImpl;
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
+use App\Services\ChucvuService;
+use App\Services\Impl\ChucvuServiceImpl;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -72,13 +75,23 @@ class AppServiceProvider extends ServiceProvider
             NhanVienServiceImpl::class
         );
         $this->app->singleton(
-        RoleService::class,
+            RoleService::class,
             RoleServiceImpl::class
-    );
+        );
 
         $this->app->singleton(
             RoleRepository::class,
             RoleRepositoryImpl::class
+        );
+
+        $this->app->singleton(
+            ChucvuService::class,
+            ChucvuServiceImpl::class
+        );
+
+        $this->app->singleton(
+            ChucvuRepository::class,
+            ChucvuRepositoryImpl::class
         );
     }
 }

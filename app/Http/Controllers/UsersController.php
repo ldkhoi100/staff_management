@@ -51,9 +51,9 @@ class UsersController extends Controller
             $user['email'] = request('email');
             $user['password'] = Hash::make(request('password'));
             $this->userService->create($user);
-            return response()->json(['success' => 'Added new records.']);
+            return response()->json(['success' => 'Created new user.']);
         } else {
-            return response()->json(['error' => $validator->errors()->all()]);
+            return response()->json(['error' => $validator->errors()->messages()]);
         }
     }
 
@@ -73,9 +73,9 @@ class UsersController extends Controller
         if ($validator->passes()) {
             $this->userService->update($request->all(), $id);
             
-            return response()->json(['success' => 'Updated this records.']);
+            return response()->json(['success' => 'Updated this user.']);
         } else {
-            return response()->json(['error' => $validator->errors()->all()]);
+            return response()->json(['error' => $validator->errors()->messages()]);
         }
     }
 
@@ -109,11 +109,7 @@ class UsersController extends Controller
 
     public function block($id)
     {
-        // $dataUser = $this->userService->findById($id);
-        $user = User::find($id);
-        $user->block = !$user->block;
-        $user->save();
-        $users = $this->userService->getAll();
-        return view('users.ajax.list', compact('users'));
+        $this->userService->blockUser($id);
+        return response()->json(['success' => 'Updated this user.']);
     }
 }
