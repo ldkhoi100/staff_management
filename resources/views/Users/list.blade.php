@@ -126,7 +126,7 @@
         var conf = confirm("Do you want block this user?");
         $.ajax({
             url : 'users/block/'+id,
-            type : 'get' 
+            type : 'get'
         }).done(function(res){
             if(conf){
                 $("#reload_table").html(res);

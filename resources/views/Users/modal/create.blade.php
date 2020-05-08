@@ -1,6 +1,6 @@
 <!-- Modal Create User-->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,7 +23,7 @@
                     <div class="form-group has-error has-feedback">
                         <label>Username:</label>
                         <input type="text" name="username-create" class="form-control is-invalid"
-                            placeholder="Username">
+                               placeholder="Username">
                     </div>
 
                     <div class="form-group @error('email') has-error has-feedback @enderror">
@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <strong>Confirm Password:</strong>
                         <input type="password" name="password_confirmation-create" class="form-control"
-                            placeholder="password">
+                               placeholder="password">
                     </div>
             </div>
 
@@ -47,7 +47,6 @@
                 <button type="button" class="btn btn-primary btn-create">Create</button>
             </div>
 
-            </form>
 
         </div>
     </div>
