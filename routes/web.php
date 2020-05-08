@@ -53,12 +53,6 @@ Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash'
 Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
 
-// Route::resource('test', 'UserController');
-// Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
-// Route::get('show/{id}', 'UserController@show')->name('test.show');
-// Route::get('test2', 'UserController@index2');
-// Route::post('test', 'UserController@store');..
-
 Route::group(['prefix' => '/factor-salary'], function () {
     Route::view('/view', 'factor_salaries.index')->name('factor.salary');
     Route::resource('/', 'BacLuongController')->parameter('', 'id')->names('fs');
@@ -66,4 +60,13 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
 });
 
+<<<<<<< HEAD
+Route::group(['prefix' => '/role'], function () {
+    Route::view('/view', 'Role.list');
+    Route::resource('/', 'RolesController')->names('role')->parameter('','id');
+    Route::get('trash','RolesController@getSoftDeletes')->name('role.trash');
+    Route::get('/role/restore','RolesController@restore')->name('role.restore');
+});
+=======
 Route::resource('roles', 'RolesController');
+>>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4

@@ -59,7 +59,7 @@ class RoleServiceImpl implements RoleService
             $newRole = null;
             $statusCode = 404;
         } else {
-            $newRole = $this->customerRepository->update($request, $oldRole);
+            $newRole = $this->role_Repository->update($request, $oldRole);
             $statusCode = 200;
         }
 

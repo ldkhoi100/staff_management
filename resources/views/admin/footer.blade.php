@@ -58,6 +58,7 @@
 <script src="js/toastr.min.js"></script>
 
 @stack('CRUD')
+@stack('jquery-api')
 
 <script>
     // Script Ckeditor 4
