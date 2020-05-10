@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('/chucvu','ChucvuController');
 
 // Route::resource('/users', 'UsersController');
 Route::get('/users-restore/{id}', 'UsersController@restore');
@@ -28,7 +29,7 @@ Route::get('/users-delete/{id}', 'UsersController@delete');
 Route::get('/factor-salary-restore/{id}', 'BacLuongController@restore');
 Route::get('/factor-salary-delete/{id}', 'BacLuongController@delete');
 
-Route::resource('/role', 'RoleController');
-
+//kiểm tra dữ liệu api
+Route::resource('/roles', 'RoleController');
 Route::get('/role-restore/{id}', 'RoleController@restore');
 Route::get('/role-delete/{id}', 'RoleController@delete');

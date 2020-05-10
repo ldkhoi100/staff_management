@@ -22,9 +22,12 @@ use App\Services\UserService;
 
 use App\Services\BacLuongService;
 use App\Repositories\BacLuongRepository;
-
+use App\Repositories\ChucvuRepository;
+use App\Repositories\Impl\ChucvuRepositoryImpl;
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
+use App\Services\ChucvuService;
+use App\Services\Impl\ChucvuServiceImpl;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -79,6 +82,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             RoleRepository::class,
             RoleRepositoryImpl::class
+        );
+
+        $this->app->singleton(
+            ChucvuService::class,
+            ChucvuServiceImpl::class
+        );
+
+        $this->app->singleton(
+            ChucvuRepository::class,
+            ChucvuRepositoryImpl::class
         );
     }
 }

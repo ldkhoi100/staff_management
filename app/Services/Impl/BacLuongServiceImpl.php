@@ -7,30 +7,31 @@ use App\Services\BacLuongService;
 
 class BacLuongServiceImpl implements BacLuongService
 {
-    protected $bac_luong_Repository;
+    protected $factorSalaryRepository;
 
-    public function __construct(BacLuongRepository $bac_luong_Repository)
+    public function __construct(BacLuongRepository $factorSalaryRepository)
     {
-        $this->bac_luong_Repository = $bac_luong_Repository;
+        $this->factorSalaryRepository = $factorSalaryRepository;
     }
 
     public function getAll()
     {
-        $bac_luong = $this->bac_luong_Repository->getAll();
-        return $bac_luong;
+        $factorsalaries = $this->factorSalaryRepository->getAll();
+        
+        return $factorsalaries;
     }
 
     public function findById($id)
     {
-        $bac_luong = $this->bac_luong_Repository->findById($id);
+        $factorsalary = $this->factorSalaryRepository->findById($id);
 
-        $statusCode = 200;
-        if (!$bac_luong)
-            $statusCode = 404;
+        $status = 200;
+        if (!$factorsalary)
+            $status = 404;
 
         $data = [
-            'statusCode' => $statusCode,
-            'bac_luong' => $bac_luong
+            'status' => $status,
+            'data' => $factorsalary
         ];
 
         return $data;
@@ -38,15 +39,15 @@ class BacLuongServiceImpl implements BacLuongService
 
     public function create($request)
     {
-        $bac_luong = $this->bac_luong_Repository->create($request);
+        $factorsalary = $this->factorSalaryRepository->create($request);
 
-        $statusCode = 201;
-        if (!$bac_luong)
-            $statusCode = 500;
+        $status = 201;
+        if (!$factorsalary)
+            $status = 500;
 
         $data = [
-            'statusCode' => $statusCode,
-            'bac_luong' => $bac_luong
+            'status' => $status,
+            'data' => $factorsalary
         ];
 
         return $data;
@@ -54,19 +55,19 @@ class BacLuongServiceImpl implements BacLuongService
 
     public function update($request, $id)
     {
-        $bac_luong_cu = $this->bac_luong_Repository->findById($id);
+        $factorsalary = $this->factorSalaryRepository->findById($id);
 
-        if (!$bac_luong_cu) {
-            $bac_luong_moi = null;
-            $statusCode = 404;
+        if (!$factorsalary) {
+            $newfactorsalary = null;
+            $status = 404;
         } else {
-            $bac_luong_moi = $this->bac_luong_Repository->update($request, $bac_luong_cu);
-            $statusCode = 200;
+            $newfactorsalary = $this->factorSalaryRepository->update($request, $factorsalary);
+            $status = 200;
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'bac_luong' => $bac_luong_moi
+            'status' => $status,
+            'data' => $newfactorsalary
         ];
 
         return $data;
@@ -74,65 +75,81 @@ class BacLuongServiceImpl implements BacLuongService
 
     public function destroy($id)
     {
-        $bac_luong = $this->bac_luong_Repository->findById($id);
+        $factorsalary = $this->factorSalaryRepository->findById($id);
 
-        $statusCode = 404;
-        $message = "bac_luong not found";
-        if ($bac_luong) {
-            $this->bac_luong_Repository->destroy($bac_luong);
-            $statusCode = 200;
-            $message = "Delete success!";
+        $status = 404;
+        $msg = "This factor salary not found";
+        if ($factorsalary) {
+            $this->factorSalaryRepository->destroy($factorsalary);
+            $status = 200;
+            $msg = "Move to trash success!";
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
+            'status' => $status,
+            'msg' => $msg
         ];
         return $data;
     }
 
     public function getSoftDeletes()
     {
-        $users = $this->bac_luong_Repository->getSoftDeletes();
+        $factorsalariestrash = $this->factorSalaryRepository->getSoftDeletes();
 
-        return $users;
+        return $factorsalariestrash;
+    }
+
+    public function findOnlyTrashed($id)
+    {
+        $factorsalary = $this->factorSalaryRepository->findOnlyTrashed($id);
+        $status = 200;
+
+        if (!$factorsalary)
+            $status = 404;
+            
+        $data = [
+            'status' => $status,
+            'data' => $factorsalary
+        ];
+
+        return $data;
     }
 
     public function restore($id)
     {
-        $bac_luong = $this->bac_luong_Repository->findOnlyTrashed($id);
+        $factorsalary = $this->factorSalaryRepository->findOnlyTrashed($id);
 
-        $statusCode = 404;
-        $message = "bac_luong not found";
-        if ($bac_luong) {
-            $this->bac_luong_Repository->restore($bac_luong);
-            $statusCode = 200;
-            $message = "Restore success!";
+        $status = 404;
+        $msg = "This factor salary not found";
+        if ($factorsalary) {
+            $this->factorSalaryRepository->restore($factorsalary);
+            $status = 200;
+            $msg = "Restore success!";
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
+            'status' => $status,
+            'msg' => $msg
         ];
         return $data;
     }
 
     public function delete($id)
     {
-        $bac_luong = $this->bac_luong_Repository->findOnlyTrashed($id);
+        $factorsalary = $this->factorSalaryRepository->findOnlyTrashed($id);
 
-        $statusCode = 404;
-        $message = "bac_luong not found";
+        $status = 404;
+        $msg = "This factor salary not found";
 
-        if ($bac_luong) {
-            $this->bac_luong_Repository->delete($bac_luong);
-            $statusCode = 200;
-            $message = "Delete success!";
+        if ($factorsalary) {
+            $this->factorSalaryRepository->delete($factorsalary);
+            $status = 200;
+            $msg = "Delete success!";
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
+            'status' => $status,
+            'msg' => $msg
         ];
         return $data;
     }
