@@ -13,7 +13,8 @@
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "orangehill/iseed": "^2.6",
-        "oscarafdev/migrations-generator": "2.0.18"
+        "oscarafdev/migrations-generator": "2.0.18",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Impl;
+
 use App\Model\ChucVu;
 
 use App\User;
@@ -19,6 +20,18 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         return $model;
     }
 
+    public function findUsername($username)
+    {
+        $result = $this->model->where('username', $username)->first();
+        return $result;
+    }
+
+    public function selectRole($user, $role)
+    {
+        $model = $user->roles()->attach($role);
+        return $model;
+    }
+
     public function findOnlyTrashed($id)
     {
         $result = $this->model->onlyTrashed()->find($id);
@@ -26,12 +39,18 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         return $result;
     }
 
-    public function blockUser($id)
+    public function findWithTrashed($id)
     {
         $result = $this->model->withTrashed()->find($id);
-        $result->block = !$result->block;
-        $result->save();
 
         return $result;
+    }
+
+    public function blockUser($object)
+    {
+        $object->block = !$object->block;
+        $object->save();
+
+        return $object;
     }
 }

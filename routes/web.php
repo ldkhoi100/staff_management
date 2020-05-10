@@ -42,13 +42,14 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
-Route::resource('/chucvu','ChucvuController');
-Route::post('/chucvu/create','ChucvuController@store');
-Route::view('chuc_vu','Chuc_vu.index');
+Route::resource('/chucvu', 'ChucvuController');
+Route::post('/chucvu/create', 'ChucvuController@store');
+Route::view('chuc_vu', 'Chuc_vu.index');
+
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@showUserAjax');
+Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
 Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
 Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
@@ -69,10 +70,7 @@ Route::group(['prefix' => '/factor-salary'], function () {
 
 Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
-    Route::resource('/', 'RolesController')->names('role')->parameter('','id');
-    Route::get('trash','RolesController@getSoftDeletes')->name('role.trash');
-    Route::get('/role/restore','RolesController@restore')->name('role.restore');
+    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
+    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
+    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
 });
-
-
-
