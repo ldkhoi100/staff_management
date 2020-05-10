@@ -54,10 +54,16 @@ Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restor
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
 
 Route::group(['prefix' => '/factor-salary'], function () {
-    Route::view('/view', 'factor_salaries.index')->name('factor.salary');
-    Route::resource('/', 'BacLuongController')->parameter('', 'id')->names('fs');
-    Route::get('/delete/{id}', 'BacLuongController@delete')->name('fs.delete');
-    Route::get('/restore/{id}', 'BacLuongController@restore')->name('fs.restore');
+    Route::get('/', "BacLuongController@index")->name('fs.index');
+    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
+    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
+    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
+    Route::post('/', "BacLuongController@create")->name('fs.create');
+    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
 });
 
 

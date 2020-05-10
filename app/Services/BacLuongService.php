@@ -16,6 +16,8 @@ interface BacLuongService
 
     public function getSoftDeletes();
 
+    public function findOnlyTrashed($id);
+
     public function restore($id);
 
     public function delete($id);

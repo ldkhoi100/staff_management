@@ -1,108 +1,174 @@
-let FS = {} || FS;
+let Fs = {} || Fs;
 
-FS.id = '';
+Fs.table;
+Fs.tableTrash;
 
-FS.RenderData = function () {
-    $.get('/factor-salary').done(function (data) {
-        $('.render-data').html(data);
-        $('.btn-edit').click(function () {
-            FS.Edit(this);
-        });
+Fs.drawTable = function () {
+    Fs.table = $('#fs-table').DataTable({
+        processing: true,
+        // serverSide: true,
+        ajax: {
+            url: '/factor-salary/all',
+            dataSrc: function (jsons) {
+                return jsons.map(json => {
+                    return {
+                        fs: json.Bac_Luong,
+                        crt: json.created_at.split(' ',1)[0],
+                        action: `
+                            <a class="btn btn-secondary text-light" onclick="Fs.edit(${json.id})">Edit</a>
+                            <a class="btn btn-warning text-dark" onclick="Fs.trash(${json.id})">Trash</a>
+                        `
+                    }
+                });
+            }
+        },
+        columns: [
+            {data: "fs"},
+            {data: "crt"},
+            {data: "action"}
+        ]
 
-        $('.btn-trash').click(function () {
-            confirm('Confirm Delete') ? FS.Delete(this) : '';
-        });
-
-        $('.btn-show').click(function () {
-            FS.Show(this);
-        });
     });
-}
-
-FS.setId = function (id) {
-    return this.id = id;
-}
-
-FS.getId = function () {
-    return this.id;
 };
 
-FS.Create = function () {
-    $.get('/factor-salary/create').done(function (data) {
-        let modal = $('.modal-fator-salary').html(data).find('.modal').modal('show');
-        modal.find('.btn-store').click(function (e) {
-            e.preventDefault();
-            confirm('Confirm save data') ? FS.Store(this) : '';
+Fs.drawTableTrash = function () {
+    Fs.tableTrash = $('#fs-table-trash').DataTable({
+        processing: true,
+        // serverSide: true,
+        ajax: {
+            url: '/factor-salary/trash',
+            dataSrc: function (jsons) {
+                return jsons.map(json => {
+                    return {
+                        fs: json.Bac_Luong,
+                        crt: json.deleted_at.split(' ',1)[0],
+                        action: `
+                            <a class="btn btn-primary text-light" onclick="Fs.undo(${json.id})">Undo</a>
+                            <a class="btn btn-danger text-light" onclick="Fs.delete(${json.id})">Delete</a>
+                        `
+                    }
+                });
+            }
+        },
+        columns: [
+            {data: "fs"},
+            {data: "crt"},
+            {data: "action"}
+        ]
+
+    });
+};
+
+Fs.trash = function (id) {
+    if (confirm('Move this to Trash')) {
+        $.ajax({
+            url: `/factor-salary/${id}`,
+            method: "delete",
+            success: function(msg){
+                Fs.success(msg);
+                Fs.table.ajax.reload();
+                Fs.tableTrash.ajax.reload();
+            }
         });
-    });
+    }
 }
 
-FS.Edit = function (btn) {
-    let id = $(btn).parent().find('.id').val();
-    id = FS.setId(id);
-    let url = `/factor-salary/${id}/edit`;
-    $.get(url).done(function (data) {
-        let modal = $('.modal-fator-salary').html(data).find('.modal').modal('show');
-        modal.find('.btn-update').click(function (e) {
-            e.preventDefault();
-            confirm('Confirm Update') ? FS.Update(this) : '';
+
+Fs.edit = function (id) {
+    $.get(`/factor-salary/${id}`).done(function(Obj){
+        $.each(Obj, (i,v)=>{
+            $(`#fs-modal input[name=${i}]`).val(v);
         });
+        $('#fs-modal #fs-modal-title').text("Edit Factor Salary");
+        $('#fs-modal #btn-save').data('id', Obj.id);
+        $('#fs-modal').modal('show');
+        $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
+        $('small.badge').remove();
     });
 }
 
-// FS.Show = function (btn) {
-//     let url = $(btn).data('url');
-//     $.get(url).done(function (data) {
-//         $('.modal-fator-salary').html(data).find('.modal').modal('show');
-//     });
-// }
-
-FS.Delete = function (btn) {
-    let id = $(btn).parent().find('.id').val();
-    let url = `/factor-salary/${id}`;
-    $.ajax({
-        url: url,
-        method: 'delete'
-    }).done(function (data) {
-        FS.Noti(data);
-    });
+Fs.create = function(){
+    $('#fs-modal form')[0].reset();
+    $('#fs-modal #fs-modal-title').text("Create Factor Salary");
+    $('#fs-modal #btn-save').removeData('id');
+    $('#fs-modal').modal("show");
+    $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
+    $('small.badge').remove();
 }
 
-FS.Store = function (btn) {
-    let data = $(btn.form).serialize();
-    $.post('/factor-salary', data).done(function (data) {
-        if (data) {
-            $.each(data, function (k, v) {
-                FS.Errors(k, v);
+Fs.undo = function (id) {
+    if (confirm("Undo this")) {
+        $.ajax({
+            url: `/factor-salary/${id}/restore`,
+            method: 'PUT',
+            success: function (msg){
+                Fs.success(msg);
+                Fs.tableTrash.ajax.reload();
+                Fs.table.ajax.reload();
+            },
+            error: function(errors){
+                alert('undo errors');
+            }
+        });
+    }
+}
+
+Fs.delete = function (id) {
+    if (confirm('Delete this')) {
+        $.ajax({
+            url: `/factor-salary/${id}/delete`,
+            method: 'delete',
+            success: function (msg){
+                Fs.success(msg);
+                Fs.tableTrash.ajax.reload();
+            },
+            error: function(errors){
+                alert('Delete errors');
+            }
+        });
+    }
+}
+
+Fs.save = function (btn) {
+    let id = $(btn).data('id');
+    let data = $(btn.form).serializeJSON();
+    
+    if (id) {
+        if (confirm('Save change')) {
+            $.ajax({
+                url: `/factor-salary/${id}`,
+                method: 'PUT',
+                data: data,
+                success: function(Obj){
+                    Fs.table.ajax.reload();
+                    $('#fs-modal').modal("hide");
+                    Fs.success("Update success!");
+                },
+                error: function(errors){
+                    Fs.errors(errors.responseJSON.errors);
+                }
             });
-        } else {
-            FS.Noti('Create success');
         }
-    });
-}
-
-FS.Update = function (btn) {
-    let id = FS.getId();
-    let url = `/factor-salary/${id}`;
-    let data = $(btn.form).serialize();
-    $.ajax({
-        url: url,
-        method: 'put',
-        data: data
-    }).done(function (data) {
-        if (data) {
-            $.each(data, function (k, v) {
-                FS.Errors(k, v);
+    } else {
+        if (confirm('Save this data')) {
+            $.ajax({
+                url: `/factor-salary`,
+                method: 'post',
+                data: data,
+                success: function(){
+                    Fs.table.ajax.reload();
+                    $('#fs-modal').modal("hide");
+                    Fs.success("Create success");
+                },
+                error: function(errors){
+                    Fs.errors(errors.responseJSON.errors);
+                }
             });
-        } else {
-            FS.Noti('Update Success');
         }
-    });
+    }
 }
 
-FS.Noti = function (msg) {
-    FS.RenderData();
-    $('.modal').modal('hide');
+Fs.success = function (msg) {
     $.toast({
         heading: 'Success',
         text: msg,
@@ -110,25 +176,34 @@ FS.Noti = function (msg) {
         position: 'bottom-right',
         showHideTransition: 'slide',
         icon: 'success'
-    })
-}
-
-FS.Errors = function (k, v) {
-    $(`input[name=${k}]`).addClass('is-invalid').data('content', v[0]).data('placement', 'top').data('toggle', 'popover').popover("show");
-    $('.modal-fator-salary').change(function () {
-        $('.is-invalid').removeClass('is-invalid').removeData('placement').removeData('toggle').removeData('content');
     });
 }
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+Fs.errors = function (msg) {
+    $(`#fs-modal input`).each(function(){
+        $(this).addClass('is-valid');
+    });
+    $('small.badge').each(function(){
+        console.log(this);
+        $(this).remove();
+    });
+    $.each(msg,function(i, v){
+        $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
+    });
+}
+
+
+Fs.init = function () {
+    Fs.drawTable();
+    Fs.drawTableTrash();
+}
 
 $(document).ready(function () {
-    FS.RenderData();
-    $('.btn-create').click(function () {
-        FS.Create();
+    Fs.init();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        }
     });
 });
