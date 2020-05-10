@@ -2,10 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
-class CreateBacLuongTable extends Migration
-{
+class CreateLuongCoBanTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,10 +12,10 @@ class CreateBacLuongTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('bac_luong', function (Blueprint $table) {
+		Schema::create('luong_co_ban', function(Blueprint $table)
+		{
 			$table->integer('id', true);
-			$table->integer('LuongCB')->default(1);
-			$table->decimal('Bac_Luong', 3, 1)->unique('Bac_Luong');
+			$table->integer('Tien_Luong');
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -31,6 +29,7 @@ class CreateBacLuongTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('bac_luong');
+		Schema::drop('luong_co_ban');
 	}
+
 }
