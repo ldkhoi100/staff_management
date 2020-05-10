@@ -73,9 +73,6 @@ Route::group(['prefix' => '/role'], function () {
     Route::get('trash','RolesController@getSoftDeletes')->name('role.trash');
     Route::get('/role/restore','RolesController@restore')->name('role.restore');
 });
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> b7443050169af489098a4d136929a51d28949db1
