@@ -2,11 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
-class CreateFailedJobsTable extends Migration
-{
+class CreateFailedJobsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -15,7 +12,8 @@ class CreateFailedJobsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('failed_jobs', function (Blueprint $table) {
+		Schema::create('failed_jobs', function(Blueprint $table)
+		{
 			$table->bigInteger('id', true)->unsigned();
 			$table->text('connection', 65535);
 			$table->text('queue', 65535);
@@ -35,4 +33,5 @@ class CreateFailedJobsTable extends Migration
 	{
 		Schema::drop('failed_jobs');
 	}
+
 }

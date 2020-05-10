@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
-class CreateDonXinPhepTable extends Migration {
+class CreateChamCongNgayTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,13 +12,13 @@ class CreateDonXinPhepTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('don_xin_phep', function(Blueprint $table)
+		Schema::create('cham_cong_ngay', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('MaNV')->index('MaNV');
-			$table->string('TieuDe');
-			$table->text('NoiDung', 65535);
-			$table->integer('TinhTrang');
+			$table->integer('Ma_NV')->index('Ma_NV');
+			$table->integer('Thang_Hien_Tai')->index('Thang_Hien_Tai');
+			$table->dateTime('Ngay_Hien_Tai');
+			$table->string('Tinh_Trang')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -33,7 +32,7 @@ class CreateDonXinPhepTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('don_xin_phep');
+		Schema::drop('cham_cong_ngay');
 	}
 
 }
