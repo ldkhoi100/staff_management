@@ -44,10 +44,15 @@ Route::get('/orther', 'AdminController@orther')->name('orther');
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@showUserAjax');
+Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
 Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
 Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
 Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+
+Route::get('/select/role', 'UsersController@selectRole');
+
+Route::get('/test', 'TestController@index');
+Route::get('/testDataAjax', 'TestController@usersData')->name('test.dataTable');
 
 // Route::resource('test', 'UserController');
 // Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');

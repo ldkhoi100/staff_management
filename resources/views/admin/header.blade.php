@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
 
@@ -25,6 +25,8 @@
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
     <link rel="stylesheet" href="css/toastr.min.css" type="text/css">
+
+    <link href="css/select2.min.css" rel="stylesheet" />
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}

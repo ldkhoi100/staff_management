@@ -4,15 +4,15 @@
 
 @section('content')
 
-@include('users.modal.create')
-@include('users.modal.edit')
+@include('users.modal.showModal')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <p class="mb-4">
-        <button class="btn btn-success show-modal-create">Create user</button>
+        <button onclick="user.selectRole()">role</button>
+        <button class="btn btn-success" onclick="user.modalCreate()">Create user</button>
         <a href="{{ route('users.trash') }}" class="btn btn-danger" style="float: right">Trash</a>
     </p>
 
@@ -24,43 +24,8 @@
 
         <div class="col-sm-12">@include('partials.message')</div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                    style="font-size: 14.5px;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Block</th>
-                            <th>Verified Mail</th>
-                            <th>Created at</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Block</th>
-                            <th>Verified Mail</th>
-                            <th>Created at</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </tfoot>
-                    <tbody id="reload_table">
-
-                        @include('users.ajax.list')
-
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-body" id="reload_table">
+            @include('users.ajax.list')
         </div>
     </div>
 
@@ -73,6 +38,6 @@
 
 @push('CRUD')
 
-<script src="js/users/crud.js"></script>
+<script src="js/users/CRUDE.js"></script>
 
 @endpush
