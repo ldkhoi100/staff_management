@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Services\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 
-class RoleController extends Controller
+class RolesController extends Controller
 {
     protected $Role_Service;
 
@@ -17,15 +18,15 @@ class RoleController extends Controller
 
     public function index()
     {
-        $factorSalaries = $this->Role_Service->getAll();
-//        return view('Role.list',compact($factorSalaries));
+        $roles = $this->Role_Service->getAll();
+        return view('Role.all',compact('roles'));
 
-        return response()->json($factorSalaries, 200);
+//        return response()->json($factorSalaries, 200);
     }
 
     public function create()
     {
-        return view('Role.create');
+        return view('Role.modal.create');
     }
 
     public function store(Request $request)
@@ -33,7 +34,9 @@ class RoleController extends Controller
         $data = $request->all();
         $factorSalary = $this->Role_Service->create($data);
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        return response()->json('', $factorSalary['statusCode']);
+
+//        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
     public function show($id)
@@ -46,16 +49,28 @@ class RoleController extends Controller
 
     public function edit($id)
     {
-        $factorSalary = $this->Role_Service->findById($id);
-
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        $roles = $this->Role_Service->findById($id);
+        return response()->make(view('Role.modal.edit',['role'=>$roles['role']]),$roles['statusCode']);
+//        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
     public function update(Request $request, $id)
     {
-        $factorSalary = $this->Role_Service->update($request->all(), $id);
+        $data = $request->all();
+        $validator = Validator::make($data,[
+            'name'=>['required','min:1','max:255']
+        ]);
+        if ($validator -> fails()){
+            return response()->json($validator->errors()->messages(),202);
+        } else {
+            $role = $this->Role_Service->update($request->all(),$id);
+            return response()->json('',$role['statusCode']);
+        }
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+
+
+//        $roles = $this->Role_Service->update($request->all(), $id);
+//        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
 
