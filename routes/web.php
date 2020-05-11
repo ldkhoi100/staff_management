@@ -100,13 +100,7 @@ Route::group(['prefix' => '/factor-salary', 'middleware'=>'role:ROLE_ADMIN|ROLE_
 Route::prefix('role')->group(function (){
     Route::get('/trash', 'RoleController@getSoftDeletes');
     Route::view('/view', 'Role.list');
-<<<<<<< HEAD
     Route::resource('/', 'RoleController')->parameter('','id');
     Route::put('/{id}/restore','RoleController@restore');
     Route::delete('/{id}/delete','RoleController@delete');
-=======
-    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
-    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
-    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
->>>>>>> 05ce9e469bb9e5d3b57d6d9d898d6d752ef5c8ec
 });
