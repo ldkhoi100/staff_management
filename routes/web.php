@@ -42,9 +42,18 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
-Route::resource('/chucvu', 'ChucvuController');
-Route::post('/chucvu/create', 'ChucvuController@store');
-Route::view('chuc_vu', 'Chuc_vu.index');
+Route::group(['prefix' => '/factor-salary'], function () {
+    Route::get('/', "BacLuongController@index")->name('fs.index');
+    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
+    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
+    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
+    Route::post('/', "BacLuongController@create")->name('fs.create');
+    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+});
 
 //User
 Route::resource('/users', 'UsersController');
@@ -65,18 +74,22 @@ Route::get('/testDataAjax', 'TestController@usersData')->name('test.dataTable');
 // Route::get('test2', 'UserController@index2');
 // Route::post('test', 'UserController@store');..
 
-Route::group(['prefix' => '/factor-salary'], function () {
-    Route::get('/', "BacLuongController@index")->name('fs.index');
-    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
-    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
-    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
-    Route::post('/', "BacLuongController@create")->name('fs.create');
-    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+
+
+Route::group(['prefix' => '/chuc-vu'], function () {
+    Route::get('/', "ChucvuController@index")->name('cv.index');
+    Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
+    Route::get('/trash', "ChucvuController@getTrash")->name('cv.getTrash');
+    Route::get('/{id}', "ChucvuController@findById")->name('cv.findById');
+    Route::get('/{id}/trash', "ChucvuController@findTrashById")->name('cv.findTrashById');
+    Route::post('/', "ChucvuController@create")->name('cv.create');
+    Route::put('/{id}', "ChucvuController@update")->name('cv.update');
+    Route::put('/{id}/restore', "ChucvuController@restore")->name('cv.restore');
+    Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
+    Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
+
+
 
 
 Route::group(['prefix' => '/role'], function () {
