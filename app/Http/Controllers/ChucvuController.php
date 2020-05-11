@@ -2,104 +2,89 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ChucvuService;
 use Illuminate\Http\Request;
+use App\Services\ChucvuService;
 
 class ChucvuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected $chucvu_Service;
 
+    protected $chucvuService;
 
-    public function __construct(ChucvuService $chucvu_Service)
+    public function __construct(ChucvuService $chucvuService)
     {
-        $this->chucvu_Service = $chucvu_Service;
+        // $this->middleware('auth');
+        // $this->middleware('role:admin|superAdmin')->except(['create', 'delete','restore', 'moveToTrash']);
+        // $this->middleware('role:superAdmin')->only(['create', 'delete','restore', 'moveToTrash']);
+        // $this->middleware('AjaxRequest')->except('index');
+        $this->chucvuService = $chucvuService;
     }
 
     public function index()
     {
-
-        $chuc_vu = $this->chucvu_Service->getAll();
-
-         return view('Chuc_vu.dataTable',compact('chuc_vu'));
+        return view('Chuc_vu.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getAll()
     {
-        return view('Chuc_vu.create');
+        $factorSalaries = $this->chucvuService->getAll();
+
+        return response()->json($factorSalaries);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function findById($id)
     {
+        $chucvu = $this->chucvuService->findById($id);
 
-        $data_Chucvu = $this->chucvu_Service->create($request->all());
-
-        // return response()->json('', $data_Chucvu['statusCode']);
-        return response()->json($data_Chucvu['chucvu'], $data_Chucvu['statusCode']);
+        return response()->json($chucvu['data'], $chucvu['status']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function create(Request $request)
     {
-        $data_Chucvu = $this->chucvu_Service->findById($id);
-        return response()->json($data_Chucvu['chucvu'], $data_Chucvu['statusCode']);
+        $chucvu = $this->chucvuService->create($request->all());
+
+        return response()->json($chucvu['data'], $chucvu['status']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $data_Chucvu = $this->chucvu_Service->update($request->all(), $id);
+        $chucvu = $this->chucvuService->update($request->all(), $id);
 
-        return response()->json($data_Chucvu['chucvu'], $data_Chucvu['statusCode']);
+        return response()->json($chucvu['data'], $chucvu['status']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $data_Chucvu = $this->chucvu_Service->destroy($id);
 
-        return response()->json($data_Chucvu['message'], $data_Chucvu['statusCode']);
+    public function moveToTrash($id)
+    {
+        $chucvu = $this->chucvuService->destroy($id);
+
+        return response()->json($chucvu['msg'], $chucvu['status']);
+    }
+
+    public function getTrash()
+    {
+        $factorSalaries = $this->chucvuService->getSoftDeletes();
+
+        return response()->json($factorSalaries);
+    }
+
+    public function findTrashById($id)
+    {
+        $chucvu = $this->chucvuService->findOnlyTrashed($id);
+
+        return response()->json($chucvu['data'], $chucvu['status']);
+    }
+
+    public function restore($id)
+    {
+        $chucvu = $this->chucvuService->restore($id);
+
+        return response()->json($chucvu['msg'], $chucvu['status']);
+    }
+
+    public function delete($id)
+    {
+        $chucvu = $this->chucvuService->delete($id);
+
+        return response()->json($chucvu['msg'], $chucvu['status']);
     }
 }

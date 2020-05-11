@@ -42,9 +42,18 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
-Route::resource('/chucvu', 'ChucvuController');
-Route::post('/chucvu/create', 'ChucvuController@store');
-Route::view('chuc_vu', 'Chuc_vu.index');
+Route::group(['prefix' => '/factor-salary'], function () {
+    Route::get('/', "BacLuongController@index")->name('fs.index');
+    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
+    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
+    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
+    Route::post('/', "BacLuongController@create")->name('fs.create');
+    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+});
 
 //User
 Route::group(['prefix' => '/users'], function () {
@@ -61,22 +70,33 @@ Route::group(['prefix' => '/users'], function () {
     Route::delete('{id}', 'UsersController@moveToTrash');
 });
 
-Route::group(['prefix' => '/factor-salary'], function () {
+Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
     Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
-    Route::post('/', "BacLuongController@create")->name('fs.create');
-    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "BacLuongController@create")->name('fs.create');
+        Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+        Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+        Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+        Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+        Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    });
 });
 
-Route::group(['prefix' => '/role'], function () {
+//RolesController
+//Route::group(['prefix' => '/role'], function () {
+//    Route::view('/view', 'Role.list');
+//    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
+//    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
+//    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
+//});
+
+Route::prefix('role')->group(function () {
+    Route::get('/trash', 'RoleController@getSoftDeletes');
     Route::view('/view', 'Role.list');
-    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
-    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
-    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
+    Route::resource('/', 'RoleController')->parameter('', 'id');
+    Route::put('/{id}/restore', 'RoleController@restore');
+    Route::delete('/{id}/delete', 'RoleController@delete');
 });

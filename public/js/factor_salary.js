@@ -78,6 +78,9 @@ Fs.trash = function(id) {
                 Fs.success(msg);
                 Fs.table.ajax.reload();
                 Fs.tableTrash.ajax.reload();
+            },
+            error:function(errors){
+                Fs.errors(errors);
             }
         });
     }
@@ -94,6 +97,8 @@ Fs.edit = function(id) {
         $('#fs-modal').modal('show');
         $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
         $('small.badge').remove();
+    }).fail(function(errors){
+        Fs.errors(errors);
     });
 }
 
@@ -117,7 +122,7 @@ Fs.undo = function(id) {
                 Fs.table.ajax.reload();
             },
             error: function(errors) {
-                alert('undo errors');
+                Fs.errors(errors);
             }
         });
     }
@@ -132,8 +137,8 @@ Fs.delete = function(id) {
                 Fs.success(msg);
                 Fs.tableTrash.ajax.reload();
             },
-            error: function(errors) {
-                alert('Delete errors');
+            error: function(errors) {       
+                Fs.errors(errors);         
             }
         });
     }
@@ -156,7 +161,7 @@ Fs.save = function(btn) {
                     Fs.success("Update success!");
                 },
                 error: function(errors) {
-                    Fs.errors(errors.responseJSON.errors);
+                    Fs.errors(errors);
                 }
             });
         }
@@ -172,37 +177,41 @@ Fs.save = function(btn) {
                     Fs.success("Create success");
                 },
                 error: function(errors) {
-                    Fs.errors(errors.responseJSON.errors);
+                    Fs.errors(errors);
                 }
             });
         }
     }
 }
 
-Fs.success = function(msg) {
+Fs.success = function(msg,status = "Success", icon = "success") {
     $.toast({
-        heading: 'Success',
+        heading: status,
         text: msg,
         hideAfter: 5000,
         position: 'bottom-right',
         showHideTransition: 'slide',
-        icon: 'success'
+        icon: icon
     });
 }
 
-Fs.errors = function(msg) {
-    $(`#fs-modal input`).each(function() {
-        $(this).addClass('is-valid');
-    });
-    $('small.badge').each(function() {
-        console.log(this);
-        $(this).remove();
-    });
-    $.each(msg, function(i, v) {
-        $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
-    });
+Fs.errors = function(errors) {
+    if (errors.status == 422) {
+        let msg = errors.responseJSON.errors;
+        $(`#fs-modal input`).each(function() {
+            $(this).addClass('is-valid');
+        });
+        $('small.badge').each(function() {
+            $(this).remove();
+        });
+        $.each(msg, function(i, v) {
+            $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
+        });
+    }else{
+        $('#fs-modal').modal('hide');
+        Fs.success("Bạn không đủ quền", "Error", 'error');
+    }
 }
-
 
 Fs.init = function() {
     Fs.drawTable();
