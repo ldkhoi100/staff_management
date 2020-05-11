@@ -41,7 +41,8 @@ class UsersController extends Controller
 
     public function selectRole()
     {
-        $roles = $this->roleService->getAll();;
+        $roles = $this->roleService->getAll();
+
         return response()->json($roles, 200);
     }
 
@@ -56,30 +57,25 @@ class UsersController extends Controller
         $data = $request->except('block', 'password', 'roles');
         $data['password'] = Hash::make($request->password);
         $data['block'] = $request->block ? 1 : 0;
-        $data = $this->userService->create($data);
-
-        $this->userService->selectRole($request->username, $request->roles);
+        $data = $this->userService->create([$data, $request->roles]);
 
         return response()->json($data['data'], $data['statusCode']);
     }
 
     public function edit($id)
     {
-        // $data = $this->userService->findWithTrashed($id);
+        $data = $this->userService->findWithTrashed($id);
+        $role = $data['data']->roles;
 
-        $data = User::withTrashed()->findOrFail($id);
-
-        $role = $data->roles;
-
-        return response()->json([$data, $role], 200);
+        return response()->json([$data['data'], $role], 200);
     }
 
     public function update(UserUpdateRequest $request, $id)
     {
-        $requestData = $request->except('id', 'block');
+        $requestData = $request->except('id', 'block', 'roles');
         $requestData['block'] = $request->block ? 1 : 0;
 
-        $data = $this->userService->update($requestData, $id);
+        $data = $this->userService->update([$requestData, $request->roles], $id);
 
         return response()->json($data['data'], $data['statusCode']);
     }

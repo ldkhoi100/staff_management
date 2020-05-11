@@ -21,16 +21,32 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         return $model;
     }
 
-    public function findUsername($username)
+    public function create($data)
     {
-        $result = $this->model->where('username', $username)->first();
-        return $result;
+        try {
+            $object = $this->model->create($data[0]);
+            $object->roles()->attach($data[1]);
+        } catch (\Exception $e) {
+            return null;
+        }
+        return $object;
     }
 
-    public function selectRole($user, $role)
+    public function update($data, $object)
     {
-        $model = $user->roles()->attach($role);
-        return $model;
+        try {
+            $object->update($data[0]);
+            $object->roles()->sync($data[1]);
+        } catch (\Exception $e) {
+            return null;
+        }
+        return $object;
+    }
+
+    public function delete($object)
+    {
+        $object->roles()->detach();
+        $object->forceDelete();
     }
 
     public function findOnlyTrashed($id)
@@ -43,7 +59,6 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function findWithTrashed($id)
     {
         $result = $this->model->withTrashed()->find($id);
-        // $result[1] = $result[0]->roles;
 
         return $result;
     }

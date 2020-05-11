@@ -2,7 +2,7 @@ var user = user || {};
 
 user.drawTable = function() {
     $.ajax({
-        url: "/users/usersAjax",
+        url: "/users/all",
         type: "GET",
     }).done(function(res) {
         $("#reload_table").html(res);
@@ -38,7 +38,6 @@ user.modalEdit = function(id) {
         type: "GET",
         url: "/users/" + id,
         success: function(response) {
-            user.selectRoleUpdate(response[1]);
             $(".print-error-msg").css("display", "none");
             $("#ShowModal").find("#id").val(response[0].id);
             $("#ShowModal").find("#username").val(response[0].username);
@@ -48,6 +47,7 @@ user.modalEdit = function(id) {
             } else {
                 $("#ShowModal").find("#block").prop("checked", false);
             }
+            user.selectRoleUpdate(response[1]);
         },
     });
 };
@@ -66,7 +66,6 @@ user.create = function() {
             $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
         },
         error: function(data) {
-            toastr.warning(`The data you entered is incorrect !`);
             user.printErrorMsg(data.responseJSON.errors);
         }
     });
@@ -88,7 +87,6 @@ user.update = function() {
             $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
         },
         error: function(data) {
-            toastr.warning(`The data you entered is incorrect !`);
             user.printErrorMsg(data.responseJSON.errors);
         }
     });
@@ -103,9 +101,9 @@ user.destroy = function(id, username) {
         type: "DELETE",
     }).done(function() {
         if (conf) {
-            toastr.success(`Removed user ${username}!`);
             user.drawTable(); //reload table
             user.trashTable();
+            toastr.success(`Removed user ${username}!`);
         }
     });
 };
@@ -117,9 +115,9 @@ user.restore = function(id, username) {
         type: "GET",
     }).done(function() {
         if (conf) {
-            toastr.success(`Restored user ${username}!`);
             user.drawTable(); //reload table
             user.trashTable();
+            toastr.success(`Restored user ${username}!`);
         }
     });
 };
@@ -131,9 +129,9 @@ user.forceDelete = function(id, username) {
         type: "GET",
     }).done(function() {
         if (conf) {
-            toastr.danger(`Deleted user ${username}!`);
             user.drawTable(); //reload table
             user.trashTable();
+            toastr.success(`Deleted user ${username}!`);
         }
     });
 };
@@ -145,9 +143,9 @@ user.block = function(id, username) {
         type: "get",
     }).done(function() {
         if (conf) {
-            toastr.success(`Changed column block of user ${username}!`);
             user.trashTable();
             user.drawTable();
+            toastr.success(`Changed column block of user ${username}!`);
         }
     });
 };
@@ -185,6 +183,7 @@ user.selectRoleUpdate = function(role) {
 user.printErrorMsg = function(msg) {
     $(".create_modal").removeClass("is-invalid").addClass("is-valid");
     $(".edit_modal").removeClass("is-invalid").addClass("is-valid");
+    toastr.warning(`The data you entered is incorrect !`);
     $.each(msg, function(key, value) {
         $(`.alert-${key}`).text(value);
         $(`input[name=${key}]`).addClass("is-invalid");
