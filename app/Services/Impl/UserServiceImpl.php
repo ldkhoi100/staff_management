@@ -4,6 +4,7 @@ namespace App\Services\Impl;
 
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use App\User;
 
 class UserServiceImpl implements UserService
 {
@@ -25,51 +26,51 @@ class UserServiceImpl implements UserService
     {
         $User = $this->userRepository->findById($id);
 
-        // $statusCode = 200;
-        // if (!$User)
-        //     $statusCode = 404;
+        $statusCode = 200;
+        if (!$User)
+            $statusCode = 404;
 
-        // $data = [
-        //     'statusCode' => $statusCode,
-        //     'users' => $User
-        // ];
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $User
+        ];
 
-        return $User;
+        return $data;
     }
 
     public function create($request)
     {
         $User = $this->userRepository->create($request);
 
-        // $statusCode = 201;
-        // if (!$User)
-        //     $statusCode = 500;
+        $statusCode = 201;
+        if (!$User)
+            $statusCode = 500;
 
-        // $data = [
-        //     'statusCode' => $statusCode,
-        //     'users' => $User
-        // ];
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $User
+        ];
 
-        return $User;
+        return $data;
     }
 
     public function update($request, $id)
     {
-        $oldUser = $this->userRepository->findById($id);
+        $oldUser = $this->userRepository->findWithTrashed($id);
 
-        // if (!$oldUser) {
-        //     $newUser = null;
-        //     $statusCode = 404;
-        // } else {
-        $newUser = $this->userRepository->update($request, $oldUser);
-        // $statusCode = 200;
-        // }
+        if (!$oldUser) {
+            $newUser = null;
+            $statusCode = 404;
+        } else {
+            $newUser = $this->userRepository->update($request, $oldUser);
+            $statusCode = 200;
+        }
 
-        // $data = [
-        //     'statusCode' => $statusCode,
-        //     'users' => $newUser
-        // ];
-        return $newUser;
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $newUser
+        ];
+        return $data;
     }
 
     public function destroy($id)
@@ -82,6 +83,25 @@ class UserServiceImpl implements UserService
             $this->userRepository->destroy($User);
             $statusCode = 200;
             $message = "Delete success!";
+        }
+
+        $data = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+        return $data;
+    }
+
+    //
+    public function selectRole($username, $role)
+    {
+        $User = $this->userRepository->findUsername($username);
+        $statusCode = 404;
+        $message = "User not found";
+        if ($User) {
+            $this->userRepository->selectRole($User, $role);
+            $statusCode = 200;
+            $message = "Select role success!";
         }
 
         $data = [
@@ -136,9 +156,71 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
+    public function findOnlyTrashed($id)
+    {
+        $User = $this->userRepository->findOnlyTrashed($id);
+
+        $statusCode = 200;
+        if (!$User)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $User
+        ];
+
+        return $data;
+    }
+
+    public function findWithTrashed($id)
+    {
+        $User = $this->userRepository->findWithTrashed($id);
+
+        $statusCode = 200;
+        if (!$User)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $User
+        ];
+
+        return $data;
+    }
+
+    public function findUsername($username)
+    {
+        $User = $this->userRepository->findUsername($username);
+
+        $statusCode = 200;
+        if (!$User)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'users' => $User
+        ];
+
+        return $data;
+    }
+
     public function blockUser($id)
     {
-        $user = $this->userRepository->blockUser($id);
-        return $user;
+        $user = $this->userRepository->findWithTrashed($id);
+
+        $statusCode = 404;
+        $message = "User not found";
+
+        if ($user) {
+            $this->userRepository->blockUser($user);
+            $statusCode = 200;
+            $message = "Change block success!";
+        }
+
+        $data = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+        return $data;
     }
 }

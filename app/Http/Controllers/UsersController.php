@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Role;
 use App\Services\UserService;
 use Validator;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
+use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
@@ -14,6 +16,7 @@ class UsersController extends Controller
 
     public function __construct(UserService $userService)
     {
+        $this->middleware('role:ROLE_ADMIN', ['only' => ['index']]);
         $this->userService = $userService;
     }
 
@@ -21,14 +24,18 @@ class UsersController extends Controller
     {
         $users = $this->userService->getAll();
         return view('users.list', compact('users'));
-        // return response()->json($users, 200);
     }
 
-    public function showUserAjax()
+    public function indexAjax()
     {
         $users = $this->userService->getAll();
         return view('users.ajax.list', compact('users'));
-        // return response()->json($users, 200);
+    }
+
+    public function selectRole()
+    {
+        $roles = Role::all();
+        return response()->json($roles, 200);
     }
 
     // public function show($id)
@@ -39,19 +46,21 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->roles);
         $validator = Validator::make($request->all(), [
             'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^[a-zA-Z0-9]{5,}$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        
         if ($validator->passes()) {
-            $user = [];
-            $user['username'] = request('username');
-            $user['email'] = request('email');
-            $user['password'] = Hash::make(request('password'));
-            $this->userService->create($user);
-            return response()->json(['success' => 'Created new user.']);
+            $data = $request->except('block', 'password', 'roles');
+            $data['password'] = Hash::make($request->password);
+            $data['block'] = $request->block ? 1 : 0;
+            $data = $this->userService->create($data);
+
+            $this->userService->selectRole($request->username, $request->roles);
+
+            return response()->json($data['users'], $data['statusCode']);
         } else {
             return response()->json(['error' => $validator->errors()->messages()]);
         }
@@ -59,21 +68,24 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $dataUser = $this->userService->findById($id);
-        return response()->json($dataUser);
+        $dataUser = $this->userService->findWithTrashed($id);
+        return response()->json($dataUser['users'], $dataUser['statusCode']);
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id, 'regex:/^[a-zA-Z0-9]{5,}$/'],
+            'username' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9]{5,}$/', 'unique:users,username,' . $id],
             'email' => ['required', 'email',  'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', 'unique:users,email,' . $id]
         ]);
 
         if ($validator->passes()) {
-            $this->userService->update($request->all(), $id);
-            
-            return response()->json(['success' => 'Updated this user.']);
+            $requestData = $request->except('id', 'block');
+            $requestData['block'] = $request->block ? 1 : 0;
+
+            $data = $this->userService->update($requestData, $id);
+
+            return response()->json($data['users'], $data['statusCode']);
         } else {
             return response()->json(['error' => $validator->errors()->messages()]);
         }

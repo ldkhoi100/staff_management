@@ -56,6 +56,7 @@
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
 <script src="js/toastr.min.js"></script>
+<script src="js/select2.min.js"></script>
 
 @stack('CRUD')
 
