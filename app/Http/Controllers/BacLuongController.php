@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FactorSalary;
 use App\Services\BacLuongService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class BacLuongController extends Controller
 {
@@ -14,121 +14,78 @@ class BacLuongController extends Controller
     public function __construct(BacLuongService $factorSalaryService)
     {
         // $this->middleware('auth');
-        // $this->middleware('role:admin')->only('index');
-        // $this->middleware('role:superAdmin');
-        $this->middleware(function ($request, $next) {
-            if ($request->ajax()) {
-                return $next($request);
-            }
-            abort(404);
-        });
-
+        // $this->middleware('role:admin|superAdmin')->except(['create', 'delete','restore', 'moveToTrash']);
+        // $this->middleware('role:superAdmin')->only(['create', 'delete','restore', 'moveToTrash']);
+        $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;
     }
 
     public function index()
     {
+        return view('factor_salaries.index');
+    }
+
+    public function getAll()
+    {
         $factorSalaries = $this->factorSalaryService->getAll();
 
-        $data =  view('factor_salaries.all', compact('factorSalaries'));
-
-        return response()->make($data, 200);
-
-        // return view('factor_salaries.all', compact('factorSalaries'));
-
-        // return response()->json($factorSalaries, 200);
+        return response()->json($factorSalaries);
     }
 
-
-    public function create()
+    public function findById($id)
     {
-        $data = view('factor_salaries.modal.create');
+        $factorSalary = $this->factorSalaryService->findById($id);
 
-        return response()->make($data, 200);
+        return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
-    public function store(Request $request)
+    public function create(FactorSalary $request)
     {
+        $factorSalary = $this->factorSalaryService->create($request->all());
 
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', 'unique:bac_luong']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->messages(), 202);
-        } else {
-            $factorSalary = $this->factorSalaryService->create($data);
-            return response('', 200);
-            // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
-        }
+        return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
-    // public function show($id)
-    // {
-    //     $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
-
-    // return view('factor_salaries.modal.show', compact('factorSalary'));
-
-    // $factorSalary = $this->factorSalaryService->findById($id);
-
-    // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
-    // }
-
-
-    public function edit($id)
+    public function update(FactorSalary $request, $id)
     {
-        $factorSalary = $this->factorSalaryService->findById($id)['bac_luong'];
+        $factorSalary = $this->factorSalaryService->update($request->all(), $id);
 
-        return view('factor_salaries.modal.edit', compact('factorSalary'));
-
-        // $factorSalary = $this->factorSalaryService->findById($id);
-
-        // return response()->json($factorSalary['bac_luong'], $factorSalary['statusCode']);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:bac_luong"]
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->messages(), 202);
-        } else {
-            $factorSalary = $this->factorSalaryService->update($request->all(), $id);
-
-            return response()->json('', $factorSalary['statusCode']);
-        }
+        return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
 
-    public function destroy($id)
+    public function moveToTrash($id)
     {
         $factorSalary = $this->factorSalaryService->destroy($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['msg'], $factorSalary['status']);
     }
 
-    public function getSoftDeletes()
+    public function getTrash()
     {
-        $factorSalary = $this->factorSalaryService->getSoftDeletes();
+        $factorSalaries = $this->factorSalaryService->getSoftDeletes();
 
-        return response()->json($factorSalary, 200);
+        return response()->json($factorSalaries);
+    }
+
+    public function findTrashById($id)
+    {
+        $factorSalary = $this->factorSalaryService->findOnlyTrashed($id);
+
+        return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
     public function restore($id)
     {
         $factorSalary = $this->factorSalaryService->restore($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['msg'], $factorSalary['status']);
     }
 
     public function delete($id)
     {
         $factorSalary = $this->factorSalaryService->delete($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['msg'], $factorSalary['status']);
     }
 }
