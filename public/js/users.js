@@ -2,13 +2,23 @@ var user = user || {};
 
 user.drawTable = function() {
     $.ajax({
-        url: "/usersAjax",
+        url: "/users/usersAjax",
         type: "GET",
     }).done(function(res) {
         $("#reload_table").html(res);
         $("#dataTable").dataTable();
     });
-}
+};
+
+user.trashTable = function() {
+    $.ajax({
+        url: "/users/trash",
+        type: "GET",
+    }).done(function(res) {
+        $("#reload_trash").html(res);
+        $("#dataTableTrash").dataTable();
+    });
+};
 
 user.modalCreate = function() {
     $("#ShowModal").modal("show");
@@ -26,7 +36,7 @@ user.modalEdit = function(id) {
     $("#show-edit-modal").css("display", "flex"); // Show modal update
     $.ajax({
         type: "GET",
-        url: "/users/" + id + "/edit",
+        url: "/users/" + id,
         success: function(response) {
             $(".print-error-msg").css("display", "none");
             $("#ShowModal").find("#id").val(response.id);
@@ -43,23 +53,21 @@ user.modalEdit = function(id) {
 
 user.create = function() {
     let data = $("#modal-create").serialize();
-    console.log(data);
     var username = $("#username-create").val();
     $.ajax({
         url: "/users",
         type: "POST",
         data: data,
-        success: function(data) {
-            if ($.isEmptyObject(data.error)) {
-                toastr.success(`Created new user ${username}!`);
-                $("#ShowModal").modal("hide");
-                $(".reset_form").click();
-                $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
-            } else {
-                toastr.warning(`The data you entered is incorrect !`);
-                user.printErrorMsg(data.error);
-            }
+        success: function() {
+            toastr.success(`Created new user ${username}!`);
+            $("#ShowModal").modal("hide");
+            $(".reset_form").click();
+            $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
         },
+        error: function(data) {
+            toastr.warning(`The data you entered is incorrect !`);
+            user.printErrorMsg(data.responseJSON.errors);
+        }
     });
     user.drawTable(); //reload table
 };
@@ -72,18 +80,19 @@ user.update = function() {
         url: "/users/" + id,
         type: "PUT",
         data: data,
-        success: function(data) {
-            if ($.isEmptyObject(data.error)) {
-                $(".print-error-msg").css("display", "none");
-                toastr.success(`Updated user ${username}!`);
-                $("#ShowModal").modal("hide");
-                $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
-            } else {
-                user.printErrorMsg(data.error);
-            }
+        success: function() {
+            $(".print-error-msg").css("display", "none");
+            toastr.success(`Updated user ${username}!`);
+            $("#ShowModal").modal("hide");
+            $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
         },
+        error: function(data) {
+            toastr.warning(`The data you entered is incorrect !`);
+            user.printErrorMsg(data.responseJSON.errors);
+        }
     });
     user.drawTable();
+    user.trashTable();
 };
 
 user.destroy = function(id, username) {
@@ -95,6 +104,35 @@ user.destroy = function(id, username) {
         if (conf) {
             toastr.success(`Removed user ${username}!`);
             user.drawTable(); //reload table
+            user.trashTable();
+        }
+    });
+};
+
+user.restore = function(id, username) {
+    var conf = confirm(`Do you want restore user ${username}?`);
+    $.ajax({
+        url: "/users/restore/" + id,
+        type: "GET",
+    }).done(function() {
+        if (conf) {
+            toastr.success(`Restored user ${username}!`);
+            user.drawTable(); //reload table
+            user.trashTable();
+        }
+    });
+};
+
+user.forceDelete = function(id, username) {
+    var conf = confirm(`Do you want delete user ${username}?`);
+    $.ajax({
+        url: "/users/delete/" + id,
+        type: "GET",
+    }).done(function() {
+        if (conf) {
+            toastr.danger(`Deleted user ${username}!`);
+            user.drawTable(); //reload table
+            user.trashTable();
         }
     });
 };
@@ -133,19 +171,19 @@ user.printErrorMsg = function(msg) {
         $(`.alert-${key}`).text(value);
         $(`input[name=${key}]`).addClass("is-invalid");
     });
+    console.clear();
 };
 
 user.init = function() {
     user.drawTable();
+    // $('.role-select').select2();
 };
 
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
-
 $(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
     user.init();
-    $('.role-select').select2();
 });

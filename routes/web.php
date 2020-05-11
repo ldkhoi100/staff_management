@@ -47,23 +47,20 @@ Route::post('/chucvu/create', 'ChucvuController@store');
 Route::view('chuc_vu', 'Chuc_vu.index');
 
 //User
-Route::resource('/users', 'UsersController');
-Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
-Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
-Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
-Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+Route::group(['prefix' => '/users'], function () {
+    Route::get('/', 'UsersController@index');
+    Route::get('/trash', 'UsersController@getSoftDeletes');
+    Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
+    Route::get('{id}', 'UsersController@edit');
+    Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
+    Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
+    Route::get('/block/{id}', 'UsersController@block')->name('users.block');
+    Route::post('/', 'UsersController@store')->name('users.store');
+    Route::put('{id}', 'UsersController@update');
+    Route::delete('{id}', 'UsersController@moveToTrash');
+});
 
 Route::get('/select/role', 'UsersController@selectRole');
-
-Route::get('/test', 'TestController@index');
-Route::get('/testDataAjax', 'TestController@usersData')->name('test.dataTable');
-
-// Route::resource('test', 'UserController');
-// Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
-// Route::get('show/{id}', 'UserController@show')->name('test.show');
-// Route::get('test2', 'UserController@index2');
-// Route::post('test', 'UserController@store');..
 
 Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
@@ -77,7 +74,6 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
     Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
 });
-
 
 Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
