@@ -10,15 +10,18 @@ use App\User;
 use Hash;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Services\RoleService;
 
 class UsersController extends Controller
 {
     protected $userService;
+    protected $roleService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, RoleService $roleService)
     {
         // $this->middleware('role:ROLE_ADMIN', ['only' => ['index']]);
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
 
     public function index()
@@ -36,11 +39,11 @@ class UsersController extends Controller
     }
 
 
-    // public function selectRole()
-    // {
-    //     $roles = Role::all();
-    //     return response()->json($roles, 200);
-    // }
+    public function selectRole()
+    {
+        $roles = $this->roleService->getAll();;
+        return response()->json($roles, 200);
+    }
 
     // public function show($id)
     // {
@@ -55,16 +58,20 @@ class UsersController extends Controller
         $data['block'] = $request->block ? 1 : 0;
         $data = $this->userService->create($data);
 
-        // $this->userService->selectRole($request->username, $request->roles);
+        $this->userService->selectRole($request->username, $request->roles);
 
-        return response()->json($data['users'], $data['statusCode']);
+        return response()->json($data['data'], $data['statusCode']);
     }
 
     public function edit($id)
     {
-        $data = $this->userService->findWithTrashed($id);
+        // $data = $this->userService->findWithTrashed($id);
 
-        return response()->json($data['users'], $data['statusCode']);
+        $data = User::withTrashed()->findOrFail($id);
+
+        $role = $data->roles;
+
+        return response()->json([$data, $role], 200);
     }
 
     public function update(UserUpdateRequest $request, $id)
@@ -74,7 +81,7 @@ class UsersController extends Controller
 
         $data = $this->userService->update($requestData, $id);
 
-        return response()->json($data['users'], $data['statusCode']);
+        return response()->json($data['data'], $data['statusCode']);
     }
 
     public function moveToTrash($id)

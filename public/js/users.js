@@ -26,7 +26,7 @@ user.modalCreate = function() {
     $("#show-create-modal").css("display", "flex");
     $("#show-edit-modal").css("display", "none");
     $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
-    // user.selectRole();
+    user.selectRole();
 };
 
 user.modalEdit = function(id) {
@@ -38,11 +38,12 @@ user.modalEdit = function(id) {
         type: "GET",
         url: "/users/" + id,
         success: function(response) {
+            user.selectRoleUpdate(response[1]);
             $(".print-error-msg").css("display", "none");
-            $("#ShowModal").find("#id").val(response.id);
-            $("#ShowModal").find("#username").val(response.username);
-            $("#ShowModal").find("#email").val(response.email);
-            if (response.block == 1) {
+            $("#ShowModal").find("#id").val(response[0].id);
+            $("#ShowModal").find("#username").val(response[0].username);
+            $("#ShowModal").find("#email").val(response[0].email);
+            if (response[0].block == 1) {
                 $("#ShowModal").find("#block").prop("checked", true);
             } else {
                 $("#ShowModal").find("#block").prop("checked", false);
@@ -145,6 +146,7 @@ user.block = function(id, username) {
     }).done(function() {
         if (conf) {
             toastr.success(`Changed column block of user ${username}!`);
+            user.trashTable();
             user.drawTable();
         }
     });
@@ -152,12 +154,28 @@ user.block = function(id, username) {
 
 user.selectRole = function() {
     $.ajax({
-        url: "/select/role",
+        url: "/users/select/role",
         type: "GET",
     }).done(function(data) {
         $(".role-select").empty();
-        $.each(data, function(index, value) {
+        $.each(data, function(key, value) {
             $('.role-select').append(
+                `<option value="${value.id}">${value.name}</option>`
+            );
+        });
+    });
+};
+
+user.selectRoleUpdate = function(role) {
+    $.ajax({
+        url: "/users/select/role",
+        type: "GET",
+    }).done(function(data) {
+        $(".role-select").empty();
+        $.each(data, function(key, value) {
+            $('.role-select').append(
+                (role[key] != null && role[key].id == value.id) ?
+                `<option value="${value.id}" selected>${value.name}</option>` :
                 `<option value="${value.id}">${value.name}</option>`
             );
         });
@@ -176,7 +194,7 @@ user.printErrorMsg = function(msg) {
 
 user.init = function() {
     user.drawTable();
-    // $('.role-select').select2();
+    $('.role-select').select2();
 };
 
 $(document).ready(function() {

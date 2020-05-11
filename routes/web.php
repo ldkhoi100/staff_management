@@ -48,6 +48,7 @@ Route::view('chuc_vu', 'Chuc_vu.index');
 
 //User
 Route::group(['prefix' => '/users'], function () {
+    Route::get('/select/role', 'UsersController@selectRole');
     Route::get('/', 'UsersController@index');
     Route::get('/trash', 'UsersController@getSoftDeletes');
     Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
@@ -59,8 +60,6 @@ Route::group(['prefix' => '/users'], function () {
     Route::put('{id}', 'UsersController@update');
     Route::delete('{id}', 'UsersController@moveToTrash');
 });
-
-Route::get('/select/role', 'UsersController@selectRole');
 
 Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
