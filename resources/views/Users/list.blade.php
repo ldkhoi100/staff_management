@@ -11,10 +11,6 @@
 
     <!-- Page Heading -->
     <p class="mb-4">
-<<<<<<< HEAD
-        <button onclick="user.selectRole()">role</button>
-=======
->>>>>>> d74a4e1ac98fed932c4131475a14958a22dd441b
         <button class="btn btn-success" onclick="user.modalCreate()">Create user</button>
         <a href="{{ route('users.trash') }}" class="btn btn-danger" style="float: right">Trash</a>
     </p>
@@ -41,10 +37,6 @@
 
 @push('CRUD')
 
-<<<<<<< HEAD
-<script src="js/users/CRUDE.js"></script>
-=======
 <script src="js/users/CRUD.js"></script>
->>>>>>> d74a4e1ac98fed932c4131475a14958a22dd441b
 
 @endpush

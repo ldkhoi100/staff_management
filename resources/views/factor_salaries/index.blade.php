@@ -3,13 +3,15 @@
 <div class="container">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Factor Salary</a>
+            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Factor
+                Salary</a>
         </li>
         <li class="nav-item mx-auto">
             <a class="nav-link btn-info btn" onclick="Fs.create()">Create</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill" href="#pills-table-trash">Trash</a>
+            <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill"
+                href="#pills-table-trash">Trash</a>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
@@ -53,36 +55,41 @@
                 </tfoot>
             </table>
         </div>
-        <div id="fs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" data-backdrop="static" aria-hidden="true">
+        <div id="fs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+            data-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
                             <h5 class="modal-title text-center" id="fs-modal-title">Create Factor Salary</h5>
-                            <button class="btn btn-dark" type="button" aria-label="Close" onclick="confirm()?$('#fs-modal').modal('hide'):''">
+                            <button class="btn btn-dark" type="button" aria-label="Close"
+                                onclick="confirm()?$('#fs-modal').modal('hide'):''">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body container">
                             <div class="container">
-                            <span>Value</span><br>
-                            <input class="form-control col" type="number" min="1" max="5" name="Bac_Luong">
+                                <span>Value</span><br>
+                                <input class="form-control col" type="number" min="1" max="5" name="Bac_Luong">
                             </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btn-save" class="btn btn-success btn-block" onclick="Fs.save(this)">
-                                <i class="fa fa-save"></i> Save
-                            </button>
+                            <div class="modal-footer">
+                                <button type="button" id="btn-save" class="btn btn-success btn-block"
+                                    onclick="Fs.save(this)">
+                                    <i class="fa fa-save"></i> Save
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
 @push('script')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
-    <script src="/js/factor_salary.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js">
+</script>
+<script src="js/factor_salary.js"></script>
 @endpush
