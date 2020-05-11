@@ -91,25 +91,6 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    //
-    public function selectRole($objectname, $role)
-    {
-        $object = $this->dataRepository->findUsername($objectname);
-        $statusCode = 404;
-        $message = "Not found";
-        if ($object) {
-            $this->dataRepository->selectRole($object, $role);
-            $statusCode = 200;
-            $message = "Select role success!";
-        }
-
-        $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
-        ];
-        return $data;
-    }
-
     public function getSoftDeletes()
     {
         $objects = $this->dataRepository->getSoftDeletes();
@@ -174,22 +155,6 @@ class UserServiceImpl implements UserService
     public function findWithTrashed($id)
     {
         $object = $this->dataRepository->findWithTrashed($id);
-
-        $statusCode = 200;
-        if (!$object)
-            $statusCode = 404;
-
-        $data = [
-            'statusCode' => $statusCode,
-            'data' => $object
-        ];
-
-        return $data;
-    }
-
-    public function findUsername($objectname)
-    {
-        $object = $this->dataRepository->findUsername($objectname);
 
         $statusCode = 200;
         if (!$object)
