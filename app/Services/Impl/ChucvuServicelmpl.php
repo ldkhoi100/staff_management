@@ -16,22 +16,22 @@ class ChucvuServiceImpl implements ChucvuService
 
     public function getAll()
     {
-        $chuc_vu = $this->chuc_vu_Repository->getAll();
+        $data = $this->chuc_vu_Repository->getAll();
 
-        return  $chuc_vu;
+        return  $data;
     }
 
     public function findById($id)
     {
-        $chuc_vu = $this->chuc_vu_Repository->findById($id);
+        $data = $this->chuc_vu_Repository->findById($id);
 
-        $statusCode = 200;
-        if (!$chuc_vu)
-            $statusCode = 404;
+        $status = 200;
+        if (!$data)
+            $status = 404;
 
             $data = [
-                'statusCode' => $statusCode,
-                'chuc_vu' => $chuc_vu
+                'status' => $status,
+                'data' => $data
             ];
 
         return $data;
@@ -39,15 +39,15 @@ class ChucvuServiceImpl implements ChucvuService
 
     public function create($request)
     {
-        $chuc_vu = $this->chuc_vu_Repository->create($request);
+        $data = $this->chuc_vu_Repository->create($request);
 
-        $statusCode = 201;
-        if (!$chuc_vu)
-            $statusCode = 500;
+        $status = 201;
+        if (!$data)
+            $status = 500;
 
         $data = [
-            'statusCode' => $statusCode,
-            'chuc_vu' => $chuc_vu
+            'status' => $status,
+            'data' => $data
         ];
 
         return $data;
@@ -59,34 +59,96 @@ class ChucvuServiceImpl implements ChucvuService
 
         if (!$cu_chuc_vu) {
             $moi_chuc_vu = null;
-            $statusCode = 404;
+            $status = 404;
         } else {
-            $moi_chuc_vu = $this->customerRepository->update($request, $cu_chuc_vu);
-            $statusCode = 200;
+            $moi_chuc_vu = $this->chuc_vu_Repository->update($request, $cu_chuc_vu);
+            $status = 200;
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'chuc_vu' => $moi_chuc_vu
+            'status' => $status,
+            'data' => $moi_chuc_vu
         ];
         return $data;
     }
 
     public function destroy($id)
     {
-        $chuc_vu = $this->chuc_vu_Repository->findById($id);
+        $data = $this->chuc_vu_Repository->findById($id);
 
-        $statusCode = 404;
-        $message = "Khong tim thay nguoi dung";
-        if ($chuc_vu) {
-            $this->chuc_vu_Repository->destroy($chuc_vu);
-            $statusCode = 200;
-            $message = "Xoa thanh cong!";
+        $status = 404;
+        $msg = "Khong tim thay nguoi dung";
+        if ($data) {
+            $this->chuc_vu_Repository->destroy($data);
+            $status = 200;
+            $msg = "Xoa thanh cong!";
         }
 
         $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
+            'status' => $status,
+            'msg' => $msg
+        ];
+        return $data;
+    }
+
+    public function getSoftDeletes()
+    {
+        $chuvu = $this->chuc_vu_Repository->getSoftDeletes();
+
+        return $chuvu;
+    }
+
+    public function findOnlyTrashed($id)
+    {
+        $chucvu = $this->chuc_vu_Repository->findOnlyTrashed($id);
+        $status = 200;
+
+        if (!$chucvu)
+            $status = 404;
+
+        $data = [
+            'status' => $status,
+            'data' => $chucvu
+        ];
+
+        return $data;
+    }
+
+    public function restore($id)
+    {
+        $chucvu = $this->chuc_vu_Repository->findOnlyTrashed($id);
+
+        $status = 404;
+        $msg = "This factor salary not found";
+        if ($chucvu) {
+            $this->chuc_vu_Repository->restore($chucvu);
+            $status = 200;
+            $msg = "Restore success!";
+        }
+
+        $data = [
+            'status' => $status,
+            'msg' => $msg
+        ];
+        return $data;
+    }
+
+    public function delete($id)
+    {
+        $chucvu = $this->chuc_vu_Repository->findOnlyTrashed($id);
+
+        $status = 404;
+        $msg = "This factor salary not found";
+
+        if ($chucvu) {
+            $this->chuc_vu_Repository->delete($chucvu);
+            $status = 200;
+            $msg = "Delete success!";
+        }
+
+        $data = [
+            'status' => $status,
+            'msg' => $msg
         ];
         return $data;
     }
