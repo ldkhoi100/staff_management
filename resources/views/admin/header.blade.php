@@ -162,7 +162,7 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
-                        <a class="collapse-item" href="{{ route('chucvu.index') }}">Chức vụ</a>
+                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức vụ</a>
                     </div>
                 </div>
             </li>

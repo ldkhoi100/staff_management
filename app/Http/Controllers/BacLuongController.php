@@ -13,9 +13,9 @@ class BacLuongController extends Controller
 
     public function __construct(BacLuongService $factorSalaryService)
     {
-        // $this->middleware('auth');
-        // $this->middleware('role:admin|superAdmin')->except(['create', 'delete','restore', 'moveToTrash']);
-        // $this->middleware('role:superAdmin')->only(['create', 'delete','restore', 'moveToTrash']);
+        $this->middleware('auth');
+        // $this->middleware('role:ROLE_ADMIN')->except(['index', 'delete','restore', 'moveToTrash']);web
+        // $this->middleware('role:ROLE_SUPERADMIN')->only(['index','create', 'delete','restore', 'moveToTrash']);
         $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;
     }

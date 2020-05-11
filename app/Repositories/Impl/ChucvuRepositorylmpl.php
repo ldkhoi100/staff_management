@@ -16,4 +16,10 @@ class ChucvuRepositoryImpl extends EloquentRepository  implements ChucvuReposito
         $model = Chucvu::class;
         return $model;
     }
+    
+    public function findOnlyTrashed($id)
+    {
+        $result = $this->model->onlyTrashed($id)->where('id', $id)->first();
+        return $result;
+    }
 }
