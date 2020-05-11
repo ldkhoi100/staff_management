@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\RoleService;
+use Illuminate\Http\Request;
 
 
 class RoleController extends Controller
@@ -18,6 +18,7 @@ class RoleController extends Controller
     public function index()
     {
         $factorSalaries = $this->Role_Service->getAll();
+//        return view('Role.list',compact($factorSalaries));
 
         return response()->json($factorSalaries, 200);
     }
@@ -32,14 +33,14 @@ class RoleController extends Controller
         $data = $request->all();
         $factorSalary = $this->Role_Service->create($data);
 
-        return response()->json($factorSalary['roles'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
     public function show($id)
     {
         $factorSalary = $this->Role_Service->findById($id);
 
-        return response()->json($factorSalary['roles'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
 
@@ -47,14 +48,14 @@ class RoleController extends Controller
     {
         $factorSalary = $this->Role_Service->findById($id);
 
-        return response()->json($factorSalary['roles'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
     public function update(Request $request, $id)
     {
         $factorSalary = $this->Role_Service->update($request->all(), $id);
 
-        return response()->json($factorSalary['roles'], $factorSalary['statusCode']);
+        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
     }
 
 

@@ -9,7 +9,7 @@ class ChucVu extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'nhan_vien';
+    protected $table = 'chuc_vu';
     protected $primaryKey = 'id';
 
     protected $fillable = [

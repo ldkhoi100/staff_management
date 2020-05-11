@@ -16,7 +16,7 @@ class UsersController extends Controller
 
     public function __construct(UserService $userService)
     {
-        $this->middleware('role:ROLE_ADMIN', ['only' => ['index']]);
+        // $this->middleware('role:ROLE_ADMIN', ['only' => ['index']]);
         $this->userService = $userService;
     }
 
