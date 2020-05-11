@@ -3,16 +3,29 @@
 @section('title', 'Manager User')
 
 @section('content')
-
-{{--    @include('Role.modal.edit')--}}
     @include('Role.modal.create')
-    <div class="container-fluid">
-        <p class="mb-4">
-            <button class="btn btn-success btn-create" data-url="{{ route('role.create')  }}">Create Role</button>
-        <a href="{{route('role.trash')}}" class="btn btn-danger" style="float: right">Trash</a>
-        </p>
 
-    <!-- DataTales Example -->
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active btn-block btn btn-outline-primary" href="" data-toggle="pill" onclick="role.showData()">Roles</a>
+            </li>
+            <li class="nav-item mr-auto ml-3">
+                <a class="nav-link btn-success btn" href="javascript:void(0);" onclick="role.showModal()">Create</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn-block btn btn-outline-danger" data-toggle="pill"
+                   href="" onclick="role.RemoteTrash()">Trash</a>
+            </li>
+        </ul>
+{{--        <p class="mb-4" id="modal-title">--}}
+{{--            <a href="javascript:;" class="btn btn-info"  onclick="role.showModal()">Create</a>--}}
+{{--        </p>--}}
+
+        <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Manager user</h6>
@@ -22,21 +35,35 @@
 
             <div class="card-body">
                 <div class="table-responsive">
+                    <table class="table table-bordered" id="data" width="100%" cellspacing="0"
+                           style="font-size: 14.5px;">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dataDrawtable">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-        <div class="crud-role">
-
         </div>
 
     </div>
     <!-- /.container-fluid -->
 
+
 @endsection
 
 @push('jquery-api')
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.js"></script>
+    <script src="/js/role.js"></script>
 
-    <script src="/js/roles.js"></script>
+
 
 @endpush

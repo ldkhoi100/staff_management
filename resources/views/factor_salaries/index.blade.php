@@ -12,7 +12,7 @@
         <li class="nav-item">
             <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill"
                 href="#pills-table-trash">Trash</a>
-        </li>
+        </li>pills-table-trash
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

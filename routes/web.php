@@ -78,10 +78,18 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
 });
 
+//RolesController
+//Route::group(['prefix' => '/role'], function () {
+//    Route::view('/view', 'Role.list');
+//    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
+//    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
+//    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
+//});
 
-Route::group(['prefix' => '/role'], function () {
+Route::prefix('role')->group(function (){
+    Route::get('/trash', 'RoleController@getSoftDeletes');
     Route::view('/view', 'Role.list');
-    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
-    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
-    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
+    Route::resource('/', 'RoleController')->parameter('','id');
+    Route::put('/{id}/restore','RoleController@restore');
+    Route::delete('/{id}/delete','RoleController@delete');
 });
