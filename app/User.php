@@ -11,19 +11,15 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-
     protected $primaryKey = 'id';
-
     protected $fillable = [
         'name', 'email', 'password', 'username', 'id', 'block'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -32,7 +28,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -41,14 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     public function roles()
     {
         return $this
             ->belongsToMany("App\Model\Role")
             ->withTimestamps();
     }
-
     public function authorizeRoles($roles)
     {
         if ($this->hasAnyRole($roles)) {
@@ -56,7 +49,6 @@ class User extends Authenticatable
         }
         abort(401, 'This action is unauthorized.');
     }
-
     public function hasAnyRole($roles)
     {
         if (is_array($roles)) {
@@ -72,21 +64,18 @@ class User extends Authenticatable
         }
         return false;
     }
-
     public function hasRole($role)
     {
         $roles = explode('|', $role);
-        if (count($roles)>1) {
+        if (count($roles) > 1) {
             return $this->hasAnyRole($roles);
-        }
-        else {
-            if($this->roles()->where('name', $role)->first()) {
+        } else {
+            if ($this->roles()->where('name', $role)->first()) {
                 return true;
             }
             return false;
         }
     }
-
     public function role_user()
     {
         return $this->hasMany("App\Model\Role_User");

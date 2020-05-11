@@ -5,6 +5,7 @@ namespace App\Repositories\Impl;
 use App\Model\ChucVu;
 
 use App\User;
+use App\Model\Role;
 use App\Repositories\UserRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
@@ -42,6 +43,7 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function findWithTrashed($id)
     {
         $result = $this->model->withTrashed()->find($id);
+        // $result[1] = $result[0]->roles;
 
         return $result;
     }
