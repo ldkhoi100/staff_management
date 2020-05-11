@@ -60,7 +60,6 @@
 
 @stack('CRUD')
 @stack('jquery-api')
-
 @stack('script')
 <script>
     // Script Ckeditor 4
