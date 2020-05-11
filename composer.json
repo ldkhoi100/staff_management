@@ -14,10 +14,7 @@
         "laravel/tinker": "^2.0",
         "orangehill/iseed": "^2.6",
         "oscarafdev/migrations-generator": "2.0.18",
-<<<<<<< HEAD
         "spatie/laravel-permission": "^3.11",
-=======
->>>>>>> d74a4e1ac98fed932c4131475a14958a22dd441b
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
