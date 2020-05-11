@@ -6,7 +6,7 @@
             <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Factor
                 Salary</a>
         </li>
-        <li class="nav-item mx-auto">
+        <li class="nav-item mr-auto ml-3">
             <a class="nav-link btn-info btn" onclick="Fs.create()">Create</a>
         </li>
         <li class="nav-item">
@@ -14,6 +14,11 @@
                 href="#pills-table-trash">Trash</a>
         </li>
     </ul>
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Table Factor Salary</h6>
+        </div>
+        <div class="card-body">
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <table id="fs-table" class="table table-borderless table-hover" width="100%">
@@ -84,6 +89,9 @@
             </div>
         </div>
     </div>
+    
+</div>
+</div>
 </div>
 @endsection
 @push('script')

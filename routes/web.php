@@ -65,17 +65,19 @@ Route::get('/testDataAjax', 'TestController@usersData')->name('test.dataTable');
 // Route::get('test2', 'UserController@index2');
 // Route::post('test', 'UserController@store');..
 
-Route::group(['prefix' => '/factor-salary'], function () {
+Route::group(['prefix' => '/factor-salary', 'middleware'=>'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
     Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
-    Route::post('/', "BacLuongController@create")->name('fs.create');
-    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "BacLuongController@create")->name('fs.create');
+        Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+        Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+        Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+        Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+        Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    });
 });
 
 
