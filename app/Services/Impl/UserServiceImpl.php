@@ -4,35 +4,34 @@ namespace App\Services\Impl;
 
 use App\Repositories\UserRepository;
 use App\Services\UserService;
-use App\User;
 
 class UserServiceImpl implements UserService
 {
-    protected $userRepository;
+    protected $dataRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $dataRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->dataRepository = $dataRepository;
     }
 
     public function getAll()
     {
-        $users = $this->userRepository->getAll();
+        $objects = $this->dataRepository->getAll();
 
-        return $users;
+        return $objects;
     }
 
     public function findById($id)
     {
-        $User = $this->userRepository->findById($id);
+        $object = $this->dataRepository->findById($id);
 
         $statusCode = 200;
-        if (!$User)
+        if (!$object)
             $statusCode = 404;
 
         $data = [
             'statusCode' => $statusCode,
-            'users' => $User
+            'data' => $object
         ];
 
         return $data;
@@ -40,15 +39,15 @@ class UserServiceImpl implements UserService
 
     public function create($request)
     {
-        $User = $this->userRepository->create($request);
+        $object = $this->dataRepository->create($request);
 
         $statusCode = 201;
-        if (!$User)
+        if (!$object)
             $statusCode = 500;
 
         $data = [
             'statusCode' => $statusCode,
-            'users' => $User
+            'data' => $object
         ];
 
         return $data;
@@ -56,31 +55,31 @@ class UserServiceImpl implements UserService
 
     public function update($request, $id)
     {
-        $oldUser = $this->userRepository->findWithTrashed($id);
+        $oldData = $this->dataRepository->findWithTrashed($id);
 
-        if (!$oldUser) {
-            $newUser = null;
+        if (!$oldData) {
+            $newData = null;
             $statusCode = 404;
         } else {
-            $newUser = $this->userRepository->update($request, $oldUser);
+            $newData = $this->dataRepository->update($request, $oldData);
             $statusCode = 200;
         }
 
         $data = [
             'statusCode' => $statusCode,
-            'users' => $newUser
+            'data' => $newData
         ];
         return $data;
     }
 
     public function destroy($id)
     {
-        $User = $this->userRepository->findById($id);
+        $object = $this->dataRepository->findById($id);
 
         $statusCode = 404;
-        $message = "User not found";
-        if ($User) {
-            $this->userRepository->destroy($User);
+        $message = "Not found";
+        if ($object) {
+            $this->dataRepository->destroy($object);
             $statusCode = 200;
             $message = "Delete success!";
         }
@@ -92,40 +91,21 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    //
-    public function selectRole($username, $role)
-    {
-        $User = $this->userRepository->findUsername($username);
-        $statusCode = 404;
-        $message = "User not found";
-        if ($User) {
-            $this->userRepository->selectRole($User, $role);
-            $statusCode = 200;
-            $message = "Select role success!";
-        }
-
-        $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
-        ];
-        return $data;
-    }
-
     public function getSoftDeletes()
     {
-        $users = $this->userRepository->getSoftDeletes();
+        $objects = $this->dataRepository->getSoftDeletes();
 
-        return $users;
+        return $objects;
     }
 
     public function restore($id)
     {
-        $User = $this->userRepository->findOnlyTrashed($id);
+        $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
-        $message = "User not found";
-        if ($User) {
-            $this->userRepository->restore($User);
+        $message = "Not found";
+        if ($object) {
+            $this->dataRepository->restore($object);
             $statusCode = 200;
             $message = "Restore success!";
         }
@@ -139,12 +119,12 @@ class UserServiceImpl implements UserService
 
     public function delete($id)
     {
-        $User = $this->userRepository->findOnlyTrashed($id);
+        $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";
-        if ($User) {
-            $this->userRepository->delete($User);
+        if ($object) {
+            $this->dataRepository->delete($object);
             $statusCode = 200;
             $message = "Delete success!";
         }
@@ -158,15 +138,15 @@ class UserServiceImpl implements UserService
 
     public function findOnlyTrashed($id)
     {
-        $User = $this->userRepository->findOnlyTrashed($id);
+        $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 200;
-        if (!$User)
+        if (!$object)
             $statusCode = 404;
 
         $data = [
             'statusCode' => $statusCode,
-            'users' => $User
+            'data' => $object
         ];
 
         return $data;
@@ -174,31 +154,15 @@ class UserServiceImpl implements UserService
 
     public function findWithTrashed($id)
     {
-        $User = $this->userRepository->findWithTrashed($id);
+        $object = $this->dataRepository->findWithTrashed($id);
 
         $statusCode = 200;
-        if (!$User)
+        if (!$object)
             $statusCode = 404;
 
         $data = [
             'statusCode' => $statusCode,
-            'users' => $User
-        ];
-
-        return $data;
-    }
-
-    public function findUsername($username)
-    {
-        $User = $this->userRepository->findUsername($username);
-
-        $statusCode = 200;
-        if (!$User)
-            $statusCode = 404;
-
-        $data = [
-            'statusCode' => $statusCode,
-            'users' => $User
+            'data' => $object
         ];
 
         return $data;
@@ -206,13 +170,13 @@ class UserServiceImpl implements UserService
 
     public function blockUser($id)
     {
-        $user = $this->userRepository->findWithTrashed($id);
+        $object = $this->dataRepository->findWithTrashed($id);
 
         $statusCode = 404;
         $message = "User not found";
 
-        if ($user) {
-            $this->userRepository->blockUser($user);
+        if ($object) {
+            $this->dataRepository->blockUser($object);
             $statusCode = 200;
             $message = "Change block success!";
         }

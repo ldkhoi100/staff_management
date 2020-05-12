@@ -5,8 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "b98938aefd0838705154d634661ef69a",
-    "packages": [
-        {
+    "packages": [{
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",
             "source": {
@@ -211,8 +210,7 @@
                 "sqlserver",
                 "sqlsrv"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://www.doctrine-project.org/sponsorship.html",
                     "type": "custom"
                 },
@@ -377,8 +375,7 @@
                 "uppercase",
                 "words"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://www.doctrine-project.org/sponsorship.html",
                     "type": "custom"
                 },
@@ -891,8 +888,7 @@
                 "md",
                 "parser"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
                     "type": "custom"
                 },
@@ -999,12 +995,10 @@
                 "sftp",
                 "storage"
             ],
-            "funding": [
-                {
-                    "url": "https://offset.earth/frankdejonge",
-                    "type": "other"
-                }
-            ],
+            "funding": [{
+                "url": "https://offset.earth/frankdejonge",
+                "type": "other"
+            }],
             "time": "2020-04-16T13:21:26+00:00"
         },
         {
@@ -1155,8 +1149,7 @@
                 "datetime",
                 "time"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://opencollective.com/Carbon",
                     "type": "open_collective"
                 },
@@ -1873,14 +1866,12 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
+            "authors": [{
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            }],
             "description": "Permission handling for Laravel 5.8 and up",
             "homepage": "https://github.com/spatie/laravel-permission",
             "keywords": [
@@ -1893,12 +1884,10 @@
                 "security",
                 "spatie"
             ],
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                }
-            ],
+            "funding": [{
+                "url": "https://spatie.be/open-source/support-us",
+                "type": "custom"
+            }],
             "time": "2020-03-03T21:31:02+00:00"
         },
         {
@@ -2035,8 +2024,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2101,8 +2089,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2170,8 +2157,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2239,8 +2225,7 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2322,8 +2307,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2441,8 +2425,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2509,8 +2492,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2612,8 +2594,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2687,8 +2668,7 @@
                 "mime",
                 "mime-type"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2758,8 +2738,7 @@
                 "polyfill",
                 "portable"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2830,8 +2809,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2905,8 +2883,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2977,8 +2954,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3045,8 +3021,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3116,8 +3091,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3178,8 +3152,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3267,8 +3240,7 @@
                 "uri",
                 "url"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3413,8 +3385,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3558,8 +3529,7 @@
                 "debug",
                 "dump"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -3681,8 +3651,7 @@
                 "env",
                 "environment"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://github.com/GrahamCampbell",
                     "type": "github"
                 },
@@ -3750,20 +3719,17 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Arjay Angeles",
-                    "email": "aqangeles@gmail.com"
-                }
-            ],
+            "authors": [{
+                "name": "Arjay Angeles",
+                "email": "aqangeles@gmail.com"
+            }],
             "description": "jQuery DataTables API for Laravel 4|5",
             "keywords": [
                 "datatables",
                 "jquery",
                 "laravel"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://www.paypal.me/yajra",
                     "type": "custom"
                 },
@@ -3881,12 +3847,10 @@
                 "flare",
                 "reporting"
             ],
-            "funding": [
-                {
-                    "url": "https://www.patreon.com/spatie",
-                    "type": "patreon"
-                }
-            ],
+            "funding": [{
+                "url": "https://www.patreon.com/spatie",
+                "type": "patreon"
+            }],
             "time": "2020-03-02T15:52:04+00:00"
         },
         {
@@ -5095,8 +5059,7 @@
                 "testing",
                 "xunit"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://phpunit.de/donate.html",
                     "type": "custom"
                 },
@@ -5173,12 +5136,10 @@
                 "highlight.php",
                 "syntax"
             ],
-            "funding": [
-                {
-                    "url": "https://github.com/allejo",
-                    "type": "github"
-                }
-            ],
+            "funding": [{
+                "url": "https://github.com/allejo",
+                "type": "github"
+            }],
             "time": "2020-03-02T05:59:21+00:00"
         },
         {

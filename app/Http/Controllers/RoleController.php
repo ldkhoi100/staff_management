@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\RoleRequest;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
+
 
 
 class RoleController extends Controller
@@ -17,73 +18,75 @@ class RoleController extends Controller
 
     public function index()
     {
-        $factorSalaries = $this->Role_Service->getAll();
+        $role = $this->Role_Service->getAll();
 //        return view('Role.list',compact($factorSalaries));
 
-        return response()->json($factorSalaries, 200);
+        return response()->json($role, 200);
+    }
+    public function getSoftDeletes(){
+        $role = $this->Role_Service->getSoftDeletes();
+
+        return response()->json($role, 200);
     }
 
-    public function create()
+    public function create(RoleRequest $request)
     {
-        return view('Role.create');
+        $RoleRequest = $this->Role_Service->create($request->all());
+
+        return response()->json($RoleRequest['role'], $RoleRequest['status']);
+
+//        return view('Role.create');
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $data = $request->all();
-        $factorSalary = $this->Role_Service->create($data);
+        $role = $this->Role_Service->create($data);
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        return response()->json($role['role'], $role['statusCode']);
     }
 
     public function show($id)
     {
-        $factorSalary = $this->Role_Service->findById($id);
+        $role = $this->Role_Service->findById($id);
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        return response()->json($role['role'], $role['statusCode']);
     }
 
 
     public function edit($id)
     {
-        $factorSalary = $this->Role_Service->findById($id);
+        $role = $this->Role_Service->findById($id);
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        return response()->json($role['role'], $role['statusCode']);
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $factorSalary = $this->Role_Service->update($request->all(), $id);
+        $role = $this->Role_Service->update($request->all(), $id);
 
-        return response()->json($factorSalary['role'], $factorSalary['statusCode']);
+        return response()->json($role['role'], $role['statusCode']);
     }
 
 
     public function destroy($id)
     {
-        $factorSalary = $this->Role_Service->destroy($id);
+        $role = $this->Role_Service->destroy($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
-    }
-
-    public function getSoftDeletes()
-    {
-        $factorSalary = $this->Role_Service->getSoftDeletes();
-
-        return response()->json($factorSalary, 200);
+        return response()->json($role['message'], $role['statusCode']);
     }
 
     public function restore($id)
     {
-        $factorSalary = $this->Role_Service->restore($id);
+        $role = $this->Role_Service->restore($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
+        return response()->json($role['message'], $role['statusCode']);
     }
 
     public function delete($id)
     {
-        $factorSalary = $this->Role_Service->delete($id);
+        $role = $this->Role_Service->delete($id);
 
-        return response()->json($factorSalary['message'], $factorSalary['statusCode']);
+        return response()->json($role['message'], $role['statusCode']);
     }
 }

@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +14,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-// Admin manager
+// Admin manager layouts
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
 Route::get('/blank', 'AdminController@blank')->name('blank');
@@ -42,6 +31,25 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
+Route::resource('/chucvu', 'ChucvuController');
+Route::post('/chucvu/create', 'ChucvuController@store');
+Route::view('chuc_vu', 'Chuc_vu.index');
+
+//User
+Route::group(['prefix' => '/users'], function () {
+    Route::get('/', 'UsersController@index')->name("user.index");
+    Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
+    Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
+    Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
+    Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
+    Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
+    Route::get('/block/{id}', 'UsersController@block')->name('users.block');
+    Route::get('/{id}', 'UsersController@edit');
+    Route::post('/', 'UsersController@store')->name('users.store');
+    Route::put('/{id}', 'UsersController@update');
+    Route::delete('/{id}', 'UsersController@moveToTrash');
+});
+
 Route::group(['prefix' => '/factor-salary'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
@@ -54,43 +62,6 @@ Route::group(['prefix' => '/factor-salary'], function () {
     Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
     Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
 });
-
-//User
-Route::resource('/users', 'UsersController');
-Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
-Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
-Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
-Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
-
-Route::get('/select/role', 'UsersController@selectRole');
-
-Route::get('/test', 'TestController@index');
-Route::get('/testDataAjax', 'TestController@usersData')->name('test.dataTable');
-
-// Route::resource('test', 'UserController');
-// Route::get('edit-test/{id}', 'UserController@edit')->name('test.edit');
-// Route::get('show/{id}', 'UserController@show')->name('test.show');
-// Route::get('test2', 'UserController@index2');
-// Route::post('test', 'UserController@store');..
-
-
-
-Route::group(['prefix' => '/chuc-vu'], function () {
-    Route::get('/', "ChucvuController@index")->name('cv.index');
-    Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
-    Route::get('/trash', "ChucvuController@getTrash")->name('cv.getTrash');
-    Route::get('/{id}', "ChucvuController@findById")->name('cv.findById');
-    Route::get('/{id}/trash', "ChucvuController@findTrashById")->name('cv.findTrashById');
-    Route::post('/', "ChucvuController@create")->name('cv.create');
-    Route::put('/{id}', "ChucvuController@update")->name('cv.update');
-    Route::put('/{id}/restore', "ChucvuController@restore")->name('cv.restore');
-    Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
-    Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
-});
-
-
-
 
 Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');

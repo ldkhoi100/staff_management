@@ -18,13 +18,8 @@
                 <form>
                     <div class="form-group">
                         <label>Username:</label>
-<<<<<<< HEAD
-                        <input type="text" name="username-create" class="form-control is-invalid"
-                               placeholder="Username">
-=======
                         <input type="text" name="username-create" class="form-control create_modal"
                             placeholder="Username">
->>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
                     </div>
 
                     <div class="form-group">
@@ -39,13 +34,8 @@
                     </div>
                     <div class="form-group">
                         <strong>Confirm Password:</strong>
-<<<<<<< HEAD
-                        <input type="password" name="password_confirmation-create" class="form-control"
-                               placeholder="password">
-=======
                         <input type="password" name="password_confirmation-create"
                             class="form-control passwordConfirm create_modal" placeholder="password">
->>>>>>> 5da86670d875b43805bca95e1d1bf0a1c894c7e4
                     </div>
             </div>
 
