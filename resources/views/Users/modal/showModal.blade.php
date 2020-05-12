@@ -35,17 +35,18 @@
 
                     <div class="form-group">
                         <strong>Password:</strong>
-                        <input type="password" name="password" class="form-control create_modal" placeholder="password">
+                        <input type="password" name="password" class="form-control create_modal"
+                            placeholder="New Password">
 
                         <span class="invalid-feedback">
-                            <strong class="alert-password"></strong>
+                            <strong class="alert-password alert"></strong>
                         </span>
                     </div>
 
                     <div class="form-group">
                         <strong>Confirm Password:</strong>
                         <input type="password" name="password_confirmation" class="form-control passwordConfirm"
-                            placeholder="password">
+                            placeholder="Confirm Password">
                         <span class="invalid-feedback">
                             <strong class="alert-password" id="passwordConfirm"></strong>
                         </span>
@@ -98,6 +99,31 @@
                         <input type="email" id="email" name="email" class="form-control edit_modal">
                         <span class="invalid-feedback">
                             <strong class="alert-email"></strong>
+                        </span>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="changePassword">
+                        <label class="custom-control-label" for="changePassword">Change password</label>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Password:</strong>
+                        <input type="password" name="password" class="form-control edit_modal password"
+                            placeholder="New Password" disabled>
+
+                        <span class="invalid-feedback">
+                            <strong class="alert-password"></strong>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Confirm Password:</strong>
+                        <input type="password" name="password_confirmation"
+                            class="form-control passwordConfirm password" placeholder="Confirm Password" disabled>
+
+                        <span class="invalid-feedback">
+                            <strong class="alert-password" id="passwordConfirm"></strong>
                         </span>
                     </div>
 

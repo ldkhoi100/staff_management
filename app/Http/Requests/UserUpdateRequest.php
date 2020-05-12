@@ -25,7 +25,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'username' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9]{5,}$/', 'unique:users,username,' . $this->id],
-            'email' => ['required', 'email',  'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', 'unique:users,email,' . $this->id]
+            'email' => ['required', 'email',  'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix', 'unique:users,email,' . $this->id],
+            'password' => ['string', 'min:8', 'confirmed'],
         ];
     }
 }

@@ -5,6 +5,7 @@ user.drawTable = function() {
         url: "/users/all",
         type: "GET",
     }).done(function(res) {
+        $("#reload_table").empty();
         $("#reload_table").html(res);
         $("#dataTable").dataTable();
     });
@@ -15,6 +16,7 @@ user.trashTable = function() {
         url: "/users/trash",
         type: "GET",
     }).done(function(res) {
+        $("#reload_trash").empty();
         $("#reload_trash").html(res);
         $("#dataTableTrash").dataTable();
     });
@@ -38,7 +40,6 @@ user.modalEdit = function(id) {
         type: "GET",
         url: "/users/" + id,
         success: function(response) {
-            $(".print-error-msg").css("display", "none");
             $("#ShowModal").find("#id").val(response[0].id);
             $("#ShowModal").find("#username").val(response[0].username);
             $("#ShowModal").find("#email").val(response[0].email);
@@ -48,6 +49,22 @@ user.modalEdit = function(id) {
                 $("#ShowModal").find("#block").prop("checked", false);
             }
             user.selectRoleUpdate(response[1]);
+
+            $(".password").val("").prop("disabled", true);
+            $("#changePassword").prop("checked", false);
+            $("#changePassword").on("change", function() {
+                if ($(this).is(":checked")) {
+                    $(".password").prop("disabled", false);
+                    $(".password")
+                        .removeClass("is-invalid")
+                        .removeClass("is-valid");
+                } else {
+                    $(".password").prop("disabled", true);
+                    $(".password")
+                        .removeClass("is-invalid")
+                        .removeClass("is-valid");
+                }
+            });
         },
     });
 };
@@ -63,17 +80,20 @@ user.create = function() {
             toastr.success(`Created new user ${username}!`);
             $("#ShowModal").modal("hide");
             $(".reset_form").click();
-            $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
+            $(".create_modal")
+                .removeClass("is-invalid")
+                .removeClass("is-valid");
+            user.drawTable(); //reload table
         },
         error: function(data) {
             user.printErrorMsg(data.responseJSON.errors);
-        }
+        },
     });
-    user.drawTable(); //reload table
 };
 
 user.update = function() {
     let data = $("#modal-update").serialize();
+    console.log(data);
     var id = $("input[name='id']").val();
     var username = $("#username").val();
     $.ajax({
@@ -81,17 +101,16 @@ user.update = function() {
         type: "PUT",
         data: data,
         success: function() {
-            $(".print-error-msg").css("display", "none");
             toastr.success(`Updated user ${username}!`);
             $("#ShowModal").modal("hide");
             $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
+            user.drawTable();
+            user.trashTable();
         },
         error: function(data) {
             user.printErrorMsg(data.responseJSON.errors);
-        }
+        },
     });
-    user.drawTable();
-    user.trashTable();
 };
 
 user.destroy = function(id, username) {
@@ -157,7 +176,7 @@ user.selectRole = function() {
     }).done(function(data) {
         $(".role-select").empty();
         $.each(data, function(key, value) {
-            $('.role-select').append(
+            $(".role-select").append(
                 `<option value="${value.id}">${value.name}</option>`
             );
         });
@@ -171,8 +190,8 @@ user.selectRoleUpdate = function(role) {
     }).done(function(data) {
         $(".role-select").empty();
         $.each(data, function(key, value) {
-            $('.role-select').append(
-                (role[key] != null && role[key].id == value.id) ?
+            $(".role-select").append(
+                role[key] != null && role[key].id == value.id ?
                 `<option value="${value.id}" selected>${value.name}</option>` :
                 `<option value="${value.id}">${value.name}</option>`
             );
@@ -185,15 +204,15 @@ user.printErrorMsg = function(msg) {
     $(".edit_modal").removeClass("is-invalid").addClass("is-valid");
     toastr.warning(`The data you entered is incorrect !`);
     $.each(msg, function(key, value) {
-        $(`.alert-${key}`).text(value);
+        $(`.alert-${key}`).html(value);
         $(`input[name=${key}]`).addClass("is-invalid");
     });
-    console.clear();
+    // console.clear();
 };
 
 user.init = function() {
     user.drawTable();
-    $('.role-select').select2();
+    $(".role-select").select2();
 };
 
 $(document).ready(function() {

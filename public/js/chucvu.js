@@ -31,7 +31,6 @@ Cv.drawTable = function() {
                 data: "action"
             }
         ]
-
     });
 };
 
@@ -63,7 +62,6 @@ Cv.drawTableTrash = function() {
                 data: "action"
             }
         ]
-
     });
 };
 
