@@ -18,12 +18,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link btn-block btn btn-outline-danger" data-toggle="pill"
-                   href="" onclick="role.RemoteTrash()">Trash</a>
+                   href="javascript:;" onclick="role.RemoteTrash()">Trash</a>
             </li>
         </ul>
-{{--        <p class="mb-4" id="modal-title">--}}
-{{--            <a href="javascript:;" class="btn btn-info"  onclick="role.showModal()">Create</a>--}}
-{{--        </p>--}}
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
