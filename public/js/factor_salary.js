@@ -96,7 +96,7 @@ Fs.edit = function(id) {
         $('#fs-modal #btn-save').data('id', Obj.id);
         $('#fs-modal').modal('show');
         $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
-        $('small.badge').remove();
+        $('small.text').remove();
     }).fail(function(errors){
         Fs.errors(errors);
     });
@@ -108,7 +108,7 @@ Fs.create = function() {
     $('#fs-modal #btn-save').removeData('id');
     $('#fs-modal').modal("show");
     $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
-    $('small.badge').remove();
+    $('small.text').remove();
 }
 
 Fs.undo = function(id) {
@@ -137,8 +137,8 @@ Fs.delete = function(id) {
                 Fs.success(msg);
                 Fs.tableTrash.ajax.reload();
             },
-            error: function(errors) {       
-                Fs.errors(errors);         
+            error: function(errors) {
+                Fs.errors(errors);
             }
         });
     }
@@ -201,11 +201,11 @@ Fs.errors = function(errors) {
         $(`#fs-modal input`).each(function() {
             $(this).addClass('is-valid');
         });
-        $('small.badge').each(function() {
+        $('small.text').each(function() {
             $(this).remove();
         });
         $.each(msg, function(i, v) {
-            $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
+            $(`#fs-modal input[name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
         });
     }else{
         $('#fs-modal').modal('hide');
