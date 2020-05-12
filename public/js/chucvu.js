@@ -184,7 +184,7 @@ Cv.success = function(msg) {
         hideAfter: 5000,
         position: 'bottom-right',
         showHideTransition: 'slide',
-        icon: 'success'
+        icon: 'error'
     });
 }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ChucvuService;
-
+use App\Http\Requests\ChucvuRequest;
 class ChucvuController extends Controller
 {
 
@@ -38,14 +38,14 @@ class ChucvuController extends Controller
         return response()->json($chucvu['data'], $chucvu['status']);
     }
 
-    public function create(Request $request)
+    public function create(ChucvuRequest $request)
     {
         $chucvu = $this->chucvuService->create($request->all());
 
         return response()->json($chucvu['data'], $chucvu['status']);
     }
 
-    public function update(Request $request, $id)
+    public function update(ChucvuRequest $request, $id)
     {
         $chucvu = $this->chucvuService->update($request->all(), $id);
 
