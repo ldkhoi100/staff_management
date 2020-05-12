@@ -31,6 +31,19 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
+Route::group(['prefix' => '/chuc-vu'], function () {
+    Route::get('/', "ChucvuController@index")->name('cv.index');
+    Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
+    Route::get('/trash', "ChucvuController@getTrash")->name('cv.getTrash');
+    Route::get('/{id}', "ChucvuController@findById")->name('cv.findById');
+    Route::get('/{id}/trash', "ChucvuController@findTrashById")->name('cv.findTrashById');
+    Route::post('/', "ChucvuController@create")->name('cv.create');
+    Route::put('/{id}', "ChucvuController@update")->name('cv.update');
+    Route::put('/{id}/restore', "ChucvuController@restore")->name('cv.restore');
+    Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
+    Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
+});
+
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
