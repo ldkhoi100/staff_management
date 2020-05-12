@@ -26,7 +26,7 @@ role.showData = function () {
     });
 };
 
-role.RemoteTrash = function(){
+role.RemoteTrash = function () {
     $.ajax({
         url: '/role/trash',
         method: 'GET',
@@ -40,8 +40,8 @@ role.RemoteTrash = function(){
                     <td>${v.name}</td>
                     <td>${v.description}</td>
                     <td>
-                    <a href="javascript:;" onclick="role.undo(${v.id})"><i class="fas fa-trash-restore"></i>
-</i></a>
+                    <a href="javascript:;" onclick="role.undo(${v.id})"><i class="fas fa-trash-restore"></i></a>
+
                    <a href="javascript:;" onclick="role.delete(${v.id})"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
@@ -53,9 +53,9 @@ role.RemoteTrash = function(){
     });
 };
 
-role.undo = function(id) {
+role.undo = function (id) {
     $.ajax({
-        url: '/role/' + id + '/restore',
+        url: '/role/' + id + "/restore",
         method: 'PUT',
         success: function (data) {
             bootbox.alert("Khôi phục thành công");
@@ -65,7 +65,7 @@ role.undo = function(id) {
     });
 };
 
-    role.getDetail = function (id) {
+role.getDetail = function (id) {
     $.ajax({
         url: '/role/' + id,
         method: "GET",
@@ -127,7 +127,7 @@ role.remove = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: '/role/' + id ,
+                    url: '/role/' + id,
                     method: "DELETE",
                     dataType: "json",
                     contentType: 'application/json',
@@ -142,7 +142,7 @@ role.remove = function (id) {
 };
 
 
-role.resetForm = function(){
+role.resetForm = function () {
     $('#name').val("");
     $('#description').val("");
     $('#Roles').val("0");
@@ -180,7 +180,7 @@ role.save = function () {
                     $('#addRole').modal('hide');
 
                 },
-                error: function(errors) {
+                error: function (errors) {
                     console.log(errors);
                     role.errors(errors.responseJSON.errors);
 
@@ -196,7 +196,7 @@ role.save = function () {
             objectEdit.description = $('#description').val();
             objectEdit.id = $('#Roles').val();
             $.ajax({
-                url:'/role/' + objectEdit.id,
+                url: '/role/' + objectEdit.id,
                 method: 'PUT',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -208,7 +208,7 @@ role.save = function () {
                     // console.log('fdhg');
 
                 },
-                error: function(errors) {
+                error: function (errors) {
                     role.errors(errors.responseJSON.errors);
                 }
             })
@@ -217,16 +217,16 @@ role.save = function () {
     }
 };
 
-role.errors = function(msg) {
+role.errors = function (msg) {
     console.log(msg);
-    $(`#addRole input`).each(function() {
+    $(`#addRole input`).each(function () {
         $(this).addClass('is-valid');
     });
-    $('small.badge').each(function() {
+    $('small.badge').each(function () {
         console.log(this);
         $(this).remove();
     });
-    $.each(msg, function(i, v) {
+    $.each(msg, function (i, v) {
         $(`#addRole input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
     });
 };
