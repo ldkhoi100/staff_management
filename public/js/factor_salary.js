@@ -213,7 +213,6 @@ Fs.errors = function(errors) {
     }
 }
 
-
 Fs.init = function() {
     Fs.drawTable();
     Fs.drawTableTrash();

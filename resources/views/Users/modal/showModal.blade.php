@@ -51,12 +51,12 @@
                         </span>
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <strong>Role:</strong> <br>
                         <select name="roles[]" id="roles" class="form-control role-select" multiple="multiple">
-                            <option value="" class="role-option"></option>
+
                         </select>
-                    </div> --}}
+                    </div>
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="blockUser" name="block">
@@ -99,6 +99,13 @@
                         <span class="invalid-feedback">
                             <strong class="alert-email"></strong>
                         </span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Role:</strong> <br>
+                        <select name="roles[]" id="roles" class="form-control role-select" multiple="multiple">
+
+                        </select>
                     </div>
 
                     <div class="custom-control custom-checkbox">

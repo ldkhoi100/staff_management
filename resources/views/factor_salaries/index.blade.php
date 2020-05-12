@@ -12,7 +12,7 @@
         <li class="nav-item">
             <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill"
                 href="#pills-table-trash">Trash</a>
-        </li>
+        </li>pills-table-trash
     </ul>
     <div class="card shadow-lg">
         <div class="card-header">
