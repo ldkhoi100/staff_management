@@ -28,7 +28,7 @@ class UsersController extends Controller
     {
         $users = $this->userService->getAll();
 
-        return view('users.list', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     public function indexAjax()
@@ -110,8 +110,8 @@ class UsersController extends Controller
 
     public function block($id)
     {
-        $this->userService->blockUser($id);
+        $data = $this->userService->blockUser($id);
 
-        return response()->json(['success' => 'Updated this user.']);
+        return response()->json($data['message'], $data['statusCode']);
     }
 }
