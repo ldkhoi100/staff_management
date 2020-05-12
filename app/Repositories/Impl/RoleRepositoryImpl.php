@@ -16,7 +16,7 @@ class RoleRepositoryImpl extends EloquentRepository implements RoleRepository
 
     public function findOnlyTrashed($id)
     {
-        $result = $this->model->onlyTrashed($id)->where('id', $id)->first();
+        $result = $this->model->onlyTrashed()->find($id);
         return $result;
     }
 }

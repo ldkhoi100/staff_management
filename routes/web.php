@@ -31,41 +31,50 @@ Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
 
-Route::resource('/chucvu', 'ChucvuController');
-Route::post('/chucvu/create', 'ChucvuController@store');
-Route::view('chuc_vu', 'Chuc_vu.index');
-
-//User
-Route::group(['prefix' => '/users'], function () {
-    Route::get('/', 'UsersController@index')->name("user.index");
-    Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
-    Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
-    Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
-    Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
-    Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
-    Route::get('/block/{id}', 'UsersController@block')->name('users.block');
-    Route::get('/{id}', 'UsersController@edit');
-    Route::post('/', 'UsersController@store')->name('users.store');
-    Route::put('/{id}', 'UsersController@update');
-    Route::delete('/{id}', 'UsersController@moveToTrash');
+Route::group(['prefix' => '/chuc-vu'], function () {
+    Route::get('/', "ChucvuController@index")->name('cv.index');
+    Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
+    Route::get('/trash', "ChucvuController@getTrash")->name('cv.getTrash');
+    Route::get('/{id}', "ChucvuController@findById")->name('cv.findById');
+    Route::get('/{id}/trash', "ChucvuController@findTrashById")->name('cv.findTrashById');
+    Route::post('/', "ChucvuController@create")->name('cv.create');
+    Route::put('/{id}', "ChucvuController@update")->name('cv.update');
+    Route::put('/{id}/restore', "ChucvuController@restore")->name('cv.restore');
+    Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
+    Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
-Route::group(['prefix' => '/factor-salary'], function () {
+//User
+Route::resource('/users', 'UsersController');
+Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
+Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
+Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
+Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
+Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+
+Route::get('/select/role', 'UsersController@selectRole');
+
+
+Route::group(['prefix' => '/factor-salary', 'middleware'=>'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
     Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
-    Route::post('/', "BacLuongController@create")->name('fs.create');
-    Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-    Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-    Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-    Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "BacLuongController@create")->name('fs.create');
+        Route::put('/{id}', "BacLuongController@update")->name('fs.update');
+        Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
+        Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
+        Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
+        Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+    });
 });
 
+
 Route::group(['prefix' => '/role'], function () {
+    Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');
     Route::view('/view', 'Role.list');
-    Route::resource('/', 'RolesController')->names('role')->parameter('', 'id');
-    Route::get('trash', 'RolesController@getSoftDeletes')->name('role.trash');
-    Route::get('/role/restore', 'RolesController@restore')->name('role.restore');
+    Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
+    Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
+    Route::delete('/{id}/delete' , 'RoleController@delete')->name('role.delete');
 });
