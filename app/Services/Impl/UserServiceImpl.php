@@ -122,7 +122,7 @@ class UserServiceImpl implements UserService
         $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
-        $message = "User not found";
+        $message = "Not found";
         if ($object) {
             $this->dataRepository->delete($object);
             $statusCode = 200;
@@ -173,12 +173,12 @@ class UserServiceImpl implements UserService
         $object = $this->dataRepository->findWithTrashed($id);
 
         $statusCode = 404;
-        $message = "User not found";
+        $message = "Not found";
 
         if ($object) {
             $this->dataRepository->blockUser($object);
             $statusCode = 200;
-            $message = "Change block success!";
+            $message = "Change column block success!";
         }
 
         $data = [

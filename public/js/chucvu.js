@@ -31,7 +31,6 @@ Cv.drawTable = function() {
                 data: "action"
             }
         ]
-
     });
 };
 
@@ -63,7 +62,6 @@ Cv.drawTableTrash = function() {
                 data: "action"
             }
         ]
-
     });
 };
 
@@ -184,7 +182,7 @@ Cv.success = function(msg) {
         hideAfter: 5000,
         position: 'bottom-right',
         showHideTransition: 'slide',
-        icon: 'success'
+        icon: 'error'
     });
 }
 
@@ -215,5 +213,9 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+<<<<<<< HEAD
+});
+=======
 });
 
+>>>>>>> e2ac1cf48f2c1a073034bedb0f8b5e1acf3dbbbb
