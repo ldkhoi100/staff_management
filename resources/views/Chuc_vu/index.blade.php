@@ -21,7 +21,6 @@
                     <tr>
                         <th>Tên Chức Vụ</th>
                         <th>Tên Công Việc</th>
-
                         <th>Action</th>
                     </tr>
                 </thead>
