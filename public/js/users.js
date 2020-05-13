@@ -8,9 +8,9 @@ user.drawTable = function() {
             $("#reload_table").html(res);
             $("#dataTable").dataTable();
         },
-        error: function() {
-            if (data.status = 401) {
-                toastr.error("You don't have permission !");
+        error: function(data) {
+            if (data.status = 500) {
+                swal("Unauthorized", "You don't have permission !", "error");
             }
         }
     });
@@ -24,9 +24,9 @@ user.trashTable = function() {
             $("#reload_trash").html(res);
             $("#dataTableTrash").dataTable();
         },
-        error: function() {
-            if (data.status = 401) {
-                toastr.error("You don't have permission !");
+        error: function(data) {
+            if (data.status = 500) {
+                swal("Unauthorized", "You don't have permission !", "error");
             }
         }
     });

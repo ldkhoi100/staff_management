@@ -85,8 +85,6 @@ class UsersController extends Controller
     {
         $requestData = $request->except('id', 'block', 'roles');
         $requestData['block'] = $request->block ? 1 : 0;
-        // $check = User::where('id', $id)->where('hash', $request->hash)->first();
-        // dd($check);
         $data = $this->userService->update([$requestData, $request->roles], $id, $request->hash);
 
         return response()->json($data['data'], $data['statusCode']);
