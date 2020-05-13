@@ -5,9 +5,9 @@ namespace App\Repositories\Impl;
 use App\Model\ChucVu;
 
 use App\User;
-use App\Model\Role;
 use App\Repositories\UserRepository;
 use App\Repositories\Eloquent\EloquentRepository;
+use Auth;
 
 class UserRepositoryImpl extends EloquentRepository implements UserRepository
 {
@@ -19,6 +19,22 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     {
         $model = User::class;
         return $model;
+    }
+
+    public function getAll()
+    {
+        if (Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
+            $result = User::where('id', '<>', Auth::user()->id)->get();
+        } elseif (Auth::user()->roles[0]->name == "ROLE_ADMIN") {
+            $users = $this->model->where('id', '<>', Auth::user()->id)->get();
+            $result = [];
+            foreach ($users as $user) {
+                if (count($user->roles) == 0) {
+                    $result[] = $user;
+                }
+            }
+        }
+        return $result;
     }
 
     public function create($data)

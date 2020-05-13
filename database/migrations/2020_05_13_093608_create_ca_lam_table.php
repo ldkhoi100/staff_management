@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePermissionsTable extends Migration {
+class CreateCaLamTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,13 @@ class CreatePermissionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('permissions', function(Blueprint $table)
+		Schema::create('ca_lam', function(Blueprint $table)
 		{
-			$table->integer('id', true);
-			$table->string('name');
+			$table->integer('id')->primary();
+			$table->integer('Ten_Ca');
+			$table->integer('He_So_Ca');
+			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
@@ -27,7 +30,7 @@ class CreatePermissionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('permissions');
+		Schema::drop('ca_lam');
 	}
 
 }

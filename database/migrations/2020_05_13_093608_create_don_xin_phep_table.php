@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChucVuTable extends Migration {
+class CreateDonXinPhepTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateChucVuTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('chuc_vu', function(Blueprint $table)
+		Schema::create('don_xin_phep', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('Ten_CV');
-			$table->string('Cong_Viec');
+			$table->integer('MaNV')->default(1)->index('MaNV');
+			$table->string('TieuDe');
+			$table->text('NoiDung', 65535);
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -30,7 +31,7 @@ class CreateChucVuTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('chuc_vu');
+		Schema::drop('don_xin_phep');
 	}
 
 }

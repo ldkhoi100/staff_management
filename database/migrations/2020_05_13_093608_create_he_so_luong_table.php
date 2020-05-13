@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNghiPhepTable extends Migration {
+class CreateHeSoLuongTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,10 @@ class CreateNghiPhepTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('nghi_phep', function(Blueprint $table)
+		Schema::create('he_so_luong', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('MaNV')->index('MaNV');
-			$table->dateTime('Tu_Ngay')->nullable();
-			$table->dateTime('Den_Ngay')->nullable();
+			$table->decimal('He_So_Luong', 2, 1)->unique('Bac_Luong');
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -31,7 +29,7 @@ class CreateNghiPhepTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('nghi_phep');
+		Schema::drop('he_so_luong');
 	}
 
 }

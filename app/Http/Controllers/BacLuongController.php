@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FactorSalary;
+use App\Http\Requests\FactorSalaryRequest;
 use App\Services\BacLuongService;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class BacLuongController extends Controller
 
     public function __construct(BacLuongService $factorSalaryService)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         // $this->middleware('role:ROLE_ADMIN')->except(['index', 'delete','restore', 'moveToTrash']);web
         // $this->middleware('role:ROLE_SUPERADMIN')->only(['index','create', 'delete','restore', 'moveToTrash']);
         $this->middleware('AjaxRequest')->except('index');
@@ -39,14 +39,14 @@ class BacLuongController extends Controller
         return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
-    public function create(FactorSalary $request)
+    public function create(FactorSalaryRequest $request)
     {
         $factorSalary = $this->factorSalaryService->create($request->all());
 
         return response()->json($factorSalary['data'], $factorSalary['status']);
     }
 
-    public function update(FactorSalary $request, $id)
+    public function update(FactorSalaryRequest $request, $id)
     {
         $factorSalary = $this->factorSalaryService->update($request->all(), $id);
 

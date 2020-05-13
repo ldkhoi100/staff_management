@@ -4,15 +4,10 @@ user.drawTable = function() {
     $.ajax({
         url: "/users/all",
         type: "GET",
-        success: function(res) {
-            $("#reload_table").html(res);
-            $("#dataTable").dataTable();
-        },
-        error: function() {
-            if (data.status = 401) {
-                toastr.error("You don't have permission !");
-            }
-        }
+    }).done(function(res) {
+        $("#reload_table").empty();
+        $("#reload_table").html(res);
+        $("#dataTable").dataTable();
     });
 };
 
@@ -20,15 +15,10 @@ user.trashTable = function() {
     $.ajax({
         url: "/users/trash",
         type: "GET",
-        success: function(res) {
-            $("#reload_trash").html(res);
-            $("#dataTableTrash").dataTable();
-        },
-        error: function() {
-            if (data.status = 401) {
-                toastr.error("You don't have permission !");
-            }
-        }
+    }).done(function(res) {
+        $("#reload_trash").empty();
+        $("#reload_trash").html(res);
+        $("#dataTableTrash").dataTable();
     });
 };
 
@@ -38,7 +28,6 @@ user.modalCreate = function() {
     $("#show-create-modal").css("display", "flex");
     $("#show-edit-modal").css("display", "none");
     $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
-    $(".btn-create").prop("disabled", false);
     user.selectRole();
 };
 
@@ -47,7 +36,6 @@ user.modalEdit = function(id) {
     $(".edit_modal").removeClass("is-invalid").removeClass("is-valid"); // Remove all class is-invalid and is-valid
     $("#show-create-modal").css("display", "none"); // Hide modal create
     $("#show-edit-modal").css("display", "flex"); // Show modal update
-    $(".btn-edit").prop("disabled", false);
     $.ajax({
         type: "GET",
         url: "/users/" + id,
@@ -60,6 +48,7 @@ user.modalEdit = function(id) {
             } else {
                 $("#ShowModal").find("#block").prop("checked", false);
             }
+
             // more
             user.selectRoleUpdate(response[1]);
             $(".password").val("").prop("disabled", true);
@@ -84,23 +73,18 @@ user.modalEdit = function(id) {
                 }
             });
         },
-        error: function() {
-            if (data.status = 401) {
-                toastr.error("You don't have permission !");
-            }
-        }
     });
 };
 
 user.create = function() {
     let data = $("#modal-create").serialize();
+    var username = $("#username-create").val();
     $.ajax({
         url: "/users",
         type: "POST",
         data: data,
-        success: function(response) {
-            toastr.success(`Created new user ${response.username}!`);
-            $(".btn-create").prop("disabled", true);
+        success: function() {
+            toastr.success(`Created new user ${username}!`);
             $("#ShowModal").modal("hide");
             $(".reset_form").click();
             $(".create_modal")
@@ -109,68 +93,43 @@ user.create = function() {
             user.drawTable();
         },
         error: function(data) {
-            if (data.status == 401) {
-                toastr.error("You don't have permission !");
-            } else if (data.status == 422) {
-                user.printErrorMsg(data.responseJSON.errors);
-            }
+            user.printErrorMsg(data.responseJSON.errors);
         },
     });
 };
 
 user.update = function() {
     let data = $("#modal-update").serialize();
+    console.log(data);
     var id = $("input[name='id']").val();
+    var username = $("#username").val();
     $.ajax({
         url: "/users/" + id,
         type: "PUT",
         data: data,
-        success: function(response) {
-            toastr.success(`Updated user ${response.username}!`);
+        success: function() {
+            toastr.success(`Updated user ${username}!`);
             $("#ShowModal").modal("hide");
             $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
-            $(".btn-edit").prop("disabled", true);
             user.drawTable();
             user.trashTable();
         },
         error: function(data) {
-            if (data.status == 401) {
-                toastr.error("You don't have permission !");
-            } else if (data.status == 422) {
-                user.printErrorMsg(data.responseJSON.errors);
-            }
+            user.printErrorMsg(data.responseJSON.errors);
         },
-    });
-};
-
-user.alertDestroy = function(id, username) {
-    swal({
-        title: `Do you want remove user ${username}?`,
-        text: "You can restore this user in the trash !",
-        icon: "warning",
-        buttons: ['No, cancel it!', 'Yes, I am sure!'],
-        dangerMode: true,
-    }).then(function(isConfirm) {
-        if (isConfirm) {
-            user.destroy(isConfirm, id, username);
-            swal('Removed!', `User ${username} are successfully removed!`, 'success').then(function() {});
-        } else {
-            swal("Cancelled", "This user is safe :)", "error");
-        }
     });
 };
 
 user.destroy = function(id, username) {
+    var conf = confirm(`Do you want remove user ${username}?`);
     $.ajax({
         url: "/users/" + id,
         type: "DELETE",
-        success: function() {
+    }).done(function() {
+        if (conf) {
+            user.drawTable(); //reload table
             user.trashTable();
-            user.drawTable();
             toastr.success(`Removed user ${username}!`);
-        },
-        error: function() {
-            toastr.error("You don't have permission !");
         }
     });
 };
@@ -180,15 +139,11 @@ user.restore = function(id, username) {
     $.ajax({
         url: "/users/restore/" + id,
         type: "GET",
-        success: function() {
-            if (conf) {
-                user.trashTable();
-                user.drawTable();
-                toastr.success(`Restored user ${username}!`);
-            }
-        },
-        error: function() {
-            toastr.error("You don't have permission !");
+    }).done(function() {
+        if (conf) {
+            user.drawTable(); //reload table
+            user.trashTable();
+            toastr.success(`Restored user ${username}!`);
         }
     });
 };
@@ -198,15 +153,11 @@ user.forceDelete = function(id, username) {
     $.ajax({
         url: "/users/delete/" + id,
         type: "GET",
-        success: function() {
-            if (conf) {
-                user.trashTable();
-                user.drawTable();
-                toastr.success(`Deleted user ${username}!`);
-            }
-        },
-        error: function() {
-            toastr.error("You don't have permission !");
+    }).done(function() {
+        if (conf) {
+            user.drawTable(); //reload table
+            user.trashTable();
+            toastr.success(`Deleted user ${username}!`);
         }
     });
 };
@@ -216,15 +167,11 @@ user.block = function(id, username) {
     $.ajax({
         url: "users/block/" + id,
         type: "get",
-        success: function() {
-            if (conf) {
-                user.trashTable();
-                user.drawTable();
-                toastr.success(`Changed column block of user ${username}!`);
-            }
-        },
-        error: function() {
-            toastr.error("You don't have permission !");
+    }).done(function() {
+        if (conf) {
+            user.trashTable();
+            user.drawTable();
+            toastr.success(`Changed column block of user ${username}!`);
         }
     });
 };
@@ -235,9 +182,11 @@ user.selectRole = function() {
         type: "GET",
     }).done(function(data) {
         $(".role-select").empty();
-        $(".role-select").append(
-            `<option value="${data.id}">${data.name}</option>`
-        );
+        $.each(data, function(key, value) {
+            $(".role-select").append(
+                `<option value="${value.id}">${value.name}</option>`
+            );
+        });
     });
 };
 
@@ -247,9 +196,13 @@ user.selectRoleUpdate = function(role) {
         type: "GET",
     }).done(function(data) {
         $(".role-select").empty();
-        $(".role-select").append(role[0] != null && role[0].id == data.id ? `<option value="${data.id}" selected>${data.name}</option>` :
-            `<option value="${data.id}">${data.name}</option>`
-        );
+        $.each(data, function(key, value) {
+            $(".role-select").append(
+                role[key] != null && role[key].id == value.id ?
+                `<option value="${value.id}" selected>${value.name}</option>` :
+                `<option value="${value.id}">${value.name}</option>`
+            );
+        });
     });
 };
 
@@ -261,34 +214,11 @@ user.printErrorMsg = function(msg) {
         $(`.alert-${key}`).html(value);
         $(`input[name=${key}]`).addClass("is-invalid");
     });
-};
-
-user.sweetalert = function() {
-    swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: [
-            'No, cancel it!',
-            'Yes, I am sure!'
-        ],
-        dangerMode: true,
-    }).then(function(isConfirm) {
-        if (isConfirm) {
-            swal({
-                title: 'Shortlisted!',
-                text: 'Candidates are successfully shortlisted!',
-                icon: 'success'
-            }).then(function() {});
-        } else {
-            swal("Cancelled", "Your imaginary file is safe :)", "error");
-        }
-    });
+    // console.clear();
 };
 
 user.init = function() {
     user.drawTable();
-    user.trashTable();
     $(".role-select").select2();
 };
 
