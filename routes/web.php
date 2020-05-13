@@ -50,17 +50,16 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
     Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
     Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
     Route::get('/{id}', 'UsersController@edit');
+    Route::post('/', 'UsersController@store')->name('users.store');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
         Route::get('/block/{id}', 'UsersController@block')->name('users.block');
         Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
         Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
-        Route::post('/', 'UsersController@store')->name('users.store');
         Route::put('/{id}', 'UsersController@update');
         Route::delete('/{id}', 'UsersController@moveToTrash');
     });
 });
-
 
 Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
