@@ -6,7 +6,6 @@ Fs.tableTrash;
 Fs.drawTable = function() {
     Fs.table = $('#fs-table').DataTable({
         processing: true,
-        // serverSide: true,
         ajax: {
             url: '/factor-salary/all',
             dataSrc: function(jsons) {
@@ -39,7 +38,6 @@ Fs.drawTable = function() {
 Fs.drawTableTrash = function() {
     Fs.tableTrash = $('#fs-table-trash').DataTable({
         processing: true,
-        // serverSide: true,
         ajax: {
             url: '/factor-salary/trash',
             dataSrc: function(jsons) {
@@ -171,7 +169,7 @@ Fs.save = function(btn) {
                 url: `/factor-salary`,
                 method: 'post',
                 data: data,
-                success: function() {
+                success: function(data) {
                     Fs.table.ajax.reload();
                     $('#fs-modal').modal("hide");
                     Fs.success("Create success");
