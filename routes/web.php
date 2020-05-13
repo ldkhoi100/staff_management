@@ -44,6 +44,29 @@ Route::group(['prefix' => '/chuc-vu'], function () {
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
+
+
+Route::group(['prefix' => '/donxinphep'], function () {
+    Route::get('/', "DonXinPhepController@index")->name('dxp.index');
+    Route::get('/all', "DonXinPhepController@getAll")->name('dxp.getAll');
+    Route::get('/trash', "DonXinPhepController@getTrash")->name('dxp.getTrash');
+    Route::get('/{id}', "DonXinPhepController@findById")->name('dxp.findById');
+    Route::get('/{id}/trash', "DonXinPhepController@findTrashById")->name('dxp.findTrashById');
+    Route::post('/', "DonXinPhepController@create")->name('dxp.create');
+    Route::put('/{id}', "DonXinPhepController@update")->name('dxp.update');
+    Route::put('/{id}/restore', "DonXinPhepController@restore")->name('dxp.restore');
+    Route::delete('/{id}', "DonXinPhepController@moveToTrash")->name('dxp.moveToTrash');
+    Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
+});
+
+
+
+
+
+
+
+
+
 //User
 Route::resource('/users', 'UsersController');
 Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');

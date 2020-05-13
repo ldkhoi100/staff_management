@@ -21,8 +21,17 @@ class NhanVien extends Model
         return $this->belongsTo("App\Model\LuongCoBan", 'LuongCB', 'id');
     }
 
+
     public function cham_cong()
     {
         return $this->hasMany("App\Model\ChamCong", 'Ma_NV', 'id');
     }
+
+    public function don_xin_phep()
+    {
+        return $this->belongsTo("App\Model\DonXinPhep", 'MaNV', 'id');
+    }
+
+
+
 }

@@ -24,8 +24,17 @@ use App\Services\BacLuongService;
 use App\Repositories\BacLuongRepository;
 use App\Repositories\ChucvuRepository;
 use App\Repositories\Impl\ChucvuRepositoryImpl;
+
+use App\Repositories\DonXinPhepRepository;
+use App\Repositories\Impl\DonXinPhepRepositoryImpl;
+
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
+
+
+use App\Services\DonXinPhepService;
+use App\Services\Impl\DonXinPhepServiceImpl;
+
 use App\Services\ChucvuService;
 use App\Services\Impl\ChucvuServiceImpl;
 
@@ -93,5 +102,21 @@ class AppServiceProvider extends ServiceProvider
             ChucvuRepository::class,
             ChucvuRepositoryImpl::class
         );
+
+
+        $this->app->singleton(
+            DonXinPhepService::class,
+            DonXinPhepServiceImpl::class
+        );
+
+        $this->app->singleton(
+            DonXinPhepRepository::class,
+            DonXinPhepRepositoryImpl::class
+        );
+
+
+
+
+
     }
 }
