@@ -61,8 +61,8 @@
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
-                            <h5 class="modal-title text-center" id="fs-modal-title">Create Factor Salary</h5>
-                            <button class="btn btn-dark" type="button" aria-label="Close"
+                            <h5 >Create Factor Salary</h5>
+                             <button class="btn btn-dark" type="button" aria-label="Close"
                                 onclick="confirm()?$('#fs-modal').modal('hide'):''">
                                 <span aria-hidden="true">&times;</span>
                             </button>
