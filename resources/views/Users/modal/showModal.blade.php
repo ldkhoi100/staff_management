@@ -16,8 +16,7 @@
                 <form id="modal-create">
                     <div class="form-group">
                         <label>Username:</label>
-                        <input type="text" name="username" id="username-create" class="form-control create_modal"
-                            placeholder="Username">
+                        <input type="text" name="username" class="form-control create_modal" placeholder="Username">
 
                         <span class="invalid-feedback">
                             <strong class="alert-username"></strong>
@@ -68,7 +67,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="reset" class="btn btn-warning reset_form">Reset</button>
-                <button type="button" class="btn btn-primary" onclick="user.create()">Create</button>
+                <button type="button" class="btn btn-primary btn-create" onclick="user.create()">Create</button>
                 </form>
             </div>
 
@@ -143,7 +142,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-edit" onclick="user.update()">Save changes</button>
+                <button type="button" class="btn btn-primary btn-edit" onclick="user.update()">Save
+                    changes</button>
                 </form>
             </div>
         </div>

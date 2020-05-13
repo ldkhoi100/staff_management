@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Model\Role;
 use App\Services\UserService;
 use Validator;
-use Illuminate\Http\Request;
 use App\User;
 use Hash;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Services\RoleService;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -19,7 +19,8 @@ class UsersController extends Controller
 
     public function __construct(UserService $userService, RoleService $roleService)
     {
-        // $this->middleware('role:ROLE_ADMIN', ['only' => ['index']]);
+        $this->middleware('auth');
+        $this->middleware('AjaxRequest')->except('index');
         $this->userService = $userService;
         $this->roleService = $roleService;
     }
@@ -41,9 +42,9 @@ class UsersController extends Controller
 
     public function selectRole()
     {
-        $roles = $this->roleService->getAll();
+        $roles = $this->roleService->findById(1);
 
-        return response()->json($roles, 200);
+        return response()->json($roles['role'], $roles['statusCode']);
     }
 
     // public function show($id)

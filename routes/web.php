@@ -45,17 +45,24 @@ Route::group(['prefix' => '/chuc-vu'], function () {
 });
 
 //User
-Route::resource('/users', 'UsersController');
-Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
-Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
-Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
-Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
+Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+    Route::get('/', 'UsersController@index')->name("user.index");
+    Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
+    Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
+    Route::get('/{id}', 'UsersController@edit');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
+        Route::get('/block/{id}', 'UsersController@block')->name('users.block');
+        Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
+        Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
+        Route::post('/', 'UsersController@store')->name('users.store');
+        Route::put('/{id}', 'UsersController@update');
+        Route::delete('/{id}', 'UsersController@moveToTrash');
+    });
+});
 
-Route::get('/select/role', 'UsersController@selectRole');
 
-
-Route::group(['prefix' => '/factor-salary', 'middleware'=>'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
@@ -76,5 +83,5 @@ Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
-    Route::delete('/{id}/delete' , 'RoleController@delete')->name('role.delete');
+    Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
 });
