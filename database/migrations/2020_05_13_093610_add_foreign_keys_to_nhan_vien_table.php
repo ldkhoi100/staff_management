@@ -15,8 +15,8 @@ class AddForeignKeysToNhanVienTable extends Migration {
 		Schema::table('nhan_vien', function(Blueprint $table)
 		{
 			$table->foreign('MaCV', 'nhan_vien_ibfk_1')->references('id')->on('chuc_vu')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('Ma_Luong', 'nhan_vien_ibfk_2')->references('id')->on('bac_luong')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('id', 'nhan_vien_ibfk_6')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('He_So_Luong', 'nhan_vien_ibfk_7')->references('id')->on('he_so_luong')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -31,8 +31,8 @@ class AddForeignKeysToNhanVienTable extends Migration {
 		Schema::table('nhan_vien', function(Blueprint $table)
 		{
 			$table->dropForeign('nhan_vien_ibfk_1');
-			$table->dropForeign('nhan_vien_ibfk_2');
 			$table->dropForeign('nhan_vien_ibfk_6');
+			$table->dropForeign('nhan_vien_ibfk_7');
 		});
 	}
 

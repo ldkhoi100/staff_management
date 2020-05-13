@@ -148,68 +148,31 @@ user.alertDestroy = function(id, username) {
         title: `Do you want remove user ${username}?`,
         text: "You can restore this user in the trash !",
         icon: "warning",
-        buttons: [
-            'No, cancel it!',
-            'Yes, I am sure!'
-        ],
+        buttons: ['No, cancel it!', 'Yes, I am sure!'],
         dangerMode: true,
     }).then(function(isConfirm) {
         if (isConfirm) {
-            swal({
-                title: 'Removed!',
-                text: `User ${username} are successfully removed!`,
-                icon: 'success'
-            }).then(function() {
-                user.destroy(isConfirm, id, username);
-            });
+            user.destroy(isConfirm, id, username);
+            swal('Removed!', `User ${username} are successfully removed!`, 'success').then(function() {});
         } else {
-            swal("Cancelled", "Your imaginary file is safe :)", "error");
+            swal("Cancelled", "This user is safe :)", "error");
         }
     });
 };
 
-user.destroy = function(isConfirm, id, username) {
-    // var conf = confirm(`Do you want remove user ${username}?`);
-    // // var conf = user.sweetalert();
-    // swal({
-    //     title: `Do you want remove user ${username}?`,
-    //     text: "You can restore this user in the trash !",
-    //     icon: "warning",
-    //     buttons: [
-    //         'No, cancel it!',
-    //         'Yes, I am sure!'
-    //     ],
-    //     dangerMode: true,
-    // }).then(function(isConfirm) {
-    //     if (isConfirm) {
-    //         swal({
-    //             title: 'Removed!',
-    //             text: `User ${username} are successfully removed!`,
-    //             icon: 'success'
-    //         }).then(function() {
-    // var conf = user.sweetalert();
-    // console.log(isConfirm);
-    if (isConfirm) {
-        $.ajax({
-            url: "/users/" + id,
-            type: "DELETE",
-            success: function() {
-                user.trashTable();
-                user.drawTable();
-                toastr.success(`Removed user ${username}!`);
-
-            },
-            error: function() {
-                toastr.error("You don't have permission !");
-            }
-        });
-    }
-    // });
-    // }
-    // else {
-    //     swal("Cancelled", "Your imaginary file is safe :)", "error");
-    // }
-    // });
+user.destroy = function(id, username) {
+    $.ajax({
+        url: "/users/" + id,
+        type: "DELETE",
+        success: function() {
+            user.trashTable();
+            user.drawTable();
+            toastr.success(`Removed user ${username}!`);
+        },
+        error: function() {
+            toastr.error("You don't have permission !");
+        }
+    });
 };
 
 user.restore = function(id, username) {
