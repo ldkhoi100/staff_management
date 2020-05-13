@@ -2,14 +2,14 @@
 
 namespace App\Services\Impl;
 
-use App\Repositories\BacLuongRepository;
-use App\Services\BacLuongService;
+use App\Repositories\FactorSalaryRepository;
+use App\Services\FactorSalaryService;
 
-class BacLuongServiceImpl implements BacLuongService
+class FactorSalaryServiceImpl implements FactorSalaryService
 {
     protected $factorSalaryRepository;
 
-    public function __construct(BacLuongRepository $factorSalaryRepository)
+    public function __construct(FactorSalaryRepository $factorSalaryRepository)
     {
         $this->factorSalaryRepository = $factorSalaryRepository;
     }
@@ -17,7 +17,7 @@ class BacLuongServiceImpl implements BacLuongService
     public function getAll()
     {
         $factorsalaries = $this->factorSalaryRepository->getAll();
-        
+
         return $factorsalaries;
     }
 
@@ -106,7 +106,7 @@ class BacLuongServiceImpl implements BacLuongService
 
         if (!$factorsalary)
             $status = 404;
-            
+
         $data = [
             'status' => $status,
             'data' => $factorsalary

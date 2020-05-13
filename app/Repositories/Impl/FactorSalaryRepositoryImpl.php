@@ -2,15 +2,15 @@
 
 namespace App\Repositories\Impl;
 
-use App\Model\BacLuong;
-use App\Repositories\BacLuongRepository;
+use App\Model\FactorSalary;
+use App\Repositories\FactorSalaryRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
-class BacLuongRepositoryImpl extends EloquentRepository implements BacLuongRepository
+class FactorSalaryRepositoryImpl extends EloquentRepository implements FactorSalaryRepository
 {
     public function getModel()
     {
-        $model = BacLuong::class;
+        $model = FactorSalary::class;
         return $model;
     }
 

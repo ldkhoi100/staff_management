@@ -11,7 +11,7 @@ Fs.drawTable = function() {
             dataSrc: function(jsons) {
                 return jsons.map(json => {
                     return {
-                        fs: json.Bac_Luong,
+                        fs: json.He_So_Luong,
                         crt: json.created_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Fs.edit(${json.id})">Edit</a>
@@ -43,7 +43,7 @@ Fs.drawTableTrash = function() {
             dataSrc: function(jsons) {
                 return jsons.map(json => {
                     return {
-                        fs: json.Bac_Luong,
+                        fs: json.He_So_Luong,
                         crt: json.deleted_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-primary text-light" onclick="Fs.undo(${json.id})">Undo</a>

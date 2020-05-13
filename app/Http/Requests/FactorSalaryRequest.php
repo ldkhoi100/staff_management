@@ -24,7 +24,7 @@ class FactorSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:bac_luong,Bac_Luong,$this->id,id"]
+            'He_So_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:he_so_luong,He_So_Luong,$this->id,id"]
         ];
     }
 
@@ -42,7 +42,7 @@ class FactorSalaryRequest extends FormRequest
     public function attributes()
     {
         return [
-            'Bac_Luong' => "Bậc lương"
+            'He_So_Luong' => "Hệ số lương"
         ];
     }
 }

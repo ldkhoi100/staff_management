@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FactorSalaryRequest;
-use App\Services\BacLuongService;
+use App\Services\FactorSalaryService;
 use Illuminate\Http\Request;
 
-class BacLuongController extends Controller
+class FactorSalaryController extends Controller
 {
 
     protected $factorSalaryService;
 
-    public function __construct(BacLuongService $factorSalaryService)
+    public function __construct(FactorSalaryService $factorSalaryService)
     {
-        // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->except(['index', 'delete','restore', 'moveToTrash']);web
-        // $this->middleware('role:ROLE_SUPERADMIN')->only(['index','create', 'delete','restore', 'moveToTrash']);
         $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;
     }

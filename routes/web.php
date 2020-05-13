@@ -62,18 +62,18 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
 });
 
 
-Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
-    Route::get('/', "BacLuongController@index")->name('fs.index');
-    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
-    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
+Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::get('/', "FactorSalaryController@index")->name('fs.index');
+    Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
+    Route::get('/trash', "FactorSalaryController@getTrash")->name('fs.getTrash');
+    Route::get('/{id}/trash', "FactorSalaryController@findTrashById")->name('fs.findTrashById');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::post('/', "BacLuongController@create")->name('fs.create');
-        Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-        Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-        Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-        Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
-        Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+        Route::post('/', "FactorSalaryController@create")->name('fs.create');
+        Route::put('/{id}', "FactorSalaryController@update")->name('fs.update');
+        Route::put('/{id}/restore', "FactorSalaryController@restore")->name('fs.restore');
+        Route::delete('/{id}', "FactorSalaryController@moveToTrash")->name('fs.moveToTrash');
+        Route::delete('/{id}/delete', "FactorSalaryController@delete")->name('fs.delete');
+        Route::get('/{id}', "FactorSalaryController@findById")->name('fs.findById');
     });
 });
 

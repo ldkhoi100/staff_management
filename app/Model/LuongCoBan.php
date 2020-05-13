@@ -11,9 +11,4 @@ class LuongCoBan extends Model
 
     protected $table = 'luong_co_ban';
     protected $fillable = ['Tien_Luong'];
-
-    public function bacLuong()
-    {
-        return $this->hasMany(BacLuong::class, 'LuongCB');
-    }
 }

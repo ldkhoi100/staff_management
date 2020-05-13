@@ -12,7 +12,7 @@
                 <div class="modal-body container">
                     <div class="container">
                         <span>Value</span><br>
-                        <input class="form-control col" type="number" min="1" max="5" name="Bac_Luong">
+                        <input class="form-control col" type="number" min="1" max="5" name="He_So_Luong">
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="btn-save" class="btn btn-success btn-block" onclick="Fs.save(this)">
