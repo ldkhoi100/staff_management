@@ -66,7 +66,7 @@
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="user.destroy({{ $user->id }}, {{ '\''. $user->username . '\'' }})"><i
+                        onclick="user.alertDestroy({{ $user->id }}, {{ '\''. $user->username . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>

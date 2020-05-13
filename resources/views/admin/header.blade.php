@@ -27,6 +27,10 @@
 
     <link href="css/select2.min.css" rel="stylesheet" />
 
+    <link data-require="sweet-alert@*" data-semver="0.4.2" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
 
@@ -162,7 +166,8 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
-{{--                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức vụ</a>--}}
+                        {{--                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức
+                        vụ</a>--}}
                     </div>
                 </div>
             </li>
