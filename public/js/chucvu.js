@@ -167,9 +167,9 @@ Cv.save = function(btn) {
                     $('#fs-modal').modal("hide");
                     Cv.success("Create success");
                 },
-                error: function(errors) {
-                    Cv.errors(errors.responseJSON.errors);
-                }
+                // error: function(errors) {
+                //     Cv.errors(errors.responseJSON.errors);
+                // }
             });
         }
     }
