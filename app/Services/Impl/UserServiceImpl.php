@@ -53,9 +53,9 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    public function update($request, $id)
+    public function update($request, $id, $hash)
     {
-        $oldData = $this->dataRepository->findWithTrashed($id);
+        $oldData = $this->dataRepository->findHashId($id, $hash);
 
         if (!$oldData) {
             $newData = null;
@@ -155,6 +155,39 @@ class UserServiceImpl implements UserService
     public function findWithTrashed($id)
     {
         $object = $this->dataRepository->findWithTrashed($id);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+    public function findHashId($id, $hash)
+    {
+        $object = $this->dataRepository->findHashId($id, $hash);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+
+    public function findRoleUser($id)
+    {
+        $object = $this->dataRepository->findRoleUser($id);
 
         $statusCode = 200;
         if (!$object)

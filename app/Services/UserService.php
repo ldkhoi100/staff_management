@@ -12,9 +12,13 @@ interface UserService
 
     public function findWithTrashed($id);
 
+    public function findRoleUser($id);
+
+    public function findHashId($id, $hash);
+
     public function create($request);
 
-    public function update($request, $id);
+    public function update($request, $id, $hash);
 
     public function destroy($id);
 
