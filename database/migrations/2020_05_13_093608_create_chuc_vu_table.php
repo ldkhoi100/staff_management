@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChamCongNgayTable extends Migration {
+class CreateChucVuTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateChamCongNgayTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cham_cong_ngay', function(Blueprint $table)
+		Schema::create('chuc_vu', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('Ma_NV')->index('Ma_NV');
-			$table->integer('Thang_Hien_Tai')->index('Thang_Hien_Tai');
-			$table->dateTime('Ngay_Hien_Tai');
-			$table->string('Tinh_Trang')->nullable();
+			$table->string('Ten_CV')->unique('Ten_CV');
+			$table->string('Cong_Viec');
+			$table->decimal('Bac_Luong', 2);
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -32,7 +31,7 @@ class CreateChamCongNgayTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cham_cong_ngay');
+		Schema::drop('chuc_vu');
 	}
 
 }
