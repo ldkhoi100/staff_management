@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Impl;
 
-use App\Model\Role;
+use App\Model\ChamCong;
 use App\Repositories\ChamCongNgayRepository;
 use App\Repositories\Eloquent\EloquentRepository;
 
@@ -10,7 +10,7 @@ class ChamCongNgayRepositoryImpl extends EloquentRepository implements ChamCongN
 {
     public function getModel()
     {
-        $model = Role::class;
+        $model = ChamCong::class;
         return $model;
     }
 

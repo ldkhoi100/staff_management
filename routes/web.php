@@ -44,8 +44,6 @@ Route::group(['prefix' => '/chuc-vu'], function () {
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
-
-
 Route::group(['prefix' => '/donxinphep'], function () {
     Route::get('/', "DonXinPhepController@index")->name('dxp.index');
     Route::get('/all', "DonXinPhepController@getAll")->name('dxp.getAll');
@@ -59,21 +57,6 @@ Route::group(['prefix' => '/donxinphep'], function () {
     Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
 });
 
-
-
-
-
-<<<<<<< HEAD
-Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
-    Route::get('/', "BacLuongController@index")->name('fs.index');
-    Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
-    Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
-=======
-
-
-
-
 //User
 Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'UsersController@index')->name("user.index");
@@ -81,7 +64,6 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
     Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
     Route::get('/{id}', 'UsersController@edit');
     Route::post('/', 'UsersController@store')->name('users.store');
->>>>>>> 89895e959e5a609c79a8f94c18c63a7731127501
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
         Route::get('/block/{id}', 'UsersController@block')->name('users.block');
@@ -135,14 +117,13 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
-<<<<<<< HEAD
+
 });
 
 // chấm công tháng
 
-//Route::group(['prefix'=>'/timesheets'], function (){
-//    Route::resource('/' , 'TimesheetsController');
-//});
-=======
+Route::group(['prefix'=>'/chamcongngay'], function (){
+   Route::resource('/' , 'ChamcongngayController');
 });
->>>>>>> 89895e959e5a609c79a8f94c18c63a7731127501
+
+

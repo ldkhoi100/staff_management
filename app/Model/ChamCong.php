@@ -9,13 +9,12 @@ class ChamCong extends Model
 {
     use SoftDeletes;
 
-    use SoftDeletes;
 
     protected $table = 'cham_cong_ngay';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'Ten_CV', 'Cong_Viec', 'Bac_Luong'
+        'Ngay_Hien_Tai', 'So_Ca_lam', 'Ngay_Le','Ghi_Chu'
     ];
 
     public function nhan_vien()

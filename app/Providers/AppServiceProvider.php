@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Repositories\ChamCongNgayRepository;
 use App\Repositories\CongthangRepository;
 use App\Repositories\Impl\CongthangRepositoryImpl;
 use App\Repositories\Impl\RoleRepositoryImpl;
 use App\Repositories\RoleRepository;
+use App\Services\ChamCongNgayService;
 use App\Services\ChamCongThangService;
+use App\Services\Impl\ChamCongNgayServiceImpl;
 use App\Services\Impl\ChamCongThangServiceImpl;
 use App\Services\Impl\RoleServiceImpl;
 use App\Services\RoleService;
@@ -27,6 +30,7 @@ use App\Services\UserService;
 use App\Services\FactorSalaryService;
 use App\Repositories\FactorSalaryRepository;
 use App\Repositories\ChucvuRepository;
+use App\Repositories\Impl\ChamCongNgayRepositoryImpl;
 use App\Repositories\Impl\ChucvuRepositoryImpl;
 use App\Repositories\Impl\LuongCoBanRepositoryImpl;
 use App\Repositories\LuongCoBanRepository;
@@ -108,18 +112,6 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
-<<<<<<< HEAD
-            CongthangRepository::class,
-            CongthangRepositoryImpl::class
-        );
-
-        $this->app->singleton(
-            ChamCongThangService::class,
-            ChamCongThangServiceImpl::class
-        );
-
-
-=======
             LuongCoBanService::class,
             LuongCoBanServiceImpl::class
         );
@@ -128,6 +120,15 @@ class AppServiceProvider extends ServiceProvider
             LuongCoBanRepository::class,
             LuongCoBanRepositoryImpl::class
         );
->>>>>>> 89895e959e5a609c79a8f94c18c63a7731127501
+
+        $this->app->singleton(
+            ChamCongNgayService::class,
+            ChamCongNgayServiceImpl::class
+        );
+
+        $this->app->singleton(
+            ChamCongNgayRepository::class,
+            ChamCongNgayRepositoryImpl::class
+        );
     }
 }

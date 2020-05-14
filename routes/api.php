@@ -33,6 +33,10 @@ Route::resource('/roles', 'RoleController');
 Route::get('/role-restore/{id}', 'RoleController@restore');
 Route::get('/role-delete/{id}', 'RoleController@delete');
 
+Route::get('/chamcongngay-restore/{id}', 'ChamcongngayController@restore');
+Route::get('/chamcongngay-delete/{id}', 'ChamcongngayController@delete');
+Route::resource('/chamcongngay', 'ChamcongngayController');
+
 // Route::group(['prefix' => '/chuc-vu'], function () {
 //     Route::get('/', "ChucvuController@index")->name('cv.index');
 //     Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
