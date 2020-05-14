@@ -32,6 +32,11 @@ class NhanVien extends Model
         return $this->belongsTo("App\Model\DonXinPhep", 'MaNV', 'id');
     }
 
+    public function chuc_vu()
+    {
+        return $this->belongsTo("App\Model\ChucVu", 'Ten_CV', 'id');
+    }
+
 
 
 }

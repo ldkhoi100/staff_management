@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\NhanVien;
 use Illuminate\Http\Request;
 use App\Services\DonXinPhepService;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReplyMail;
 class DonXinPhepController extends Controller
 {
     protected $donxinphepService;
@@ -24,8 +27,7 @@ class DonXinPhepController extends Controller
 
     public function getAll()
     {
-        $factorSalaries = $this->donxinphepService->getAll();
-
+        $factorSalaries = $this->donxinphepService->getAll()->toArray();
         return response()->json($factorSalaries);
     }
 
@@ -39,6 +41,8 @@ class DonXinPhepController extends Controller
     public function create(Request $request)
     {
         $donxinphep = $this->donxinphepService->create($request->all());
+
+        // Mail::to("ldkhoi100@gmail.com")->send(new ReplyMail($donxinphep, $request->NoiDung));
 
         return response()->json($donxinphep['data'], $donxinphep['status']);
     }
@@ -85,4 +89,7 @@ class DonXinPhepController extends Controller
 
         return response()->json($donxinphep['msg'], $donxinphep['status']);
     }
+
 }
+
+

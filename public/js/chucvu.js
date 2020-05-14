@@ -13,6 +13,7 @@ Cv.drawTable = function() {
                     return {
                         Cv: json.Ten_CV,
                         Cv1: json.Cong_Viec,
+                        Cv2: json.Bac_Luong,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Cv.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Cv.trash(${json.id})">Trash</a>
@@ -28,9 +29,13 @@ Cv.drawTable = function() {
                 data: "Cv1"
             },
             {
+                data: "Cv2"
+            },
+            {
                 data: "action"
             }
         ]
+
     });
 };
 
@@ -44,6 +49,7 @@ Cv.drawTableTrash = function() {
                     return {
                         Cv: json.Ten_CV,
                         Cv1: json.Cong_Viec,
+                        Cv2: json.Bac_Luong,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Cv.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Cv.delete(${json.id})">Delete</a>
@@ -59,9 +65,13 @@ Cv.drawTableTrash = function() {
                 data: "Cv1"
             },
             {
+                data: "Cv2"
+            },
+            {
                 data: "action"
             }
         ]
+
     });
 };
 
@@ -167,9 +177,9 @@ Cv.save = function(btn) {
                     $('#fs-modal').modal("hide");
                     Cv.success("Create success");
                 },
-                // error: function(errors) {
-                //     Cv.errors(errors.responseJSON.errors);
-                // }
+                error: function(errors) {
+                    Cv.errors(errors.responseJSON.errors);
+                }
             });
         }
     }
@@ -213,9 +223,5 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-<<<<<<< HEAD
-});
-=======
 });
 
->>>>>>> e2ac1cf48f2c1a073034bedb0f8b5e1acf3dbbbb

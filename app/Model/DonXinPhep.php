@@ -11,7 +11,7 @@ class DonXinPhep extends Model
 
     protected $table = 'don_xin_phep';
 
-    protected $fillable = ['MaNV','TieuDe','NoiDung','TinhTrang'];
+    protected $fillable = ['MaNV','TieuDe','NoiDung'];
 
     public function nhan_vien()
     {

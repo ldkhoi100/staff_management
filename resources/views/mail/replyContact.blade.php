@@ -38,7 +38,7 @@
                                     <center><img width="100%" style="max-width:300px"
                                             src="https://thenypost.files.wordpress.com/2018/06/men-shopping-masculine.jpg?quality=80&strip=all"
                                             class="CToWUd"></center>
-                                </a><br><b>Dear {{ $contact->name }} </b> <br>
+                                </a><br><b>Dear {{ $contact->TieuDe }} </b> <br>
                                 <span>{!! $mess !!}</span>
                                 <b>
                                     <ul>

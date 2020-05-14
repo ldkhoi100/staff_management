@@ -7,12 +7,14 @@ Dxp.drawTable = function() {
     Dxp.table = $('#fs-table').DataTable({
         processing: true,
         ajax: {
-            url: '/chuc-vu/all',
+            url: '/donxinphep/all',
             dataSrc: function(jsons) {
                 return jsons.map(json => {
                     return {
-                        Dxp: json.Ten_CV,
-                        Cv1: json.Cong_Viec,
+                        Cv: json.MaNV,
+                        Cv1: json.TieuDe,
+                        Cv2:json.NoiDung,
+                        Cv3:json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.trash(${json.id})">Trash</a>
@@ -22,12 +24,18 @@ Dxp.drawTable = function() {
             }
         },
         columns: [{
-                data: "Dxp"
+                data: "Cv"
             },
             {
                 data: "Cv1"
             },
             {
+                data: "Cv2"
+            },
+            {
+                data: "Cv3"
+            },
+           {
                 data: "action"
             }
         ]
@@ -39,12 +47,14 @@ Dxp.drawTableTrash = function() {
     Dxp.tableTrash = $('#fs-table-trash').DataTable({
         processing: true,
         ajax: {
-            url: '/chuc-vu/trash',
+            url: '/donxinphep/trash',
             dataSrc: function(jsons) {
                 return jsons.map(json => {
                     return {
-                        Dxp: json.Ten_CV,
-                        Cv1: json.Cong_Viec,
+                        Cv: json.MaNV,
+                        Cv1: json.TieuDe,
+                        Cv2:json.NoiDung,
+                        Cv3:json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.delete(${json.id})">Delete</a>
@@ -54,14 +64,20 @@ Dxp.drawTableTrash = function() {
             }
         },
         columns: [{
-                data: "Dxp"
-            },
-            {
-                data: "Cv1"
-            },
-            {
-                data: "action"
-            }
+            data: "Cv"
+        },
+        {
+            data: "Cv1"
+        },
+        {
+            data: "Cv2"
+        },
+        {
+            data: "Cv3"
+        },
+       {
+            data: "action"
+        }
         ]
 
     });
@@ -70,7 +86,7 @@ Dxp.drawTableTrash = function() {
 Dxp.trash = function(id) {
     if (confirm('Move this to Trash')) {
         $.ajax({
-            url: `/chuc-vu/${id}`,
+            url: `/donxinphep/${id}`,
             method: "delete",
             success: function(msg) {
                 Dxp.success(msg);
@@ -83,7 +99,7 @@ Dxp.trash = function(id) {
 
 
 Dxp.edit = function(id) {
-    $.get(`/chuc-vu/${id}`).done(function(Obj) {
+    $.get(`/donxinphep/${id}`).done(function(Obj) {
         $.each(Obj, (i, v) => {
             $(`#fs-modal input[name=${i}]`).val(v);
         });
@@ -107,7 +123,7 @@ Dxp.create = function() {
 Dxp.undo = function(id) {
     if (confirm("Undo this")) {
         $.ajax({
-            url: `/chuc-vu/${id}/restore`,
+            url: `/donxinphep/${id}/restore`,
             method: 'PUT',
             success: function(msg) {
                 Dxp.success(msg);
@@ -124,7 +140,7 @@ Dxp.undo = function(id) {
 Dxp.delete = function(id) {
     if (confirm('Delete this')) {
         $.ajax({
-            url: `/chuc-vu/${id}/delete`,
+            url: `/donxinphep/${id}/delete`,
             method: 'delete',
             success: function(msg) {
                 Dxp.success(msg);
@@ -145,7 +161,7 @@ Dxp.save = function(btn) {
     if (id) {
         if (confirm('Save change')) {
             $.ajax({
-                url: `/chuc-vu/${id}`,
+                url: `/donxinphep/${id}`,
                 method: 'PUT',
                 data: data,
                 success: function(Obj) {
@@ -161,7 +177,7 @@ Dxp.save = function(btn) {
     } else {
         if (confirm('Save this data')) {
             $.ajax({
-                url: `/chuc-vu`,
+                url: `/donxinphep`,
                 method: 'post',
                 data: data,
                 success: function() {
@@ -169,9 +185,9 @@ Dxp.save = function(btn) {
                     $('#fs-modal').modal("hide");
                     Dxp.success("Create success");
                 },
-                // error: function(errors) {
-                //     Dxp.errors(errors.responseJSON.errors);
-                // }
+                error: function(errors) {
+                    Dxp.errors(errors.responseJSON.errors);
+                }
             });
         }
     }

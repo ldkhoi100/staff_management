@@ -19,11 +19,10 @@
             <table id="fs-table" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Tình Trạng</th>
+                        <th>Thời Gian Xin Nghỉ</th>
                        <th>Action</th>
                     </tr>
                 </thead>
@@ -31,11 +30,10 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Tình Trạng</th>
+                        <th>Thời Gian Xin Nghỉ</th>
                        <th>Action</th>
                     </tr>
                 </tfoot>
@@ -45,23 +43,21 @@
             <table id="fs-table-trash" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Tình Trạng</th>
-                       <th>Action</th>
+                        <th>Thời Gian Xin Nghỉ</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Tình Trạng</th>
+                        <th>Thời Gian Xin Nghỉ</th>
                        <th>Action</th>
                     </tr>
                 </tfoot>
@@ -93,12 +89,13 @@
                                 <input class="form-control col" type="text"  name="NoiDung">
                             </div>
                             <div class="container">
-                                <span>Tình trạng</span><br>
-                                <input class="form-control col" type="text"  name="TinhTrang">
+                                <span>Thời gian xỉn nghỉ</span><br>
+                                <input class="form-control col" type="date"  name="created_at">
                             </div>
+
                          <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
-                                    onclick="Cv.save(this)">
+                                    onclick="Dxp.save(this)">
                                     <i class="fa fa-save"></i> Save
                                 </button>
                             </div>
