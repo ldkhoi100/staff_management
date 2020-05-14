@@ -211,6 +211,7 @@ Ws.errors = function (errors) {
     if (errors.status == 422) {
         let msg = errors.responseJSON.errors;
         $(`#ws-modal .field`).removeClass('is-invalid');
+        $(`#ws-modal .field`).removeClass('is-valid');
         $(`#ws-modal .field`).addClass('is-valid');
         $('small.text').remove();
         $.each(msg, function (i, v) {
@@ -218,7 +219,7 @@ Ws.errors = function (errors) {
         });
     } else {
         $('#ws-modal').modal('hide');
-        Ws.success("Bạn không đủ quền", "Error", 'error');
+        Ws.success("You are not authorized for this action", "Error", 'error');
     }
 }
 

@@ -130,29 +130,34 @@ Fs.trash = function (id) {
     }
 }
 
-
 Fs.edit = function (id) {
     $.get(`/factor-salary/${id}`).done(function (Obj) {
         $.each(Obj, (i, v) => {
-            $(`#fs-modal input[name=${i}]`).val(v);
+            $(`#fs-modal [name=${i}]`).val(v);
         });
-        $('#fs-modal #fs-modal-title').text("Edit Factor Salary");
         $('#fs-modal #btn-save').data('id', Obj.id);
-        $('#fs-modal').modal('show');
-        $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
-        $('small.text').remove();
+        Fs.openModal(1);
     }).fail(function (errors) {
         Fs.errors(errors);
     });
 }
 
-Fs.create = function () {
-    $('#fs-modal form')[0].reset();
-    $('#fs-modal #fs-modal-title').text("Create Factor Salary");
-    $('#fs-modal #btn-save').removeData('id');
-    $('#fs-modal').modal("show");
-    $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
+Fs.openModal = function (edit = null) {
+    if (edit) {
+        $('#fs-modal #fs-modal-title').text("Edit Factor Salary");
+    } else {
+        $('#fs-modal form')[0].reset();
+        $('#fs-modal #fs-modal-title').text("Create Factor Salary");
+        $('#fs-modal #btn-save').removeData('id');
+    }
+    $(`#fs-modal .is-valid`).removeClass('is-valid');
+    $(`#fs-modal .is-invalid`).removeClass('is-invalid');
     $('small.text').remove();
+    $('#fs-modal').modal('show');
+}
+
+Fs.create = function () {
+    Fs.openModal();
 }
 
 Fs.undo = function (id) {
@@ -242,18 +247,16 @@ Fs.success = function (msg, status = "Success", icon = "success") {
 Fs.errors = function (errors) {
     if (errors.status == 422) {
         let msg = errors.responseJSON.errors;
-        $(`#fs-modal input`).each(function () {
-            $(this).addClass('is-valid');
-        });
-        $('small.text').each(function () {
-            $(this).remove();
-        });
+        $(`#fs-modal .is-invalid`).removeClass('is-invalid');
+        $(`#fs-modal .is-valid`).removeClass('is-valid');
+        $(`#fs-modal .field`).addClass('is-valid');
+        $('small.text').remove();
         $.each(msg, function (i, v) {
-            $(`#fs-modal input[name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
+            $(`#fs-modal [name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
         });
     } else {
         $('#fs-modal').modal('hide');
-        Fs.success("Bạn không đủ quền", "Error", 'error');
+        Fs.success("You are not authorized for this action", "Error", 'error');
     }
 }
 
