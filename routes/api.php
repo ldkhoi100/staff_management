@@ -45,3 +45,9 @@ Route::get('/role-delete/{id}', 'RoleController@delete');
 //     Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
 //     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 // });
+
+//kiểm tra dữ liệu api chấm công lương tháng
+Route::resource('/timesheets', 'TimesheetsController');
+Route::get('/timesheets-restore/{id}', 'TimesheetsController@restore');
+Route::get('/timesheets-delete/{id}', 'TimesheetsController@delete');
+

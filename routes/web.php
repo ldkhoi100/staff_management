@@ -55,7 +55,7 @@ Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete')
 Route::get('/select/role', 'UsersController@selectRole');
 
 
-Route::group(['prefix' => '/factor-salary', 'middleware'=>'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
@@ -76,5 +76,11 @@ Route::group(['prefix' => '/role'], function () {
     Route::view('/view', 'Role.list');
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
-    Route::delete('/{id}/delete' , 'RoleController@delete')->name('role.delete');
+    Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
 });
+
+// chấm công tháng
+
+//Route::group(['prefix'=>'/timesheets'], function (){
+//    Route::resource('/' , 'TimesheetsController');
+//});

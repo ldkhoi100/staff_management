@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\CongthangRepository;
+use App\Repositories\Impl\CongthangRepositoryImpl;
 use App\Repositories\Impl\RoleRepositoryImpl;
 use App\Repositories\RoleRepository;
+use App\Services\ChamCongThangService;
+use App\Services\Impl\ChamCongThangServiceImpl;
 use App\Services\Impl\RoleServiceImpl;
 use App\Services\RoleService;
 use Illuminate\Support\ServiceProvider;
@@ -68,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             NhanVienRepository::class,
-            NhanVienRepositoryImpl::class,
+            NhanVienRepositoryImpl::class
         );
         $this->app->singleton(
             NhanVienService::class,
@@ -93,5 +97,17 @@ class AppServiceProvider extends ServiceProvider
             ChucvuRepository::class,
             ChucvuRepositoryImpl::class
         );
+
+        $this->app->singleton(
+            CongthangRepository::class,
+            CongthangRepositoryImpl::class
+        );
+
+        $this->app->singleton(
+            ChamCongThangService::class,
+            ChamCongThangServiceImpl::class
+        );
+
+
     }
 }
