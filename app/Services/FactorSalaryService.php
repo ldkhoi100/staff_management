@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface BacLuongService
+interface FactorSalaryService
 {
     public function getAll();
 

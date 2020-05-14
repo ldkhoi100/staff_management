@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-interface BacLuongRepository extends Repository
+interface FactorSalaryRepository extends Repository
 {
     public function getSoftDeletes();
 

@@ -1,18 +1,63 @@
 let Fs = {} || Fs;
+let Bs = {} || Bs;
 
 Fs.table;
 Fs.tableTrash;
 
-Fs.drawTable = function() {
+Bs.get = function () {
+    $.get('/base-salary').done(function (data) {
+        $('#base-salary').val(data.Tien_Luong);
+    });
+    $('#base-salary').attr('readonly', true);
+    $('#btn-edit-base-salary').unbind('click').bind('click', function () {
+        Bs.edit();
+    });
+    $('#base-salary').removeClass('is-invalid').addClass('is-invalid');
+    $('.sm-er').remove();
+    $('#btn-edit-base-salary').text('Edit');
+}
+
+Bs.edit = function () {
+    $('#base-salary').removeAttr('readonly');
+    $('#btn-edit-base-salary').unbind('click').bind('click', function () {
+        Bs.save();
+    });
+
+    $('#btn-edit-base-salary').text('Save');
+};
+
+Bs.save = function () {
+    $.ajax({
+        url: '/base-salary',
+        method: 'put',
+        data: {
+            "Tien_Luong": $('#base-salary').val()
+        },
+        success: function () {
+            Bs.get();
+            Fs.success("Update base salary success");
+        },
+        error: function (fails) {
+            if (fails.status == 422) {
+                $('#base-salary').removeClass('is-invalid').addClass('is-invalid');
+                $('.sm-er').remove();
+                $('#base-salary').before(`<small class="sm-er text-danger">${fails.responseJSON.errors.Tien_Luong}</small`);
+            } else {
+                Fs.success("Bạn không đủ quền", "Error", 'error');
+            }
+        }
+    });
+}
+
+Fs.drawTable = function () {
     Fs.table = $('#fs-table').DataTable({
         processing: true,
-        // serverSide: true,
         ajax: {
             url: '/factor-salary/all',
-            dataSrc: function(jsons) {
+            dataSrc: function (jsons) {
                 return jsons.map(json => {
                     return {
-                        fs: json.Bac_Luong,
+                        fs: json.He_So_Luong,
                         crt: json.created_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Fs.edit(${json.id})">Edit</a>
@@ -36,16 +81,15 @@ Fs.drawTable = function() {
     });
 };
 
-Fs.drawTableTrash = function() {
+Fs.drawTableTrash = function () {
     Fs.tableTrash = $('#fs-table-trash').DataTable({
         processing: true,
-        // serverSide: true,
         ajax: {
             url: '/factor-salary/trash',
-            dataSrc: function(jsons) {
+            dataSrc: function (jsons) {
                 return jsons.map(json => {
                     return {
-                        fs: json.Bac_Luong,
+                        fs: json.He_So_Luong,
                         crt: json.deleted_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-primary text-light" onclick="Fs.undo(${json.id})">Undo</a>
@@ -69,17 +113,17 @@ Fs.drawTableTrash = function() {
     });
 };
 
-Fs.trash = function(id) {
+Fs.trash = function (id) {
     if (confirm('Move this to Trash')) {
         $.ajax({
             url: `/factor-salary/${id}`,
             method: "delete",
-            success: function(msg) {
+            success: function (msg) {
                 Fs.success(msg);
                 Fs.table.ajax.reload();
                 Fs.tableTrash.ajax.reload();
             },
-            error:function(errors){
+            error: function (errors) {
                 Fs.errors(errors);
             }
         });
@@ -87,8 +131,8 @@ Fs.trash = function(id) {
 }
 
 
-Fs.edit = function(id) {
-    $.get(`/factor-salary/${id}`).done(function(Obj) {
+Fs.edit = function (id) {
+    $.get(`/factor-salary/${id}`).done(function (Obj) {
         $.each(Obj, (i, v) => {
             $(`#fs-modal input[name=${i}]`).val(v);
         });
@@ -97,12 +141,12 @@ Fs.edit = function(id) {
         $('#fs-modal').modal('show');
         $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
         $('small.text').remove();
-    }).fail(function(errors){
+    }).fail(function (errors) {
         Fs.errors(errors);
     });
 }
 
-Fs.create = function() {
+Fs.create = function () {
     $('#fs-modal form')[0].reset();
     $('#fs-modal #fs-modal-title').text("Create Factor Salary");
     $('#fs-modal #btn-save').removeData('id');
@@ -111,40 +155,40 @@ Fs.create = function() {
     $('small.text').remove();
 }
 
-Fs.undo = function(id) {
+Fs.undo = function (id) {
     if (confirm("Undo this")) {
         $.ajax({
             url: `/factor-salary/${id}/restore`,
             method: 'PUT',
-            success: function(msg) {
+            success: function (msg) {
                 Fs.success(msg);
                 Fs.tableTrash.ajax.reload();
                 Fs.table.ajax.reload();
             },
-            error: function(errors) {
+            error: function (errors) {
                 Fs.errors(errors);
             }
         });
     }
 }
 
-Fs.delete = function(id) {
+Fs.delete = function (id) {
     if (confirm('Delete this')) {
         $.ajax({
             url: `/factor-salary/${id}/delete`,
             method: 'delete',
-            success: function(msg) {
+            success: function (msg) {
                 Fs.success(msg);
                 Fs.tableTrash.ajax.reload();
             },
-            error: function(errors) {
+            error: function (errors) {
                 Fs.errors(errors);
             }
         });
     }
 }
 
-Fs.save = function(btn) {
+Fs.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
     console.log(id);
@@ -155,12 +199,12 @@ Fs.save = function(btn) {
                 url: `/factor-salary/${id}`,
                 method: 'PUT',
                 data: data,
-                success: function(Obj) {
+                success: function (Obj) {
                     Fs.table.ajax.reload();
                     $('#fs-modal').modal("hide");
                     Fs.success("Update success!");
                 },
-                error: function(errors) {
+                error: function (errors) {
                     Fs.errors(errors);
                 }
             });
@@ -171,12 +215,12 @@ Fs.save = function(btn) {
                 url: `/factor-salary`,
                 method: 'post',
                 data: data,
-                success: function() {
+                success: function (data) {
                     Fs.table.ajax.reload();
                     $('#fs-modal').modal("hide");
                     Fs.success("Create success");
                 },
-                error: function(errors) {
+                error: function (errors) {
                     Fs.errors(errors);
                 }
             });
@@ -184,7 +228,7 @@ Fs.save = function(btn) {
     }
 }
 
-Fs.success = function(msg,status = "Success", icon = "success") {
+Fs.success = function (msg, status = "Success", icon = "success") {
     $.toast({
         heading: status,
         text: msg,
@@ -195,32 +239,32 @@ Fs.success = function(msg,status = "Success", icon = "success") {
     });
 }
 
-Fs.errors = function(errors) {
+Fs.errors = function (errors) {
     if (errors.status == 422) {
         let msg = errors.responseJSON.errors;
-        $(`#fs-modal input`).each(function() {
+        $(`#fs-modal input`).each(function () {
             $(this).addClass('is-valid');
         });
-        $('small.text').each(function() {
+        $('small.text').each(function () {
             $(this).remove();
         });
-        $.each(msg, function(i, v) {
+        $.each(msg, function (i, v) {
             $(`#fs-modal input[name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
         });
-    }else{
+    } else {
         $('#fs-modal').modal('hide');
         Fs.success("Bạn không đủ quền", "Error", 'error');
     }
 }
 
-Fs.init = function() {
+Fs.init = function () {
     Fs.drawTable();
     Fs.drawTableTrash();
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     Fs.init();
-
+    Bs.get();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
