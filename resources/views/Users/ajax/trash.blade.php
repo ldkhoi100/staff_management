@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table class="table table-bordered" id="dataTableTrash" width="100%" cellspacing="0">
+<div class="table-responsive table-striped table-hover p-2">
+    <table class="table" id="dataTableTrash" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>#</th>
@@ -37,20 +37,20 @@
                 <td>{{ $user->email }}</td>
                 <td>
                     @foreach ($user->roles as $role)
-                    {{ $role->name }}
+                    {{ $role->name }} <br>
                     @endforeach
                 </td>
 
                 @if($user->block == 1)
 
                 <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold;" class="block_object"
-                        onclick="user.block({{ $user->id }}, {{ '\''. $user->username . '\'' }})">Yes</a>
+                        onclick="user.block({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})">Yes</a>
                 </td>
 
                 @else
 
                 <td><a href="javascript:void(0);" style="color:red; font-weight: bold;" class="block_object"
-                        onclick="user.block({{ $user->id }}, {{ '\''. $user->username . '\'' }})">No</a>
+                        onclick="user.block({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})">No</a>
                 </td>
 
                 @endif
@@ -64,14 +64,15 @@
                 <td>{{ date("d-m-y H:i:s", strtotime($user->deleted_at)) }}</td>
 
                 <td>
-                    <button type="button" onclick="user.modalEdit({{ $user->id }})"
+                    <button type="button" onclick="user.modalEdit({{ '\'' . Crypt::encrypt($user->id) . '\'' }})"
                         class="btn btn-info show-modal-edit btn-sm">
                         <i class="fa fa-edit" title="Edit"></i>
                     </button>
                 </td>
 
                 <td>
-                    <button type="button" onclick="user.restore({{ $user->id }}, {{ '\''. $user->username . '\'' }})"
+                    <button type="button"
+                        onclick="user.restore({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})"
                         class="btn btn-warning show-modal-restore btn-sm">
                         <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i>
                     </button>
@@ -79,7 +80,7 @@
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="user.forceDelete({{ $user->id }}, {{ '\''. $user->username . '\'' }})"><i
+                        onclick="user.forceDelete({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>

@@ -21,6 +21,7 @@
                     <tr>
                         <th>Tên Chức Vụ</th>
                         <th>Tên Công Việc</th>
+                        <th>Bậc lương</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                     <tr>
                         <th>Tên Chức Vụ</th>
                         <th>Tên Công Việc</th>
+                        <th>Bậc lương</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -41,6 +43,7 @@
                     <tr>
                         <th>Tên Chức Vụ</th>
                         <th>Tên Công Việc</th>
+                        <th>Bậc lương</th>
                        <th>Action</th>
                     </tr>
                 </thead>
@@ -50,6 +53,7 @@
                     <tr>
                         <th>Tên Chức Vụ</th>
                         <th>Tên Công Việc</th>
+                        <th>Bậc lương</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -61,8 +65,8 @@
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
-                            <h5 class="modal-title text-center" id="fs-modal-title">Create Factor Salary</h5>
-                            <button class="btn btn-dark" type="button" aria-label="Close"
+                            <h5 >Create Factor Salary</h5>
+                             <button class="btn btn-dark" type="button" aria-label="Close"
                                 onclick="confirm()?$('#fs-modal').modal('hide'):''">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -76,7 +80,10 @@
                                 <span>Việc làm</span><br>
                                 <input class="form-control col" type="text"  name="Cong_Viec">
                             </div>
-
+                            <div class="container">
+                                <span>Bậc Lương</span><br>
+                                <input class="form-control col" type="number"  name="Bac_Luong">
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
                                     onclick="Cv.save(this)">

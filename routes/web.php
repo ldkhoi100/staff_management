@@ -44,32 +44,90 @@ Route::group(['prefix' => '/chuc-vu'], function () {
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
-//User
-Route::resource('/users', 'UsersController');
-Route::get('/users/block/{id}', 'UsersController@block')->name('users.block');
-Route::get('/usersAjax', 'UsersController@indexAjax')->name('users.ajax');
-Route::get('/trash-users', 'UsersController@getSoftDeletes')->name('users.trash');
-Route::get('/users/restore/{id}', 'UsersController@restore')->name('users.restore');
-Route::get('/users/delete/{id}', 'UsersController@delete')->name('users.delete');
-
-Route::get('/select/role', 'UsersController@selectRole');
 
 
+Route::group(['prefix' => '/donxinphep'], function () {
+    Route::get('/', "DonXinPhepController@index")->name('dxp.index');
+    Route::get('/all', "DonXinPhepController@getAll")->name('dxp.getAll');
+    Route::get('/trash', "DonXinPhepController@getTrash")->name('dxp.getTrash');
+    Route::get('/{id}', "DonXinPhepController@findById")->name('dxp.findById');
+    Route::get('/{id}/trash', "DonXinPhepController@findTrashById")->name('dxp.findTrashById');
+    Route::post('/', "DonXinPhepController@create")->name('dxp.create');
+    Route::put('/{id}', "DonXinPhepController@update")->name('dxp.update');
+    Route::put('/{id}/restore', "DonXinPhepController@restore")->name('dxp.restore');
+    Route::delete('/{id}', "DonXinPhepController@moveToTrash")->name('dxp.moveToTrash');
+    Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
+});
+
+
+
+
+
+<<<<<<< HEAD
 Route::group(['prefix' => '/factor-salary', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', "BacLuongController@index")->name('fs.index');
     Route::get('/all', "BacLuongController@getAll")->name('fs.getAll');
     Route::get('/trash', "BacLuongController@getTrash")->name('fs.getTrash');
     Route::get('/{id}/trash', "BacLuongController@findTrashById")->name('fs.findTrashById');
+=======
+
+
+
+
+//User
+Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+    Route::get('/', 'UsersController@index')->name("user.index");
+    Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
+    Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
+    Route::get('/{id}', 'UsersController@edit');
+    Route::post('/', 'UsersController@store')->name('users.store');
+>>>>>>> 89895e959e5a609c79a8f94c18c63a7731127501
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::post('/', "BacLuongController@create")->name('fs.create');
-        Route::put('/{id}', "BacLuongController@update")->name('fs.update');
-        Route::put('/{id}/restore', "BacLuongController@restore")->name('fs.restore');
-        Route::delete('/{id}', "BacLuongController@moveToTrash")->name('fs.moveToTrash');
-        Route::delete('/{id}/delete', "BacLuongController@delete")->name('fs.delete');
-        Route::get('/{id}', "BacLuongController@findById")->name('fs.findById');
+        Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
+        Route::get('/block/{id}', 'UsersController@block')->name('users.block');
+        Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
+        Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
+        Route::put('/{id}', 'UsersController@update');
+        Route::delete('/{id}', 'UsersController@moveToTrash');
     });
 });
 
+//Staff
+Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+    Route::get('/', 'NhanVienController@index')->name("nhanvien.index");
+    Route::get('/trash', 'NhanVienController@getSoftDeletes')->name("nhanvien.getSoftDeletes");
+    Route::get('/all', 'NhanVienController@indexAjax')->name('nhanvien.ajax');
+    Route::get('/{id}', 'NhanVienController@edit');
+    Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::get('/select/role', 'NhanVienController@selectRole')->name("nhanvien.selectRole");
+        Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
+        Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
+        Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
+        Route::put('/{id}', 'NhanVienController@update');
+        Route::delete('/{id}', 'NhanVienController@moveToTrash');
+    });
+});
+
+Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::get('/', "FactorSalaryController@index")->name('fs.index');
+    Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
+    Route::get('/trash', "FactorSalaryController@getTrash")->name('fs.getTrash');
+    Route::get('/{id}/trash', "FactorSalaryController@findTrashById")->name('fs.findTrashById');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "FactorSalaryController@create")->name('fs.create');
+        Route::put('/{id}', "FactorSalaryController@update")->name('fs.update');
+        Route::put('/{id}/restore', "FactorSalaryController@restore")->name('fs.restore');
+        Route::delete('/{id}', "FactorSalaryController@moveToTrash")->name('fs.moveToTrash');
+        Route::delete('/{id}/delete', "FactorSalaryController@delete")->name('fs.delete');
+        Route::get('/{id}', "FactorSalaryController@findById")->name('fs.findById');
+    });
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => '/base-salary'], function () {
+    Route::get('/', 'FactorSalaryController@getBaseSalary')->name('bs.get');
+    Route::put('/', 'FactorSalaryController@updateBaseSalary')->middleware('role:ROLE_SUPERADMIN')->name('bs.update');
+});
 
 Route::group(['prefix' => '/role'], function () {
     Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');
@@ -77,6 +135,7 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
+<<<<<<< HEAD
 });
 
 // chấm công tháng
@@ -84,3 +143,6 @@ Route::group(['prefix' => '/role'], function () {
 //Route::group(['prefix'=>'/timesheets'], function (){
 //    Route::resource('/' , 'TimesheetsController');
 //});
+=======
+});
+>>>>>>> 89895e959e5a609c79a8f94c18c63a7731127501

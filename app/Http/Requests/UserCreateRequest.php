@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserCreateRequest extends FormRequest
 {
@@ -29,4 +31,9 @@ class UserCreateRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
+
+    //     public function failedValidation(Validator $validator)
+    //     {
+    //         throw new HttpResponseException(response()->json($validator->errors(), 203));
+    //     }
 }

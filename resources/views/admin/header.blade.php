@@ -27,8 +27,31 @@
 
     <link href="css/select2.min.css" rel="stylesheet" />
 
+    <link data-require="sweet-alert@*" data-semver="0.4.2" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
+    <style>
+        .swal-overlay {
+            background-color: rgba(229, 245, 241, 0.45);
+        }
+
+        .swal-modal {
+            border: 3px solid rgb(193, 177, 177);
+        }
+
+        .swal-text {
+            background-color: #FEFAE3;
+            padding: 17px;
+            border: 1px solid #F0E1A1;
+            display: block;
+            margin: 22px;
+            text-align: center;
+            color: #61534e;
+        }
+    </style>
 
 </head>
 
@@ -162,7 +185,8 @@
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">Sản phẩm</a>
                         <a class="collapse-item" href="">Loại sản phẩm</a>
-{{--                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức vụ</a>--}}
+                        {{--                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức
+                        vụ</a>--}}
                     </div>
                 </div>
             </li>

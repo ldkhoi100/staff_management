@@ -5,9 +5,9 @@ namespace App\Repositories\Impl;
 use App\Model\ChucVu;
 
 use App\User;
-use App\Model\Role;
 use App\Repositories\UserRepository;
 use App\Repositories\Eloquent\EloquentRepository;
+use Auth;
 
 class UserRepositoryImpl extends EloquentRepository implements UserRepository
 {
@@ -19,6 +19,23 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     {
         $model = User::class;
         return $model;
+    }
+
+    public function getAll()
+    {
+        if (Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
+            $result = User::where('id', '<>', Auth::user()->id)->get();
+        } elseif (Auth::user()->roles[0]->name == "ROLE_ADMIN") {
+            $users = $this->model->where('id', '<>', Auth::user()->id)->get();
+            $result = [];
+            foreach ($users as $user) {
+                if (count($user->roles) == 0) {
+                    $result[] = $user;
+                }
+            }
+        }
+        // $result = User::all();
+        return $result;
     }
 
     public function create($data)
@@ -46,6 +63,7 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function delete($object)
     {
         $object->roles()->detach();
+
         $object->forceDelete();
     }
 
@@ -59,6 +77,22 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function findWithTrashed($id)
     {
         $result = $this->model->withTrashed()->find($id);
+
+        return $result;
+    }
+
+    public function findHashId($id, $hash)
+    {
+        $result = $this->model->withTrashed()->where('id', $id)->where('hash', $hash)->first();
+
+        return $result;
+    }
+
+    public function findRoleUser($id)
+    {
+        $findId = $this->model->find($id);
+
+        $result =  $findId->roles;
 
         return $result;
     }

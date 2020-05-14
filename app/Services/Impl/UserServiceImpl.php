@@ -53,9 +53,9 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    public function update($request, $id)
+    public function update($request, $id, $hash)
     {
-        $oldData = $this->dataRepository->findWithTrashed($id);
+        $oldData = $this->dataRepository->findHashId($id, $hash);
 
         if (!$oldData) {
             $newData = null;
@@ -122,7 +122,7 @@ class UserServiceImpl implements UserService
         $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
-        $message = "User not found";
+        $message = "Not found";
         if ($object) {
             $this->dataRepository->delete($object);
             $statusCode = 200;
@@ -168,17 +168,50 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
+    public function findHashId($id, $hash)
+    {
+        $object = $this->dataRepository->findHashId($id, $hash);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+
+    public function findRoleUser($id)
+    {
+        $object = $this->dataRepository->findRoleUser($id);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
     public function blockUser($id)
     {
         $object = $this->dataRepository->findWithTrashed($id);
 
         $statusCode = 404;
-        $message = "User not found";
+        $message = "Not found";
 
         if ($object) {
             $this->dataRepository->blockUser($object);
             $statusCode = 200;
-            $message = "Change block success!";
+            $message = "Change column block success!";
         }
 
         $data = [

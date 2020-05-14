@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
+    <table class="table table-striped table-hover p-2 text-center" id="dataTable" width="100%" cellspacing="0">
+        <thead class="alert-success">
             <tr>
                 <th>#</th>
                 <th>Username</th>
@@ -35,17 +35,17 @@
                 <td>{{ $user->email }}</td>
                 <td>
                     @foreach ($user->roles as $role)
-                    {{ $role->name }}
+                    {{ $role->name }} <br>
                     @endforeach
                 </td>
 
                 @if($user->block == 1)
                 <td><a href="javascript:void(0);" style="color:#32CD32; font-weight: bold;" class="block_object"
-                        onclick="user.block({{ $user->id }}, {{ '\''. $user->username . '\'' }})">Yes</a>
+                        onclick="user.block({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})">Yes</a>
                 </td>
                 @else
                 <td><a href="javascript:void(0);" style="color:red; font-weight: bold;" class="block_object"
-                        onclick="user.block({{ $user->id }}, {{ '\''. $user->username . '\'' }})">No</a>
+                        onclick="user.block({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})">No</a>
                 </td>
                 @endif
 
@@ -58,7 +58,7 @@
                 <td>{{ date("d-m-y H:i:s", strtotime($user->created_at)) }}</td>
 
                 <td>
-                    <button type="button" onclick="user.modalEdit({{ $user->id }})"
+                    <button type="button" onclick="user.modalEdit({{ '\'' . Crypt::encrypt($user->id) . '\'' }})"
                         class="btn btn-info show-modal-edit btn-sm">
                         <i class="fa fa-edit" title="Edit"></i>
                     </button>
@@ -66,7 +66,7 @@
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="user.destroy({{ $user->id }}, {{ '\''. $user->username . '\'' }})"><i
+                        onclick="user.destroy({{ '\'' . Crypt::encrypt($user->id) . '\'' }}, {{ '\''. $user->username . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>
