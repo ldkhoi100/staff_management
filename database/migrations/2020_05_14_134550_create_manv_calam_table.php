@@ -16,8 +16,7 @@ class CreateManvCalamTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('MaNV')->index('MaNV');
-			$table->integer('Ca_Lam')->index('Ca_Lam');
-			$table->boolean('Tru_Luong')->default(0);
+			$table->integer('Ca_Lam')->unsigned()->index('Ca_Lam');
 			$table->date('Ngay_Tao')->nullable();
 			$table->timestamps();
 		});
