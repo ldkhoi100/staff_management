@@ -30,7 +30,9 @@ Route::get('/border', 'AdminController@border')->name('border');
 Route::get('/color', 'AdminController@color')->name('color');
 Route::get('/orther', 'AdminController@orther')->name('orther');
 
-
+/**
+ * Table chuc-vu
+ */
 Route::group(['prefix' => '/chuc-vu'], function () {
     Route::get('/', "ChucvuController@index")->name('cv.index');
     Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
@@ -44,7 +46,9 @@ Route::group(['prefix' => '/chuc-vu'], function () {
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
-
+/**
+ * Table donxinphep
+ */
 
 Route::group(['prefix' => '/donxinphep'], function () {
     Route::get('/', "DonXinPhepController@index")->name('dxp.index');
@@ -60,14 +64,9 @@ Route::group(['prefix' => '/donxinphep'], function () {
 });
 
 
-
-
-
-
-
-
-
-//User
+/**
+ * Table users
+ */
 Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'UsersController@index')->name("user.index");
     Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
@@ -84,7 +83,9 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
     });
 });
 
-
+/**
+ * Table he-so-luong
+ */
 Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
     Route::get('/', "FactorSalaryController@index")->name('fs.index');
     Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
@@ -100,15 +101,39 @@ Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth','role:ROLE_A
     });
 });
 
+/**
+ * Table Luong co ban
+ */
 Route::group(['middleware' => 'auth', 'prefix' => '/base-salary'], function () {
     Route::get('/', 'FactorSalaryController@getBaseSalary')->name('bs.get');
     Route::put('/', 'FactorSalaryController@updateBaseSalary')->middleware('role:ROLE_SUPERADMIN')->name('bs.update');
 });
 
+/**
+ * Table roles
+ */
 Route::group(['prefix' => '/role'], function () {
     Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');
     Route::view('/view', 'Role.list');
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
+});
+
+/**
+ * Table ca lam
+ */
+Route::group(['prefix' => '/work-shift', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::get('/', "WorkShiftController@index")->name('ws.index');
+    Route::get('/all', "WorkShiftController@getAll")->name('ws.getAll');
+    Route::get('/trash', "WorkShiftController@getTrash")->name('ws.getTrash');
+    Route::get('/{id}/trash', "WorkShiftController@findTrashById")->name('ws.findTrashById');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "WorkShiftController@create")->name('ws.create');
+        Route::put('/{id}', "WorkShiftController@update")->name('ws.update');
+        Route::put('/{id}/restore', "WorkShiftController@restore")->name('ws.restore');
+        Route::delete('/{id}', "WorkShiftController@moveToTrash")->name('ws.moveToTrash');
+        Route::delete('/{id}/delete', "WorkShiftController@delete")->name('ws.delete');
+        Route::get('/{id}', "WorkShiftController@findById")->name('ws.findById');
+    });
 });

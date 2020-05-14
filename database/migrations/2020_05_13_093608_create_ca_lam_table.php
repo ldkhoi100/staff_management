@@ -14,9 +14,10 @@ class CreateCaLamTable extends Migration {
 	{
 		Schema::create('ca_lam', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
-			$table->integer('Ten_Ca');
-			$table->integer('He_So_Ca');
+			$table->integerIncrements('id');
+			$table->integer('Ca');
+			$table->decimal('He_So',10,2);
+			$table->text('Mo_Ta');
 			$table->timestamps();
 			$table->softDeletes();
 		});

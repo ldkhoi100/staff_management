@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BaseSalaryRequest;
 use App\Http\Requests\FactorSalaryRequest;
 use App\Services\FactorSalaryService;
-use App\Services\LuongCoBanService;
+use App\Services\BaseSalaryService;
 
 class FactorSalaryController extends Controller
 {
@@ -13,7 +13,7 @@ class FactorSalaryController extends Controller
     protected $factorSalaryService;
     protected $baseSalary;
 
-    public function __construct(FactorSalaryService $factorSalaryService, LuongCoBanService $luongcoban)
+    public function __construct(FactorSalaryService $factorSalaryService, BaseSalaryService $luongcoban)
     {
         $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;

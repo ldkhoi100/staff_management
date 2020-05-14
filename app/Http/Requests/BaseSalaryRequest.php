@@ -28,20 +28,10 @@ class BaseSalaryRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'required' => ':attribute chưa nhập giá trị',
-            'numeric' => ':attribute phải là một số',
-            'min' => ':attribute phải lớn hơn :min',
-            'max' => ':attribute phải nhỏ hơn :max'
-        ];
-    }
-
     public function attributes()
     {
         return [
-            'Tien_Luong' => "Tiền lương"
+            'Tien_Luong' => "Base Salary"
         ];
     }
 }
