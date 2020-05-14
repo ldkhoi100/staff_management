@@ -86,16 +86,16 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
 
 //Staff
 Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
-    Route::get('/', 'NhanVienController@index')->name("user.index");
-    Route::get('/trash', 'NhanVienController@getSoftDeletes')->name("user.getSoftDeletes");
-    Route::get('/all', 'NhanVienController@indexAjax')->name('users.ajax');
+    Route::get('/', 'NhanVienController@index')->name("nhanvien.index");
+    Route::get('/trash', 'NhanVienController@getSoftDeletes')->name("nhanvien.getSoftDeletes");
+    Route::get('/all', 'NhanVienController@indexAjax')->name('nhanvien.ajax');
     Route::get('/{id}', 'NhanVienController@edit');
-    Route::post('/', 'NhanVienController@store')->name('users.store');
+    Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::get('/select/role', 'NhanVienController@selectRole')->name("user.selectRole");
-        Route::get('/block/{id}', 'NhanVienController@block')->name('users.block');
-        Route::get('/restore/{id}', 'NhanVienController@restore')->name('users.restore');
-        Route::get('/delete/{id}', 'NhanVienController@delete')->name('users.delete');
+        Route::get('/select/role', 'NhanVienController@selectRole')->name("nhanvien.selectRole");
+        Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
+        Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
+        Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
         Route::put('/{id}', 'NhanVienController@update');
         Route::delete('/{id}', 'NhanVienController@moveToTrash');
     });

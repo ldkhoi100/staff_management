@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('nhanvien.modal.showModal')
+@include('users.modal.showModal')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -18,10 +18,10 @@
         </li>
         <li class="nav-item mr-auto ml-3">
             <a class="nav-link btn-block btn btn-outline-success" href="javascript:void(0);"
-                onclick="staff.modalCreate()">Create staff</a>
+                onclick="user.modalCreate()">Create user</a>
         </li>
         <li class="nav-item ml-auto">
-            <a class="nav-link btn-block btn btn-outline-danger" onclick="staff.trashTable()" data-toggle="pill"
+            <a class="nav-link btn-block btn btn-outline-danger" onclick="user.trashTable()" data-toggle="pill"
                 href="#trash">Trash</a>
         </li>
     </ul>
@@ -29,7 +29,7 @@
     <!-- DataTales -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Manager staff -
+            <h6 class="m-0 font-weight-bold text-primary">Manager user -
                 Your role:<span style="color: brown">
                     @if(count(Auth::user()->roles) > 0)
                     {{ Auth::user()->roles[0]->name }}
@@ -41,12 +41,12 @@
         <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <div class="card-body" id="reload_table">
-                    @include('nhanvien.ajax.list')
+                    @include('users.ajax.list')
                 </div>
             </div>
             <div class="tab-pane fade" id="trash">
                 <div class="card-body" id="reload_trash">
-                    @include('nhanvien.ajax.trash')
+                    @include('users.ajax.trash')
                 </div>
             </div>
         </div>
@@ -61,6 +61,6 @@
 
 @push('CRUD')
 
-<script src="js/nhanvien.js"></script>
+<script src="js/users.js"></script>
 
 @endpush

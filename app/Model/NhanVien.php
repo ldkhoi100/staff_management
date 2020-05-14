@@ -31,4 +31,9 @@ class NhanVien extends Model
     {
         return $this->belongsTo("App\Model\ChucVu", 'MaCV', 'id');
     }
+
+    public function he_so_luong()
+    {
+        return $this->belongsTo("App\Model\FactorSalary", 'He_So_Luong', 'id');
+    }
 }

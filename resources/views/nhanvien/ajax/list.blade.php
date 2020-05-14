@@ -13,6 +13,8 @@
                 <th>Address</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Allowance</th>
+                <th>Advance money</th>
                 <th>Created at</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -31,6 +33,8 @@
                 <th>Address</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Allowance</th>
+                <th>Advance money</th>
                 <th>Created at</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -41,7 +45,7 @@
             @foreach ($staffs as $key => $staff)
             <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $staff->MaCV }}</td>
+                <td>{{ $staff->chuc_vu->Ten_CV }}</td>
                 <td>{{ $staff->He_So_Luong }}</td>
                 <td>{{ $staff->Anh_Dai_Dien }}</td>
                 <td>{{ $staff->Ho_Ten }}</td>
@@ -53,12 +57,6 @@
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>
                 <td>{{ $staff->Phu_Cap }}</td>
                 <td>{{ $staff->Tam_Ung }}</td>
-
-                <td>
-                    @if(!empty($staff->email_verified_at))
-                    {{ date("d-m-y H:i:s", strtotime($staff->email_verified_at)) }}
-                    @endif
-                </td>
 
                 <td>{{ date("d-m-y H:i:s", strtotime($staff->created_at)) }}</td>
 
