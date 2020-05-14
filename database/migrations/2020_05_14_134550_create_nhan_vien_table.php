@@ -17,13 +17,15 @@ class CreateNhanVienTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('MaCV')->index('MaCV');
 			$table->integer('He_So_Luong')->index('Ma_Luong');
+			$table->integer('Cham_Cong')->nullable()->index('Cham_Cong');
 			$table->string('Anh_Dai_Dien')->nullable();
 			$table->string('Ho_Ten');
-			$table->dateTime('Ngay_Sinh');
+			$table->date('Ngay_Sinh');
 			$table->string('Gioi_Tinh', 20);
 			$table->integer('So_Dien_Thoai');
-			$table->integer('Dia_Chi');
-			$table->dateTime('Ngay_Bat_Dau_Lam')->nullable();
+			$table->string('Dia_Chi');
+			$table->date('Ngay_Bat_Dau_Lam')->nullable();
+			$table->date('Ngay_Nghi_Viec')->nullable();
 			$table->integer('Phu_Cap')->default(0);
 			$table->integer('Tam_Ung')->default(0);
 			$table->timestamps();

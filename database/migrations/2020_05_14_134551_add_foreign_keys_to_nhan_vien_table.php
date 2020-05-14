@@ -17,6 +17,7 @@ class AddForeignKeysToNhanVienTable extends Migration {
 			$table->foreign('MaCV', 'nhan_vien_ibfk_1')->references('id')->on('chuc_vu')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('id', 'nhan_vien_ibfk_6')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('He_So_Luong', 'nhan_vien_ibfk_7')->references('id')->on('he_so_luong')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('Cham_Cong', 'nhan_vien_ibfk_8')->references('id')->on('cham_cong_ngay')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -33,6 +34,7 @@ class AddForeignKeysToNhanVienTable extends Migration {
 			$table->dropForeign('nhan_vien_ibfk_1');
 			$table->dropForeign('nhan_vien_ibfk_6');
 			$table->dropForeign('nhan_vien_ibfk_7');
+			$table->dropForeign('nhan_vien_ibfk_8');
 		});
 	}
 
