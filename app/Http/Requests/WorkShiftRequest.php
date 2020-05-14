@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FactorSalaryRequest extends FormRequest
+class WorkShiftRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,18 @@ class FactorSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'He_So_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:he_so_luong,He_So_Luong,$this->id,id"]
+            'Ca' => ['required', 'integer', 'min:1','max:100000',"unique:ca_lam,Ca,$this->id,id"],
+            'He_So' => ['required', 'numeric','min:1', 'max:10'],
+            'Mo_Ta' => ['required', 'string', 'min:11', 'max:6500', "unique:ca_lam,Mo_Ta,$this->id,id"]
         ];
     }
 
     public function attributes()
     {
         return [
-            'He_So_Luong' => "Factor Salary"
+            'Ca' => 'Work Shift',
+            'He_So' => 'Factor',
+            'Mo_Ta' => 'Description'
         ];
     }
 }
