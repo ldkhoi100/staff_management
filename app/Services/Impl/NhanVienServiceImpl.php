@@ -7,30 +7,31 @@ use App\Services\NhanVienService;
 
 class NhanVienServiceImpl implements NhanViengService
 {
-    protected $nhan_vien_Repository;
+    protected $dataRepository;
 
-    public function __construct(NhanVienRepository $nhan_vien_Repository)
+    public function __construct(UserRepository $dataRepository)
     {
-        $this->nhan_vien_Repository = $nhan_vien_Repository;
+        $this->dataRepository = $dataRepository;
     }
 
     public function getAll()
     {
-        $nhan_vien = $this->nhan_vien_Repository->getAll();
-        return $nhan_vien;
+        $objects = $this->dataRepository->getAll();
+
+        return $objects;
     }
 
     public function findById($id)
     {
-        $nhan_vien = $this->nhan_vien_Repository->findById($id);
+        $object = $this->dataRepository->findById($id);
 
         $statusCode = 200;
-        if (!$nhan_vien)
+        if (!$object)
             $statusCode = 404;
 
         $data = [
             'statusCode' => $statusCode,
-            'nhan_vien' => $nhan_vien
+            'data' => $object
         ];
 
         return $data;
@@ -38,48 +39,47 @@ class NhanVienServiceImpl implements NhanViengService
 
     public function create($request)
     {
-        $nhan_vien = $this->nhan_vien_Repository->create($request);
+        $object = $this->dataRepository->create($request);
 
         $statusCode = 201;
-        if (!$nhan_vien)
+        if (!$object)
             $statusCode = 500;
 
         $data = [
             'statusCode' => $statusCode,
-            'nhan_vien' => $nhan_vien
+            'data' => $object
         ];
 
         return $data;
     }
 
-    public function update($request, $id)
+    public function update($request, $id, $hash)
     {
-        $nhan_vien_cu = $this->nhan_vien_Repository->findById($id);
+        $oldData = $this->dataRepository->findHashId($id, $hash);
 
-        if (!$nhan_vien_cu) {
-            $nhan_vien_moi = null;
+        if (!$oldData) {
+            $newData = null;
             $statusCode = 404;
         } else {
-            $nhan_vien_moi = $this->nhan_vien_Repository->update($request, $nhan_vien_cu);
+            $newData = $this->dataRepository->update($request, $oldData);
             $statusCode = 200;
         }
 
         $data = [
             'statusCode' => $statusCode,
-            'nhan_vien' => $nhan_vien_moi
+            'data' => $newData
         ];
-
         return $data;
     }
 
     public function destroy($id)
     {
-        $nhan_vien = $this->nhan_vien_Repository->findById($id);
+        $object = $this->dataRepository->findById($id);
 
         $statusCode = 404;
-        $message = "nhan_vien not found";
-        if ($nhan_vien) {
-            $this->nhan_vien_Repository->destroy($nhan_vien);
+        $message = "Not found";
+        if ($object) {
+            $this->dataRepository->destroy($object);
             $statusCode = 200;
             $message = "Delete success!";
         }
@@ -93,19 +93,19 @@ class NhanVienServiceImpl implements NhanViengService
 
     public function getSoftDeletes()
     {
-        $users = $this->nhan_vien_Repository->getSoftDeletes();
+        $objects = $this->dataRepository->getSoftDeletes();
 
-        return $users;
+        return $objects;
     }
 
     public function restore($id)
     {
-        $nhan_vien = $this->nhan_vien_Repository->findOnlyTrashed($id);
+        $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
-        $message = "Nhan Vien not found";
-        if ($nhan_vien) {
-            $this->nhan_vien_Repository->restore($nhan_vien);
+        $message = "Not found";
+        if ($object) {
+            $this->dataRepository->restore($object);
             $statusCode = 200;
             $message = "Restore success!";
         }
@@ -119,15 +119,99 @@ class NhanVienServiceImpl implements NhanViengService
 
     public function delete($id)
     {
-        $nhan_vien = $this->nhan_vien_Repository->findById($id);
+        $object = $this->dataRepository->findOnlyTrashed($id);
 
         $statusCode = 404;
-        $message = "Nhan Vien not found";
-
-        if ($nhan_vien) {
-            $this->nhan_vien_Repository->delete($nhan_vien);
+        $message = "Not found";
+        if ($object) {
+            $this->dataRepository->delete($object);
             $statusCode = 200;
             $message = "Delete success!";
+        }
+
+        $data = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+        return $data;
+    }
+
+    public function findOnlyTrashed($id)
+    {
+        $object = $this->dataRepository->findOnlyTrashed($id);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+    public function findWithTrashed($id)
+    {
+        $object = $this->dataRepository->findWithTrashed($id);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+    public function findHashId($id, $hash)
+    {
+        $object = $this->dataRepository->findHashId($id, $hash);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+
+    public function findRoleUser($id)
+    {
+        $object = $this->dataRepository->findRoleUser($id);
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+    public function blockUser($id)
+    {
+        $object = $this->dataRepository->findWithTrashed($id);
+
+        $statusCode = 404;
+        $message = "Not found";
+
+        if ($object) {
+            $this->dataRepository->blockUser($object);
+            $statusCode = 200;
+            $message = "Change column block success!";
         }
 
         $data = [
