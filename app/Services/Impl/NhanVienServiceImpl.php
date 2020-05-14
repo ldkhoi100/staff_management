@@ -5,11 +5,11 @@ namespace App\Services\Impl;
 use App\Repositories\NhanVienRepository;
 use App\Services\NhanVienService;
 
-class NhanVienServiceImpl implements NhanViengService
+class NhanVienServiceImpl implements NhanVienService
 {
     protected $dataRepository;
 
-    public function __construct(UserRepository $dataRepository)
+    public function __construct(NhanVienRepository $dataRepository)
     {
         $this->dataRepository = $dataRepository;
     }

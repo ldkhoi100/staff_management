@@ -8,8 +8,8 @@ use App\Services\Impl\RoleServiceImpl;
 use App\Services\RoleService;
 use Illuminate\Support\ServiceProvider;
 
-use App\Repositories\Impl\BacLuongRepositoryImpl;
-use App\Services\Impl\BacLuongServiceImpl;
+use App\Repositories\Impl\FactorSalaryRepositoryImpl;
+use App\Services\Impl\FactorSalaryServiceImpl;
 
 use App\Repositories\Impl\NhanVienRepositoryImpl;
 use App\Services\Impl\NhanVienServiceImpl;
@@ -20,14 +20,12 @@ use App\Services\Impl\UserServiceImpl;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
-use App\Services\BacLuongService;
-use App\Repositories\BacLuongRepository;
+use App\Services\FactorSalaryService;
+use App\Repositories\FactorSalaryRepository;
 use App\Repositories\ChucvuRepository;
 use App\Repositories\Impl\ChucvuRepositoryImpl;
-
-use App\Repositories\DonXinPhepRepository;
-use App\Repositories\Impl\DonXinPhepRepositoryImpl;
-
+use App\Repositories\Impl\LuongCoBanRepositoryImpl;
+use App\Repositories\LuongCoBanRepository;
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
 
@@ -37,6 +35,8 @@ use App\Services\Impl\DonXinPhepServiceImpl;
 
 use App\Services\ChucvuService;
 use App\Services\Impl\ChucvuServiceImpl;
+use App\Services\Impl\LuongCoBanServiceImpl;
+use App\Services\LuongCoBanService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -67,12 +67,12 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
-            BacLuongRepository::class,
-            BacLuongRepositoryImpl::class
+            FactorSalaryRepository::class,
+            FactorSalaryRepositoryImpl::class
         );
         $this->app->singleton(
-            BacLuongService::class,
-            BacLuongServiceImpl::class
+            FactorSalaryService::class,
+            FactorSalaryServiceImpl::class
         );
 
         $this->app->singleton(
@@ -103,20 +103,14 @@ class AppServiceProvider extends ServiceProvider
             ChucvuRepositoryImpl::class
         );
 
-
         $this->app->singleton(
-            DonXinPhepService::class,
-            DonXinPhepServiceImpl::class
+            LuongCoBanService::class,
+            LuongCoBanServiceImpl::class
         );
 
         $this->app->singleton(
-            DonXinPhepRepository::class,
-            DonXinPhepRepositoryImpl::class
+            LuongCoBanRepository::class,
+            LuongCoBanRepositoryImpl::class
         );
-
-
-
-
-
     }
 }

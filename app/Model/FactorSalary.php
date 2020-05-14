@@ -5,21 +5,16 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BacLuong extends Model
+class FactorSalary extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'bac_luong';
+    protected $table = 'he_so_luong';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'Bac_Luong'
+        'He_So_Luong'
     ];
-
-    public function luong_co_ban()
-    {
-        return $this->belongsTo(LuongCoBan::class, 'LuongCB');
-    }
 
     public function nhan_vien()
     {

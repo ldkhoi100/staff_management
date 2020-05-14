@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FactorSalaryRequest extends FormRequest
+class BaseSalaryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,25 +24,24 @@ class FactorSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'He_So_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:he_so_luong,He_So_Luong,$this->id,id"]
+            'Tien_Luong' => ['required', 'numeric', 'min:100000', 'max:10000000']
         ];
     }
 
     public function messages()
     {
         return [
-            'required' => ":attribute bắt buộc phải có giá trị",
-            'numeric' => ":attribute phải là một số",
-            'min' => ":attribute phải lớn hơn :min",
-            'max' => ":attribute phải nhỏ hơn :max",
-            'unique' => ":attribute đã tồn tại"
+            'required' => ':attribute chưa nhập giá trị',
+            'numeric' => ':attribute phải là một số',
+            'min' => ':attribute phải lớn hơn :min',
+            'max' => ':attribute phải nhỏ hơn :max'
         ];
     }
 
     public function attributes()
     {
         return [
-            'He_So_Luong' => "Hệ số lương"
+            'Tien_Luong' => "Tiền lương"
         ];
     }
 }

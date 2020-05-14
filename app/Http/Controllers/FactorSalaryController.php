@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BaseSalaryRequest;
 use App\Http\Requests\FactorSalaryRequest;
-use App\Services\BacLuongService;
-use Illuminate\Http\Request;
+use App\Services\FactorSalaryService;
+use App\Services\LuongCoBanService;
 
-class BacLuongController extends Controller
+class FactorSalaryController extends Controller
 {
 
     protected $factorSalaryService;
+    protected $baseSalary;
 
-    public function __construct(BacLuongService $factorSalaryService)
+    public function __construct(FactorSalaryService $factorSalaryService, LuongCoBanService $luongcoban)
     {
-        // $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN')->except(['index', 'delete','restore', 'moveToTrash']);web
-        // $this->middleware('role:ROLE_SUPERADMIN')->only(['index','create', 'delete','restore', 'moveToTrash']);
         $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;
+        $this->baseSalary = $luongcoban;
     }
 
     public function index()
@@ -87,5 +87,19 @@ class BacLuongController extends Controller
         $factorSalary = $this->factorSalaryService->delete($id);
 
         return response()->json($factorSalary['msg'], $factorSalary['status']);
+    }
+
+    public function getBaseSalary()
+    {
+        $baseSalary = $this->baseSalary->get();
+
+        return response()->json($baseSalary, 200);
+    }
+
+    public function updateBaseSalary(BaseSalaryRequest $request)
+    {
+        $baseSalary = $this->baseSalary->update($request->all());
+
+        return response()->json($baseSalary['data'], $baseSalary['status']);
     }
 }

@@ -2,7 +2,7 @@ var staff = staff || {};
 
 staff.drawTable = function() {
     $.ajax({
-        url: "/users/all",
+        url: "/nhanvien/all",
         type: "GET",
         success: function(res) {
             $("#reload_table").html(res);
@@ -18,7 +18,7 @@ staff.drawTable = function() {
 
 staff.trashTable = function() {
     $.ajax({
-        url: "/users/trash",
+        url: "/nhanvien/trash",
         type: "GET",
         success: function(res) {
             $("#reload_trash").html(res);
@@ -51,7 +51,7 @@ staff.modalEdit = function(id) {
     $(".btn-edit").prop("disabled", false);
     $.ajax({
         type: "GET",
-        url: "/users/" + id,
+        url: "/nhanvien/" + id,
         success: function(response) {
             staff.hash = response[0].hash;
             $("#ShowModal").find("#id").val(response[0].id);
@@ -97,7 +97,7 @@ staff.modalEdit = function(id) {
 staff.create = function() {
     let data = $("#modal-create").serialize();
     $.ajax({
-        url: "/users",
+        url: "/nhanvien",
         type: "POST",
         data: data,
         success: function(response) {
@@ -128,7 +128,7 @@ staff.update = function() {
     data += `&hash=${staff.hash}`;
     var id = $("input[name='id']").val();
     $.ajax({
-        url: "/users/" + id,
+        url: "/nhanvien/" + id,
         type: "PUT",
         data: data,
         success: function(response) {
@@ -159,7 +159,7 @@ staff.destroy = function(id, username) {
     }).then(function(isConfirm) {
         if (isConfirm) {
             $.ajax({
-                url: "/users/" + id,
+                url: "/nhanvien/" + id,
                 type: "DELETE",
                 success: function() {
                     staff.trashTable();
@@ -188,7 +188,7 @@ staff.restore = function(id, username) {
     }).then(function(isConfirm) {
         if (isConfirm) {
             $.ajax({
-                url: "/users/restore/" + id,
+                url: "/nhanvien/restore/" + id,
                 type: "GET",
                 success: function() {
                     staff.trashTable();
@@ -217,7 +217,7 @@ staff.forceDelete = function(id, username) {
     }).then(function(isConfirm) {
         if (isConfirm) {
             $.ajax({
-                url: "/users/delete/" + id,
+                url: "/nhanvien/delete/" + id,
                 type: "GET",
                 success: function() {
                     staff.trashTable();
@@ -267,7 +267,7 @@ staff.block = function(id, username) {
 
 staff.selectRole = function() {
     $.ajax({
-        url: "/users/select/role",
+        url: "/nhanvien/select/role",
         type: "GET",
     }).done(function(data) {
         $(".role-select").empty();
@@ -279,7 +279,7 @@ staff.selectRole = function() {
 
 staff.selectRoleUpdate = function(role) {
     $.ajax({
-        url: "/users/select/role",
+        url: "/nhanvien/select/role",
         type: "GET",
     }).done(function(data) {
         $(".role-select").empty();

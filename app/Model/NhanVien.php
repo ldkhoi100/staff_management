@@ -19,7 +19,7 @@ class NhanVien extends Model
 
     public function cham_cong()
     {
-        return $this->hasMany("App\Model\ChamCong", 'Ma_NV', 'id');
+        return $this->hasMany("App\Model\ChamCong", 'Cham_Cong', 'id');
     }
 
     public function don_xin_phep()
@@ -29,6 +29,6 @@ class NhanVien extends Model
 
     public function chuc_vu()
     {
-        return $this->belongsTo("App\Model\ChucVu", 'Ten_CV', 'id');
+        return $this->belongsTo("App\Model\ChucVu", 'MaCV', 'id');
     }
 }
