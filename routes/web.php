@@ -44,18 +44,41 @@ Route::group(['prefix' => '/chuc-vu'], function () {
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
+
+
+Route::group(['prefix' => '/donxinphep'], function () {
+    Route::get('/', "DonXinPhepController@index")->name('dxp.index');
+    Route::get('/all', "DonXinPhepController@getAll")->name('dxp.getAll');
+    Route::get('/trash', "DonXinPhepController@getTrash")->name('dxp.getTrash');
+    Route::get('/{id}', "DonXinPhepController@findById")->name('dxp.findById');
+    Route::get('/{id}/trash', "DonXinPhepController@findTrashById")->name('dxp.findTrashById');
+    Route::post('/', "DonXinPhepController@create")->name('dxp.create');
+    Route::put('/{id}', "DonXinPhepController@update")->name('dxp.update');
+    Route::put('/{id}/restore', "DonXinPhepController@restore")->name('dxp.restore');
+    Route::delete('/{id}', "DonXinPhepController@moveToTrash")->name('dxp.moveToTrash');
+    Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
+});
+
+
+
+
+
+
+
+
+
 //User
 Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'UsersController@index')->name("user.index");
     Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
     Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
     Route::get('/{id}', 'UsersController@edit');
+    Route::post('/', 'UsersController@store')->name('users.store');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
         Route::get('/block/{id}', 'UsersController@block')->name('users.block');
         Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
         Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
-        Route::post('/', 'UsersController@store')->name('users.store');
         Route::put('/{id}', 'UsersController@update');
         Route::delete('/{id}', 'UsersController@moveToTrash');
     });

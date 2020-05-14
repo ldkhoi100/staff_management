@@ -25,7 +25,7 @@
 
                     <div class="form-group">
                         <label>Email:</label>
-                        <input type="text" name="email" class="form-control create_modal" placeholder="email">
+                        <input type="text" name="email" class="form-control create_modal" placeholder="Email">
 
                         <span class="invalid-feedback">
                             <strong class="alert-email"></strong>

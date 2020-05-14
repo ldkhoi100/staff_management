@@ -28,6 +28,11 @@ use App\Repositories\Impl\LuongCoBanRepositoryImpl;
 use App\Repositories\LuongCoBanRepository;
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
+
+
+use App\Services\DonXinPhepService;
+use App\Services\Impl\DonXinPhepServiceImpl;
+
 use App\Services\ChucvuService;
 use App\Services\Impl\ChucvuServiceImpl;
 use App\Services\Impl\LuongCoBanServiceImpl;

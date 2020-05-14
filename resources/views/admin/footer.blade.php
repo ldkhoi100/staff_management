@@ -57,6 +57,7 @@
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
 <script src="js/toastr.min.js"></script>
 <script src="js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
 @stack('CRUD')
 @stack('jquery-api')
