@@ -7,7 +7,7 @@
                 Salary</a>
         </li>
         <li class="nav-item mx-auto">
-            <a class="nav-link btn-info btn" onclick="Cv.create()">Create</a>
+            <a class="nav-link btn-info btn" onclick="Dxp.create()">Create</a>
         </li>
         <li class="nav-item">
             <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill"
@@ -19,20 +19,22 @@
             <table id="fs-table" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
-                        <th>Action</th>
+                        <th>Mã Nhân Viên</th>
+                        <th>Tiêu Đề</th>
+                        <th>Nội Dung</th>
+                        <th>Thời Gian Xin Nghỉ</th>
+                       <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
-                        <th>Action</th>
+                        <th>Mã Nhân Viên</th>
+                        <th>Tiêu Đề</th>
+                        <th>Nội Dung</th>
+                        <th>Thời Gian Xin Nghỉ</th>
+                       <th>Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -41,20 +43,22 @@
             <table id="fs-table-trash" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
-                       <th>Action</th>
+                        <th>Mã Nhân Viên</th>
+                        <th>Tiêu Đề</th>
+                        <th>Nội Dung</th>
+                        <th>Thời Gian Xin Nghỉ</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
-                        <th>Action</th>
+                        <th>Mã Nhân Viên</th>
+                        <th>Tiêu Đề</th>
+                        <th>Nội Dung</th>
+                        <th>Thời Gian Xin Nghỉ</th>
+                       <th>Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -73,20 +77,25 @@
                         </div>
                         <div class="modal-body container">
                             <div class="container">
-                                <span>Tên chức vụ</span><br>
-                                <input class="form-control col" type="text"  name="Ten_CV">
+                                <span>Mã nhân viên</span><br>
+                                <input class="form-control col" type="text"  name="MaNV">
                             </div>
                             <div class="container">
-                                <span>Việc làm</span><br>
-                                <input class="form-control col" type="text"  name="Cong_Viec">
+                                <span>Tiêu đề</span><br>
+                                <input class="form-control col" type="text"  name="TieuDe">
                             </div>
                             <div class="container">
-                                <span>Bậc Lương</span><br>
-                                <input class="form-control col" type="number"  name="Bac_Luong">
+                                <span>Nội dung</span><br>
+                                <input class="form-control col" type="text"  name="NoiDung">
                             </div>
-                            <div class="modal-footer">
+                            <div class="container">
+                                <span>Thời gian xỉn nghỉ</span><br>
+                                <input class="form-control col" type="date"  name="created_at">
+                            </div>
+
+                         <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
-                                    onclick="Cv.save(this)">
+                                    onclick="Dxp.save(this)">
                                     <i class="fa fa-save"></i> Save
                                 </button>
                             </div>
@@ -103,5 +112,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js">
 </script>
-<script src="js/chucvu.js"></script>
+<script src="js/donxinphep.js"></script>
 @endpush

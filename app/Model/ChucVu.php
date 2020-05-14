@@ -13,11 +13,11 @@ class ChucVu extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'Ten_CV', 'Cong_Viec'
+        'Ten_CV', 'Cong_Viec' , 'Bac_Luong'
     ];
 
     public function nhan_vien()
     {
-        return $this->hasMany("App\Model\NhanVien", 'MaCV', 'id');
+        return $this->hasMany("App\Model\NhanVien", 'Ten_CV', 'id');
     }
 }

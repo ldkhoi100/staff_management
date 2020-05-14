@@ -17,13 +17,18 @@ class NhanVien extends Model
         'Anh_Dai_Dien', 'Ngay_Bat_Dau_Lam', 'Ngay_Nghi_Viec', 'Phu_Cap', 'Tam_Ung'
     ];
 
-    public function luong_co_ban()
-    {
-        return $this->belongsTo("App\Model\LuongCoBan", 'LuongCB', 'id');
-    }
-
     public function cham_cong()
     {
         return $this->hasMany("App\Model\ChamCong", 'Ma_NV', 'id');
+    }
+
+    public function don_xin_phep()
+    {
+        return $this->hasMany("App\Model\DonXinPhep", 'MaNV', 'id');
+    }
+
+    public function chuc_vu()
+    {
+        return $this->belongsTo("App\Model\ChucVu", 'Ten_CV', 'id');
     }
 }
