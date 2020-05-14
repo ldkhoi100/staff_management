@@ -191,11 +191,9 @@ user.restore = function(id, username) {
                 url: "/users/restore/" + id,
                 type: "GET",
                 success: function() {
-                    if (conf) {
-                        user.trashTable();
-                        user.drawTable();
-                        swal('Restored!', `Restored user ${username}!`, 'success');
-                    }
+                    user.trashTable();
+                    user.drawTable();
+                    swal('Restored!', `Restored user ${username}!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -222,11 +220,9 @@ user.forceDelete = function(id, username) {
                 url: "/users/delete/" + id,
                 type: "GET",
                 success: function() {
-                    if (conf) {
-                        user.trashTable();
-                        user.drawTable();
-                        swal('Deleted!', `Deleted user ${username} forever!`, 'success');
-                    }
+                    user.trashTable();
+                    user.drawTable();
+                    swal('Deleted!', `Deleted user ${username} forever!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -253,11 +249,9 @@ user.block = function(id, username) {
                 url: "users/block/" + id,
                 type: "get",
                 success: function() {
-                    if (conf) {
-                        user.trashTable();
-                        user.drawTable();
-                        swal('Success!', `Changed column block of user ${username}!`, 'success');
-                    }
+                    user.trashTable();
+                    user.drawTable();
+                    swal('Success!', `Changed column block of user ${username}!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {

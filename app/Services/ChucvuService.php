@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Services;
 
 interface ChucvuService
 {
     public function getAll();
-    
+
     public function findById($id);
 
     public function create($request);

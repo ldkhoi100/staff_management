@@ -49,7 +49,6 @@ Route::group(['prefix' => '/chuc-vu'], function () {
 /**
  * Table donxinphep
  */
-
 Route::group(['prefix' => '/donxinphep'], function () {
     Route::get('/', "DonXinPhepController@index")->name('dxp.index');
     Route::get('/all', "DonXinPhepController@getAll")->name('dxp.getAll');
@@ -84,9 +83,28 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
 });
 
 /**
+ * Table Nhan vien
+ */
+Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+    Route::get('/', 'NhanVienController@index')->name("nhanvien.index");
+    Route::get('/trash', 'NhanVienController@getSoftDeletes')->name("nhanvien.getSoftDeletes");
+    Route::get('/all', 'NhanVienController@indexAjax')->name('nhanvien.ajax');
+    Route::get('/{id}', 'NhanVienController@edit');
+    Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::get('/select/role', 'NhanVienController@selectRole')->name("nhanvien.selectRole");
+        Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
+        Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
+        Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
+        Route::put('/{id}', 'NhanVienController@update');
+        Route::delete('/{id}', 'NhanVienController@moveToTrash');
+    });
+});
+
+/**
  * Table he-so-luong
  */
-Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
     Route::get('/', "FactorSalaryController@index")->name('fs.index');
     Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
     Route::get('/trash', "FactorSalaryController@getTrash")->name('fs.getTrash');
