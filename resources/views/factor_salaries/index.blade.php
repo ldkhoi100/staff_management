@@ -16,9 +16,11 @@
     </ul>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold mt-2 text-primary">Table Factor Salary</h6>
-            <h6 class="m-0 font-weight-bold mt-2 text-primary ml-auto">Base Salary: <input class="border-0 w-25 " readonly value="6000000"></h6>
-            <a class="btn btn-outline-info btn-sm ml-3">Edit</a>
+            <h6 class="m-0 font-weight-bold mt-1 text-primary">Table Factor Salary</h6>
+            <h6 class="m-0 font-weight-bold mt-1 text-primary ml-auto">Base Salary:
+                <input type="number" readonly id="base-salary" class="form-control-sm px-2 bg-info" style="width: fit-content" value="">
+            </h6>
+            <a class="btn btn-outline-info btn-sm" id="btn-edit-base-salary">Edit</a>
         </div>
         <div class="card-body">
             <div class="tab-content" id="pills-tabContent">

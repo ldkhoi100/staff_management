@@ -77,6 +77,10 @@ Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth','role:ROLE_A
     });
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => '/base-salary'], function () {
+    Route::get('/', 'FactorSalaryController@getBaseSalary')->name('bs.get');
+    Route::put('/', 'FactorSalaryController@updateBaseSalary')->middleware('role:ROLE_SUPERADMIN')->name('bs.update');
+});
 
 Route::group(['prefix' => '/role'], function () {
     Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');

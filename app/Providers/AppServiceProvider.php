@@ -24,10 +24,14 @@ use App\Services\FactorSalaryService;
 use App\Repositories\FactorSalaryRepository;
 use App\Repositories\ChucvuRepository;
 use App\Repositories\Impl\ChucvuRepositoryImpl;
+use App\Repositories\Impl\LuongCoBanRepositoryImpl;
+use App\Repositories\LuongCoBanRepository;
 use App\Services\NhanVienService;
 use App\Repositories\NhanVienRepository;
 use App\Services\ChucvuService;
 use App\Services\Impl\ChucvuServiceImpl;
+use App\Services\Impl\LuongCoBanServiceImpl;
+use App\Services\LuongCoBanService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -92,6 +96,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             ChucvuRepository::class,
             ChucvuRepositoryImpl::class
+        );
+
+        $this->app->singleton(
+            LuongCoBanService::class,
+            LuongCoBanServiceImpl::class
+        );
+
+        $this->app->singleton(
+            LuongCoBanRepository::class,
+            LuongCoBanRepositoryImpl::class
         );
     }
 }

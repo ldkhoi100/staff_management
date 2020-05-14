@@ -6,7 +6,7 @@ use App\Model\LuongCoBan;
 use App\Repositories\Eloquent\EloquentRepository;
 use App\Repositories\LuongCoBanRepository;
 
-class BacLuongRepositoryImpl extends EloquentRepository implements LuongCoBanRepository
+class LuongCoBanRepositoryImpl extends EloquentRepository implements LuongCoBanRepository
 {
     public function getModel()
     {

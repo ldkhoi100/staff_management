@@ -6,5 +6,5 @@ interface LuongCoBanService
 {
     public function get();
 
-    public function update($request, $id);
+    public function update($request);
 }
