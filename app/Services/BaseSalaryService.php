@@ -4,7 +4,21 @@ namespace App\Services;
 
 interface BaseSalaryService
 {
-    public function get();
+    public function getAll();
 
-    public function update($request);
+    public function findById($id);
+
+    public function create($request);
+
+    public function update($request, $id);
+
+    public function destroy($id);
+
+    public function getSoftDeletes();
+
+    public function findOnlyTrashed($id);
+
+    public function restore($id);
+
+    public function delete($id);
 }
