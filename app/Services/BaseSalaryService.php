@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface LuongCoBanService
+interface BaseSalaryService
 {
     public function get();
 
