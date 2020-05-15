@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="row">
-                        <h2 class="col-12" style="color:blue; text-decoration: underline;">Create Staff:</h2>
+                        <h2 class="col-12" style="color:blue; text-decoration: underline;">Create Profile Staff:</h2>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Full Name:</label>
@@ -148,7 +148,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Position:</label> <br>
-                                <select name="MaCV" id="" class="form-control">
+                                <select name="MaCV" id="" class="form-control position">
 
                                 </select>
 

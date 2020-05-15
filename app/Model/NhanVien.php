@@ -39,6 +39,6 @@ class NhanVien extends Model
 
     public function user()
     {
-        return $this->belongsTo("App\User", "id", "hash");
+        return $this->belongsTo("App\User", "id", "id");
     }
 }

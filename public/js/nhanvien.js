@@ -270,10 +270,10 @@ staff.selectMaCV = function() {
         url: "/staff/select/maCV",
         type: "GET",
     }).done(function(data) {
-        $(".user-select").empty();
+        $(".position").empty();
         $.each(data, function(key, value) {
-            $(".user-select").append(
-                `<option value="${value.hash}">${value.username}</option>`
+            $(".position").append(
+                `<option value="${value.id}">${value.Ten_CV}</option>`
             );
         });
 

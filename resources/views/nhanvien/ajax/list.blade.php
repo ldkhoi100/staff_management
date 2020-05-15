@@ -11,6 +11,7 @@
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -26,6 +27,7 @@
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -44,9 +46,14 @@
                 <td>{{ $staff->Ngay_Bat_Dau_Lam }}</td>
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>
 
+                <td><button type="button" onclick="staff.modalEdit({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
+                        class="btn btn-info show-modal-edit btn-sm">
+                        <i class="fa fa-eye" title="Detail"></i>
+                    </button></td>
+
                 <td>
                     <button type="button" onclick="staff.modalEdit({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
-                        class="btn btn-info show-modal-edit btn-sm">
+                        class="btn btn-warning show-modal-edit btn-sm">
                         <i class="fa fa-edit" title="Edit"></i>
                     </button>
                 </td>

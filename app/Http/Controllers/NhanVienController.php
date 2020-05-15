@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\NhanVienService;
-use App\Services\UserService;
+use App\Services\ChucvuService;
 use Str;
 use Validator;
 use App\User;
@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Crypt;
 class NhanVienController extends Controller
 {
     protected $staffService;
-    protected $userService;
+    protected $chucVuService;
 
-    public function __construct(NhanVienService $staffService, UserService $userService)
+    public function __construct(NhanVienService $staffService, ChucvuService $chucVuService)
     {
         $this->middleware('auth');
         $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
-        $this->userService = $userService;
+        $this->chucVuService = $chucVuService;
     }
 
     public function index()
@@ -41,15 +41,7 @@ class NhanVienController extends Controller
 
     public function selectMaCV()
     {
-        $maCVS = $this->userService->getUserNotSuper();
-        $staffs = $this->staffService->getAll();
-        foreach ($staffs as $staff) {
-            foreach ($maCVS as $CVS) {
-                if ($staff->id != $CVS->hash) {
-                    $maCV[] = $CVS;
-                }
-            }
-        }
+        $maCV = $this->chucVuService->getAll();
 
         return response()->json($maCV, 200);
     }
