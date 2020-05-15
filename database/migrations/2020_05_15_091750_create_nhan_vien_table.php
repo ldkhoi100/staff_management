@@ -15,7 +15,6 @@ class CreateNhanVienTable extends Migration {
 		Schema::create('nhan_vien', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned()->index('user_id');
 			$table->integer('hash')->nullable();
 			$table->integer('MaCV')->unsigned()->index('MaCV');
 			$table->integer('He_So_Luong')->unsigned()->index('Ma_Luong');
