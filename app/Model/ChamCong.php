@@ -14,7 +14,7 @@ class ChamCong extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'Ngay_Hien_Tai', 'So_Ca_lam', 'Ngay_Le','Ghi_Chu'
+        'Ngay_Hien_Tai', 'So_ca_lam', 'Ngay_Le','Ghi_Chu'
     ];
 
     public function nhan_vien()
