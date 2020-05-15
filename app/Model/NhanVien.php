@@ -36,4 +36,9 @@ class NhanVien extends Model
     {
         return $this->belongsTo("App\Model\FactorSalary", 'He_So_Luong', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo("App\User", "id", "hash");
+    }
 }
