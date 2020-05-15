@@ -62,14 +62,10 @@ Route::group(['prefix' => '/donxinphep'], function () {
     Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
 });
 
-<<<<<<< HEAD
-//User
-=======
 
 /**
  * Table users
  */
->>>>>>> e9080b72fcfbee5c78d1a18ec25d883184f937b1
 Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'UsersController@index')->name("user.index");
     Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
@@ -145,7 +141,7 @@ Route::group(['prefix' => '/role'], function () {
 /**
  * Table ca lam
  */
-Route::group(['prefix' => '/work-shift', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
     Route::get('/', "WorkShiftController@index")->name('ws.index');
     Route::get('/all', "WorkShiftController@getAll")->name('ws.getAll');
     Route::get('/trash', "WorkShiftController@getTrash")->name('ws.getTrash');
