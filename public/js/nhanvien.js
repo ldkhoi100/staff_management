@@ -39,7 +39,7 @@ staff.modalCreate = function() {
     $("#show-edit-modal").css("display", "none");
     $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
     $(".btn-create").prop("disabled", false);
-    staff.selectRole();
+    staff.selectMaCV();
 };
 
 staff.hash;
@@ -265,15 +265,18 @@ staff.block = function(id, username) {
     });
 };
 
-staff.selectRole = function() {
+staff.selectMaCV = function() {
     $.ajax({
-        url: "/staff/select/role",
+        url: "/staff/select/maCV",
         type: "GET",
     }).done(function(data) {
-        $(".role-select").empty();
-        $(".role-select").append(
-            `<option value="${data.id}">${data.name}</option>`
-        );
+        $(".user-select").empty();
+        $.each(data, function(key, value) {
+            $(".user-select").append(
+                `<option value="${value.hash}">${value.username}</option>`
+            );
+        });
+
     });
 };
 

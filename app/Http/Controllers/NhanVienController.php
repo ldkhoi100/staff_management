@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\NhanVienService;
+use App\Services\UserService;
 use Str;
 use Validator;
 use App\User;
@@ -13,13 +14,14 @@ use Illuminate\Support\Facades\Crypt;
 class NhanVienController extends Controller
 {
     protected $staffService;
-    protected $roleService;
+    protected $userService;
 
-    public function __construct(NhanVienService $staffService)
+    public function __construct(NhanVienService $staffService, UserService $userService)
     {
         $this->middleware('auth');
         $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -37,12 +39,20 @@ class NhanVienController extends Controller
     }
 
 
-    // public function selectRole()
-    // {
-    //     $roles = $this->roleService->findById(1);
+    public function selectMaCV()
+    {
+        $maCVS = $this->userService->getUserNotSuper();
+        $staffs = $this->staffService->getAll();
+        foreach ($staffs as $staff) {
+            foreach ($maCVS as $CVS) {
+                if ($staff->id != $CVS->hash) {
+                    $maCV[] = $CVS;
+                }
+            }
+        }
 
-    //     return response()->json($roles['role'], $roles['statusCode']);
-    // }
+        return response()->json($maCV, 200);
+    }
 
     // public function show($id)
     // {
@@ -57,9 +67,9 @@ class NhanVienController extends Controller
         $data['password'] = Hash::make($request->password);
         $data['block'] = $request->block ? 1 : 0;
 
-        $data['hash'] = rand(1000000000, 9999999999);
+        $data['hash'] = rand(1000000000, 2147483640);
         while (in_array($data['hash'], $hash)) {
-            $data['hash'] = rand(1000000000, 9999999999);
+            $data['hash'] = rand(1000000000, 2147483640);
         }
 
         $data = $this->staffService->create([$data, $request->roles]);

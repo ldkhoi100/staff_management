@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->hasMany("App\Model\Role_User");
     }
+
+    public function nhanvien()
+    {
+        return $this->hasOne("App\Model\NhanVien", "id", "hash");
+    }
 }

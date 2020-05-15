@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRoleUserTable extends Migration {
+class CreateCaLamTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,14 @@ class CreateRoleUserTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('role_user', function(Blueprint $table)
+		Schema::create('ca_lam', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('role_id')->index('role_id');
-			$table->integer('user_id')->index('user_id');
+			$table->integer('Ca');
+			$table->integer('He_So_Ca');
+			$table->text('Mo_Ta', 65535)->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
@@ -29,7 +31,7 @@ class CreateRoleUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('role_user');
+		Schema::drop('ca_lam');
 	}
 
 }
