@@ -3,14 +3,11 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Full Name</th>
                 <th>Level</th>
                 <th>Coefficients salary</th>
                 <th>Image</th>
-                <th>Full Name</th>
-                <th>DOB</th>
                 <th>Gender</th>
-                <th>Phone</th>
-                <th>Address</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
                 <th>Deleted at</th>
@@ -22,14 +19,11 @@
         <tfoot>
             <tr>
                 <th>#</th>
+                <th>Full Name</th>
                 <th>Level</th>
                 <th>Coefficients salary</th>
                 <th>Image</th>
-                <th>Full Name</th>
-                <th>DOB</th>
                 <th>Gender</th>
-                <th>Phone</th>
-                <th>Address</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
                 <th>Deleted at</th>
@@ -43,24 +37,13 @@
             @foreach ($staffs as $key => $staff)
             <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $staff->MaCV }}</td>
-                <td>{{ $staff->He_So_Luong }}</td>
-                <td>{{ $staff->Anh_Dai_Dien }}</td>
                 <td>{{ $staff->Ho_Ten }}</td>
-                <td>{{ $staff->Ngay_Sinh }}</td>
+                <td>{{ $staff->chuc_vu->Ten_CV }}</td>
+                <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
+                <td>{{ $staff->Anh_Dai_Dien }}</td>
                 <td>{{ $staff->Gioi_Tinh }}</td>
-                <td>{{ $staff->So_Dien_Thoai }}</td>
-                <td>{{ $staff->Dia_Chi }}</td>
                 <td>{{ $staff->Ngay_Bat_Dau_Lam }}</td>
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>
-                <td>{{ $staff->Phu_Cap }}</td>
-                <td>{{ $staff->Tam_Ung }}</td>
-
-                <td>
-                    @if(!empty($staff->email_verified_at))
-                    {{ date("d-m-y H:i:s", strtotime($staff->email_verified_at)) }}
-                    @endif
-                </td>
 
                 <td>{{ date("d-m-y H:i:s", strtotime($staff->deleted_at)) }}</td>
 

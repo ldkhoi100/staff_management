@@ -92,7 +92,7 @@ Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
     Route::get('/{id}', 'NhanVienController@edit');
     Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::get('/select/role', 'NhanVienController@selectRole')->name("nhanvien.selectRole");
+        Route::get('/select/maCV', 'NhanVienController@selectMaCV')->name("nhanvien.selectMaCV");
         Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
         Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
         Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
@@ -149,7 +149,7 @@ Route::group(['prefix'=>'/chamcongngay'], function (){
 /**
  * Table ca lam
  */
-Route::group(['prefix' => '/work-shift', 'middleware' => ['auth','role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
     Route::get('/', "WorkShiftController@index")->name('ws.index');
     Route::get('/all', "WorkShiftController@getAll")->name('ws.getAll');
     Route::get('/trash', "WorkShiftController@getTrash")->name('ws.getTrash');

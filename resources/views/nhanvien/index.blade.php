@@ -13,7 +13,7 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active btn-block btn btn-outline-primary" data-toggle="pill" href="#home">Manager
-                User
+                Staffs
             </a>
         </li>
         <li class="nav-item mr-auto ml-3">
