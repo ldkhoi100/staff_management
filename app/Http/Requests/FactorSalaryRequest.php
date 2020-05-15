@@ -24,25 +24,14 @@ class FactorSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'Bac_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:bac_luong,Bac_Luong,$this->id,id"]
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ":attribute bắt buộc phải có giá trị",
-            'numeric' => ":attribute phải là một số",
-            'min' => ":attribute phải lớn hơn :min",
-            'max' => ":attribute phải nhỏ hơn :max",
-            'unique' => ":attribute đã tồn tại"
+            'He_So_Luong' => ['required', 'numeric', 'min:1', 'max:5', "unique:he_so_luong,He_So_Luong,$this->id,id"]
         ];
     }
 
     public function attributes()
     {
         return [
-            'Bac_Luong' => "Bậc lương"
+            'He_So_Luong' => "Factor Salary"
         ];
     }
 }

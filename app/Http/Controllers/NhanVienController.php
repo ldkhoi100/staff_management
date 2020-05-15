@@ -3,75 +3,134 @@
 namespace App\Http\Controllers;
 
 use App\Services\NhanVienService;
-use Illuminate\Http\Request;
+use App\Services\UserService;
+use Str;
+use Validator;
+use App\User;
+use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class NhanVienController extends Controller
 {
-    protected $nhan_vien_Service;
+    protected $staffService;
+    protected $userService;
 
-    public function __construct(NhanVienService $nhan_vien_Service)
+    public function __construct(NhanVienService $staffService, UserService $userService)
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN')->only(['index', 'show']);
-        $this->middleware('role:ROLE_SUPERADMIN')->only(['index', 'show']);
-        $this->nhan_vien_Service = $nhan_vien_Service;
+        $this->middleware('AjaxRequest')->except('index');
+        $this->staffService = $staffService;
+        $this->userService = $userService;
     }
 
     public function index()
     {
-        $nhan_vien = $this->nhan_vien_Service->getAll();
-        return response()->json($nhan_vien, 200);
+        $staffs = $this->staffService->getAll();
+
+        return view('nhanvien.index', compact('staffs'));
     }
 
-    public function show($id)
+    public function indexAjax()
     {
-        $dataNhanVien = $this->nhan_vien_Service->findById($id);
+        $staffs = $this->staffService->getAll();
 
-        return response()->json($dataNhanVien['users'], $dataNhanVien['statusCode']);
+        return view('nhanvien.ajax.list', compact('staffs'));
     }
 
-    public function store(Request $request)
-    {
-        $array = [];
-        $array = $request->except($request->password);
-        $array['password'] = bcrypt($request->password);
-        $dataNhanVien = $this->nhan_vien_Service->create($array);
 
-        return response()->json($dataNhanVien['users'], $dataNhanVien['statusCode']);
+    public function selectMaCV()
+    {
+        $maCVS = $this->userService->getUserNotSuper();
+        $staffs = $this->staffService->getAll();
+        foreach ($staffs as $staff) {
+            foreach ($maCVS as $CVS) {
+                if ($staff->id != $CVS->hash) {
+                    $maCV[] = $CVS;
+                }
+            }
+        }
+
+        return response()->json($maCV, 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        $dataNhanVien = $this->nhan_vien_Service->update($request->all(), $id);
+    // public function show($id)
+    // {
+    //     $data = $this->staffService->findById($id);
+    //     return response()->json(['data' => $data]);
+    // }
 
-        return response()->json($dataNhanVien['users'], $dataNhanVien['statusCode']);
+    public function store(UserCreateRequest $request)
+    {
+        $hash = $this->staffService->getAll()->pluck('hash')->toArray();
+        $data = $request->except('block', 'password', 'roles', 'hash');
+        $data['password'] = Hash::make($request->password);
+        $data['block'] = $request->block ? 1 : 0;
+
+        $data['hash'] = rand(1000000000, 2147483640);
+        while (in_array($data['hash'], $hash)) {
+            $data['hash'] = rand(1000000000, 2147483640);
+        }
+
+        $data = $this->staffService->create([$data, $request->roles]);
+
+        return response()->json($data['data'], $data['statusCode']);
     }
 
-    public function destroy($id)
+    public function edit($id)
     {
-        $dataNhanVien = $this->nhan_vien_Service->destroy($id);
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->findWithTrashed($id);
+        $role = $data['data']->roles;
 
-        return response()->json($dataNhanVien['message'], $dataNhanVien['statusCode']);
+        return response()->json([$data['data'], $role], 200);
+    }
+
+    public function update(UserUpdateRequest $request, $id)
+    {
+        $requestData = $request->except('id', 'block', 'roles');
+        $requestData['block'] = $request->block ? 1 : 0;
+        $data = $this->staffService->update([$requestData, $request->roles], $id, $request->hash);
+
+        return response()->json($data['data'], $data['statusCode']);
+    }
+
+    public function moveToTrash($id)
+    {
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->destroy($id);
+
+        return response()->json($data['message'], $data['statusCode']);
     }
 
     public function getSoftDeletes()
     {
-        $dataNhanVien = $this->nhan_vien_Service->getSoftDeletes();
+        $staffs = $this->staffService->getSoftDeletes();
 
-        return response()->json($dataNhanVien, 200);
+        return view('nhanvien.ajax.trash', compact('staffs'));
     }
 
     public function restore($id)
     {
-        $dataNhanVien = $this->nhan_vien_Service->restore($id);
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->restore($id);
 
-        return response()->json($dataNhanVien['message'], $dataNhanVien['statusCode']);
+        return response()->json($data['message'], $data['statusCode']);
     }
 
     public function delete($id)
     {
-        $dataNhanVien = $this->nhan_vien_Service->delete($id);
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->delete($id);
 
-        return response()->json($dataNhanVien['message'], $dataNhanVien['statusCode']);
+        return response()->json($data['message'], $data['statusCode']);
+    }
+
+    public function block($id)
+    {
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->blockUser($id);
+
+        return response()->json($data['message'], $data['statusCode']);
     }
 }
