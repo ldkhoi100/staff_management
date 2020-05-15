@@ -83,7 +83,7 @@ Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
 });
 
 /**
- * Table Nhan vien
+ * Table Nhan vien abc
  */
 Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'NhanVienController@index')->name("nhanvien.index");
