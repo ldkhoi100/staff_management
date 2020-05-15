@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLuongCoBanTable extends Migration {
+class CreateRoleUserTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateLuongCoBanTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('luong_co_ban', function(Blueprint $table)
+		Schema::create('role_user', function(Blueprint $table)
 		{
-			$table->integer('id', true);
-			$table->integer('Tien_Luong');
+			$table->increments('id');
+			$table->integer('role_id')->unsigned()->index('role_id');
+			$table->integer('user_id')->unsigned()->index('user_id');
 			$table->timestamps();
-			$table->softDeletes();
 		});
 	}
 
@@ -29,7 +29,7 @@ class CreateLuongCoBanTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('luong_co_ban');
+		Schema::drop('role_user');
 	}
 
 }

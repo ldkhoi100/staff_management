@@ -24,7 +24,13 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
     public function getAll()
     {
         if (Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
-            $result = User::where('id', '<>', Auth::user()->id)->get();
+            $users = User::where('id', '<>', Auth::user()->id)->get();
+            $result = [];
+            foreach ($users as $user) {
+                if (count($user->roles) > 0 && $user->roles[0]->name != "ROLE_SUPERADMIN" || count($user->roles) == 0) {
+                    $result[] = $user;
+                }
+            }
         } elseif (Auth::user()->roles[0]->name == "ROLE_ADMIN") {
             $users = $this->model->where('id', '<>', Auth::user()->id)->get();
             $result = [];

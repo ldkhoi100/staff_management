@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Impl;
 
 use App\Repositories\ChucvuRepository;
@@ -18,7 +19,7 @@ class ChucvuServiceImpl implements ChucvuService
     {
         $data = $this->chuc_vu_Repository->getAll();
 
-        return  $data;
+        return $data;
     }
 
     public function findById($id)
@@ -29,10 +30,10 @@ class ChucvuServiceImpl implements ChucvuService
         if (!$data)
             $status = 404;
 
-            $data = [
-                'status' => $status,
-                'data' => $data
-            ];
+        $data = [
+            'status' => $status,
+            'data' => $data
+        ];
 
         return $data;
     }

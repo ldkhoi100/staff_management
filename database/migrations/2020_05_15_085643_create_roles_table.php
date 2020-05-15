@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateHeSoLuongTable extends Migration {
+class CreateRolesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class CreateHeSoLuongTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('he_so_luong', function(Blueprint $table)
+		Schema::create('roles', function(Blueprint $table)
 		{
-			$table->integer('id', true);
-			$table->decimal('He_So_Luong', 10, 1)->unique('Bac_Luong');
+			$table->increments('id');
+			$table->string('name');
+			$table->string('description');
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -29,7 +30,7 @@ class CreateHeSoLuongTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('he_so_luong');
+		Schema::drop('roles');
 	}
 
 }
