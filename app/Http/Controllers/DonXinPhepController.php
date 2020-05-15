@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\NhanVien;
+use App\Http\Requests\DonxinphepRequest;
 use Illuminate\Http\Request;
 use App\Services\DonXinPhepService;
 use Illuminate\Support\Facades\Mail;
@@ -38,7 +38,7 @@ class DonXinPhepController extends Controller
         return response()->json($donxinphep['data'], $donxinphep['status']);
     }
 
-    public function create(Request $request)
+    public function create(DonxinphepRequest $request)
     {
         $donxinphep = $this->donxinphepService->create($request->all());
 
@@ -47,7 +47,7 @@ class DonXinPhepController extends Controller
         return response()->json($donxinphep['data'], $donxinphep['status']);
     }
 
-    public function update(Request $request, $id)
+    public function update(DonxinphepRequest $request, $id)
     {
         $donxinphep = $this->donxinphepService->update($request->all(), $id);
 
