@@ -4,9 +4,9 @@
             <tr>
                 <th>#</th>
                 <th>Full Name</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
@@ -20,9 +20,9 @@
             <tr>
                 <th>#</th>
                 <th>Full Name</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
@@ -40,7 +40,11 @@
                 <td>{{ $staff->Ho_Ten }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
                 <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
-                <td>{{ $staff->Anh_Dai_Dien }}</td>
+                @if($staff->Anh_Dai_Dien != null)
+                <td><img src="img/{{ $staff->Anh_Dai_Dien }}" alt="" width="100"></td>
+                @else
+                <td><img src="#" alt="" width="100"></td>
+                @endif
                 <td>{{ $staff->Gioi_Tinh }}</td>
                 <td>{{ $staff->Ngay_Bat_Dau_Lam }}</td>
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>

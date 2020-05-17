@@ -5,9 +5,9 @@
                 <th>#</th>
                 <th>Full Name</th>
                 <th>Username</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
@@ -21,9 +21,9 @@
                 <th>#</th>
                 <th>Full Name</th>
                 <th>Username</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
@@ -41,12 +41,16 @@
                 <td>{{ $staff->user->username }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
                 <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
-                <td>{{ $staff->Anh_Dai_Dien }}</td>
+                @if($staff->Anh_Dai_Dien != null)
+                <td><img src="img/{{ $staff->Anh_Dai_Dien }}" alt="" width="100"></td>
+                @else
+                <td><img src="#" alt="" width="100"></td>
+                @endif
                 <td>{{ $staff->Gioi_Tinh }}</td>
                 <td>{{ $staff->Ngay_Bat_Dau_Lam }}</td>
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>
 
-                <td><button type="button" onclick="staff.modalEdit({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
+                <td><button type="button" onclick="staff.modalShow({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
                         class="btn btn-info show-modal-edit btn-sm">
                         <i class="fa fa-eye" title="Detail"></i>
                     </button></td>

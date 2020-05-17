@@ -35,35 +35,6 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
     //     return $result;
     // }
 
-    public function create($data)
-    {
-        try {
-            $object = $this->model->create($data[0]);
-            $object->roles()->attach($data[1]);
-        } catch (\Exception $e) {
-            return null;
-        }
-        return $object;
-    }
-
-    public function update($data, $object)
-    {
-        try {
-            $object->update($data[0]);
-            $object->roles()->sync($data[1]);
-        } catch (\Exception $e) {
-            return null;
-        }
-        return $object;
-    }
-
-    public function delete($object)
-    {
-        $object->roles()->detach();
-
-        $object->forceDelete();
-    }
-
     public function findOnlyTrashed($id)
     {
         $result = $this->model->onlyTrashed()->find($id);
@@ -85,20 +56,27 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
         return $result;
     }
 
-    public function findRoleUser($id)
+    public function destroy($object)
     {
-        $findId = $this->model->find($id);
-
-        $result =  $findId->roles;
-
-        return $result;
+        $object->cham_cong()->delete();
+        $object->don_xin_phep()->delete();
+        $object->delete();
     }
 
-    public function blockUser($object)
+    public function restore($object)
     {
-        $object->block = !$object->block;
-        $object->save();
+        $object->cham_cong()->restore();
+        $object->don_xin_phep()->restore();
+        $object->restore();
+    }
 
-        return $object;
+    public function delete($object)
+    {
+        $object->cham_cong()->forceDelete();
+        $object->don_xin_phep()->forceDelete();
+        if (!empty($object->Anh_Dai_Dien)) {
+            unlink("img/" . $object->Anh_Dai_Dien);
+        }
+        $object->forceDelete();
     }
 }
