@@ -203,8 +203,8 @@ staff.modalShow = function(id) {
 
 staff.destroy = function(id, username) {
     swal({
-        title: `Do you want remove user ${username}?`,
-        text: `You can restore user ${username} in the trash !`,
+        title: `Do you want remove staff ${username}?`,
+        text: `You can restore staff ${username} in the trash !`,
         icon: "warning",
         buttons: ["No, cancel it!", "Yes, I am sure!"],
         dangerMode: true,
@@ -233,15 +233,15 @@ staff.destroy = function(id, username) {
                 },
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
 
 staff.restore = function(id, username) {
     swal({
-        title: `Do you want restore user ${username}?`,
-        text: `User ${username} will be restore !`,
+        title: `Do you want restore staff ${username}?`,
+        text: `Staff ${username} will be restore !`,
         icon: "warning",
         buttons: ["No, cancel it!", "Yes, I am sure!"],
         dangerMode: true,
@@ -253,7 +253,7 @@ staff.restore = function(id, username) {
                 success: function() {
                     staff.trashTable();
                     staff.drawTable();
-                    swal("Restored!", `Restored user ${username}!`, "success");
+                    swal("Restored!", `Restored staff ${username}!`, "success");
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -266,15 +266,15 @@ staff.restore = function(id, username) {
                 },
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
 
 staff.forceDelete = function(id, username) {
     swal({
-        title: `Do you want delete user ${username}?`,
-        text: `User ${username} cannot be recovered !`,
+        title: `Do you want delete staff ${username}?`,
+        text: `Staff ${username} cannot be recovered. And this employee's account will be deleted !`,
         icon: "warning",
         buttons: ["No, cancel it!", "Yes, I am sure!"],
         dangerMode: true,
@@ -288,7 +288,7 @@ staff.forceDelete = function(id, username) {
                     staff.drawTable();
                     swal(
                         "Deleted!",
-                        `Deleted user ${username} forever!`,
+                        `Deleted staff ${username} forever!`,
                         "success"
                     );
                 },
@@ -303,44 +303,7 @@ staff.forceDelete = function(id, username) {
                 },
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
-        }
-    });
-};
-
-staff.block = function(id, username) {
-    swal({
-        title: `Do you want change block column user ${username}?`,
-        text: `User ${username} will be change block column !`,
-        icon: "warning",
-        buttons: ["No, cancel it!", "Yes, I am sure!"],
-        dangerMode: true,
-    }).then(function(isConfirm) {
-        if (isConfirm) {
-            $.ajax({
-                url: "users/block/" + id,
-                type: "get",
-                success: function() {
-                    staff.trashTable();
-                    staff.drawTable();
-                    swal(
-                        "Success!",
-                        `Changed column block of user ${username}!`,
-                        "success"
-                    );
-                },
-                error: function(data) {
-                    if (data.status == 401) {
-                        swal(
-                            "Unauthorized",
-                            "You don't have permission !",
-                            "error"
-                        );
-                    }
-                },
-            });
-        } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
@@ -428,9 +391,6 @@ $(document).ready(function() {
         },
     });
     staff.init();
-    $('#dataTable tbody').on('click', 'tr', function() {
-        $(this).toggleClass('selected');
-    });
 });
 
 //Image onchange create

@@ -4,6 +4,7 @@
             <tr>
                 <th>#</th>
                 <th>Full Name</th>
+                <th>Username</th>
                 <th>Position</th>
                 <th>Coefficients salary</th>
                 <th>Avatar</th>
@@ -20,6 +21,7 @@
             <tr>
                 <th>#</th>
                 <th>Full Name</th>
+                <th>Username</th>
                 <th>Position</th>
                 <th>Coefficients salary</th>
                 <th>Avatar</th>
@@ -38,6 +40,7 @@
             <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $staff->Ho_Ten }}</td>
+                <td>{{ $staff->user->username }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
                 <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
                 @if($staff->Anh_Dai_Dien != null)
@@ -60,7 +63,7 @@
 
                 <td>
                     <button type="button"
-                        onclick="staff.restore({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->username . '\'' }})"
+                        onclick="staff.restore({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->Ho_Ten . '\'' }})"
                         class="btn btn-warning show-modal-restore btn-sm">
                         <i class="far fa-window-restore" aria-hidden="true" title="Restore"></i>
                     </button>
@@ -68,7 +71,7 @@
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="staff.forceDelete({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->username . '\'' }})"><i
+                        onclick="staff.forceDelete({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->Ho_Ten . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>

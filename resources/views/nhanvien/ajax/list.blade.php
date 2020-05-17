@@ -64,7 +64,7 @@
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="staff.destroy({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->username . '\'' }})"><i
+                        onclick="staff.destroy({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->Ho_Ten . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>

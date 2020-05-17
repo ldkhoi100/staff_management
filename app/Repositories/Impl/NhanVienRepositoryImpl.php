@@ -78,5 +78,6 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
             unlink("img/" . $object->Anh_Dai_Dien);
         }
         $object->forceDelete();
+        $object->user()->forceDelete();
     }
 }
