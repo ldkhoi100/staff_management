@@ -11,4 +11,9 @@ class BaseSalary extends Model
 
     protected $table = 'luong_co_ban';
     protected $fillable = ['Tien_Luong'];
+
+    public function cham_cong()
+    {
+        return $this->hasMany(ChamCong::class, 'LuongCB', 'id')->withTrashed();
+    }
 }

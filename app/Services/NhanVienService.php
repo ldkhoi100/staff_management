@@ -12,8 +12,6 @@ interface NhanVienService
 
     public function findWithTrashed($id);
 
-    public function findRoleUser($id);
-
     public function findHashId($id, $hash);
 
     public function create($request);
@@ -27,6 +25,4 @@ interface NhanVienService
     public function restore($id);
 
     public function delete($id);
-
-    public function blockUser($id);
 }

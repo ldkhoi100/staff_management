@@ -16,8 +16,4 @@ interface NhanVienRepository extends Repository
     public function findWithTrashed($id);
 
     public function findHashId($id, $hash);
-
-    public function findRoleUser($id);
-
-    public function blockUser($id);
 }

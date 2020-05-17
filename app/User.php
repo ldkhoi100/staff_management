@@ -83,6 +83,6 @@ class User extends Authenticatable
 
     public function nhanvien()
     {
-        return $this->hasOne("App\Model\NhanVien", "id", "hash");
+        return $this->hasOne("App\Model\NhanVien", "id", "id")->withTrashed();
     }
 }

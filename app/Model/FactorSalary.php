@@ -18,6 +18,6 @@ class FactorSalary extends Model
 
     public function nhan_vien()
     {
-        return $this->hasMany(NhanVien::class, 'He_So_Luong', 'id');
+        return $this->hasMany(NhanVien::class, 'He_So_Luong', 'id')->withTrashed();
     }
 }
