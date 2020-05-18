@@ -2,13 +2,13 @@
     <table class="table table-striped table-hover p-2 text-center" id="dataTable" width="100%" cellspacing="0">
         <thead class="alert-success">
             <tr>
-                <th>#</th>
+                <th width="1%">#</th>
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Position</th>
-                <th>Coefficients salary</th>
-                <th>Avatar</th>
-                <th>Gender</th>
+                <th width="1%">Coefficients salary</th>
+                <th width="1%">Avatar</th>
+                <th width="1%">Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
                 <th>Detail</th>
@@ -18,13 +18,13 @@
         </thead>
         <tfoot>
             <tr>
-                <th>#</th>
+                <th width="1%">#</th>
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Position</th>
-                <th>Coefficients salary</th>
-                <th>Avatar</th>
-                <th>Gender</th>
+                <th width="1%">Coefficients salary</th>
+                <th width="1%">Avatar</th>
+                <th width="1%">Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
                 <th>Detail</th>

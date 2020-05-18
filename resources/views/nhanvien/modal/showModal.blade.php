@@ -21,7 +21,7 @@
                         <h2 class="col-12" style="color:blue; text-decoration: underline;">Register User:</h2>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Username:</label>
+                                <strong>Username:</strong>
                                 <input type="text" name="username" class="form-control create_modal"
                                     placeholder="Username">
 
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Email:</label>
+                                <strong>Email:</strong>
                                 <input type="text" name="email" class="form-control create_modal" placeholder="Email">
 
                                 <span class="invalid-feedback">
@@ -67,7 +67,7 @@
                         <h2 class="col-12" style="color:blue; text-decoration: underline;">Create Profile Staff:</h2>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Full Name:</label>
+                                <strong>Full Name:</strong>
                                 <input type="text" name="Ho_Ten" class="form-control create_modal"
                                     placeholder="Full Name">
 
@@ -79,7 +79,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Gender:</label> <br>
+                                <strong>Gender:</strong> <br>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="Gioi_Tinh1" name="Gioi_Tinh" class="custom-control-input"
                                         value="Male" checked>
@@ -99,7 +99,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Date Of Birth:</label>
+                                <strong>Date Of Birth:</strong>
                                 <input type="date" name="Ngay_Sinh" class="form-control create_modal"
                                     placeholder="Date Of Birth">
 
@@ -111,7 +111,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Phone Number:</label>
+                                <strong>Phone Number:</strong>
                                 <input type="number" name="So_Dien_Thoai" class="form-control create_modal" min="0"
                                     placeholder="Phone Number">
 
@@ -123,7 +123,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Address:</label>
+                                <strong>Address:</strong>
                                 <input type="text" name="Dia_Chi" class="form-control create_modal"
                                     placeholder="Address">
 
@@ -135,7 +135,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Starting Date:</label>
+                                <strong>Starting Date:</strong>
                                 <input type="date" name="Ngay_Bat_Dau_Lam" class="form-control create_modal"
                                     placeholder="Starting Date">
 
@@ -147,7 +147,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Position:</label> <br>
+                                <strong>Position:</strong> <br>
                                 <select name="MaCV" id="" class="form-control position">
 
                                 </select>
@@ -160,7 +160,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Coefficients Salary:</label> <br>
+                                <strong>Coefficients Salary:</strong> <br>
                                 <select name="He_So_Luong" id="" class="form-control HSL">
 
                                 </select>
@@ -173,7 +173,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Avatar:</label>
+                                <strong>Avatar:</strong>
                                 <input type="file" name="Anh_Dai_Dien" class="form-control create_modal Anh_Dai_Dien"
                                     onchange="readURL(event)">
 
@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Full Name:</label>
+                                <strong>Full Name:</strong>
                                 <input type="text" name="Ho_Ten" id="Ho_Ten" class="form-control create_modal"
                                     placeholder="Full Name">
 
@@ -225,7 +225,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Gender:</label> <br>
+                                <strong>Gender:</strong> <br>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="Gioi_Tinh3" name="Gioi_Tinh" class="custom-control-input"
                                         value="Male">
@@ -245,7 +245,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Date Of Birth:</label>
+                                <strong>Date Of Birth:</strong>
                                 <input type="date" name="Ngay_Sinh" id="Ngay_Sinh" class="form-control create_modal"
                                     placeholder="Date Of Birth">
 
@@ -257,7 +257,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Phone Number:</label>
+                                <strong>Phone Number:</strong>
                                 <input type="number" name="So_Dien_Thoai" id="So_Dien_Thoai"
                                     class="form-control create_modal" min="0" placeholder="Phone Number">
 
@@ -269,7 +269,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Address:</label>
+                                <strong>Address:</strong>
                                 <input type="text" name="Dia_Chi" id="Dia_Chi" class="form-control create_modal"
                                     placeholder="Address">
 
@@ -281,7 +281,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Starting Date:</label>
+                                <strong>Starting Date:</strong>
                                 <input type="date" name="Ngay_Bat_Dau_Lam" id="Ngay_Bat_Dau_Lam"
                                     class="form-control create_modal" placeholder="Starting Date">
 
@@ -293,7 +293,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>End Date:</label>
+                                <strong>End Date:</strong>
                                 <input type="date" name="Ngay_Nghi_Viec" id="Ngay_Nghi_Viec"
                                     class="form-control create_modal" placeholder="Starting Date">
 
@@ -305,7 +305,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Position:</label> <br>
+                                <strong>Position:</strong> <br>
                                 <select name="MaCV" id="MaCV" class="form-control positionEdit">
 
                                 </select>
@@ -318,7 +318,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Coefficients Salary:</label> <br>
+                                <strong>Coefficients Salary:</strong> <br>
                                 <select name="He_So_Luong" id="He_So_Luong" class="form-control HSLEdit">
 
                                 </select>
@@ -333,7 +333,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Avatar:</label>
+                                <strong>Avatar:</strong>
                                 <input type="file" name="Anh_Dai_Dien" class="form-control create_modal Anh_Dai_Dien"
                                     onchange="readURLEdit(event)">
 
