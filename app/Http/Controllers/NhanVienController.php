@@ -27,8 +27,8 @@ class NhanVienController extends Controller
 
     public function __construct(NhanVienService $staffService, ChucvuService $chucVuService, FactorSalaryService $heSoLuongService, UserService $userService)
     {
-        $this->middleware('auth');
-        $this->middleware('AjaxRequest')->except('index');
+        // $this->middleware('auth');
+        // $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
         $this->chucVuService = $chucVuService;
         $this->heSoLuongService = $heSoLuongService;
