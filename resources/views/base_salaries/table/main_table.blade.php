@@ -1,7 +1,8 @@
 <table id="bs-table" class="table table-borderless table-hover" width="100%">
     <thead class="thead-light">
         <tr>
-            <th>Base Salary</th>
+            <th>Money</th>
+            <th>Description</th>
             <th>Created At</th>
             <th>Action</th>
         </tr>
@@ -10,7 +11,8 @@
     </tbody>
     <tfoot>
         <tr>
-            <th>Base Salary</th>
+            <th>Money</th>
+            <th>Description</th>
             <th>Created At</th>
             <th>Action</th>
         </tr>

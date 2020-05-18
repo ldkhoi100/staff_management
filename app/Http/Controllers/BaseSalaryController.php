@@ -18,7 +18,7 @@ class BaseSalaryController extends Controller
 
     public function index()
     {
-        return view('factor_salaries.index');
+        return view('base_salaries.index');
     }
 
     public function getAll()

@@ -11,7 +11,8 @@ Bs.drawTable = function () {
             dataSrc: function (jsons) {
                 return jsons.map(json => {
                     return {
-                        bs: json.He_So_Luong,
+                        tl: json.Tien_Luong,
+                        mt: json.Mo_Ta,
                         crt: json.created_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Bs.edit(${json.id})">Edit</a>
@@ -22,7 +23,10 @@ Bs.drawTable = function () {
             }
         },
         columns: [{
-                data: "bs"
+                data: "tl"
+            },
+            {
+                data: "mt"
             },
             {
                 data: "crt"
@@ -43,8 +47,9 @@ Bs.drawTableTrash = function () {
             dataSrc: function (jsons) {
                 return jsons.map(json => {
                     return {
-                        bs: json.He_So_Luong,
-                        crt: json.deleted_at.split(' ', 1)[0],
+                        tl: json.Tien_Luong,
+                        mt: json.Mo_Ta,
+                        dlt: json.deleted_at.split(' ', 1)[0],
                         action: `
                             <a class="btn btn-primary text-light" onclick="Bs.undo(${json.id})">Undo</a>
                             <a class="btn btn-danger text-light" onclick="Bs.delete(${json.id})">Delete</a>
@@ -54,10 +59,13 @@ Bs.drawTableTrash = function () {
             }
         },
         columns: [{
-                data: "bs"
+                data: "tl"
             },
             {
-                data: "crt"
+                data: "mt"
+            },
+            {
+                data: "dlt"
             },
             {
                 data: "action"
