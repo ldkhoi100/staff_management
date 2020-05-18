@@ -9,12 +9,13 @@ Dxp.drawTable = function() {
         ajax: {
             url: '/donxinphep/all',
             dataSrc: function(jsons) {
+                let i = 1;
                 return jsons.map(json => {
                     return {
-                        Cv: json.MaNV,
+                        Key: i++,
+                        Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2:json.NoiDung,
-                        Cv3:json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.trash(${json.id})">Trash</a>
@@ -24,6 +25,9 @@ Dxp.drawTable = function() {
             }
         },
         columns: [{
+                data: "Key"
+            },
+            {
                 data: "Cv"
             },
             {
@@ -32,9 +36,7 @@ Dxp.drawTable = function() {
             {
                 data: "Cv2"
             },
-            {
-                data: "Cv3"
-            },
+
            {
                 data: "action"
             }
@@ -51,10 +53,10 @@ Dxp.drawTableTrash = function() {
             dataSrc: function(jsons) {
                 return jsons.map(json => {
                     return {
-                        Cv: json.MaNV,
+                        Key: i++,
+                        Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2:json.NoiDung,
-                        Cv3:json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.delete(${json.id})">Delete</a>
@@ -64,6 +66,9 @@ Dxp.drawTableTrash = function() {
             }
         },
         columns: [{
+            data: "Key"
+        },
+        {
             data: "Cv"
         },
         {
@@ -71,9 +76,6 @@ Dxp.drawTableTrash = function() {
         },
         {
             data: "Cv2"
-        },
-        {
-            data: "Cv3"
         },
        {
             data: "action"
@@ -186,7 +188,7 @@ Dxp.save = function(btn) {
                     Dxp.success("Create success");
                 },
                 error: function(errors) {
-                    Dxp.errors(errors.responseJSON.errors);
+                    Dxp.errors(errors);
                 }
             });
         }
@@ -204,17 +206,35 @@ Dxp.success = function(msg) {
     });
 }
 
-Dxp.errors = function(msg) {
-    $(`#fs-modal input`).each(function() {
-        $(this).addClass('is-valid');
-    });
-    $('small.badge').each(function() {
-        console.log(this);
-        $(this).remove();
-    });
-    $.each(msg, function(i, v) {
-        $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
-    });
+// Dxp.errors = function(msg) {
+//     $(`#fs-modal input`).each(function() {
+//         $(this).addClass('is-valid');
+//     });
+//     $('small.badge').each(function() {
+//         console.log(this);
+//         $(this).remove();
+//     });
+//     $.each(msg, function(i, v) {
+//         $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
+//     });
+// }
+
+
+Dxp.errors = function (errors) {
+    // console.log(errors);
+    if (errors.status == 422) {
+        let msg = errors.responseJSON.errors;
+        $(`#fs-modal .is-invalid`).removeClass('is-invalid');
+        $(`#fs-modal .is-valid`).removeClass('is-valid');
+        $(`#fs-modal .field`).addClass('is-valid');
+        $('small.text').remove();
+        $.each(msg, function (i, v) {
+            $(`#fs-modal [name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
+        });
+    } else {
+        $('#fs-modal').modal('hide');
+        Dxp.success("You are not authorized for this action", "Error", 'error');
+    }
 }
 
 

@@ -24,16 +24,17 @@ class DonxinphepRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'MaNV' => 'required | unique:don_xin_phep,MaNV,'. $this->id,
             'TieuDe' => 'required | min:5 | max:15 | regex:/\D/ |',
-            'NoiDung' => 'required | min:5 | max:20' ,
+            'NoiDung' => 'required | min:5',
         ];
     }
 
     public function messages()
     {
         $meseger = [
-            // 'MaNV.required' => 'Chọn đi bố',
+
+            'MaNV.required' => 'Nhập vào đi bố',
+
             'TieuDe.required' => 'Nhập vào đi bố',
             'TieuDe.min' => 'Nhập ngắn thế bố',
             'TieuDe.max' => 'Nhập dài thế bố',
@@ -41,7 +42,7 @@ class DonxinphepRequest extends FormRequest
 
             'NoiDung.required' => 'Nhập vào đi bố',
             'NoiDung.min' => 'Nhập ngắn thế bố',
-            'NoiDung.max' => 'Nhập dài thế bố',
+
 
         ];
 
