@@ -13,7 +13,7 @@ Ws.drawTable = function () {
                     return {
                         ca: json.Ca,
                         hs: json.He_So,
-                        crt: json.created_at.split(' ', 1)[0],
+                        crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Ws.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Ws.trash(${json.id})">Trash</a>
@@ -49,7 +49,7 @@ Ws.drawTableTrash = function () {
                     return {
                         ca: json.Ca,
                         hs: json.He_So,
-                        dlt: json.deleted_at.split(' ', 1)[0],
+                        dlt: json.deleted_at,
                         action: `
                             <a class="btn btn-primary text-light" onclick="Ws.undo(${json.id})">Undo</a>
                             <a class="btn btn-danger text-light" onclick="Ws.delete(${json.id})">Delete</a>
@@ -159,8 +159,6 @@ Ws.delete = function (id) {
 Ws.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
-    console.log(id);
-    console.log(data);
     if (id) {
         if (confirm('Save change')) {
             $.ajax({

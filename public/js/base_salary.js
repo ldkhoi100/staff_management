@@ -13,7 +13,7 @@ Bs.drawTable = function () {
                     return {
                         tl: json.Tien_Luong,
                         mt: json.Mo_Ta,
-                        crt: json.created_at.split(' ', 1)[0],
+                        crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Bs.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Bs.trash(${json.id})">Trash</a>
@@ -49,7 +49,7 @@ Bs.drawTableTrash = function () {
                     return {
                         tl: json.Tien_Luong,
                         mt: json.Mo_Ta,
-                        dlt: json.deleted_at.split(' ', 1)[0],
+                        dlt: json.deleted_at,
                         action: `
                             <a class="btn btn-primary text-light" onclick="Bs.undo(${json.id})">Undo</a>
                             <a class="btn btn-danger text-light" onclick="Bs.delete(${json.id})">Delete</a>
@@ -158,8 +158,6 @@ Bs.delete = function (id) {
 Bs.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
-    console.log(id);
-    console.log(data);
     if (id) {
         if (confirm('Save change')) {
             $.ajax({
