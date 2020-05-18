@@ -150,8 +150,6 @@ Fs.delete = function (id) {
 Fs.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
-    console.log(id);
-    console.log(data);
     if (id) {
         if (confirm('Save change')) {
             $.ajax({
