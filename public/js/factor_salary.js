@@ -12,7 +12,7 @@ Fs.drawTable = function () {
                 return jsons.map(json => {
                     return {
                         fs: json.He_So_Luong,
-                        crt: json.created_at.split(' ', 1)[0],
+                        crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Fs.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Fs.trash(${json.id})">Trash</a>
@@ -44,7 +44,7 @@ Fs.drawTableTrash = function () {
                 return jsons.map(json => {
                     return {
                         fs: json.He_So_Luong,
-                        crt: json.deleted_at.split(' ', 1)[0],
+                        crt: json.deleted_at,
                         action: `
                             <a class="btn btn-primary text-light" onclick="Fs.undo(${json.id})">Undo</a>
                             <a class="btn btn-danger text-light" onclick="Fs.delete(${json.id})">Delete</a>
@@ -150,8 +150,6 @@ Fs.delete = function (id) {
 Fs.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
-    console.log(id);
-    console.log(data);
     if (id) {
         if (confirm('Save change')) {
             $.ajax({
