@@ -9,8 +9,10 @@ Ws.drawTable = function() {
         ajax: {
             url: '/work-shift/all',
             dataSrc: function(jsons) {
+                let i = 1;
                 return jsons.map(json => {
                     return {
+                        key: i++,
                         ca: json.Ca,
                         hs: json.He_So,
                         crt: json.created_at,
@@ -23,6 +25,9 @@ Ws.drawTable = function() {
             }
         },
         columns: [{
+                data: "key"
+            },
+            {
                 data: "ca"
             },
             {
@@ -45,8 +50,10 @@ Ws.drawTableTrash = function() {
         ajax: {
             url: '/work-shift/trash',
             dataSrc: function(jsons) {
+                let i = 1;
                 return jsons.map(json => {
                     return {
+                        key: i++,
                         ca: json.Ca,
                         hs: json.He_So,
                         dlt: json.deleted_at,
@@ -59,6 +66,8 @@ Ws.drawTableTrash = function() {
             }
         },
         columns: [{
+                data: "key"
+            }, {
                 data: "ca"
             },
             {

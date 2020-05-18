@@ -1,6 +1,7 @@
 <table id="bs-table-trash" class="table table-borderless table-hover" width="100%">
     <thead class="thead-light">
         <tr>
+            <th>#</th>
             <th>Money</th>
             <th>Description</th>
             <th>Deleted At</th>
@@ -11,6 +12,7 @@
     </tbody>
     <tfoot>
         <tr>
+            <th>#</th>
             <th>Money</th>
             <th>Description</th>
             <th>Deleted At</th>

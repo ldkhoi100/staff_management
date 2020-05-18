@@ -147,14 +147,13 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
-
 });
 
 // chấm công tháng
 
-Route::group(['prefix'=>'/chamcongngay'], function (){
+Route::group(['prefix' => '/chamcongngay'], function () {
     Route::get('/', "ChamcongngayController@index")->name('cc.index');
-//   Route::resource('/' , 'ChamcongngayController');
+    //   Route::resource('/' , 'ChamcongngayController');
 });
 
 
