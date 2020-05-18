@@ -142,7 +142,8 @@ Route::group(['prefix' => '/role'], function () {
 // chấm công tháng
 
 Route::group(['prefix'=>'/chamcongngay'], function (){
-   Route::resource('/' , 'ChamcongngayController');
+    Route::get('/', "ChamcongngayController@index")->name('cc.index');
+//   Route::resource('/' , 'ChamcongngayController');
 });
 
 

@@ -21,7 +21,9 @@ class ChamcongngayController extends Controller
         $congngay = $this->chamcongngay->getAll();
 
 
-        return response()->json($congngay, 200);
+//        return response()->json($congngay, 200);
+        return view('chamcongngay.index',compact('congngay'));
+
     }
     public function getSoftDeletes(){
         $congngay = $this->chamcongngay->getSoftDeletes();

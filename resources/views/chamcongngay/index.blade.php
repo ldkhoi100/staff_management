@@ -36,8 +36,13 @@
                            style="font-size: 14.5px;">
                         <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>Email</th>
+                            <th>MaNV</th>
+                            <th>LuongCB</th>
+                            <th>Ca_Lam</th>
+                            <th>Ngay_Hien_Tai</th>
+                            <th>Ngay_Le</th>
+                            <th>Tru_Luong</th>
+                            <th>Ghi_Chu</th>
                             <th>Action</th>
                         </tr>
                         </thead>
