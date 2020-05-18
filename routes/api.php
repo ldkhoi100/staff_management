@@ -33,6 +33,10 @@ Route::resource('/roles', 'RoleController');
 Route::get('/role-restore/{id}', 'RoleController@restore');
 Route::get('/role-delete/{id}', 'RoleController@delete');
 
+Route::get('/chamcongngay-restore/{id}', 'ChamcongngayController@restore');
+Route::get('/chamcongngay-delete/{id}', 'ChamcongngayController@delete');
+Route::resource('/chamcongngay', 'ChamcongngayController');
+
 // Route::group(['prefix' => '/chuc-vu'], function () {
 //     Route::get('/', "ChucvuController@index")->name('cv.index');
 //     Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
@@ -45,3 +49,9 @@ Route::get('/role-delete/{id}', 'RoleController@delete');
 //     Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
 //     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 // });
+
+//kiểm tra dữ liệu api chấm công lương tháng
+Route::resource('/timesheets', 'TimesheetsController');
+Route::get('/timesheets-restore/{id}', 'TimesheetsController@restore');
+Route::get('/timesheets-delete/{id}', 'TimesheetsController@delete');
+
