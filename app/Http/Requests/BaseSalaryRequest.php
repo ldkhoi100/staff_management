@@ -24,14 +24,16 @@ class BaseSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'Tien_Luong' => ['required', 'numeric', 'min:100000', 'max:10000000']
+            'Tien_Luong' => ['required', 'numeric', 'min:100000', 'max:10000000'],
+            "Mo_Ta" => ['required', 'string']
         ];
     }
 
     public function attributes()
     {
         return [
-            'Tien_Luong' => "Base Salary"
+            'Tien_Luong' => "Base Salary",
+            'Mo_Ta' => "Description"
         ];
     }
 }

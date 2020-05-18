@@ -9,19 +9,11 @@ class ChamCong extends Model
 {
     use SoftDeletes;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> acf3b603c43324a2f0e3b6183cb579266c689549
     protected $table = 'cham_cong_ngay';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-<<<<<<< HEAD
-        'Ngay_Hien_Tai', 'So_ca_lam', 'Ngay_Le','Ghi_Chu'
-=======
         'MaNV', 'LuongCB', 'Ca_Lam', 'Ngay_Hien_Tai', 'Ngay_Le', 'Tru_Luong', 'Ghi_Chu'
->>>>>>> acf3b603c43324a2f0e3b6183cb579266c689549
     ];
 
     public function nhan_vien()

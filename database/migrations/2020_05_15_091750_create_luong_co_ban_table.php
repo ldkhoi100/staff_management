@@ -16,6 +16,7 @@ class CreateLuongCoBanTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('Tien_Luong');
+			$table->text('Mo_Ta');
 			$table->timestamps();
 			$table->softDeletes();
 		});

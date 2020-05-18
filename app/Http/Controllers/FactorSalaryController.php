@@ -11,13 +11,11 @@ class FactorSalaryController extends Controller
 {
 
     protected $factorSalaryService;
-    protected $baseSalary;
 
-    public function __construct(FactorSalaryService $factorSalaryService, BaseSalaryService $luongcoban)
+    public function __construct(FactorSalaryService $factorSalaryService)
     {
         $this->middleware('AjaxRequest')->except('index');
         $this->factorSalaryService = $factorSalaryService;
-        $this->baseSalary = $luongcoban;
     }
 
     public function index()
@@ -87,19 +85,5 @@ class FactorSalaryController extends Controller
         $factorSalary = $this->factorSalaryService->delete($id);
 
         return response()->json($factorSalary['msg'], $factorSalary['status']);
-    }
-
-    public function getBaseSalary()
-    {
-        $baseSalary = $this->baseSalary->get();
-
-        return response()->json($baseSalary, 200);
-    }
-
-    public function updateBaseSalary(BaseSalaryRequest $request)
-    {
-        $baseSalary = $this->baseSalary->update($request->all());
-
-        return response()->json($baseSalary['data'], $baseSalary['status']);
     }
 }
