@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\NhanVienService;
+use App\Services\ChucvuService;
+use App\Services\FactorSalaryService;
 use App\Services\UserService;
 use Str;
 use Validator;
@@ -10,17 +12,26 @@ use App\User;
 use Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Http\Request;
+use App\Http\Requests\NhanVienCreateRequest;
+use App\Http\Requests\NhanVienUpdateRequest;
+use App\Model\ChucVu;
+use App\Model\FactorSalary;
 
 class NhanVienController extends Controller
 {
     protected $staffService;
+    protected $chucVuService;
+    protected $heSoLuongService;
     protected $userService;
 
-    public function __construct(NhanVienService $staffService, UserService $userService)
+    public function __construct(NhanVienService $staffService, ChucvuService $chucVuService, FactorSalaryService $heSoLuongService, UserService $userService)
     {
         $this->middleware('auth');
         $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
+        $this->chucVuService = $chucVuService;
+        $this->heSoLuongService = $heSoLuongService;
         $this->userService = $userService;
     }
 
@@ -41,56 +52,90 @@ class NhanVienController extends Controller
 
     public function selectMaCV()
     {
-        $maCVS = $this->userService->getUserNotSuper();
-        $staffs = $this->staffService->getAll();
-        foreach ($staffs as $staff) {
-            foreach ($maCVS as $CVS) {
-                if ($staff->id != $CVS->hash) {
-                    $maCV[] = $CVS;
-                }
-            }
-        }
+        $maCV = $this->chucVuService->getAll();
 
         return response()->json($maCV, 200);
     }
 
-    // public function show($id)
-    // {
-    //     $data = $this->staffService->findById($id);
-    //     return response()->json(['data' => $data]);
-    // }
-
-    public function store(UserCreateRequest $request)
+    public function selectHSL()
     {
-        $hash = $this->staffService->getAll()->pluck('hash')->toArray();
-        $data = $request->except('block', 'password', 'roles', 'hash');
-        $data['password'] = Hash::make($request->password);
-        $data['block'] = $request->block ? 1 : 0;
+        $HSL = $this->heSoLuongService->getAll();
 
+        return response()->json($HSL, 200);
+    }
+
+    public function show($id)
+    {
+        $id = Crypt::decrypt($id);
+        $data = $this->staffService->findWithTrashed($id);
+        $data['MaCV_name'] = (ChucVu::find($data['data']['MaCV'])->Ten_CV);
+        $data['He_So_Luong_name'] = (FactorSalary::find($data['data']['He_So_Luong'])->He_So_Luong);
+        $data['Username'] = (User::find($data['data']['id'])->username);
+        return response()->json(['data' => $data], 200);
+    }
+
+    public function store(NhanVienCreateRequest $request)
+    {
+        $user_array = $this->userService->getAllUser()->pluck(['hash'])->toArray();
+        $NV_array = $this->staffService->getAll()->pluck('hash')->toArray();
+
+        $data = $request->only(['MaCV', 'He_So_Luong', 'Anh_Dai_Dien', 'Ho_Ten', 'Ngay_Sinh', 'Gioi_Tinh', 'So_Dien_Thoai', 'Dia_Chi', 'Ngay_Bat_Dau_Lam']);
+        $user = $request->only(['username', 'email', 'password_confirmation']);
+        $user['password'] = Hash::make($request->password);
+        $user['hash'] = rand(1000000000, 2147483640);
+        while (in_array($user['hash'], $user_array)) {
+            $user['hash'] = rand(1000000000, 2147483640);
+        }
+        $users = $this->userService->createUser($user);
+
+
+        $data['id'] = $users['data']->id;
         $data['hash'] = rand(1000000000, 2147483640);
-        while (in_array($data['hash'], $hash)) {
+        while (in_array($data['hash'], $NV_array)) {
             $data['hash'] = rand(1000000000, 2147483640);
         }
 
-        $data = $this->staffService->create([$data, $request->roles]);
+        if ($request->hasFile('Anh_Dai_Dien')) {
+            $file = $request->file('Anh_Dai_Dien');
+            $name_image = $file->getClientOriginalName();
+            $image = Str::random(5) . "_" . $name_image;
+            while (file_exists("img/" . $image)) {
+                $image = Str::random(5) . "_" . $name_image;
+            }
+            $file->move("img/", $image);
+            $data['Anh_Dai_Dien'] = $image;
+        }
+        $create_data = $this->staffService->create($data);
 
-        return response()->json($data['data'], $data['statusCode']);
+        return response()->json($create_data['data'], $create_data['statusCode']);
     }
 
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
         $data = $this->staffService->findWithTrashed($id);
-        $role = $data['data']->roles;
 
-        return response()->json([$data['data'], $role], 200);
+        return response()->json($data['data'], $data['statusCode']);
     }
 
-    public function update(UserUpdateRequest $request, $id)
+    public function update(NhanVienUpdateRequest $request, $id)
     {
-        $requestData = $request->except('id', 'block', 'roles');
-        $requestData['block'] = $request->block ? 1 : 0;
-        $data = $this->staffService->update([$requestData, $request->roles], $id, $request->hash);
+        $data_current = $this->staffService->findWithTrashed($id);
+        $requestData = $request->all();
+        if ($request->hasFile('Anh_Dai_Dien')) {
+            $file = $request->file('Anh_Dai_Dien');
+            $name_image = $file->getClientOriginalName();
+            $image = Str::random(5) . "_" . $name_image;
+            while (file_exists("img/" . $image)) {
+                $image = Str::random(5) . "_" . $name_image;
+            }
+            $file->move("img/", $image);
+            if (!empty($data_current['data']->Anh_Dai_Dien)) {
+                unlink("img/" . $data_current['data']->Anh_Dai_Dien);
+            }
+            $requestData['Anh_Dai_Dien'] = $image;
+        }
+        $data = $this->staffService->update($requestData, $id, $request->hash);
 
         return response()->json($data['data'], $data['statusCode']);
     }
@@ -122,14 +167,6 @@ class NhanVienController extends Controller
     {
         $id = Crypt::decrypt($id);
         $data = $this->staffService->delete($id);
-
-        return response()->json($data['message'], $data['statusCode']);
-    }
-
-    public function block($id)
-    {
-        $id = Crypt::decrypt($id);
-        $data = $this->staffService->blockUser($id);
 
         return response()->json($data['message'], $data['statusCode']);
     }

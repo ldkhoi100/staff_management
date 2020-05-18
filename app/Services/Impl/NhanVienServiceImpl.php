@@ -183,41 +183,4 @@ class NhanVienServiceImpl implements NhanVienService
 
         return $data;
     }
-
-
-    public function findRoleUser($id)
-    {
-        $object = $this->dataRepository->findRoleUser($id);
-
-        $statusCode = 200;
-        if (!$object)
-            $statusCode = 404;
-
-        $data = [
-            'statusCode' => $statusCode,
-            'data' => $object
-        ];
-
-        return $data;
-    }
-
-    public function blockUser($id)
-    {
-        $object = $this->dataRepository->findWithTrashed($id);
-
-        $statusCode = 404;
-        $message = "Not found";
-
-        if ($object) {
-            $this->dataRepository->blockUser($object);
-            $statusCode = 200;
-            $message = "Change column block success!";
-        }
-
-        $data = [
-            'statusCode' => $statusCode,
-            'message' => $message
-        ];
-        return $data;
-    }
 }

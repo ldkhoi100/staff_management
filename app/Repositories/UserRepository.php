@@ -7,6 +7,10 @@ interface UserRepository extends Repository
 {
     public function getSoftDeletes();
 
+    public function getAllUser();
+
+    public function createUser($data);
+
     public function restore($object);
 
     public function delete($object);
