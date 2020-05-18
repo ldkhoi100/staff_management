@@ -10,10 +10,9 @@ class BaseSalary extends Model
     use SoftDeletes;
 
     protected $table = 'luong_co_ban';
-    protected $fillable = ['Tien_Luong'];
+    protected $fillable = ['Tien_Luong', 'Mo_Ta'];
 
-    public function cham_cong()
-    {
-        return $this->hasMany(ChamCong::class, 'LuongCB', 'id')->withTrashed();
+    public function chamcong(){
+        return $this->hasMany(ChamCong::class, 'LuongCB', 'id');
     }
 }

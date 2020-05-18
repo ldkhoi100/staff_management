@@ -1,11 +1,9 @@
 <?php
+namespace  App\Repositories;
 
-namespace App\Repositories;
-
-
-interface BaseSalaryRepository extends Repository
+interface ChamCongNgayRepository extends Repository
 {
-    
+
     public function getSoftDeletes();
 
     public function restore($object);
@@ -13,4 +11,5 @@ interface BaseSalaryRepository extends Repository
     public function delete($object);
 
     public function findOnlyTrashed($id);
+
 }

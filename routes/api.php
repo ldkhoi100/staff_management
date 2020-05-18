@@ -23,15 +23,15 @@ Route::get('/users-restore/{id}', 'UsersController@restore');
 Route::get('/users-delete/{id}', 'UsersController@delete');
 
 
-// Route::resource('/factor-salary', 'BacLuongController');
-
-Route::get('/factor-salary-restore/{id}', 'BacLuongController@restore');
-Route::get('/factor-salary-delete/{id}', 'BacLuongController@delete');
 
 //kiểm tra dữ liệu api
 Route::resource('/roles', 'RoleController');
 Route::get('/role-restore/{id}', 'RoleController@restore');
 Route::get('/role-delete/{id}', 'RoleController@delete');
+
+Route::get('/chamcongngay-restore/{id}', 'ChamcongngayController@restore');
+Route::get('/chamcongngay-delete/{id}', 'ChamcongngayController@delete');
+Route::resource('/chamcongngay', 'ChamcongngayController');
 
 // Route::group(['prefix' => '/chuc-vu'], function () {
 //     Route::get('/', "ChucvuController@index")->name('cv.index');
@@ -45,3 +45,9 @@ Route::get('/role-delete/{id}', 'RoleController@delete');
 //     Route::delete('/{id}', "ChucvuController@moveToTrash")->name('cv.moveToTrash');
 //     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 // });
+
+//kiểm tra dữ liệu api chấm công lương tháng
+Route::resource('/timesheets', 'TimesheetsController');
+Route::get('/timesheets-restore/{id}', 'TimesheetsController@restore');
+Route::get('/timesheets-delete/{id}', 'TimesheetsController@delete');
+

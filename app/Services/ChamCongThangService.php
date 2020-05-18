@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Services;
 
-interface BaseSalaryService
+interface ChamCongThangService
 {
     public function getAll();
 
@@ -15,8 +14,6 @@ interface BaseSalaryService
     public function destroy($id);
 
     public function getSoftDeletes();
-
-    public function findOnlyTrashed($id);
 
     public function restore($id);
 

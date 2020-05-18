@@ -15,7 +15,7 @@ class CreateHeSoLuongTable extends Migration {
 		Schema::create('he_so_luong', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->decimal('He_So_Luong', 10, 1)->unique('Bac_Luong');
+			$table->decimal('He_So', 10, 2)->unique('Bac_Luong');
 			$table->timestamps();
 			$table->softDeletes();
 		});

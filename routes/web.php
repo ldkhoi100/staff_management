@@ -123,9 +123,19 @@ Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth', 'role:ROLE_
 /**
  * Table Luong co ban
  */
-Route::group(['middleware' => 'auth', 'prefix' => '/base-salary'], function () {
-    Route::get('/', 'FactorSalaryController@getBaseSalary')->name('bs.get');
-    Route::put('/', 'FactorSalaryController@updateBaseSalary')->middleware('role:ROLE_SUPERADMIN')->name('bs.update');
+Route::group(['prefix' => '/base-salary', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::get('/', "BaseSalaryController@index")->name('bs.index');
+    Route::get('/all', "BaseSalaryController@getAll")->name('bs.getAll');
+    Route::get('/trash', "BaseSalaryController@getTrash")->name('bs.getTrash');
+    Route::get('/{id}/trash', "BaseSalaryController@findTrashById")->name('bs.findTrashById');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "BaseSalaryController@create")->name('bs.create');
+        Route::put('/{id}', "BaseSalaryController@update")->name('bs.update');
+        Route::put('/{id}/restore', "BaseSalaryController@restore")->name('bs.restore');
+        Route::delete('/{id}', "BaseSalaryController@moveToTrash")->name('bs.moveToTrash');
+        Route::delete('/{id}/delete', "BaseSalaryController@delete")->name('bs.delete');
+        Route::get('/{id}', "BaseSalaryController@findById")->name('bs.findById');
+    });
 });
 
 /**
@@ -137,7 +147,16 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
+
 });
+
+// chấm công tháng
+
+Route::group(['prefix'=>'/chamcongngay'], function (){
+    Route::get('/', "ChamcongngayController@index")->name('cc.index');
+//   Route::resource('/' , 'ChamcongngayController');
+});
+
 
 /**
  * Table ca lam
