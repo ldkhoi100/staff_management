@@ -1,22 +1,15 @@
 <?php
-
 namespace App\Services;
 
-interface NhanVienService
+interface ChamCongNgayService
 {
     public function getAll();
 
     public function findById($id);
 
-    public function findOnlyTrashed($id);
-
-    public function findWithTrashed($id);
-
-    public function findHashId($id, $hash);
-
     public function create($request);
 
-    public function update($request, $id, $hash);
+    public function update($request, $id);
 
     public function destroy($id);
 

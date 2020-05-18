@@ -1,10 +1,9 @@
 <?php
+namespace  App\Repositories;
 
-namespace App\Repositories;
-
-
-interface NhanVienRepository extends Repository
+interface ChamCongNgayRepository extends Repository
 {
+
     public function getSoftDeletes();
 
     public function restore($object);
@@ -13,7 +12,4 @@ interface NhanVienRepository extends Repository
 
     public function findOnlyTrashed($id);
 
-    public function findWithTrashed($id);
-
-    public function findHashId($id, $hash);
 }

@@ -44,11 +44,27 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
         return $result;
     }
 
+    public function getAllUser()
+    {
+        $result = $this->model->all();
+        return $result;
+    }
+
     public function create($data)
     {
         try {
             $object = $this->model->create($data[0]);
             $object->roles()->attach($data[1]);
+        } catch (\Exception $e) {
+            return null;
+        }
+        return $object;
+    }
+
+    public function createUser($data)
+    {
+        try {
+            $object = $this->model->create($data);
         } catch (\Exception $e) {
             return null;
         }

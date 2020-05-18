@@ -62,7 +62,6 @@ Route::group(['prefix' => '/donxinphep'], function () {
     Route::delete('/{id}/delete', "DonXinPhepController@delete")->name('dxp.delete');
 });
 
-
 /**
  * Table users
  */
@@ -90,13 +89,15 @@ Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
     Route::get('/trash', 'NhanVienController@getSoftDeletes')->name("nhanvien.getSoftDeletes");
     Route::get('/all', 'NhanVienController@indexAjax')->name('nhanvien.ajax');
     Route::get('/{id}', 'NhanVienController@edit');
-    Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
+    Route::get('/show/{id}', 'NhanVienController@show');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/maCV', 'NhanVienController@selectMaCV')->name("nhanvien.selectMaCV");
+        Route::get('/select/HSL', 'NhanVienController@selectHSL')->name("nhanvien.selectHSL");
         Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
         Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
         Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
-        Route::put('/{id}', 'NhanVienController@update');
+        Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
+        Route::post('/{id}', 'NhanVienController@update');
         Route::delete('/{id}', 'NhanVienController@moveToTrash');
     });
 });
@@ -146,7 +147,16 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
+
 });
+
+// chấm công tháng
+
+Route::group(['prefix'=>'/chamcongngay'], function (){
+    Route::get('/', "ChamcongngayController@index")->name('cc.index');
+//   Route::resource('/' , 'ChamcongngayController');
+});
+
 
 /**
  * Table ca lam

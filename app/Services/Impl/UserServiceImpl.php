@@ -21,6 +21,13 @@ class UserServiceImpl implements UserService
         return $objects;
     }
 
+    public function getAllUser()
+    {
+        $objects = $this->dataRepository->getAllUser();
+
+        return $objects;
+    }
+
     public function findById($id)
     {
         $object = $this->dataRepository->findById($id);
@@ -40,6 +47,22 @@ class UserServiceImpl implements UserService
     public function create($request)
     {
         $object = $this->dataRepository->create($request);
+
+        $statusCode = 201;
+        if (!$object)
+            $statusCode = 500;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
+
+    public function createUser($request)
+    {
+        $object = $this->dataRepository->createUser($request);
 
         $statusCode = 201;
         if (!$object)
