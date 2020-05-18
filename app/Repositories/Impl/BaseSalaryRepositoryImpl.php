@@ -13,4 +13,10 @@ class BaseSalaryRepositoryImpl extends EloquentRepository implements BaseSalaryR
         $model = BaseSalary::class;
         return $model;
     }
+
+    public function findOnlyTrashed($id)
+    {
+        $result = $this->model->onlyTrashed($id)->find($id);
+        return $result;
+    }
 }

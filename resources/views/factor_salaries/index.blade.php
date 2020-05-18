@@ -15,13 +15,8 @@
         </li>
     </ul>
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold mt-1 text-primary">Table Factor Salary</h6>
-            <h6 class="m-0 font-weight-bold mt-1 text-primary ml-auto">Base Salary:
-                <input type="number" readonly id="base-salary" class="form-control-sm px-2 bg-info"
-                    style="width: fit-content" value="">
-            </h6>
-            <a class="btn btn-outline-info btn-sm" id="btn-edit-base-salary">Edit</a>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Table Factor Salary</h6>
         </div>
         <div class="card-body">
             <div class="tab-content" id="pills-tabContent">

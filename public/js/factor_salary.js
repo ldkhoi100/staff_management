@@ -1,53 +1,7 @@
 let Fs = {} || Fs;
-let Bs = {} || Bs;
 
 Fs.table;
 Fs.tableTrash;
-
-Bs.get = function () {
-    $.get('/base-salary').done(function (data) {
-        $('#base-salary').val(data.Tien_Luong);
-    });
-    $('#base-salary').attr('readonly', true);
-    $('#btn-edit-base-salary').unbind('click').bind('click', function () {
-        Bs.edit();
-    });
-    $('#base-salary').removeClass('is-invalid').addClass('is-invalid');
-    $('.sm-er').remove();
-    $('#btn-edit-base-salary').text('Edit');
-}
-
-Bs.edit = function () {
-    $('#base-salary').removeAttr('readonly');
-    $('#btn-edit-base-salary').unbind('click').bind('click', function () {
-        Bs.save();
-    });
-
-    $('#btn-edit-base-salary').text('Save');
-};
-
-Bs.save = function () {
-    $.ajax({
-        url: '/base-salary',
-        method: 'put',
-        data: {
-            "Tien_Luong": $('#base-salary').val()
-        },
-        success: function () {
-            Bs.get();
-            Fs.success("Update base salary success");
-        },
-        error: function (fails) {
-            if (fails.status == 422) {
-                $('#base-salary').removeClass('is-invalid').addClass('is-invalid');
-                $('.sm-er').remove();
-                $('#base-salary').before(`<small class="sm-er text-danger">${fails.responseJSON.errors.Tien_Luong}</small`);
-            } else {
-                Fs.success("Bạn không đủ quền", "Error", 'error');
-            }
-        }
-    });
-}
 
 Fs.drawTable = function () {
     Fs.table = $('#fs-table').DataTable({
@@ -58,7 +12,7 @@ Fs.drawTable = function () {
                 return jsons.map(json => {
                     return {
                         fs: json.He_So_Luong,
-                        crt: json.created_at.split(' ', 1)[0],
+                        crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Fs.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Fs.trash(${json.id})">Trash</a>
@@ -90,7 +44,7 @@ Fs.drawTableTrash = function () {
                 return jsons.map(json => {
                     return {
                         fs: json.He_So_Luong,
-                        crt: json.deleted_at.split(' ', 1)[0],
+                        crt: json.deleted_at,
                         action: `
                             <a class="btn btn-primary text-light" onclick="Fs.undo(${json.id})">Undo</a>
                             <a class="btn btn-danger text-light" onclick="Fs.delete(${json.id})">Delete</a>
@@ -196,8 +150,6 @@ Fs.delete = function (id) {
 Fs.save = function (btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
-    console.log(id);
-    console.log(data);
     if (id) {
         if (confirm('Save change')) {
             $.ajax({
@@ -267,7 +219,6 @@ Fs.init = function () {
 
 $(document).ready(function () {
     Fs.init();
-    Bs.get();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

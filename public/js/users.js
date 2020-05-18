@@ -88,7 +88,7 @@ user.modalEdit = function(id) {
         },
         error: function() {
             if (data.status = 401) {
-                toastr.error("You don't have permission !");
+                swal("Unauthorized", "You don't have permission !", "error");
             }
         }
     });

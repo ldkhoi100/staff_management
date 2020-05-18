@@ -1,4 +1,4 @@
-<!-- Modal Create User-->
+<!-- Modal Create And Update-->
 <div class="modal fade" id="ShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     data-keyboard="true" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -16,7 +16,7 @@
             </div>
             <div class="modal-body">
 
-                <form id="modal-create">
+                <form id="modal-create" action="javascript:void(0)">
                     <div class="row border-bottom-secondary mb-3">
                         <h2 class="col-12" style="color:blue; text-decoration: underline;">Register User:</h2>
                         <div class="col-6">
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="row">
-                        <h2 class="col-12" style="color:blue; text-decoration: underline;">Create Staff:</h2>
+                        <h2 class="col-12" style="color:blue; text-decoration: underline;">Create Profile Staff:</h2>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Full Name:</label>
@@ -82,7 +82,7 @@
                                 <label>Gender:</label> <br>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="Gioi_Tinh1" name="Gioi_Tinh" class="custom-control-input"
-                                        value="Male">
+                                        value="Male" checked>
                                     <label class="custom-control-label" for="Gioi_Tinh1">Male</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -112,7 +112,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Phone Number:</label>
-                                <input type="number" name="So_Dien_Thoai" class="form-control create_modal"
+                                <input type="number" name="So_Dien_Thoai" class="form-control create_modal" min="0"
                                     placeholder="Phone Number">
 
                                 <span class="invalid-feedback">
@@ -148,7 +148,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Position:</label> <br>
-                                <select name="MaCV" id="" class="form-control">
+                                <select name="MaCV" id="" class="form-control position">
 
                                 </select>
 
@@ -161,7 +161,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Coefficients Salary:</label> <br>
-                                <select name="He_So_Luong" id="" class="form-control">
+                                <select name="He_So_Luong" id="" class="form-control HSL">
 
                                 </select>
 
@@ -173,14 +173,18 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Image:</label>
-                                <input type="file" name="Ngay_Sinh" class="form-control create_modal"
-                                    placeholder="Date Of Birth">
+                                <label>Avatar:</label>
+                                <input type="file" name="Anh_Dai_Dien" class="form-control create_modal Anh_Dai_Dien"
+                                    onchange="readURL(event)">
 
                                 <span class="invalid-feedback">
-                                    <strong class="alert-Ngay_Sinh"></strong>
+                                    <strong class="alert-Anh_Dai_Dien"></strong>
                                 </span>
                             </div>
+                        </div>
+
+                        <div class="col-6">
+                            <img id="zoom" src="#" alt="" srcset="" width="250">
                         </div>
                     </div>
             </div>
@@ -188,7 +192,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="reset" class="btn btn-warning reset_form">Reset</button>
-                <button type="button" class="btn btn-primary btn-create" onclick="user.create()">Create</button>
+                <button type="button" class="btn btn-primary btn-create" onclick="staff.create(this)">Create</button>
                 </form>
             </div>
 
@@ -197,7 +201,7 @@
         {{-- Update data --}}
         <div class="modal-content" id="show-edit-modal" style="display: none">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                <h2 class="modal-title w-100 text-center" style="color:blue" id="EditStaff"></h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -206,66 +210,229 @@
 
                 <form id="modal-update">
                     <input type="hidden" id="id" name="id">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" id="username" name="username" class="form-control edit_modal">
-                        <span class="invalid-feedback">
-                            <strong class="alert-username"></strong>
-                        </span>
-                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Full Name:</label>
+                                <input type="text" name="Ho_Ten" id="Ho_Ten" class="form-control create_modal"
+                                    placeholder="Full Name">
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="email" name="email" class="form-control edit_modal">
-                        <span class="invalid-feedback">
-                            <strong class="alert-email"></strong>
-                        </span>
-                    </div>
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="changePassword">
-                        <label class="custom-control-label" for="changePassword">Change password</label>
-                    </div>
-
-                    <div class="hide-password" style="display: none">
-                        <div class="form-group">
-                            <strong>Password:</strong>
-                            <input type="password" name="password" class="form-control edit_modal password"
-                                style="cursor: not-allowed" disabled>
-
-                            <span class="invalid-feedback">
-                                <strong class="alert-password"></strong>
-                            </span>
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Ho_Ten"></strong>
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <strong>Confirm Password:</strong>
-                            <input type="password" name="password_confirmation"
-                                class="form-control passwordConfirm password" style="cursor: not-allowed" disabled>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Gender:</label> <br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="Gioi_Tinh3" name="Gioi_Tinh" class="custom-control-input"
+                                        value="Male">
+                                    <label class="custom-control-label" for="Gioi_Tinh3">Male</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="Gioi_Tinh4" name="Gioi_Tinh" class="custom-control-input"
+                                        value="Female">
+                                    <label class="custom-control-label" for="Gioi_Tinh4">Female</label>
+                                </div>
 
-                            <span class="invalid-feedback">
-                                <strong class="alert-password" id="passwordConfirm"></strong>
-                            </span>
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Gioi_Tinh"></strong>
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <strong>Role:</strong> <br>
-                        <select name="roles[]" id="roles" class="form-control role-select" multiple="multiple">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Date Of Birth:</label>
+                                <input type="date" name="Ngay_Sinh" id="Ngay_Sinh" class="form-control create_modal"
+                                    placeholder="Date Of Birth">
 
-                        </select>
-                    </div>
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Ngay_Sinh"></strong>
+                                </span>
+                            </div>
+                        </div>
 
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="block" name="block">
-                        <label class="custom-control-label" for="block">Block user</label>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Phone Number:</label>
+                                <input type="number" name="So_Dien_Thoai" id="So_Dien_Thoai"
+                                    class="form-control create_modal" min="0" placeholder="Phone Number">
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-So_Dien_Thoai"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <input type="text" name="Dia_Chi" id="Dia_Chi" class="form-control create_modal"
+                                    placeholder="Address">
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Dia_Chi"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Starting Date:</label>
+                                <input type="date" name="Ngay_Bat_Dau_Lam" id="Ngay_Bat_Dau_Lam"
+                                    class="form-control create_modal" placeholder="Starting Date">
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Ngay_Bat_Dau_Lam"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>End Date:</label>
+                                <input type="date" name="Ngay_Nghi_Viec" id="Ngay_Nghi_Viec"
+                                    class="form-control create_modal" placeholder="Starting Date">
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Ngay_Nghi_Viec"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Position:</label> <br>
+                                <select name="MaCV" id="MaCV" class="form-control positionEdit">
+
+                                </select>
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-MaCV"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Coefficients Salary:</label> <br>
+                                <select name="He_So_Luong" id="He_So_Luong" class="form-control HSLEdit">
+
+                                </select>
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-He_So_Luong"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6"></div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Avatar:</label>
+                                <input type="file" name="Anh_Dai_Dien" class="form-control create_modal Anh_Dai_Dien"
+                                    onchange="readURLEdit(event)">
+
+                                <span class="invalid-feedback">
+                                    <strong class="alert-Anh_Dai_Dien"></strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <img id="zoomEdit" src="#" alt="" srcset="" width="250">
+                        </div>
                     </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-edit" onclick="user.update()">Save
-                    changes</button>
+                <button type="button" class="btn btn-primary btn-edit" onclick="staff.update(this)">Save
+                    Changes</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Show Staff by Id-->
+<div class="modal fade" id="ShowIdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    data-keyboard="true" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+
+        {{-- Show data by Id --}}
+        <div class="modal-content" id="show-data-modal" style="display: none">
+            <div class="modal-header">
+                <h2 class="modal-title w-100 text-center" style="color:blue" id="ShowStaff"></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    <table>
+                        <tr>
+                            <td>Full Name:</td>
+                            <td for="" id="Ho_Ten"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Username:</td>
+                            <td for="" id="username"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Position:</td>
+                            <td for="" id="position"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Coefficients Salary:</td>
+                            <td for="" id="salary"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Date Of Birth:</td>
+                            <td for="" id="dob"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Gender:</td>
+                            <td for="" id="gender"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Phone Number:</td>
+                            <td for="" id="phone"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Address:</td>
+                            <td for="" id="Dia_Chi"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Starting date:</td>
+                            <td for="" id="Ngay_Bat_Dau_Lam"></td>
+                        </tr>
+
+                        <tr>
+                            <td>End date:</td>
+                            <td for="" id="Ngay_Nghi_Viec"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Avatar:</td>
+                            <td><img id="zoomShow" src="#" alt="" srcset="" width="250"></td>
+                        </tr>
+                    </table>
+                </h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -5,12 +5,13 @@
                 <th>#</th>
                 <th>Full Name</th>
                 <th>Username</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -20,12 +21,13 @@
                 <th>#</th>
                 <th>Full Name</th>
                 <th>Username</th>
-                <th>Level</th>
+                <th>Position</th>
                 <th>Coefficients salary</th>
-                <th>Image</th>
+                <th>Avatar</th>
                 <th>Gender</th>
                 <th>Starting date</th>
                 <th>Leaving date</th>
+                <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -39,21 +41,30 @@
                 <td>{{ $staff->user->username }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
                 <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
-                <td>{{ $staff->Anh_Dai_Dien }}</td>
+                @if($staff->Anh_Dai_Dien != null)
+                <td><img src="img/{{ $staff->Anh_Dai_Dien }}" alt="" width="100"></td>
+                @else
+                <td><img src="#" alt="" width="100"></td>
+                @endif
                 <td>{{ $staff->Gioi_Tinh }}</td>
                 <td>{{ $staff->Ngay_Bat_Dau_Lam }}</td>
                 <td>{{ $staff->Ngay_Nghi_Viec }}</td>
 
+                <td><button type="button" onclick="staff.modalShow({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
+                        class="btn btn-info show-modal-edit btn-sm">
+                        <i class="fa fa-eye" title="Detail"></i>
+                    </button></td>
+
                 <td>
                     <button type="button" onclick="staff.modalEdit({{ '\'' . Crypt::encrypt($staff->id) . '\'' }})"
-                        class="btn btn-info show-modal-edit btn-sm">
+                        class="btn btn-warning show-modal-edit btn-sm">
                         <i class="fa fa-edit" title="Edit"></i>
                     </button>
                 </td>
 
                 <td>
                     <button type="button" class="btn btn-danger show-modal-destroy destroy_object btn-sm"
-                        onclick="staff.destroy({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->username . '\'' }})"><i
+                        onclick="staff.destroy({{ '\'' . Crypt::encrypt($staff->id) . '\'' }}, {{ '\''. $staff->Ho_Ten . '\'' }})"><i
                             class="fa fa-backspace" title="Destroy"></i></button>
                 </td>
             </tr>
