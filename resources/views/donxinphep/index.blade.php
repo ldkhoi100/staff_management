@@ -19,21 +19,21 @@
             <table id="fs-table" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
+                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Thời Gian Xin Nghỉ</th>
-                       <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Thời Gian Xin Nghỉ</th>
                        <th>Action</th>
                     </tr>
                 </tfoot>
@@ -43,10 +43,10 @@
             <table id="fs-table-trash" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
+                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Thời Gian Xin Nghỉ</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,10 +54,10 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th>#</th>
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                        <th>Thời Gian Xin Nghỉ</th>
                        <th>Action</th>
                     </tr>
                 </tfoot>
@@ -77,22 +77,13 @@
                         </div>
                         <div class="modal-body container">
                             <div class="container">
-                                <span>Mã nhân viên</span><br>
-                                <input class="form-control col" type="text"  name="MaNV">
-                            </div>
-                            <div class="container">
                                 <span>Tiêu đề</span><br>
                                 <input class="form-control col" type="text"  name="TieuDe">
                             </div>
                             <div class="container">
                                 <span>Nội dung</span><br>
-                                <input class="form-control col" type="text"  name="NoiDung">
+                                <textarea class="form-control" name="NoiDung" rows="3"></textarea>
                             </div>
-                            <div class="container">
-                                <span>Thời gian xỉn nghỉ</span><br>
-                                <input class="form-control col" type="date"  name="created_at">
-                            </div>
-
                          <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
                                     onclick="Dxp.save(this)">

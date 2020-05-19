@@ -65,24 +65,24 @@ Route::group(['prefix' => '/donxinphep'], function () {
 /**
  * Table users
  */
-Route::group(['prefix' => '/users', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
+Route::group(['prefix' => '/users'], function () {
     Route::get('/', 'UsersController@index')->name("user.index");
     Route::get('/trash', 'UsersController@getSoftDeletes')->name("user.getSoftDeletes");
     Route::get('/all', 'UsersController@indexAjax')->name('users.ajax');
     Route::get('/{id}', 'UsersController@edit');
     Route::post('/', 'UsersController@store')->name('users.store');
-    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+    // Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
         Route::get('/block/{id}', 'UsersController@block')->name('users.block');
         Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
         Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
         Route::put('/{id}', 'UsersController@update');
         Route::delete('/{id}', 'UsersController@moveToTrash');
-    });
+//     });
 });
 
 /**
- * Table Nhan vien abc
+ * Table Nhan vien
  */
 Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERADMIN'], function () {
     Route::get('/', 'NhanVienController@index')->name("nhanvien.index");
@@ -147,7 +147,6 @@ Route::group(['prefix' => '/role'], function () {
     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
-
 });
 
 
