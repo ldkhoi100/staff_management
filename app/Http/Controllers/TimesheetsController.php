@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\BaseSalary;
+use App\Model\NhanVien;
+use App\Model\TimeSheets;
+use App\Services\BaseSalaryService;
 use Illuminate\Http\Request;
 use App\Services\TimeSheetsService;
 
 class TimeSheetsController extends Controller
 {
     protected $timeSheetsService;
+    protected $baseSalaryService;
 
-    public function __construct(TimeSheetsService $timeSheetsService)
+    public function __construct(TimeSheetsService $timeSheetsService, BaseSalaryService $baseSalaryService)
     {
         $this->middleware('AjaxRequest')->except('index');
         $this->timeSheetsService = $timeSheetsService;
@@ -17,6 +22,14 @@ class TimeSheetsController extends Controller
 
     public function index()
     {
+        $timeSheets = TimeSheets::where('Ngay_Hien_tai', date('Y-m-d'))->first();
+        if (!$timeSheets) {
+            $nhavien = NhanVien::all()->each(function($u) {
+                $bs = BaseSalary::orderBy('desc')->first();
+                $u->cham_cong()->create(['LuongCS'=> $bs->id, 'Ca_Lam' =>$u->Ca_Lam,'Ngay_Hien_Tai'=> date('Y-m-d')]);
+            });
+        }
+
         return view('timesheets.index');
     }
 
