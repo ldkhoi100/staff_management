@@ -12,10 +12,11 @@ class WorkShift extends Model
     protected $table = 'ca_lam';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'Ca', 'He_So','Mo_Ta'
+        'Ca', 'He_So', 'Mo_Ta'
     ];
 
-    public function nhanvien(){
-        return $this->belongsToMany(NhanVien::class, 'mavn_calam', 'Ca_Lam','id');
+    public function nhan_vien()
+    {
+        return $this->hasMany(NhanVien::class, 'Ca_Lam', 'id')->withTrashed();
     }
 }

@@ -30,7 +30,7 @@ class NhanVienCreateRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'MaCV' => ['required', 'numeric'],
-            'He_So_Luong' => ['required', 'numeric'],
+            'Ca_Lam' => ['required', 'numeric'],
             'Anh_Dai_Dien' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:5000'],
             'Ho_Ten' => ['required', 'string', 'min:3', 'max:255'],
             'Ngay_Sinh' => ['required', 'date',],

@@ -3,8 +3,8 @@
 <div class="container">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Factor
-                Salary</a>
+            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">
+                Statistic Of Leave</a>
         </li>
         <li class="nav-item mx-auto">
             <a class="nav-link btn-info btn" onclick="Dxp.create()">Create</a>
@@ -20,7 +20,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
-                        <th>Mã Nhân Viên</th>
+                        <th>Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
                         <th>Action</th>
@@ -31,10 +31,10 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Mã Nhân Viên</th>
+                        <th>Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                       <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -58,36 +58,35 @@
                         <th>Mã Nhân Viên</th>
                         <th>Tiêu Đề</th>
                         <th>Nội Dung</th>
-                       <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
             </table>
         </div>
         <div id="fs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
             data-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
-                            <h5 >Create Factor Salary</h5>
-                             <button class="btn btn-dark" type="button" aria-label="Close"
-                                onclick="confirm()?$('#fs-modal').modal('hide'):''">
+                            <h5>Create Factor Salary</h5>
+                            <button class="btn btn-dark" type="button" aria-label="Close"
+                                onclick="$('#fs-modal').modal('hide')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body container">
                             <div class="container">
-                                <span>Tiêu đề</span><br>
-                                <input class="form-control col" type="text"  name="TieuDe">
+                                <span>Title</span><br>
+                                <input class="form-control col" type="text" name="TieuDe">
                             </div>
                             <div class="container">
-                                <span>Nội dung</span><br>
+                                <span>Content</span><br>
                                 <textarea class="form-control" name="NoiDung" rows="3"></textarea>
                             </div>
-                         <div class="modal-footer">
+                            <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
-                                    onclick="Dxp.save(this)">
-                                    <i class="fa fa-save"></i> Save
+                                    onclick="Dxp.save(this)">Send Mail
                                 </button>
                             </div>
                         </div>

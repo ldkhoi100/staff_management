@@ -2,15 +2,15 @@
     <table class="table table-striped table-hover p-2 text-center" id="dataTable" width="100%" cellspacing="0">
         <thead class="alert-success">
             <tr>
-                <th>#</th>
+                <th width="1%">#</th>
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Position</th>
-                <th>Coefficients salary</th>
-                <th>Avatar</th>
-                <th>Gender</th>
-                <th>Starting date</th>
-                <th>Leaving date</th>
+                <th width="1%">Shift Work</th>
+                <th width="1%">Avatar</th>
+                <th width="1%">Gender</th>
+                <th>Date Start Work</th>
+                <th>Date End Work</th>
                 <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -18,15 +18,15 @@
         </thead>
         <tfoot>
             <tr>
-                <th>#</th>
+                <th width="1%">#</th>
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Position</th>
-                <th>Coefficients salary</th>
-                <th>Avatar</th>
-                <th>Gender</th>
-                <th>Starting date</th>
-                <th>Leaving date</th>
+                <th width="1%">Shift Work</th>
+                <th width="1%">Avatar</th>
+                <th width="1%">Gender</th>
+                <th>Date Start Work</th>
+                <th>Date End Work</th>
                 <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -40,7 +40,7 @@
                 <td>{{ ucwords($staff->Ho_Ten) }}</td>
                 <td>{{ $staff->user->username }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
-                <td>{{ $staff->he_so_luong->He_So_Luong }}</td>
+                <td>{{ $staff->ca_lam->Ca }}</td>
                 @if($staff->Anh_Dai_Dien != null)
                 <td><img src="img/{{ $staff->Anh_Dai_Dien }}" alt="" width="100"></td>
                 @else

@@ -14,15 +14,17 @@ class ReplyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contact;
+    public $name;
+    public $contact = [];
     public $message;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($contact, $message)
+    public function __construct($name, $contact, $message)
     {
+        $this->name = $name;
         $this->contact = $contact;
         $this->message = $message;
     }
@@ -34,6 +36,6 @@ class ReplyMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.replyContact', ['mess' => $this->message])->subject("2Dollar Store");
+        return $this->view('mail.replyContact', ['name' => $this->name, 'contact' => $this->contact, 'mess' => $this->message])->subject("Sabbatical Leave");
     }
 }

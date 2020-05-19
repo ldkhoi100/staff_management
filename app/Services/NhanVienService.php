@@ -14,6 +14,8 @@ interface NhanVienService
 
     public function findHashId($id, $hash);
 
+    public function findFullName();
+
     public function create($request);
 
     public function update($request, $id, $hash);
