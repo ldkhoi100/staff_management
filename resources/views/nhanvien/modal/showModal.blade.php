@@ -148,7 +148,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <strong>Position:</strong> <br>
-                                <select name="MaCV" id="" class="form-control position">
+                                <select name="MaCV" id="" class="form-control position select2" style="width: 100%;">
 
                                 </select>
 
@@ -160,8 +160,9 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <strong>Coefficients Salary:</strong> <br>
-                                <select name="He_So_Luong" id="" class="form-control HSL">
+                                <strong>Shift work:</strong> <br>
+                                <select name="Ca_Lam" id="Ca_Lam_Create" style="width: 100%;"
+                                    class="form-control HSL select2">
 
                                 </select>
 
@@ -306,7 +307,8 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <strong>Position:</strong> <br>
-                                <select name="MaCV" id="MaCV" class="form-control positionEdit">
+                                <select name="MaCV" id="MaCV" class="form-control positionEdit select2"
+                                    style="width: 100%;">
 
                                 </select>
 
@@ -318,8 +320,9 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <strong>Coefficients Salary:</strong> <br>
-                                <select name="He_So_Luong" id="He_So_Luong" class="form-control HSLEdit">
+                                <strong>Shift work:</strong> <br>
+                                <select name="Ca_Lam" id="He_So_Luong" class="form-control HSLEdit select2"
+                                    style="width: 100%;">
 
                                 </select>
 
@@ -328,8 +331,6 @@
                                 </span>
                             </div>
                         </div>
-
-                        <div class="col-6"></div>
 
                         <div class="col-6">
                             <div class="form-group">
@@ -342,6 +343,8 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="col-6"></div>
 
                         <div class="col-6">
                             <img id="zoomEdit" src="#" alt="" srcset="" width="250">
@@ -390,7 +393,7 @@
                         </tr>
 
                         <tr>
-                            <td>Coefficients Salary:</td>
+                            <td>Shift work:</td>
                             <td for="" id="salary"></td>
                         </tr>
 

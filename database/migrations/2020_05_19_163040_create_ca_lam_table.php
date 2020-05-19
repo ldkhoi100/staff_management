@@ -16,7 +16,6 @@ class CreateCaLamTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('Ca');
-			$table->integer('He_So');
 			$table->text('Mo_Ta', 65535)->nullable();
 			$table->timestamps();
 			$table->softDeletes();

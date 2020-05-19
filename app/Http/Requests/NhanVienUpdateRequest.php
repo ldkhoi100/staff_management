@@ -27,7 +27,7 @@ class NhanVienUpdateRequest extends FormRequest
     {
         return [
             'MaCV' => ['required', 'numeric'],
-            'He_So_Luong' => ['required', 'numeric'],
+            'Ca_Lam' => ['required', 'numeric'],
             'Anh_Dai_Dien' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:5000'],
             'Ho_Ten' => ['required', 'string', 'min:3', 'max:255'],
             'Ngay_Sinh' => ['required', 'date',],

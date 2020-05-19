@@ -17,6 +17,8 @@ use App\Http\Requests\NhanVienCreateRequest;
 use App\Http\Requests\NhanVienUpdateRequest;
 use App\Model\ChucVu;
 use App\Model\FactorSalary;
+use App\Model\WorkShift;
+use App\Services\WorkShiftService;
 
 class NhanVienController extends Controller
 {
@@ -25,13 +27,13 @@ class NhanVienController extends Controller
     protected $heSoLuongService;
     protected $userService;
 
-    public function __construct(NhanVienService $staffService, ChucvuService $chucVuService, FactorSalaryService $heSoLuongService, UserService $userService)
+    public function __construct(NhanVienService $staffService, ChucvuService $chucVuService, WorkShiftService $workShiftService, UserService $userService)
     {
         // $this->middleware('auth');
         // $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
         $this->chucVuService = $chucVuService;
-        $this->heSoLuongService = $heSoLuongService;
+        $this->workShiftService = $workShiftService;
         $this->userService = $userService;
     }
 
@@ -59,7 +61,7 @@ class NhanVienController extends Controller
 
     public function selectHSL()
     {
-        $HSL = $this->heSoLuongService->getAll();
+        $HSL = $this->workShiftService->getAll();
 
         return response()->json($HSL, 200);
     }
@@ -69,7 +71,7 @@ class NhanVienController extends Controller
         $id = Crypt::decrypt($id);
         $data = $this->staffService->findWithTrashed($id);
         $data['MaCV_name'] = (ChucVu::find($data['data']['MaCV'])->Ten_CV);
-        $data['He_So_Luong_name'] = (FactorSalary::find($data['data']['He_So_Luong'])->He_So_Luong);
+        $data['Ca_Lam_Name'] = (WorkShift::find($data['data']['Ca_Lam'])->Ca);
         $data['Username'] = (User::find($data['data']['id'])->username);
         return response()->json(['data' => $data], 200);
     }
@@ -79,7 +81,7 @@ class NhanVienController extends Controller
         $user_array = $this->userService->getAllUser()->pluck(['hash'])->toArray();
         $NV_array = $this->staffService->getAll()->pluck('hash')->toArray();
 
-        $data = $request->only(['MaCV', 'He_So_Luong', 'Anh_Dai_Dien', 'Ho_Ten', 'Ngay_Sinh', 'Gioi_Tinh', 'So_Dien_Thoai', 'Dia_Chi', 'Ngay_Bat_Dau_Lam']);
+        $data = $request->only(['MaCV', 'Ca_Lam', 'Anh_Dai_Dien', 'Ho_Ten', 'Ngay_Sinh', 'Gioi_Tinh', 'So_Dien_Thoai', 'Dia_Chi', 'Ngay_Bat_Dau_Lam']);
         $user = $request->only(['username', 'email', 'password_confirmation']);
         $user['password'] = Hash::make($request->password);
         $user['hash'] = rand(1000000000, 2147483640);

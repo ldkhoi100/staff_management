@@ -72,13 +72,13 @@ Route::group(['prefix' => '/users'], function () {
     Route::get('/{id}', 'UsersController@edit');
     Route::post('/', 'UsersController@store')->name('users.store');
     // Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
-        Route::get('/block/{id}', 'UsersController@block')->name('users.block');
-        Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
-        Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
-        Route::put('/{id}', 'UsersController@update');
-        Route::delete('/{id}', 'UsersController@moveToTrash');
-//     });
+    Route::get('/select/role', 'UsersController@selectRole')->name("user.selectRole");
+    Route::get('/block/{id}', 'UsersController@block')->name('users.block');
+    Route::get('/restore/{id}', 'UsersController@restore')->name('users.restore');
+    Route::get('/delete/{id}', 'UsersController@delete')->name('users.delete');
+    Route::put('/{id}', 'UsersController@update');
+    Route::delete('/{id}', 'UsersController@moveToTrash');
+    //     });
 });
 
 /**
@@ -105,20 +105,20 @@ Route::group(['prefix' => '/staff', 'middleware' => 'role:ROLE_ADMIN|ROLE_SUPERA
 /**
  * Table he-so-luong
  */
-Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
-    Route::get('/', "FactorSalaryController@index")->name('fs.index');
-    Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
-    Route::get('/trash', "FactorSalaryController@getTrash")->name('fs.getTrash');
-    Route::get('/{id}/trash', "FactorSalaryController@findTrashById")->name('fs.findTrashById');
-    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
-        Route::post('/', "FactorSalaryController@create")->name('fs.create');
-        Route::put('/{id}', "FactorSalaryController@update")->name('fs.update');
-        Route::put('/{id}/restore', "FactorSalaryController@restore")->name('fs.restore');
-        Route::delete('/{id}', "FactorSalaryController@moveToTrash")->name('fs.moveToTrash');
-        Route::delete('/{id}/delete', "FactorSalaryController@delete")->name('fs.delete');
-        Route::get('/{id}', "FactorSalaryController@findById")->name('fs.findById');
-    });
-});
+// Route::group(['prefix' => '/factor-salary', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+//     Route::get('/', "FactorSalaryController@index")->name('fs.index');
+//     Route::get('/all', "FactorSalaryController@getAll")->name('fs.getAll');
+//     Route::get('/trash', "FactorSalaryController@getTrash")->name('fs.getTrash');
+//     Route::get('/{id}/trash', "FactorSalaryController@findTrashById")->name('fs.findTrashById');
+//     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+//         Route::post('/', "FactorSalaryController@create")->name('fs.create');
+//         Route::put('/{id}', "FactorSalaryController@update")->name('fs.update');
+//         Route::put('/{id}/restore', "FactorSalaryController@restore")->name('fs.restore');
+//         Route::delete('/{id}', "FactorSalaryController@moveToTrash")->name('fs.moveToTrash');
+//         Route::delete('/{id}/delete', "FactorSalaryController@delete")->name('fs.delete');
+//         Route::get('/{id}', "FactorSalaryController@findById")->name('fs.findById');
+//     });
+// });
 
 /**
  * Table Luong co ban
@@ -174,3 +174,6 @@ Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADM
         Route::get('/{id}', "WorkShiftController@findById")->name('ws.findById');
     });
 });
+
+Route::get('/profile', "ProfileController@index");
+Route::get('/history/leave', "ProfileController@lichSuNghi");
