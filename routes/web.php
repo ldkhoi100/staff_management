@@ -150,13 +150,6 @@ Route::group(['prefix' => '/role'], function () {
 
 });
 
-// chấm công tháng
-
-Route::group(['prefix'=>'/chamcongngay'], function (){
-    Route::get('/', "ChamcongngayController@index")->name('cc.index');
-//   Route::resource('/' , 'ChamcongngayController');
-});
-
 
 /**
  * Table ca lam
@@ -173,5 +166,23 @@ Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADM
         Route::delete('/{id}', "WorkShiftController@moveToTrash")->name('ws.moveToTrash');
         Route::delete('/{id}/delete', "WorkShiftController@delete")->name('ws.delete');
         Route::get('/{id}', "WorkShiftController@findById")->name('ws.findById');
+    });
+});
+
+/**
+ * Table chamcong
+ */
+Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::get('/', "TimeSheetsController@index")->name('ts.index');
+    Route::get('/all', "TimeSheetsController@getAll")->name('ts.getAll');
+    Route::get('/trash', "TimeSheetsController@getTrash")->name('ts.getTrash');
+    Route::get('/{id}/trash', "TimeSheetsController@findTrashById")->name('ts.findTrashById');
+    Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::post('/', "TimeSheetsController@create")->name('ts.create');
+        Route::put('/{id}', "TimeSheetsController@update")->name('ts.update');
+        Route::put('/{id}/restore', "TimeSheetsController@restore")->name('ts.restore');
+        Route::delete('/{id}', "TimeSheetsController@moveToTrash")->name('ts.moveToTrash');
+        Route::delete('/{id}/delete', "TimeSheetsController@delete")->name('ts.delete');
+        Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
     });
 });

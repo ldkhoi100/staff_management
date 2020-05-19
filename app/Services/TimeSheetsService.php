@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Services;
 
-interface ChamCongThangService
+interface TimeSheetsService
 {
     public function getAll();
 
@@ -14,6 +15,8 @@ interface ChamCongThangService
     public function destroy($id);
 
     public function getSoftDeletes();
+
+    public function findOnlyTrashed($id);
 
     public function restore($id);
 
