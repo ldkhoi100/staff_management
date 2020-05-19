@@ -183,4 +183,20 @@ class NhanVienServiceImpl implements NhanVienService
 
         return $data;
     }
+
+    public function findFullName()
+    {
+        $object = $this->dataRepository->findFullName();
+
+        $statusCode = 200;
+        if (!$object)
+            $statusCode = 404;
+
+        $data = [
+            'statusCode' => $statusCode,
+            'data' => $object
+        ];
+
+        return $data;
+    }
 }

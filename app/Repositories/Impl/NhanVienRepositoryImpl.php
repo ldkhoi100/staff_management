@@ -5,6 +5,7 @@ namespace App\Repositories\Impl;
 use App\Model\NhanVien;
 use App\Repositories\NhanVienRepository;
 use App\Repositories\Eloquent\EloquentRepository;
+use Auth;
 
 class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepository
 {
@@ -52,6 +53,13 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
     public function findHashId($id, $hash)
     {
         $result = $this->model->withTrashed()->where('id', $id)->where('hash', $hash)->first();
+
+        return $result;
+    }
+
+    public function findFullName()
+    {
+        $result = ($this->model->withTrashed()->where('id', Auth::id())->first())->Ho_Ten;
 
         return $result;
     }
