@@ -49,6 +49,7 @@ user.modalEdit = function(id) {
     $("#show-create-modal").css("display", "none"); // Hide modal create
     $("#show-edit-modal").css("display", "flex"); // Show modal update
     $(".btn-edit").prop("disabled", false);
+    $(".hide-password").css("display", "none");
     $.ajax({
         type: "GET",
         url: "/users/" + id,

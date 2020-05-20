@@ -14,7 +14,6 @@ class AddForeignKeysToChamCongNgayTable extends Migration {
 	{
 		Schema::table('cham_cong_ngay', function(Blueprint $table)
 		{
-			$table->foreign('Ca_Lam', 'cham_cong_ngay_ibfk_1')->references('id')->on('ca_lam')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('LuongCB', 'cham_cong_ngay_ibfk_3')->references('id')->on('luong_co_ban')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('MaNV', 'cham_cong_ngay_ibfk_4')->references('id')->on('nhan_vien')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
@@ -30,7 +29,6 @@ class AddForeignKeysToChamCongNgayTable extends Migration {
 	{
 		Schema::table('cham_cong_ngay', function(Blueprint $table)
 		{
-			$table->dropForeign('cham_cong_ngay_ibfk_1');
 			$table->dropForeign('cham_cong_ngay_ibfk_3');
 			$table->dropForeign('cham_cong_ngay_ibfk_4');
 		});

@@ -15,7 +15,7 @@ Dxp.drawTable = function() {
                         Key: i++,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
-                        Cv2:json.NoiDung,
+                        Cv2: json.NoiDung,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.trash(${json.id})">Trash</a>
@@ -37,7 +37,7 @@ Dxp.drawTable = function() {
                 data: "Cv2"
             },
 
-           {
+            {
                 data: "action"
             }
         ]
@@ -56,7 +56,7 @@ Dxp.drawTableTrash = function() {
                         Key: i++,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
-                        Cv2:json.NoiDung,
+                        Cv2: json.NoiDung,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.delete(${json.id})">Delete</a>
@@ -66,20 +66,20 @@ Dxp.drawTableTrash = function() {
             }
         },
         columns: [{
-            data: "Key"
-        },
-        {
-            data: "Cv"
-        },
-        {
-            data: "Cv1"
-        },
-        {
-            data: "Cv2"
-        },
-       {
-            data: "action"
-        }
+                data: "Key"
+            },
+            {
+                data: "Cv"
+            },
+            {
+                data: "Cv1"
+            },
+            {
+                data: "Cv2"
+            },
+            {
+                data: "action"
+            }
         ]
 
     });
@@ -104,6 +104,7 @@ Dxp.edit = function(id) {
     $.get(`/donxinphep/${id}`).done(function(Obj) {
         $.each(Obj, (i, v) => {
             $(`#fs-modal input[name=${i}]`).val(v);
+            $(`#fs-modal textarea[name=${i}]`).val(v);
         });
         $('#fs-modal #fs-modal-title').text("Edit Factor Salary");
         $('#fs-modal #btn-save').data('id', Obj.id);
@@ -178,6 +179,7 @@ Dxp.save = function(btn) {
         }
     } else {
         if (confirm('Save this data')) {
+            $("#btn-save").text("Sending mail, please wait . . .");
             $.ajax({
                 url: `/donxinphep`,
                 method: 'post',
@@ -186,9 +188,11 @@ Dxp.save = function(btn) {
                     Dxp.table.ajax.reload();
                     $('#fs-modal').modal("hide");
                     Dxp.success("Create success");
+                    $("#btn-save").text("Send Mail");
                 },
                 error: function(errors) {
                     Dxp.errors(errors);
+                    $("#btn-save").text("Send Mail");
                 }
             });
         }
@@ -220,7 +224,7 @@ Dxp.success = function(msg) {
 // }
 
 
-Dxp.errors = function (errors) {
+Dxp.errors = function(errors) {
     // console.log(errors);
     if (errors.status == 422) {
         let msg = errors.responseJSON.errors;
@@ -228,7 +232,7 @@ Dxp.errors = function (errors) {
         $(`#fs-modal .is-valid`).removeClass('is-valid');
         $(`#fs-modal .field`).addClass('is-valid');
         $('small.text').remove();
-        $.each(msg, function (i, v) {
+        $.each(msg, function(i, v) {
             $(`#fs-modal [name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
         });
     } else {
@@ -252,4 +256,3 @@ $(document).ready(function() {
         }
     });
 });
-
