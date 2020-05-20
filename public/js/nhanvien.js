@@ -155,7 +155,7 @@ staff.update = function(btn) {
 };
 
 staff.modalShow = function(id) {
-    $("#show-data-modal").css("display", "flex"); // Show modal detail
+    $("#dx-modal").css("display", "flex"); // Show modal detail
     $.ajax({
         type: "GET",
         url: "/staff/show/" + id,

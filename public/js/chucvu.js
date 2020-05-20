@@ -15,6 +15,7 @@ Cv.drawTable = function() {
                         Cv1: json.Cong_Viec,
                         Cv2: json.Bac_Luong,
                         action: `
+                            <a class="btn btn-success text-light" onclick="Cv.show(${json.id})">Show</a>
                             <a class="btn btn-secondary text-light" onclick="Cv.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Cv.trash(${json.id})">Trash</a>
                         `
@@ -145,6 +146,26 @@ Cv.delete = function(id) {
     }
 }
 
+
+
+Cv.show = function(id) {
+    $('#dx-modal').modal("show");
+    $.ajax({
+      type: "GET",
+      url: "/chuc-vu/show/" + id,
+      success: function(response) {
+      response_query = response['data']['data'];
+          $("#dx-modal").find("#Ten_CV").text(response_query.Ten_CV);
+          $("#dx-modal").find("#Cong_Viec").text(response_query.Cong_Viec);
+          $("#dx-modal").find("#Bac_Luong").text(response_query.Bac_Luong);
+      },
+      error: function() {
+      },
+  });
+
+  }
+
+
 Cv.save = function(btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
@@ -162,7 +183,7 @@ Cv.save = function(btn) {
                     Cv.success("Update success!");
                 },
                 error: function(errors) {
-                    Cv.errors(errors.responseJSON.errors);
+                    Cv.errors(errors);
                 }
             });
         }
@@ -178,7 +199,7 @@ Cv.save = function(btn) {
                     Cv.success("Create success");
                 },
                 error: function(errors) {
-                    Cv.errors(errors.responseJSON.errors);
+                    Cv.errors(errors);
                 }
             });
         }
@@ -196,17 +217,35 @@ Cv.success = function(msg) {
     });
 }
 
-Cv.errors = function(msg) {
-    $(`#fs-modal input`).each(function() {
-        $(this).addClass('is-valid');
-    });
-    $('small.badge').each(function() {
-        console.log(this);
-        $(this).remove();
-    });
-    $.each(msg, function(i, v) {
-        $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
-    });
+// Cv.errors = function(msg) {
+//     $(`#fs-modal input`).each(function() {
+//         $(this).addClass('is-valid');
+//     });
+//     $('small.badge').each(function() {
+//         console.log(this);
+//         $(this).remove();
+//     });
+//     $.each(msg, function(i, v) {
+//         $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
+//     });
+// }
+
+
+Cv.errors = function(errors) {
+    // console.log(errors);
+    if (errors.status == 422) {
+        let msg = errors.responseJSON.errors;
+        $(`#fs-modal .is-invalid`).removeClass('is-invalid');
+        $(`#fs-modal .is-valid`).removeClass('is-valid');
+        $(`#fs-modal .field`).addClass('is-valid');
+        $('small.text').remove();
+        $.each(msg, function(i, v) {
+            $(`#fs-modal [name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
+        });
+    } else {
+        $('#fs-modal').modal('hide');
+        Cv.success("You are not authorized for this action", "Error", 'error');
+    }
 }
 
 
