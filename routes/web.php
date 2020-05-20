@@ -175,5 +175,9 @@ Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADM
     });
 });
 
-Route::get('/profile', "ProfileController@index");
-Route::get('/history/leave', "ProfileController@lichSuNghi");
+Route::group(['prefix' => '/profile'], function () {
+    Route::get('/', "ProfileController@index");
+    Route::get('/nghiPhep', "ProfileController@nghiPhep");
+    Route::post('/select/month', "ProfileController@select_month")->name("select.month");
+    Route::post('/month', "ProfileController@changeMonth")->name("select.changeMonth");
+});

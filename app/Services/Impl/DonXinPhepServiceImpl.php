@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Impl;
 
 use App\Repositories\DonXinPhepRepository;
@@ -29,10 +30,32 @@ class DonXinPhepServiceImpl implements DonXinPhepService
         if (!$data)
             $status = 404;
 
-            $data = [
-                'status' => $status,
-                'data' => $data
-            ];
+        $data = [
+            'status' => $status,
+            'data' => $data
+        ];
+
+        return $data;
+    }
+
+    public function findMaNV()
+    {
+        $data = $this->don_xin_phepRepository->findMaNV();
+
+        return $data;
+    }
+
+    public function findWithDatePicker($i, $month)
+    {
+        $data = $this->don_xin_phepRepository->findWithDatePicker($i, $month);
+        $status = 200;
+        if (!$data)
+            $status = 404;
+
+        $data = [
+            'status' => $status,
+            'data' => $data
+        ];
 
         return $data;
     }

@@ -153,6 +153,6 @@
 <!-- Form Section End -->
 @endsection
 
-@push('clicked')
-
+@push('CRUD')
+<script src="js/profile.js"></script>
 @endpush
