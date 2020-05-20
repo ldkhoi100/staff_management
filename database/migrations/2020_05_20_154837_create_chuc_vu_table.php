@@ -17,7 +17,7 @@ class CreateChucVuTable extends Migration {
 			$table->increments('id');
 			$table->string('Ten_CV');
 			$table->string('Cong_Viec');
-			$table->integer('Bac_Luong');
+			$table->float('Bac_Luong', 10);
 			$table->timestamps();
 			$table->softDeletes();
 		});
