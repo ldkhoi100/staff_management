@@ -31,9 +31,9 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Manager staff -
                 Your role:<span style="color: brown">
-                    @if(count(Auth::user()->roles) > 0)
+                    {{-- @if(count(Auth::user()->roles) > 0)
                     {{ Auth::user()->roles[0]->name }}
-                    @endif
+                    @endif --}}
                 </span>
             </h6>
         </div>
