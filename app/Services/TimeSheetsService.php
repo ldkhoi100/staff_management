@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Services;
 
-interface ChamCongThangService
+interface TimeSheetsService
 {
     public function getAll();
 
@@ -15,7 +16,15 @@ interface ChamCongThangService
 
     public function getSoftDeletes();
 
+    public function findOnlyTrashed($id);
+
     public function restore($id);
 
     public function delete($id);
+
+    public function getDay($date);
+
+    public function holiday($status,$date);
+
+    public function baseSalary($base,$date);
 }

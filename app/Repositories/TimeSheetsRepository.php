@@ -1,9 +1,10 @@
 <?php
-namespace  App\Repositories;
 
-interface ChamCongNgayRepository extends Repository
+namespace App\Repositories;
+
+
+interface TimeSheetsRepository extends Repository
 {
-
     public function getSoftDeletes();
 
     public function restore($object);
@@ -12,4 +13,5 @@ interface ChamCongNgayRepository extends Repository
 
     public function findOnlyTrashed($id);
 
+    public function getDay($date);
 }

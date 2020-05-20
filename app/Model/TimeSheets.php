@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChamCong extends Model
+class TimeSheets extends Model
 {
     use SoftDeletes;
 
@@ -13,7 +13,7 @@ class ChamCong extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'MaNV', 'LuongCB', 'Ca_Lam', 'Ngay_Hien_Tai', 'Ngay_Le', 'Tru_Luong', 'Ghi_Chu'
+        'MaNV', 'LuongCB', 'Ca_Lam', 'Ngay_Hien_Tai', 'Ngay_Le', 'Luong', 'Ghi_Chu'
     ];
 
     public function nhan_vien()

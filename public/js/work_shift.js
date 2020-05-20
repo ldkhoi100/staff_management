@@ -14,7 +14,7 @@ Ws.drawTable = function() {
                     return {
                         key: i++,
                         ca: json.Ca,
-                        hs: json.He_So,
+                        mt: json.Mo_Ta,
                         crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Ws.edit(${json.id})">Edit</a>
@@ -29,11 +29,9 @@ Ws.drawTable = function() {
             },
             {
                 data: "ca"
-            },
-            {
-                data: "hs"
-            },
-            {
+            },{
+                data: "mt"
+            },{
                 data: "crt"
             },
             {
@@ -55,7 +53,7 @@ Ws.drawTableTrash = function() {
                     return {
                         key: i++,
                         ca: json.Ca,
-                        hs: json.He_So,
+                        mt: json.Mo_Ta,
                         dlt: json.deleted_at,
                         action: `
                             <a class="btn btn-primary text-light" onclick="Ws.undo(${json.id})">Undo</a>
@@ -69,11 +67,9 @@ Ws.drawTableTrash = function() {
                 data: "key"
             }, {
                 data: "ca"
-            },
-            {
-                data: "hs"
-            },
-            {
+            },{
+                data: "mt"
+            },{
                 data: "dlt"
             },
             {
