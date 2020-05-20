@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
 
         {{-- Create data --}}
-        <div class="modal-content" id="show-create-modal" style="display: none">
+        {{-- <div class="modal-content" id="show-create-modal" style="display: none">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -71,7 +71,7 @@
                 </form>
             </div>
 
-        </div>
+        </div> --}}
 
         {{-- Update data --}}
         <div class="modal-content" id="show-edit-modal" style="display: none">

@@ -142,3 +142,36 @@
 
     </div>
 </div>
+
+<!-- Modal Create Sabbatical -->
+<div id="fs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h5>Create New Sabbatical Leave</h5>
+                    <button class="btn btn-dark" type="button" aria-label="Close"
+                        onclick="$('#fs-modal').modal('hide')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body container">
+                    <div class="container">
+                        <span>Title</span><br>
+                        <input class="form-control col" type="text" name="TieuDe">
+                    </div>
+                    <div class="container">
+                        <span>Content</span><br>
+                        <textarea class="form-control" name="NoiDung" rows="6"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-save" class="btn btn-success btn-block"
+                            onclick="Dxp.save(this)">Send Mail
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

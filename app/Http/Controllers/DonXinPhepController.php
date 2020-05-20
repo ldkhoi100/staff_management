@@ -42,6 +42,16 @@ class DonXinPhepController extends Controller
         return response()->json($factorSalaries);
     }
 
+
+    public function show($id)
+    {
+
+        $data = $this->donxinphepService->findById($id);
+        $data['NhanVien'] = NhanVien::find($data['data']['MaNV'])->Ho_Ten;
+
+        return response()->json(['data' => $data], 200);
+    }
+
     public function findById($id)
     {
         $donxinphep = $this->donxinphepService->findById($id);
