@@ -14,12 +14,12 @@ class NhanVien extends Model
 
     protected $fillable = [
         'MaCV', 'He_So_Luong', 'Ho_Ten', 'Ngay_Sinh', 'Gioi_Tinh', 'So_Dien_Thoai', 'Dia_Chi',
-        'Anh_Dai_Dien', 'Ngay_Bat_Dau_Lam', 'Ngay_Nghi_Viec', 'Phu_Cap', 'Tam_Ung', 'hash', 'id'
+        'Anh_Dai_Dien', 'Ngay_Bat_Dau_Lam', 'Ngay_Nghi_Viec', 'Phu_Cap', 'Tam_Ung', 'hash', 'id', 'Ca_Lam'
     ];
 
     public function cham_cong()
     {
-        return $this->hasMany("App\Model\ChamCong", 'MaNV', 'id')->withTrashed();
+        return $this->hasMany(TimeSheets::class, 'MaNV', 'id')->withTrashed();
     }
 
     public function don_xin_phep()
@@ -35,6 +35,11 @@ class NhanVien extends Model
     public function he_so_luong()
     {
         return $this->belongsTo("App\Model\FactorSalary", 'He_So_Luong', 'id')->withTrashed();
+    }
+
+    public function ca_lam()
+    {
+        return $this->belongsTo("App\Model\WorkShift", 'Ca_Lam', 'id')->withTrashed();
     }
 
     public function user()

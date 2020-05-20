@@ -20,6 +20,7 @@
                             <td width="454" align="left"
                                 style="color:#444444;border-collapse:collapse;font-size:11pt;font-family:proxima_nova,'Open Sans','Lucida Grande','Segoe UI',Arial,Verdana,'Lucida Sans Unicode',Tahoma,'Sans Serif';max-width:454px"
                                 valign="top">
+
                                 <p
                                     style="text-align:left;font-family:'Atlas Grotesk','Open Sans','Lucida Grande','Segoe UI',Arial,Verdana,'Lucida Sans Unicode',Tahoma,'Sans Serif';font-size:14px;color:#555555;line-height:25px">
                                 </p>
@@ -27,36 +28,21 @@
                                     <tbody>
                                         <tr>
                                             <td style="font-size:24px;font-weight:300;line-height:32px" align="center">
-                                                <b style="color: #ee4d2d">Fashion Store<br>Fresh Style</b></td>
+                                                <b style="color: #ee4d2d">From Staff: {!! $name !!}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <br>
-                                <a href="https://www.dropbox.com/l/AACM1bItR5RN3-XIuVzPXkiT0fRhAqQey7w/downloading"
-                                    target="_blank"
+                                <a href="#" target="_blank"
                                     data-saferedirecturl="https://www.google.com/url?q=https://www.dropbox.com/l/AACM1bItR5RN3-XIuVzPXkiT0fRhAqQey7w/downloading&amp;source=gmail&amp;ust=1587539229204000&amp;usg=AFQjCNEPmkGpQdCET5XPueNV68s048KLCQ">
                                     <center><img width="100%" style="max-width:300px"
-                                            src="https://thenypost.files.wordpress.com/2018/06/men-shopping-masculine.jpg?quality=80&strip=all"
+                                            src="https://previews.123rf.com/images/gustavofrazao/gustavofrazao1611/gustavofrazao161100941/129783316-hands-holding-sabbatical-leave-placard-with-white-background.jpg"
                                             class="CToWUd"></center>
-                                </a><br><b>Dear {{ $contact->TieuDe }} </b> <br>
-                                <span>{!! $mess !!}</span>
-                                <b>
-                                    <ul>
-                                        <li>Start Something New on <a href="{{ route('home') }}" target="_blank"
-                                                data-saferedirecturl="https://www.google.com/url?q=http://dropbox.com&amp;source=gmail&amp;ust=1587539229204000&amp;usg=AFQjCNGdXlYz328R8_iPR6eS41ObI8WJcQ">fashion.com</a>
-                                        </li>
-                                        <li>Authentic Products, Free Delivery*, Easy Exchange and Return, Express Store
-                                            Pickup</li>
-                                        <li>FashionStore.com: Shop Anytime, Anywhere!</li>
-                                    </ul>
-                                </b>
-                                <center>
-                                    <a style="border-radius:6px;font-size:15px;color:white;text-decoration:none;padding:14px 7px 14px 7px;width:210px;max-width:210px;font-family:proxima_nova,'Open Sans','lucida grande','Segoe UI',arial,verdana,'lucida sans unicode',tahoma,sans-serif;margin:6px auto;display:block;background-color:#007ee5;text-align:center"
-                                        href="{{ route('home') }}" target="_blank"
-                                        data-saferedirecturl="https://www.google.com/url?q=https://www.dropbox.com/l/AAD0jV57hHC-FpQTUfSWZ5gKqK8n6aE6HSo/downloading&amp;source=gmail&amp;ust=1587539229204000&amp;usg=AFQjCNHCtE4RxUkLp_mfedhATaRtAIQ2Zg">
-                                        Go To Shop Now
-                                    </a>
-                                </center>
+                                </a>
+
+                                <b>Title: </b><span>{!! $contact->TieuDe !!}</span> <br>
+                                <b>Content: </b><br><span>{!! $mess !!}</span>
+
                             </td>
                             <td width="36"></td>
                         </tr>

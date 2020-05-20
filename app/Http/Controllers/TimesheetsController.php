@@ -22,22 +22,37 @@ class TimeSheetsController extends Controller
 
     public function index()
     {
-        $timeSheets = TimeSheets::where('Ngay_Hien_tai', date('Y-m-d'))->first();
-        if (!$timeSheets) {
-            $nhavien = NhanVien::all()->each(function($u) {
-                $bs = BaseSalary::orderBy('desc')->first();
-                $u->cham_cong()->create(['LuongCS'=> $bs->id, 'Ca_Lam' =>$u->Ca_Lam,'Ngay_Hien_Tai'=> date('Y-m-d')]);
-            });
-        }
-
         return view('timesheets.index');
+    }
+
+    public function getDay($date)
+    {
+        $timeSheets = $this->timeSheetsService->getDay($date);
+
+        return response()->json($timeSheets, 200);
+    }
+
+    public function holiday($status, $date)
+    {
+        $status = ['Ngay_Le'=>$status];
+        $timeSheets = $this->timeSheetsService->holiday($status,$date);
+
+        return response()->json($timeSheets);
+    }
+
+    public function baseSalary($base, $date)
+    {
+    $base = ['LuongCB'=>$base];
+        $timeSheets = $this->timeSheetsService->baseSalary($base,$date);
+
+        return response()->json($timeSheets);
     }
 
     public function getAll()
     {
         $timeSheets = $this->timeSheetsService->getAll();
 
-        return response()->json($timeSheets);
+        return response()->json($timeSheets, 200);
     }
 
     public function findById($id)

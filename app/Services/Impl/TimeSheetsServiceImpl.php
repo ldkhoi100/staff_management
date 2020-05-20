@@ -2,16 +2,25 @@
 
 namespace App\Services\Impl;
 
+use App\Repositories\BaseSalaryRepository;
+use App\Repositories\NhanVienRepository;
 use App\Repositories\TimeSheetsRepository;
+use App\Repositories\WorkShiftRepository;
 use App\Services\TimeSheetsService;
 
 class TimeSheetsServiceImpl implements TimeSheetsService
 {
     protected $timeSheetsRepository;
+    protected $baseSalary;
+    protected $nhavien;
+    protected $workShiftRepository;
 
-    public function __construct(TimeSheetsRepository $timeSheetsRepository)
+    public function __construct(TimeSheetsRepository $timeSheetsRepository, BaseSalaryRepository $baseSalary, NhanVienRepository $nhavien, WorkShiftRepository $workShiftRepository)
     {
         $this->timeSheetsRepository = $timeSheetsRepository;
+        $this->baseSalary = $baseSalary;
+        $this->nhavien = $nhavien;
+        $this->workShiftRepository = $workShiftRepository;
     }
 
     public function getAll()
@@ -152,5 +161,55 @@ class TimeSheetsServiceImpl implements TimeSheetsService
             'msg' => $msg
         ];
         return $data;
+    }
+
+    public function getDay($date)
+    {
+        $timeSheets = $this->timeSheetsRepository->getDay($date)->first();
+        $dates = strtotime($date);
+        $now = strtotime(date('Y-m-d'));
+        if (!$timeSheets && $dates == $now) {
+            $nhavien = $this->nhavien->getAll();
+            $bs = $this->baseSalary->getAll()->first();
+            foreach($nhavien as $nv){
+                $nv->cham_cong()->create(['Ngay_Hien_Tai'=> $date, 'LuongCB'=>$bs->id]);
+            }
+        }
+
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
+
+        foreach($timeSheets as $no => $ts){
+            $nv = $this->nhavien->findById($ts->MaNV);
+            $timeSheets[$no]['NV'] = $nv->Ho_Ten;
+            $timeSheets[$no]['Ca'] = $nv->ca_lam->Mo_Ta;
+        }
+
+        return $timeSheets;
+    }
+
+    public function holiday($status,$date)
+    {
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
+
+        foreach($timeSheets as $ts){
+            $ud = $this->timeSheetsRepository->update($status,$ts);
+        }
+
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
+
+        return $timeSheets;
+    }
+
+    public function baseSalary($base,$date)
+    {
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
+
+        foreach($timeSheets as $ts){
+            $ud = $this->timeSheetsRepository->update($base,$ts);
+        }
+
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
+
+        return $timeSheets;
     }
 }

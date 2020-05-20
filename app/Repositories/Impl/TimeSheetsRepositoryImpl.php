@@ -19,4 +19,11 @@ class TimeSheetsRepositoryImpl extends EloquentRepository implements TimeSheetsR
         $result = $this->model->onlyTrashed($id)->where('id', $id)->first();
         return $result;
     }
+
+    public function getDay($date)
+    {
+        $result = $this->model->where('Ngay_Hien_Tai',$date)->get();
+
+        return $result;
+    }
 }

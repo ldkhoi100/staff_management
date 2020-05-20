@@ -12,4 +12,6 @@ interface TimeSheetsRepository extends Repository
     public function delete($object);
 
     public function findOnlyTrashed($id);
+
+    public function getDay($date);
 }

@@ -21,4 +21,10 @@ interface TimeSheetsService
     public function restore($id);
 
     public function delete($id);
+
+    public function getDay($date);
+
+    public function holiday($status,$date);
+
+    public function baseSalary($base,$date);
 }

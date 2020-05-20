@@ -76,7 +76,7 @@ staff.modalEdit = function(id) {
             }
             // select MaCV and HSL
             staff.selectMaCVUpdate(response.MaCV);
-            staff.selectHSLUpdate(response.He_So_Luong);
+            staff.selectHSLUpdate(response.Ca_Lam);
             $("#ShowModal").modal("show");
             if (response.Anh_Dai_Dien != null) {
                 $("#ShowModal")
@@ -107,11 +107,12 @@ staff.create = function(btn) {
         processData: false,
         dataType: "json",
         success: function(response) {
-            swal("Created", `Created new staff ${response.Ho_Ten}!`, "success");
+            toastr.success(`Created new staff ${response.Ho_Ten} !`);
+            // swal("Created", `Created new staff ${response.Ho_Ten}!`, "success");
             $(".btn-create").prop("disabled", true);
             $("#ShowModal").modal("hide");
             $(".reset_form").click();
-            staff.drawTable();
+            staff.init();
         },
         error: function(data) {
             if (data.status == 401) {
@@ -137,11 +138,11 @@ staff.update = function(btn) {
         processData: false,
         dataType: "json",
         success: function(response) {
-            swal("Updated", `Updated staff ${response.Ho_Ten}!`, "success");
+            toastr.success(`Updated staff ${response.Ho_Ten} !`);
+            // swal("Updated", `Updated staff ${response.Ho_Ten}!`, "success");
             $("#ShowModal").modal("hide");
             $(".btn-edit").prop("disabled", true);
-            staff.drawTable();
-            staff.trashTable();
+            staff.init();
         },
         error: function(data) {
             if (data.status == 401) {
@@ -169,7 +170,7 @@ staff.modalShow = function(id) {
             $("#ShowIdModal").find("#position").text(response_query.MaCV_name);
             $("#ShowIdModal")
                 .find("#salary")
-                .text(response_query.He_So_Luong_name);
+                .text(response_query.Ca_Lam_Name);
             $("#ShowIdModal").find("#dob").text(response_table.Ngay_Sinh);
             $("#ShowIdModal").find("#gender").text(response_table.Gioi_Tinh);
             $("#ShowIdModal")
@@ -214,13 +215,13 @@ staff.destroy = function(id, username) {
                 url: "/staff/" + id,
                 type: "DELETE",
                 success: function() {
-                    staff.trashTable();
-                    staff.drawTable();
-                    swal(
-                        "Removed!",
-                        `User ${username} are successfully removed!`,
-                        "success"
-                    );
+                    staff.init();
+                    toastr.success(`Staff ${username} are successfully removed!`);
+                    // swal(
+                    //     "Removed!",
+                    //     `Staff ${username} are successfully removed!`,
+                    //     "success"
+                    // );
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -233,7 +234,7 @@ staff.destroy = function(id, username) {
                 },
             });
         } else {
-            swal("Cancelled", "This staff is safe :)", "error");
+            // swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
@@ -251,9 +252,9 @@ staff.restore = function(id, username) {
                 url: "/staff/restore/" + id,
                 type: "GET",
                 success: function() {
-                    staff.trashTable();
-                    staff.drawTable();
-                    swal("Restored!", `Restored staff ${username}!`, "success");
+                    staff.init();
+                    toastr.success(`Staff ${username} are successfully Restored!`);
+                    // swal("Restored!", `Restored staff ${username}!`, "success");
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -284,13 +285,13 @@ staff.forceDelete = function(id, username) {
                 url: "/staff/delete/" + id,
                 type: "GET",
                 success: function() {
-                    staff.trashTable();
-                    staff.drawTable();
-                    swal(
-                        "Deleted!",
-                        `Deleted staff ${username} forever!`,
-                        "success"
-                    );
+                    staff.init();
+                    toastr.success(`Staff ${username} are successfully deleted forever !`);
+                    // swal(
+                    //     "Deleted!",
+                    //     `Deleted staff ${username} forever!`,
+                    //     "success"
+                    // );
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -330,7 +331,7 @@ staff.selectHSL = function() {
         $(".HSL").empty();
         $.each(data, function(key, value) {
             $(".HSL").append(
-                `<option value="${value.id}">${value.He_So_Luong}</option>`
+                `<option value="${value.id}">${value.Ca}</option>`
             );
         });
     });
@@ -361,8 +362,8 @@ staff.selectHSLUpdate = function(hsl) {
         $.each(data, function(key, value) {
             $(".HSLEdit").append(
                 hsl != null && hsl == value.id ?
-                `<option value="${value.id}" selected>${value.He_So_Luong}</option>` :
-                `<option value="${value.id}">${value.He_So_Luong}</option>`
+                `<option value="${value.id}" selected>${value.Ca}</option>` :
+                `<option value="${value.id}">${value.Ca}</option>`
             );
         });
     });
@@ -381,7 +382,7 @@ staff.printErrorMsg = function(msg) {
 staff.init = function() {
     staff.drawTable();
     staff.trashTable();
-    // $(".role-select").select2();
+    $(".select2").select2();
 };
 
 $(document).ready(function() {

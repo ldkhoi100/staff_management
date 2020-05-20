@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 interface DonXinPhepRepository extends Repository

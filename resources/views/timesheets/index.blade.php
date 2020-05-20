@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,31 +8,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/css/jquery.dataTables.min.css" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js">
     </script>
     <title>Document</title>
 </head>
-
 <body>
     <div class="container my-5">
         <div class="container">
-            <div class="form-group">
-                <label>Holiday</label>
-                <input type="checkbox" id="holiday" class="btn" style="width: 20px;height: 20px;">
-            </div>
-            <div class="form-group">
-                <label>Current Day</label>
-                <input type="date" class="form-group" value="{{ date('Y-m-d') }}" id="current-day">
-            </div>
-            <div class="form-group">
-                <label>BaseSalary</label>
-                <select name="">
-                </select>
-            </div>
+            <nav class="nav">
+                <li class="nav-item">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" id="holiday">
+                          <label class="custom-control-label" for="holiday">Holiday</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item mx-auto">
+                    <div class="form-group">
+                        <label>Current Day</label>
+                        <input type="date" class="form-control" value="{{ date('Y-m-d') }}" id="current-day">
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="form-group">
+                        <label>BaseSalary</label>
+                        <select id="baseSalary" class="form-control" onchange="Ts.updateBaseSalary(this.value)"></select>
+                    </div>
+                </li>
+            </nav>
         </div>
         <table id="bang-chamcong" class="table table-striped mt-2">
             <thead class="thead-dark">
@@ -41,8 +50,7 @@
                     <th>#</th>
                     <th>Full Name</th>
                     <th>Work Shift</th>
-                    <th>Holiday</th>
-                    <th>(1/2)Salary</th>
+                    <th>Salary</th>
                     <th>Description</th>
                 </tr>
             </thead>
@@ -70,14 +78,5 @@
     </div>
 </body>
 <script src="js/timesheets.js"></script>
-<script>
-    $('#holiday').click(function(){
-        console.log($(this).prop('checked'));
-        if(!$(this).prop('checked'))
-            $(':checkbox.holiday').removeAttr('checked');
-        else
-            $(':checkbox.holiday').attr('checked', 'checked');
-    });
-</script>
 
 </html>
