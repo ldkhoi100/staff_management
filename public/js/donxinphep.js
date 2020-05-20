@@ -17,6 +17,7 @@ Dxp.drawTable = function() {
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
                         action: `
+                            <a class="btn btn-success text-light" onclick="Dxp.show(${json.id})">Show</a>
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.trash(${json.id})">Trash</a>
                         `
@@ -121,6 +122,25 @@ Dxp.create = function() {
     $('#fs-modal').modal("show");
     $(`#fs-modal input`).removeClass(['is-valid', 'is-invalid']);
     $('small.badge').remove();
+}
+
+
+Dxp.show = function(id) {
+  $('#dx-modal').modal("show");
+  $.ajax({
+    type: "GET",
+    url: "/donxinphep/show/" + id,
+    success: function(response) {
+    response_nhanvien = response['data'];
+    response_query = response['data']['data'];
+        $("#dx-modal").find("#MaNV").text(response_nhanvien.NhanVien);
+        $("#dx-modal").find("#TieuDe").text(response_query.TieuDe);
+        $("#dx-modal").find("#NoiDung").text(response_query.NoiDung);
+    },
+    error: function() {
+    },
+});
+
 }
 
 Dxp.undo = function(id) {

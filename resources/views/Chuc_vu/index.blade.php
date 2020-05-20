@@ -3,8 +3,7 @@
 <div class="container">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Factor
-                Salary</a>
+            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Position Table</a>
         </li>
         <li class="nav-item mx-auto">
             <a class="nav-link btn-info btn" onclick="Cv.create()">Create</a>
@@ -97,6 +96,49 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal" id="dx-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Show
+            Position</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h3>
+                <table>
+                    <tr>
+                        <td>Name : </td>
+                        <td for="" id="Ten_CV"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Work : </td>
+                        <td for="" id="Cong_Viec"></td>
+                    </tr>
+
+                    <tr>
+                        <td>wage : </td>
+                        <td for="" id="Bac_Luong"></td>
+                    </tr>
+                </table>
+            </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
 @endsection
 @push('script')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />

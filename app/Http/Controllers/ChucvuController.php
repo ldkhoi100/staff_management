@@ -31,6 +31,18 @@ class ChucvuController extends Controller
         return response()->json($factorSalaries);
     }
 
+
+
+    public function show($id)
+    {
+
+        $data = $this->chucvuService->findById($id);
+
+        return response()->json(['data' => $data], 200);
+    }
+
+
+
     public function findById($id)
     {
         $chucvu = $this->chucvuService->findById($id);

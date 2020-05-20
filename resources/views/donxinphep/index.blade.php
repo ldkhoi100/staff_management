@@ -96,6 +96,44 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal" id="dx-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Show Leave</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h3>
+                <table>
+                    <tr>
+                        <td>Name : </td>
+                        <td for="" id="MaNV"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Title : </td>
+                        <td for="" id="TieuDe"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Content : </td>
+                        <td for="" id="NoiDung"></td>
+                    </tr>
+                </table>
+            </h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 @endsection
 @push('script')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
