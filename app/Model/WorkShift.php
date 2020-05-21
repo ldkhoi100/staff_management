@@ -12,7 +12,7 @@ class WorkShift extends Model
     protected $table = 'ca_lam';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'Ca', 'He_So', 'Mo_Ta'
+        'Ca', 'Mo_Ta'
     ];
 
     public function nhan_vien()

@@ -1,4 +1,4 @@
-<thead>
+<thead align="center">
     <tr>
         <th scope="col" width="1%">Date</th>
         <th scope="col" width="13%">Shift Work</th>
@@ -16,7 +16,7 @@
     @if($value != "0")
     <tr>
         <td>{{ ++$key }}</td>
-        <td>{{ $value->Ca_Lam }}</td>
+        <td style="color: #000000">{{ $value->Ca_Lam }}</td>
         <td>
             @if($value->Ngay_Le == "0")
             <span></span>
@@ -24,7 +24,7 @@
             <span style="color: rgb(10, 177, 10)">Yes</span>
             @endif
         </td>
-        <td>
+        <td style="color: #A52A2A">
             @if($value->Luong != null)
             {{ $value->Luong . "%" }}
             @else
@@ -38,9 +38,9 @@
         <td>{{ $value->Ghi_Chu }}</td>
         <td>
             @if($value->TieuDe == null)
-            ${{ number_format($value->Tien_Luong * strlen($value->So_Ca_Lam) * ($value->Ngay_Le + 1) * ($value->Luong / 100), 0) }}
+            ${{ number_format($value->Tien_Luong * strlen($value->So_Ca_Lam) * ($value->Ngay_Le + 1) * ($value->Luong / 100) * $value->nhan_vien->chuc_vu->Bac_Luong, 0) }}
             @else
-            0
+            $0
             @endif
         </td>
     </tr>

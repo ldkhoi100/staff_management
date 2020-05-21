@@ -15,10 +15,6 @@
                         <input class="form-control field" type="text" name="Ca">
                     </div>
                     <div class="row">
-                        <span>Factor</span><br>
-                        <input class="form-control field" type="number" min="1" max="5" name="He_So">
-                    </div>
-                    <div class="row">
                         <span>Description</span><br>
                         <textarea name="Mo_Ta" class="form-control field"></textarea>
                     </div>

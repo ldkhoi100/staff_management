@@ -29,14 +29,14 @@ class DonXinPhepRepositoryImpl extends EloquentRepository  implements DonXinPhep
 
     public function findMaNV()
     {
-        $result = $this->model->where("MaNV", Auth::id())->orderBy("created_at", "DESC")->get();
+        $result = $this->model->withTrashed()->where("MaNV", Auth::id())->orderBy("created_at", "DESC")->get();
 
         return $result;
     }
 
     public function findWithDatePicker($i, $month)
     {
-        $result = $this->model->whereDay("created_at", $i)->whereMonth("created_at", $month)->where("MaNV", Auth::id())->first();
+        $result = $this->model->withTrashed()->whereDay("created_at", $i)->whereMonth("created_at", $month)->where("MaNV", Auth::id())->first();
 
         return $result;
     }

@@ -2,90 +2,113 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\BaseSalary;
+use App\Model\NhanVien;
+use App\Model\TimeSheets;
+use App\Services\BaseSalaryService;
 use Illuminate\Http\Request;
-use App\Services\ChamCongThangService;
+use App\Services\TimeSheetsService;
 
-class TimesheetsController extends Controller
+class TimeSheetsController extends Controller
 {
-    protected $timesheets_Service;
+    protected $timeSheetsService;
+    protected $baseSalaryService;
 
-    public function __construct(ChamCongThangService $timesheets_Service)
+    public function __construct(TimeSheetsService $timeSheetsService, BaseSalaryService $baseSalaryService)
     {
-        $this->timesheets_Service = $timesheets_Service;
+        $this->middleware('AjaxRequest')->except('index');
+        $this->timeSheetsService = $timeSheetsService;
     }
 
     public function index()
     {
-        $timesheets = $this->timesheets_Service->getAll();
+        return view('timesheets.index');
+    }
 
-        return response()->json($timesheets, 200);
+    public function getDay($date)
+    {
+        $timeSheets = $this->timeSheetsService->getDay($date);
+
+        return response()->json($timeSheets, 200);
+    }
+
+    public function holiday($status, $date)
+    {
+        $status = ['Ngay_Le'=>$status];
+        $timeSheets = $this->timeSheetsService->holiday($status,$date);
+
+        return response()->json($timeSheets);
+    }
+
+    public function baseSalary($base, $date)
+    {
+    $base = ['LuongCB'=>$base];
+        $timeSheets = $this->timeSheetsService->baseSalary($base,$date);
+
+        return response()->json($timeSheets);
+    }
+
+    public function getAll()
+    {
+        $timeSheets = $this->timeSheetsService->getAll();
+
+        return response()->json($timeSheets, 200);
+    }
+
+    public function findById($id)
+    {
+        $timeSheets = $this->timeSheetsService->findById($id);
+
+        return response()->json($timeSheets['data'], $timeSheets['status']);
     }
 
     public function create(Request $request)
     {
-        $timesheets = $this->timesheets_Service->create($request->all());
+        $timeSheets = $this->timeSheetsService->create($request->all());
 
-        return response()->json($timesheets['Timekeeping_month'], $timesheets['statusCode']);
-
-//        return view('Role.create');
-    }
-    public function getSoftDeletes(){
-        $timesheets = $this->timesheets_Service->getSoftDeletes();
-
-        return response()->json($timesheets, 200);
-    }
-    public function store(Request $request)
-    {
-        $data = $request->all();
-        $timesheets = $this->timesheets_Service->create($data);
-
-        return response()->json($timesheets['Timekeeping_month'], $timesheets['statusCode']);
-    }
-
-    public function show($id)
-    {
-        $timesheets = $this->timesheets_Service->findById($id);
-
-        return response()->json($timesheets['Timekeeping_month'], $timesheets['statusCode']);
-    }
-
-
-    public function edit($id)
-    {
-        $timesheets = $this->timesheets_Service->findById($id);
-
-        return response()->json($timesheets['Timekeeping_month'], $timesheets['statusCode']);
+        return response()->json($timeSheets['data'], $timeSheets['status']);
     }
 
     public function update(Request $request, $id)
     {
-        $timesheets = $this->timesheets_Service->update($request->all(), $id);
+        $timeSheets = $this->timeSheetsService->update($request->all(), $id);
 
-        return response()->json($timesheets['Timekeeping_month'], $timesheets['statusCode']);
+        return response()->json($timeSheets['data'], $timeSheets['status']);
     }
 
 
-    public function destroy($id)
+    public function moveToTrash($id)
     {
-        $timesheets = $this->timesheets_Service->destroy($id);
+        $timeSheets = $this->timeSheetsService->destroy($id);
 
-        return response()->json($timesheets['message'], $timesheets['statusCode']);
+        return response()->json($timeSheets['msg'], $timeSheets['status']);
+    }
+
+    public function getTrash()
+    {
+        $timeSheets = $this->timeSheetsService->getSoftDeletes();
+
+        return response()->json($timeSheets);
+    }
+
+    public function findTrashById($id)
+    {
+        $timeSheets = $this->timeSheetsService->findOnlyTrashed($id);
+
+        return response()->json($timeSheets['data'], $timeSheets['status']);
     }
 
     public function restore($id)
     {
-        $timesheets = $this->timesheets_Service->restore($id);
+        $timeSheets = $this->timeSheetsService->restore($id);
 
-        return response()->json($timesheets['message'], $timesheets['statusCode']);
+        return response()->json($timeSheets['msg'], $timeSheets['status']);
     }
 
     public function delete($id)
     {
-        $timesheets = $this->timesheets_Service->delete($id);
+        $timeSheets = $this->timeSheetsService->delete($id);
 
-        return response()->json($timesheets['message'], $timesheets['statusCode']);
+        return response()->json($timeSheets['msg'], $timeSheets['status']);
     }
-
-
-
 }

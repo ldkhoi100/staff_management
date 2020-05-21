@@ -19,7 +19,7 @@ class NhanVien extends Model
 
     public function cham_cong()
     {
-        return $this->hasMany("App\Model\ChamCong", 'MaNV', 'id')->withTrashed();
+        return $this->hasMany(TimeSheets::class, 'MaNV', 'id')->withTrashed();
     }
 
     public function don_xin_phep()

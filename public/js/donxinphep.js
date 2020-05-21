@@ -16,6 +16,7 @@ Dxp.drawTable = function() {
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
+                        Cv3: json.created_at,
                         action: `
                             <a class="btn btn-success text-light" onclick="Dxp.show(${json.id})">Show</a>
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
@@ -37,7 +38,9 @@ Dxp.drawTable = function() {
             {
                 data: "Cv2"
             },
-
+            {
+                data: "Cv3"
+            },
             {
                 data: "action"
             }
@@ -58,6 +61,7 @@ Dxp.drawTableTrash = function() {
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
+                        Cv3: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.delete(${json.id})">Delete</a>
@@ -77,6 +81,9 @@ Dxp.drawTableTrash = function() {
             },
             {
                 data: "Cv2"
+            },
+            {
+                data: "Cv3"
             },
             {
                 data: "action"

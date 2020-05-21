@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\ChamCong;
+use App\Model\TimeSheets;
 use App\Services\DonXinPhepService;
 use App\Services\NhanVienService;
+use App\Services\TimeSheetsService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Auth;
@@ -14,17 +15,23 @@ class ProfileController extends Controller
     protected $userService;
     protected $nhanVienService;
     protected $donXinPhep;
+    protected $timeSheetsService;
 
-    public function __construct(UserService $userService, NhanVienService $nhanVienService, DonXinPhepService $donXinPhep)
+    public function __construct(UserService $userService, NhanVienService $nhanVienService, DonXinPhepService $donXinPhep, TimeSheetsService $timeSheetsService)
     {
         $this->middleware("auth");
         $this->userService = $userService;
         $this->nhanVienService = $nhanVienService;
         $this->donXinPhep = $donXinPhep;
+        $this->timeSheetsService = $timeSheetsService;
     }
 
     public function index()
     {
+        // if (count(Auth::user()->roles) > 0 && Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
+        //     return \abort(401);
+        // }
+
         $staff = $this->nhanVienService->findIdAuth()['data'];
         $nghiPhep = $this->donXinPhep->findMaNV();
 
@@ -33,11 +40,13 @@ class ProfileController extends Controller
         $total = 0;
 
         for ($i = 0; $i < $date_in_month; $i++) {
-            $chamCong = ChamCong::whereDay("Ngay_Hien_Tai", $i + 1)->whereMonth("Ngay_Hien_Tai", date("m"))->where("MaNV", Auth::id())->first();
-            if ($chamCong) {
-                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca));
-                $XinPhep = ($this->donXinPhep->findWithDatePicker(++$i, date("m")))['data'];
-                if ($XinPhep) {
+            $chamCong = $this->timeSheetsService->findMaNV($i + 1, date("m"))['data'];
+
+            if ($chamCong != null) {
+                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca)) * $chamCong->nhan_vien->chuc_vu->Bac_Luong;
+                $XinPhep = ($this->donXinPhep->findWithDatePicker($i + 1, date("m")))['data'];
+                if ($XinPhep != null) {
+                    $XinPhep['Ghi_Chu'] = $chamCong->Ghi_Chu;
                     $result[] = $XinPhep;
                 } else {
                     $chamCong['Ca_Lam'] = ($this->nhanVienService->findWithTrashed(Auth::id()))['data']->ca_lam->Mo_Ta;
@@ -49,6 +58,7 @@ class ProfileController extends Controller
                 $result[] = 0;
             }
         }
+        // dd($result);
 
         return view('Profile.index', compact('staff', 'nghiPhep', 'result', 'total'));
     }
@@ -63,11 +73,12 @@ class ProfileController extends Controller
         $total = 0;
 
         for ($i = 0; $i < $date_in_month; $i++) {
-            $chamCong = ChamCong::whereDay("Ngay_Hien_Tai", $i + 1)->whereMonth("Ngay_Hien_Tai", $month)->where("MaNV", Auth::id())->first();
-            if ($chamCong) {
-                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca));
-                $XinPhep = ($this->donXinPhep->findWithDatePicker(++$i, date("m")))['data'];
-                if ($XinPhep) {
+            $chamCong = $this->timeSheetsService->findMaNV($i + 1, $month)['data'];
+            if ($chamCong != null) {
+                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca)) * $chamCong->nhan_vien->chuc_vu->Bac_Luong;
+                $XinPhep = ($this->donXinPhep->findWithDatePicker($i + 1, $month))['data'];
+                if ($XinPhep != null) {
+                    $XinPhep['Ghi_Chu'] = $chamCong->Ghi_Chu;
                     $result[] = $XinPhep;
                 } else {
                     $chamCong['Ca_Lam'] = ($this->nhanVienService->findWithTrashed(Auth::id()))['data']->ca_lam->Mo_Ta;
@@ -93,9 +104,9 @@ class ProfileController extends Controller
         $total = 0;
 
         for ($i = 0; $i < $date_in_month; $i++) {
-            $chamCong = ChamCong::whereDay("Ngay_Hien_Tai", $i + 1)->whereMonth("Ngay_Hien_Tai", $month)->where("MaNV", Auth::id())->first();
-            if ($chamCong) {
-                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca));
+            $chamCong = $this->timeSheetsService->findMaNV($i + 1, $month)['data'];
+            if ($chamCong != null) {
+                $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca)) * $chamCong->nhan_vien->chuc_vu->Bac_Luong;
             }
         }
         $data['month'] = date("m-Y", strtotime($request->month));

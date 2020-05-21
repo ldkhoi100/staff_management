@@ -12,7 +12,8 @@ class BaseSalary extends Model
     protected $table = 'luong_co_ban';
     protected $fillable = ['Tien_Luong', 'Mo_Ta'];
 
-    public function chamcong(){
-        return $this->hasMany(ChamCong::class, 'LuongCB', 'id');
+    public function chamcong()
+    {
+        return $this->hasMany(TimeSheets::class, 'LuongCB', 'id');
     }
 }

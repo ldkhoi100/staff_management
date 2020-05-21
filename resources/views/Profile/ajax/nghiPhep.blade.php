@@ -16,7 +16,7 @@
     @foreach ($nghiPhep as $key => $item)
     <tr>
         <td>{{ ++$key }}</td>
-        <td>{{ $item->TieuDe }}</td>
+        <td><b>{{ $item->TieuDe }}</b></td>
         <td>{{ $item->NoiDung }}</td>
         <td>{{ $item->created_at }}</td>
     </tr>

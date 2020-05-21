@@ -29,7 +29,7 @@
 
 <!-- Section Begin -->
 <div class="register-login-section spad">
-    <div class="container" style="font-size: 20px;">
+    <div class="container" style="font-size: 16px;">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
@@ -151,7 +151,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td colspan="3"> <a class="nav-link btn-success btn text-white"
+                            <td colspan="2"> <a class="nav-link btn-success btn text-white"
                                     onclick="Dxp.create()">Create
                                     Sabbatical Leave</a></td>
                         </tr>

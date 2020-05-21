@@ -3,7 +3,7 @@
         <tr>
             <th>#</th>
             <th>Work Shift</th>
-            <th>Factor</th>
+            <th>Description</th>
             <th>Created At</th>
             <th>Action</th>
         </tr>
@@ -14,7 +14,7 @@
         <tr>
             <th>#</th>
             <th>Work Shift</th>
-            <th>Factor</th>
+            <th>Description</th>
             <th>Created At</th>
             <th>Action</th>
         </tr>
