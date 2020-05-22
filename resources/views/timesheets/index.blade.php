@@ -30,9 +30,11 @@
 
                 </div>
             </li>
+
             <li class="nav-item mx-auto">
                 <button type="button" class="btn btn-info" onclick="Ts.statistic()">TimeSheets Statistic</button>
             </li>
+
             <li class="nav-item">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="holiday">
@@ -67,6 +69,7 @@
                             <tr>
                                 <th width="1%">#</th>
                                 <th>Full Name</th>
+                                <th>Position</th>
                                 <th>Work Shift</th>
                                 <th>Sabbatical Leave</th>
                                 <th>Salary</th>

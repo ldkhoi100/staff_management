@@ -182,6 +182,7 @@ class TimeSheetsServiceImpl implements TimeSheetsService
             $nv = $this->nhavien->findById($ts->MaNV);
             $timeSheets[$no]['NV'] = $nv->Ho_Ten;
             $timeSheets[$no]['Ca'] = $nv->ca_lam->Mo_Ta;
+            $timeSheets[$no]['CV'] = $nv->chuc_vu->Ten_CV;
         }
 
         return $timeSheets;

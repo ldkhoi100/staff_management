@@ -10,7 +10,8 @@ Ts.listCustomer = function (url = $('#current-day').val()) {
                 return jsons.map(obj => {
                     return {
                         no: ++i,
-                        col1: obj.NV,
+                        col1: "NV" + obj.id + "<br>" + obj.NV,
+                        col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="sabbatical${obj.id}" onclick="Ts.sabbatical(${obj.id})" ${obj.Nghi_Phep ? 'checked' : ''}>
@@ -47,6 +48,9 @@ Ts.listCustomer = function (url = $('#current-day').val()) {
             },
             {
                 data: 'col1'
+            },
+            {
+                data: 'col6'
             },
             {
                 data: 'col2'
