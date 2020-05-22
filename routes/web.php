@@ -203,3 +203,7 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
         Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
     });
 });
+
+
+
+Route::post('/export/month-salary', "ExcelController@monthSalary")->name('export.monthsalary');

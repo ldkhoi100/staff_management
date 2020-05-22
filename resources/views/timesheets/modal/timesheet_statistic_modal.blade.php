@@ -14,7 +14,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body  overflow-auto" style="font-size: 11px">
+            <div class="modal-body  overflow-auto" style="font-size: 11px" id="month-salary">
                 <table class="table table-striped table-bordered" style="font-size: 11px" id="statistic_table">
                     <thead class="thead-light">
                         <tr>
@@ -30,19 +30,28 @@
                 </table>
             </div>
             <div class="modal-footer ">
-                <div class="mr-auto">
-                    <h4 style="color:blue">Note:</h4>
-                    <div class="row">
-                        <div class="col-6">
-                            <span>A : Full Working</span> <br>
-                            <span>N : Absent</span> <br>
-                            <span>L : Holiday</span> <br>
-                            <span>B : Bonus </span> <br>
-                            <span>X : Deduction Of Salary</span>
+                <div class="clearfix">
+                    <div class="float-left mr-auto">
+                        <h4 style="color:blue">Note:</h4>
+                        <div class="row">
+                            <div class="col">
+                                <span>A : Full Working</span> <br>
+                                <span>N : Absent</span> <br>
+                                <span>L : Holiday</span> <br>
+                                <span>B : Bonus </span> <br>
+                                <span>X : Deduction Of Salary</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="float-right">
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="Ts.exportSalary()">Export</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <form method="post" action="/export/month-salary" id="month-salary-form">
+        @csrf
+        <input type="text" name="data" id="month-salary-data">
+    </form>
 </div>
