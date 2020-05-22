@@ -42,7 +42,7 @@ class TimeSheetsController extends Controller
 
     public function baseSalary($base, $date)
     {
-    $base = ['LuongCB'=>$base];
+        $base = ['LuongCB'=>$base];
         $timeSheets = $this->timeSheetsService->baseSalary($base,$date);
 
         return response()->json($timeSheets);
