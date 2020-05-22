@@ -37,7 +37,8 @@
                             <span>A : Full Working</span> <br>
                             <span>N : Absent</span> <br>
                             <span>L : Holiday</span> <br>
-                            <span>B : Bonus </span>
+                            <span>B : Bonus </span> <br>
+                            <span>X : Deduction Of Salary</span>
                         </div>
                     </div>
                 </div>
