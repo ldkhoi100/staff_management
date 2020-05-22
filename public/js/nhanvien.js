@@ -6,7 +6,9 @@ staff.drawTable = function() {
         type: "GET",
         success: function(res) {
             $("#reload_table").html(res);
-            $("#dataTable").dataTable();
+            $("#dataTable").dataTable({
+                "iDisplayLength": 50
+            });
         },
         error: function(data) {
             if ((data.status = 500)) {
@@ -22,7 +24,9 @@ staff.trashTable = function() {
         type: "GET",
         success: function(res) {
             $("#reload_trash").html(res);
-            $("#dataTableTrash").dataTable();
+            $("#dataTableTrash").dataTable({
+                "iDisplayLength": 50
+            });
         },
         error: function(data) {
             if ((data.status = 500)) {
@@ -155,43 +159,31 @@ staff.update = function(btn) {
 };
 
 staff.modalShow = function(id) {
-    $("#dx-modal").css("display", "flex"); // Show modal detail
+    $("#show-data-modal").css("display", "flex"); // Show modal detail
     $.ajax({
         type: "GET",
         url: "/staff/show/" + id,
         success: function(response) {
             response_query = response["data"];
             response_table = response["data"]["data"];
-            $("#ShowIdModal")
-                .find("#ShowStaff")
+            $("#ShowStaff")
                 .text(`STAFF ${response_table.Ho_Ten}`);
-            $("#ShowIdModal").find("#Ho_Ten").text(response_table.Ho_Ten);
-            $("#ShowIdModal").find("#username").text(response_query.Username);
-            $("#ShowIdModal").find("#position").text(response_query.MaCV_name);
-            $("#ShowIdModal")
-                .find("#salary")
-                .text(response_query.Ca_Lam_Name);
-            $("#ShowIdModal").find("#dob").text(response_table.Ngay_Sinh);
-            $("#ShowIdModal").find("#gender").text(response_table.Gioi_Tinh);
-            $("#ShowIdModal")
-                .find("#phone")
-                .text("0" + response_table.So_Dien_Thoai);
-            $("#ShowIdModal").find("#Dia_Chi").text(response_table.Dia_Chi);
-            $("#ShowIdModal")
-                .find("#Ngay_Bat_Dau_Lam")
-                .text(response_table.Ngay_Bat_Dau_Lam);
-            $("#ShowIdModal")
-                .find("#Ngay_Nghi_Viec")
-                .text(response_table.Ngay_Nghi_Viec);
+            $("#Ho_Ten").text(response_table.Ho_Ten);
+            $("#username").text(response_query.Username);
+            $("#position").text(response_query.MaCV_name);
+            $("#salary").text(response_query.Ca_Lam_Name);
+            $("#dob").text(response_table.Ngay_Sinh);
+            $("#gender").text(response_table.Gioi_Tinh);
+            $("#phone").text("0" + response_table.So_Dien_Thoai);
+            $("#Dia_Chi_Show").text(response_table.Dia_Chi);
+            $("#Ngay_Bat_Dau_Lam_Show").text(response_table.Ngay_Bat_Dau_Lam);
+            console.log(response_table.Ngay_Nghi_Viec);
+            $("#Ngay_Nghi_Viec_Show").text(response_table.Ngay_Nghi_Viec);
             $("#ShowIdModal").modal("show");
             if (response_table.Anh_Dai_Dien != null) {
-                $("#ShowIdModal")
-                    .find("#zoomShow")
-                    .attr("src", `img/${response_table.Anh_Dai_Dien}`);
+                $("#ImageShow").attr("src", `img/${response_table.Anh_Dai_Dien}`);
             } else {
-                $("#ShowIdModal")
-                    .find("#zoomShow")
-                    .attr("src", "#");
+                $("#ImageShow").attr("src", "#");
             }
         },
         error: function() {
@@ -254,7 +246,6 @@ staff.restore = function(id, username) {
                 success: function() {
                     staff.init();
                     toastr.success(`Staff ${username} are successfully Restored!`);
-                    // swal("Restored!", `Restored staff ${username}!`, "success");
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -287,11 +278,6 @@ staff.forceDelete = function(id, username) {
                 success: function() {
                     staff.init();
                     toastr.success(`Staff ${username} are successfully deleted forever !`);
-                    // swal(
-                    //     "Deleted!",
-                    //     `Deleted staff ${username} forever!`,
-                    //     "success"
-                    // );
                 },
                 error: function(data) {
                     if (data.status == 401) {

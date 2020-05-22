@@ -18,4 +18,6 @@ interface NhanVienRepository extends Repository
     public function findHashId($id, $hash);
 
     public function findFullName();
+
+    public function findIdAuth();
 }

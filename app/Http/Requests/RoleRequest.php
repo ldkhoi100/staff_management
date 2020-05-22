@@ -25,23 +25,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:1', 'max:50', "unique:roles,name,$this->id,id"],
-             'description' => ['required', 'min:1', 'max:50']
-        ];
-    }
-    public function messages()
-    {
-            return [
-                'required'=>'bắt buộc phải nhập',
-                'min'=> ":attribute phải lớn hơn :min",
-                'max'=>":attribute phải nhỏ hơn :max",
-                'unique' => ":attribute đã tồn tại"
-            ];
-    }
-    public function attributes()
-    {
-        return [
-            'name' => "Role name",
-            'description'=> 'Mô tả'
+            'description' => ['required', 'min:1', 'max:50']
         ];
     }
 }

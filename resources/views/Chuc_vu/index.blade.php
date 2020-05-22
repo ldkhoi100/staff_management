@@ -3,7 +3,8 @@
 <div class="container">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Position Table</a>
+            <a class="nav-link active btn-block btn btn-outline-success" data-toggle="pill" href="#pills-home">Position
+                Table</a>
         </li>
         <li class="nav-item mx-auto">
             <a class="nav-link btn-info btn" onclick="Cv.create()">Create</a>
@@ -18,9 +19,10 @@
             <table id="fs-table" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
+                        <th>#</th>
+                        <th>Name Position</th>
+                        <th>Job</th>
+                        <th>Coefficients Salary</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -28,9 +30,10 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
+                        <th>#</th>
+                        <th>Name Position</th>
+                        <th>Job</th>
+                        <th>Coefficients Salary</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -40,19 +43,21 @@
             <table id="fs-table-trash" class="table table-borderless table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
-                       <th>Action</th>
+                        <th>#</th>
+                        <th>Name Position</th>
+                        <th>Job</th>
+                        <th>Coefficients Salary</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Tên Chức Vụ</th>
-                        <th>Tên Công Việc</th>
-                        <th>Bậc lương</th>
+                        <th>#</th>
+                        <th>Name Position</th>
+                        <th>Job</th>
+                        <th>Coefficients Salary</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -64,24 +69,24 @@
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
-                            <h5 >Create Factor Salary</h5>
-                             <button class="btn btn-dark" type="button" aria-label="Close"
+                            <h5>Create Factor Salary</h5>
+                            <button class="btn btn-dark" type="button" aria-label="Close"
                                 onclick="confirm()?$('#fs-modal').modal('hide'):''">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body container">
                             <div class="container">
-                                <span>Tên chức vụ</span><br>
-                                <input class="form-control col" type="text"  name="Ten_CV">
+                                <span>Name Position</span><br>
+                                <input class="form-control col" type="text" name="Ten_CV">
                             </div>
                             <div class="container">
-                                <span>Việc làm</span><br>
-                                <input class="form-control col" type="text"  name="Cong_Viec">
+                                <span>Job</span><br>
+                                <input class="form-control col" type="text" name="Cong_Viec">
                             </div>
                             <div class="container">
-                                <span>Bậc Lương</span><br>
-                                <input class="form-control col" type="number"  name="Bac_Luong">
+                                <span>Coefficients Salary</span><br>
+                                <input class="form-control col" type="number" name="Bac_Luong">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="btn-save" class="btn btn-success btn-block"
@@ -100,38 +105,38 @@
 
 <div class="modal" id="dx-modal">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Show
-            Position</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            <h3>
-                <table>
-                    <tr>
-                        <td>Name : </td>
-                        <td for="" id="Ten_CV"></td>
-                    </tr>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Show
+                    Position</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    <table>
+                        <tr>
+                            <td>Name Position: </td>
+                            <td for="" id="Ten_CV"></td>
+                        </tr>
 
-                    <tr>
-                        <td>Work : </td>
-                        <td for="" id="Cong_Viec"></td>
-                    </tr>
+                        <tr>
+                            <td>Job: </td>
+                            <td for="" id="Cong_Viec"></td>
+                        </tr>
 
-                    <tr>
-                        <td>wage : </td>
-                        <td for="" id="Bac_Luong"></td>
-                    </tr>
-                </table>
-            </h3>
+                        <tr>
+                            <td>Coefficients Salary: </td>
+                            <td for="" id="Bac_Luong"></td>
+                        </tr>
+                    </table>
+                </h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
 

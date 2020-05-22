@@ -24,7 +24,11 @@ interface TimeSheetsService
 
     public function getDay($date);
 
-    public function holiday($status,$date);
+    public function holiday($status, $date);
 
-    public function baseSalary($base,$date);
+    public function baseSalary($base, $date);
+
+    public function findMaNV($i, $month);
+
+    public function monthStatistic($month, $year);
 }

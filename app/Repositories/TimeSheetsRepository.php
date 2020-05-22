@@ -14,4 +14,8 @@ interface TimeSheetsRepository extends Repository
     public function findOnlyTrashed($id);
 
     public function getDay($date);
+
+    public function findMaNV($i, $month);
+
+    public function monthStatistic($month, $year);
 }

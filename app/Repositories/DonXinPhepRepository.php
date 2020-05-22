@@ -11,4 +11,6 @@ interface DonXinPhepRepository extends Repository
     public function delete($object);
 
     public function findOnlyTrashed($id);
+
+    public function findMaNV();
 }

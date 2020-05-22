@@ -2,35 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\DonXinPhep;
-use App\Model\NhanVien;
+use App\Model\TimeSheets;
 use App\Services\DonXinPhepService;
 use App\Services\NhanVienService;
+use App\Services\TimeSheetsService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Auth;
 
 class ProfileController extends Controller
 {
-    public function __construct(UserService $userService, NhanVienService $nhanVienService)
+    protected $userService;
+    protected $nhanVienService;
+    protected $donXinPhep;
+    protected $timeSheetsService;
+
+    public function __construct(UserService $userService, NhanVienService $nhanVienService, DonXinPhepService $donXinPhep, TimeSheetsService $timeSheetsService)
     {
+        $this->middleware("auth");
         $this->userService = $userService;
         $this->nhanVienService = $nhanVienService;
+        $this->donXinPhep = $donXinPhep;
+        $this->timeSheetsService = $timeSheetsService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $staff = NhanVien::where("id", Auth::id())->first();
-        $nghiPhep = DonXinPhep::where("MaNV", Auth::id())->orderBy("created_at", "DESC")->get();
+        // if (count(Auth::user()->roles) > 0 && Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
+        //     return \abort(401);
+        // }
 
-        // Cham
+        $staff = $this->nhanVienService->findIdAuth()['data'];
+        $nghiPhep = $this->donXinPhep->findMaNV(Auth::id());
 
-        return view('Profile.index', compact('staff', 'nghiPhep'));
+        $month = $request->month ? date("m", strtotime($request->month)) : date("m");
+        $year = $request->month ? $year = date("Y", strtotime($request->month)) : date("Y");
+        $month_year = $request->month ? date("m-Y", strtotime($request->month)) : date("m-Y");
+
+        $date_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $result = [];
+        $total = 0;
+        $count = 0;
+
+        for ($i = 0; $i < $date_in_month; $i++) {
+            $chamCong = $this->timeSheetsService->findMaNV($i, $month)['data'];
+
+            if ($chamCong != null) {
+                if ($chamCong->Nghi_Phep == 0) {
+                    $total += $chamCong->luongCB->Tien_Luong * ($chamCong->Luong / 100) * ($chamCong->Ngay_Le + 1) * (strlen($chamCong->nhan_vien->ca_lam->Ca)) * $chamCong->nhan_vien->chuc_vu->Bac_Luong;
+                    $count += 1;
+                }
+                $chamCong['Ca_Lam'] = ($this->nhanVienService->findWithTrashed(Auth::id()))['data']->ca_lam->Mo_Ta;
+                $chamCong['So_Ca_Lam'] = ($this->nhanVienService->findWithTrashed(Auth::id()))['data']->ca_lam->Ca;
+                $chamCong['Tien_Luong'] = $chamCong->luongCB->Tien_Luong;
+                $result[] = $chamCong;
+            } else {
+                $result[] = 0;
+            }
+        }
+
+        $selectMonth = $month_year;
+
+        if ($request->month != null) {
+            return view('Profile.ajax.index', compact('result', 'total', 'selectMonth', 'count'));
+        } else {
+            return view('Profile.index', compact('staff', 'nghiPhep', 'result', 'total', 'selectMonth', 'count'));
+        }
     }
 
-    // public function lichSuNghi()
-    // {
+    public function nghiPhep()
+    {
+        $nghiPhep = $this->donXinPhep->findMaNV();
 
-    //     return response()->json($donXinPhep, 200);
-    // }
+        return view('Profile.ajax.nghiPhep', compact('nghiPhep'));
+    }
 }
