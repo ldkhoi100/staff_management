@@ -26,22 +26,18 @@ Ws.drawTable = function() {
             }
         },
         columns: [{
-                data: "key"
-            },
-            {
-                data: "ca"
-            }, {
-                data: "gio"
-            }, {
-                data: "mt"
-            }, {
-                data: "crt"
-            },
-            {
-                data: "action"
-            }
-        ]
-
+            data: "key"
+        }, {
+            data: "ca"
+        }, {
+            data: "gio"
+        }, {
+            data: "mt"
+        }, {
+            data: "crt"
+        }, {
+            data: "action"
+        }]
     });
 };
 
@@ -56,6 +52,7 @@ Ws.drawTableTrash = function() {
                     return {
                         key: i++,
                         ca: json.Ca,
+                        gio: json.Gio_Lam,
                         mt: json.Mo_Ta,
                         dlt: json.deleted_at,
                         action: `
@@ -67,19 +64,18 @@ Ws.drawTableTrash = function() {
             }
         },
         columns: [{
-                data: "key"
-            }, {
-                data: "ca"
-            }, {
-                data: "mt"
-            }, {
-                data: "dlt"
-            },
-            {
-                data: "action"
-            }
-        ]
-
+            data: "key"
+        }, {
+            data: "ca"
+        }, {
+            data: "gio"
+        }, {
+            data: "mt"
+        }, {
+            data: "dlt"
+        }, {
+            data: "action"
+        }]
     });
 };
 

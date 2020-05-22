@@ -14,10 +14,17 @@
                         <span>Name</span><br>
                         <input class="form-control field" type="text" name="Ca">
                     </div>
+
+                    <div class="row">
+                        <span>Work Time</span><br>
+                        <input type="text" name="Gio_Lam" class="form-control field">
+                    </div>
+
                     <div class="row">
                         <span>Description</span><br>
                         <textarea name="Mo_Ta" class="form-control field"></textarea>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" id="btn-save" class="btn btn-success btn-block" onclick="Ws.save(this)">
                             <i class="fa fa-save"></i> Save

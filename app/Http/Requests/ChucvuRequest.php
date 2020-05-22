@@ -25,7 +25,7 @@ class ChucvuRequest extends FormRequest
     {
         return [
             'Ten_CV' => 'required |string | min:2 | max:15 | regex:/\D/ | unique:chuc_vu,Ten_CV,' . $this->id, 'id',
-            'Cong_Viec' => 'required | string |min:2 | max:15 | regex:/\D/ ',
+            'Cong_Viec' => 'required | string |min:2 | max:10000 | regex:/\D/ ',
         ];
     }
 }

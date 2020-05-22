@@ -20,8 +20,8 @@ class DonXinPhepController extends Controller
 
     public function __construct(DonXinPhepService $donxinphepService, NhanVienService $nhanVienService)
     {
-        // $this->middleware('auth');
-        // $this->middleware('AjaxRequest')->except('index');
+        $this->middleware('auth');
+        $this->middleware('AjaxRequest')->except('index');
         $this->donxinphepService = $donxinphepService;
         $this->nhanVienService = $nhanVienService;
     }

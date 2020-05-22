@@ -2,6 +2,20 @@ let Ts = {} || Ts;
 
 Ts.table;
 Ts.listCustomer = function(url = $('#current-day').val()) {
+    $.ajax({
+        url: `/timesheets/${url}/get`,
+        method: 'get',
+        success: function(data) {
+            if (data) {
+                let obj = data[0];
+                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
+                if (obj.Ngay_Le) {
+                    $('#holiday').attr('checked', "");
+                }
+            }
+        }
+    });
+
     Ts.table = $('#bang-chamcong').DataTable({
         ajax: {
             url: `/timesheets/${url}/get`,
@@ -10,7 +24,7 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                 return jsons.map(obj => {
                     return {
                         no: ++i,
-                        col1: "NV" + obj.id + "<br>" + obj.NV,
+                        col1: "Id: NV" + obj.id + "<br>" + obj.NV,
                         col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
@@ -44,40 +58,20 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
             }
         },
         columns: [{
-                data: 'no'
-            },
-            {
-                data: 'col1'
-            },
-            {
-                data: 'col6'
-            },
-            {
-                data: 'col2'
-            },
-            {
-                data: 'col5'
-            },
-            {
-                data: 'col3'
-            },
-            {
-                data: 'col4'
-            }
-        ]
-    });
-    $.ajax({
-        url: `/timesheets/${url}/get`,
-        method: 'get',
-        success: function(data) {
-            if (data) {
-                let obj = data[0];
-                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
-                if (obj.Ngay_Le) {
-                    $('#holiday').attr('checked', "");
-                }
-            }
-        }
+            data: 'no'
+        }, {
+            data: 'col1'
+        }, {
+            data: 'col6'
+        }, {
+            data: 'col2'
+        }, {
+            data: 'col5'
+        }, {
+            data: 'col3'
+        }, {
+            data: 'col4'
+        }]
     });
 };
 
@@ -91,7 +85,7 @@ Ts.base = function() {
             });
         }
     });
-}
+};
 
 Ts.updateBaseSalary = function(base) {
     let day = $('#current-day').val();
@@ -99,10 +93,10 @@ Ts.updateBaseSalary = function(base) {
         url: `/timesheets/${base}/${day}/basesalary`,
         method: 'put',
         success: function() {
-            // alert('thành công');
+            toastr.success(`Updated Base Salary !`);
         }
     });
-}
+};
 
 Ts.description = function(id) {
     $.ajax({
@@ -119,6 +113,9 @@ Ts.description = function(id) {
                         'Ghi_Chu': $("#mota-chitiet").val()
                     },
                     success: function() {
+                        if ($("#mota-chitiet").val() != null) {
+                            toastr.success(`Updated Description !`);
+                        }
                         $('#them-mota').modal('hide');
                         Ts.table.ajax.reload(null, false);
                     }
@@ -133,10 +130,12 @@ Ts.sabbatical = function(id) {
         Ts.updateSabbatical(0, id);
         Ts.updateSalary(id, 100);
         Ts.table.ajax.reload(null, false);
+        toastr.success(`Updated Sabbatical of this staff to NO !`);
     } else {
         Ts.updateSabbatical(1, id);
         Ts.updateSalary(id, 0);
         Ts.table.ajax.reload(null, false);
+        toastr.success(`Updated Sabbatical of this staff to YES !`);
     }
 };
 
@@ -154,8 +153,10 @@ Ts.holiday = function() {
     $('#holiday').click(function() {
         if (!$(this).prop('checked')) {
             Ts.updateHoliday(0);
+            toastr.success(`Updated Holiday to NO !`);
         } else {
             Ts.updateHoliday(1);
+            toastr.warning(`Updated Holiday to YES !`);
         }
     });
 };

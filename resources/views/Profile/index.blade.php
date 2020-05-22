@@ -72,7 +72,22 @@
 
                         <tr>
                             <td><label for="name">Shift Work: &nbsp;</label> </td>
-                            <td><span class="borderSpan">{{ $staff->ca_lam->Ca }}</span>
+                            <td><span class="borderSpan">{{ $staff->ca_lam->Mo_Ta }}</span>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="name">Work Time: &nbsp;</label> </td>
+                            <td><span class="borderSpan">{{ $staff->ca_lam->Gio_Lam }}</span>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="name">Current Basic Salary (Each Shift): &nbsp;</label> </td>
+                            <td><span
+                                    class="borderSpan">${{ number_format($base_salary * $staff->chuc_vu->Bac_Luong, 0) }}</span>
                             </td>
                             <td></td>
                         </tr>
