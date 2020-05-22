@@ -64,6 +64,13 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
         return $result;
     }
 
+    public function findIdAuth()
+    {
+        $result = $this->model->withTrashed()->find(Auth::id());
+
+        return $result;
+    }
+
     public function destroy($object)
     {
         $object->cham_cong()->delete();

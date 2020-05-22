@@ -9,13 +9,14 @@ Dxp.drawTable = function() {
         ajax: {
             url: '/donxinphep/all',
             dataSrc: function(jsons) {
-                let i = 1;
+                let i = 0;
                 return jsons.map(json => {
                     return {
-                        Key: i++,
+                        Key: ++i,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
+                        Cv3: json.created_at,
                         action: `
                             <a class="btn btn-success text-light" onclick="Dxp.show(${json.id})">Show</a>
                             <a class="btn btn-secondary text-light" onclick="Dxp.edit(${json.id})">Edit</a>
@@ -37,7 +38,9 @@ Dxp.drawTable = function() {
             {
                 data: "Cv2"
             },
-
+            {
+                data: "Cv3"
+            },
             {
                 data: "action"
             }
@@ -52,12 +55,14 @@ Dxp.drawTableTrash = function() {
         ajax: {
             url: '/donxinphep/trash',
             dataSrc: function(jsons) {
+                let i = 0;
                 return jsons.map(json => {
                     return {
-                        Key: i++,
+                        Key: ++i,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
+                        Cv3: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Dxp.undo(${json.id})">Undo</a>
                             <a class="btn btn-warning text-dark" onclick="Dxp.delete(${json.id})">Delete</a>
@@ -77,6 +82,9 @@ Dxp.drawTableTrash = function() {
             },
             {
                 data: "Cv2"
+            },
+            {
+                data: "Cv3"
             },
             {
                 data: "action"
@@ -99,7 +107,6 @@ Dxp.trash = function(id) {
         });
     }
 }
-
 
 Dxp.edit = function(id) {
     $.get(`/donxinphep/${id}`).done(function(Obj) {
@@ -124,22 +131,20 @@ Dxp.create = function() {
     $('small.badge').remove();
 }
 
-
 Dxp.show = function(id) {
-  $('#dx-modal').modal("show");
-  $.ajax({
-    type: "GET",
-    url: "/donxinphep/show/" + id,
-    success: function(response) {
-    response_nhanvien = response['data'];
-    response_query = response['data']['data'];
-        $("#dx-modal").find("#MaNV").text(response_nhanvien.NhanVien);
-        $("#dx-modal").find("#TieuDe").text(response_query.TieuDe);
-        $("#dx-modal").find("#NoiDung").text(response_query.NoiDung);
-    },
-    error: function() {
-    },
-});
+    $('#dx-modal').modal("show");
+    $.ajax({
+        type: "GET",
+        url: "/donxinphep/show/" + id,
+        success: function(response) {
+            response_nhanvien = response['data'];
+            response_query = response['data']['data'];
+            $("#dx-modal").find("#MaNV").text(response_nhanvien.NhanVien);
+            $("#dx-modal").find("#TieuDe").text(response_query.TieuDe);
+            $("#dx-modal").find("#NoiDung").text(response_query.NoiDung);
+        },
+        error: function() {},
+    });
 
 }
 
@@ -209,6 +214,7 @@ Dxp.save = function(btn) {
                     $('#fs-modal').modal("hide");
                     Dxp.success("Create success");
                     $("#btn-save").text("Send Mail");
+                    profile.init();
                 },
                 error: function(errors) {
                     Dxp.errors(errors);
@@ -226,7 +232,7 @@ Dxp.success = function(msg) {
         hideAfter: 5000,
         position: 'bottom-right',
         showHideTransition: 'slide',
-        icon: 'error'
+        icon: 'success'
     });
 }
 

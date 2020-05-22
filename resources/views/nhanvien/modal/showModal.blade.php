@@ -414,22 +414,22 @@
 
                         <tr>
                             <td>Address:</td>
-                            <td for="" id="Dia_Chi"></td>
+                            <td for="" id="Dia_Chi_Show"></td>
                         </tr>
 
                         <tr>
                             <td>Starting date:</td>
-                            <td for="" id="Ngay_Bat_Dau_Lam"></td>
+                            <td for="" id="Ngay_Bat_Dau_Lam_Show"></td>
                         </tr>
 
                         <tr>
                             <td>End date:</td>
-                            <td for="" id="Ngay_Nghi_Viec"></td>
+                            <td for="" id="Ngay_Nghi_Viec_Show"></td>
                         </tr>
 
                         <tr>
                             <td>Avatar:</td>
-                            <td><img id="zoomShow" src="#" alt="" srcset="" width="250"></td>
+                            <td><img id="ImageShow" src="#" alt="" srcset="" width="250"></td>
                         </tr>
                     </table>
                 </h3>

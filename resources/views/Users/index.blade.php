@@ -16,10 +16,10 @@
                 User
             </a>
         </li>
-        <li class="nav-item mr-auto ml-3">
+        {{-- <li class="nav-item mr-auto ml-3">
             <a class="nav-link btn-block btn btn-outline-success" href="javascript:void(0);"
                 onclick="user.modalCreate()">Create user</a>
-        </li>
+        </li> --}}
         <li class="nav-item ml-auto">
             <a class="nav-link btn-block btn btn-outline-danger" onclick="user.trashTable()" data-toggle="pill"
                 href="#trash">Trash</a>

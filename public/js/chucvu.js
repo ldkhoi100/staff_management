@@ -9,8 +9,10 @@ Cv.drawTable = function() {
         ajax: {
             url: '/chuc-vu/all',
             dataSrc: function(jsons) {
+                let i = 0;
                 return jsons.map(json => {
                     return {
+                        no: ++i,
                         Cv: json.Ten_CV,
                         Cv1: json.Cong_Viec,
                         Cv2: json.Bac_Luong,
@@ -24,6 +26,9 @@ Cv.drawTable = function() {
             }
         },
         columns: [{
+                data: "no"
+            },
+            {
                 data: "Cv"
             },
             {
@@ -47,7 +52,9 @@ Cv.drawTableTrash = function() {
             url: '/chuc-vu/trash',
             dataSrc: function(jsons) {
                 return jsons.map(json => {
+                    let i = 0;
                     return {
+                        no: ++i,
                         Cv: json.Ten_CV,
                         Cv1: json.Cong_Viec,
                         Cv2: json.Bac_Luong,
@@ -60,6 +67,9 @@ Cv.drawTableTrash = function() {
             }
         },
         columns: [{
+                data: "no"
+            },
+            {
                 data: "Cv"
             },
             {
@@ -89,7 +99,6 @@ Cv.trash = function(id) {
         });
     }
 }
-
 
 Cv.edit = function(id) {
     $.get(`/chuc-vu/${id}`).done(function(Obj) {
@@ -146,25 +155,21 @@ Cv.delete = function(id) {
     }
 }
 
-
-
 Cv.show = function(id) {
     $('#dx-modal').modal("show");
     $.ajax({
-      type: "GET",
-      url: "/chuc-vu/show/" + id,
-      success: function(response) {
-      response_query = response['data']['data'];
-          $("#dx-modal").find("#Ten_CV").text(response_query.Ten_CV);
-          $("#dx-modal").find("#Cong_Viec").text(response_query.Cong_Viec);
-          $("#dx-modal").find("#Bac_Luong").text(response_query.Bac_Luong);
-      },
-      error: function() {
-      },
-  });
+        type: "GET",
+        url: "/chuc-vu/show/" + id,
+        success: function(response) {
+            response_query = response['data']['data'];
+            $("#dx-modal").find("#Ten_CV").text(response_query.Ten_CV);
+            $("#dx-modal").find("#Cong_Viec").text(response_query.Cong_Viec);
+            $("#dx-modal").find("#Bac_Luong").text(response_query.Bac_Luong);
+        },
+        error: function() {},
+    });
 
-  }
-
+}
 
 Cv.save = function(btn) {
     let id = $(btn).data('id');
@@ -213,7 +218,7 @@ Cv.success = function(msg) {
         hideAfter: 5000,
         position: 'bottom-right',
         showHideTransition: 'slide',
-        icon: 'error'
+        icon: 'success'
     });
 }
 
@@ -229,7 +234,6 @@ Cv.success = function(msg) {
 //         $(`#fs-modal input[name=${i}]`).addClass('is-invalid').before(`<small class="badge badge-danger mx-auto">${v}</small>`);
 //     });
 // }
-
 
 Cv.errors = function(errors) {
     // console.log(errors);
@@ -248,7 +252,6 @@ Cv.errors = function(errors) {
     }
 }
 
-
 Cv.init = function() {
     Cv.drawTable();
     Cv.drawTableTrash();
@@ -263,4 +266,3 @@ $(document).ready(function() {
         }
     });
 });
-

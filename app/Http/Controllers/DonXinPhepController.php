@@ -102,6 +102,10 @@ class DonXinPhepController extends Controller
     {
         $factorSalaries = $this->donxinphepService->getSoftDeletes();
 
+        foreach ($factorSalaries as $key => $value) {
+            $factorSalaries[$key]['nhanvien_name'] = NhanVien::find($value['MaNV'])->Ho_Ten;
+        }
+
         return response()->json($factorSalaries);
     }
 

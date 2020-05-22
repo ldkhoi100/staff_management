@@ -28,26 +28,4 @@ class DonxinphepRequest extends FormRequest
             'NoiDung' => 'required | min:5',
         ];
     }
-
-    public function messages()
-    {
-        $meseger = [
-
-            'MaNV.required' => 'Nhập vào đi bố',
-
-            'TieuDe.required' => 'Nhập vào đi bố',
-            'TieuDe.min' => 'Nhập ngắn thế bố',
-            'TieuDe.max' => 'Nhập dài thế bố',
-            'TieuDe.regex' => 'Không nhập số',
-
-            'NoiDung.required' => 'Nhập vào đi bố',
-            'NoiDung.min' => 'Nhập ngắn thế bố',
-
-
-        ];
-
-        return $meseger;
-
-
-    }
 }

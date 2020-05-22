@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 interface DonXinPhepService
@@ -6,6 +7,8 @@ interface DonXinPhepService
     public function getAll();
 
     public function findById($id);
+
+    public function findMaNV();
 
     public function create($request);
 

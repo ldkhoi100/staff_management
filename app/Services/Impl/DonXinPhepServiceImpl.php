@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Impl;
 
 use App\Repositories\DonXinPhepRepository;
@@ -29,10 +30,17 @@ class DonXinPhepServiceImpl implements DonXinPhepService
         if (!$data)
             $status = 404;
 
-            $data = [
-                'status' => $status,
-                'data' => $data
-            ];
+        $data = [
+            'status' => $status,
+            'data' => $data
+        ];
+
+        return $data;
+    }
+
+    public function findMaNV()
+    {
+        $data = $this->don_xin_phepRepository->findMaNV();
 
         return $data;
     }
@@ -100,7 +108,7 @@ class DonXinPhepServiceImpl implements DonXinPhepService
 
     public function findOnlyTrashed($id)
     {
-        $donxinphep = $this->chuc_vu_Repository->findOnlyTrashed($id);
+        $donxinphep = $this->don_xin_phepRepository->findOnlyTrashed($id);
         $status = 200;
 
         if (!$donxinphep)
@@ -116,12 +124,13 @@ class DonXinPhepServiceImpl implements DonXinPhepService
 
     public function restore($id)
     {
-        $donxinphep = $this->chuc_vu_Repository->findOnlyTrashed($id);
+        $donxinphep = $this->don_xin_phepRepository->findOnlyTrashed($id);
+        // dd($donxinphep);
 
         $status = 404;
         $msg = "This factor salary not found";
         if ($donxinphep) {
-            $this->chuc_vu_Repository->restore($donxinphep);
+            $this->don_xin_phepRepository->restore($donxinphep);
             $status = 200;
             $msg = "Restore success!";
         }

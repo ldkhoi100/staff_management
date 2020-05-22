@@ -1,14 +1,14 @@
-export let Bs = {} || Bs;
+let Bs = {} || Bs;
 
 Bs.table;
 Bs.tableTrash;
 
-Bs.drawTable = function () {
+Bs.drawTable = function() {
     Bs.table = $('#bs-table').DataTable({
         processing: true,
         ajax: {
             url: '/base-salary/all',
-            dataSrc: function (jsons) {
+            dataSrc: function(jsons) {
                 let i = 1;
                 return jsons.map(json => {
                     return {
@@ -43,12 +43,12 @@ Bs.drawTable = function () {
     });
 };
 
-Bs.drawTableTrash = function () {
+Bs.drawTableTrash = function() {
     Bs.tableTrash = $('#bs-table-trash').DataTable({
         processing: true,
         ajax: {
             url: '/base-salary/trash',
-            dataSrc: function (jsons) {
+            dataSrc: function(jsons) {
                 let i = 1;
                 return jsons.map(json => {
                     return {
@@ -83,36 +83,36 @@ Bs.drawTableTrash = function () {
     });
 };
 
-Bs.trash = function (id) {
+Bs.trash = function(id) {
     if (confirm('Move this to Trash')) {
         $.ajax({
             url: `/base-salary/${id}`,
             method: "delete",
-            success: function (msg) {
+            success: function(msg) {
                 Bs.success(msg);
                 Bs.table.ajax.reload();
                 Bs.tableTrash.ajax.reload();
             },
-            error: function (errors) {
+            error: function(errors) {
                 Bs.errors(errors);
             }
         });
     }
 }
 
-Bs.edit = function (id) {
-    $.get(`/base-salary/${id}`).done(function (Obj) {
+Bs.edit = function(id) {
+    $.get(`/base-salary/${id}`).done(function(Obj) {
         $.each(Obj, (i, v) => {
             $(`#bs-modal [name=${i}]`).val(v);
         });
         $('#bs-modal #btn-save').data('id', Obj.id);
         Bs.openModal(1);
-    }).fail(function (errors) {
+    }).fail(function(errors) {
         Bs.errors(errors);
     });
 }
 
-Bs.openModal = function (edit = null) {
+Bs.openModal = function(edit = null) {
     if (edit) {
         $('#bs-modal #bs-modal-title').text("Edit Base Salary");
     } else {
@@ -126,44 +126,44 @@ Bs.openModal = function (edit = null) {
     $('#bs-modal').modal('show');
 }
 
-Bs.create = function () {
+Bs.create = function() {
     Bs.openModal();
 }
 
-Bs.undo = function (id) {
+Bs.undo = function(id) {
     if (confirm("Undo this")) {
         $.ajax({
             url: `/base-salary/${id}/restore`,
             method: 'PUT',
-            success: function (msg) {
+            success: function(msg) {
                 Bs.success(msg);
                 Bs.tableTrash.ajax.reload();
                 Bs.table.ajax.reload();
             },
-            error: function (errors) {
+            error: function(errors) {
                 Bs.errors(errors);
             }
         });
     }
 }
 
-Bs.delete = function (id) {
+Bs.delete = function(id) {
     if (confirm('Delete this')) {
         $.ajax({
             url: `/base-salary/${id}/delete`,
             method: 'delete',
-            success: function (msg) {
+            success: function(msg) {
                 Bs.success(msg);
                 Bs.tableTrash.ajax.reload();
             },
-            error: function (errors) {
+            error: function(errors) {
                 Bs.errors(errors);
             }
         });
     }
 }
 
-Bs.save = function (btn) {
+Bs.save = function(btn) {
     let id = $(btn).data('id');
     let data = $(btn.form).serializeJSON();
     if (id) {
@@ -172,12 +172,12 @@ Bs.save = function (btn) {
                 url: `/base-salary/${id}`,
                 method: 'PUT',
                 data: data,
-                success: function (Obj) {
+                success: function(Obj) {
                     Bs.table.ajax.reload();
                     $('#bs-modal').modal("hide");
                     Bs.success("Update success!");
                 },
-                error: function (errors) {
+                error: function(errors) {
                     Bs.errors(errors);
                 }
             });
@@ -188,12 +188,12 @@ Bs.save = function (btn) {
                 url: `/base-salary`,
                 method: 'post',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     Bs.table.ajax.reload();
                     $('#bs-modal').modal("hide");
                     Bs.success("Create success");
                 },
-                error: function (errors) {
+                error: function(errors) {
                     Bs.errors(errors);
                 }
             });
@@ -201,7 +201,7 @@ Bs.save = function (btn) {
     }
 }
 
-Bs.success = function (msg, status = "Success", icon = "success") {
+Bs.success = function(msg, status = "Success", icon = "success") {
     $.toast({
         heading: status,
         text: msg,
@@ -212,14 +212,14 @@ Bs.success = function (msg, status = "Success", icon = "success") {
     });
 }
 
-Bs.errors = function (errors) {
+Bs.errors = function(errors) {
     if (errors.status == 422) {
         let msg = errors.responseJSON.errors;
         $(`#bs-modal .is-invalid`).removeClass('is-invalid');
         $(`#bs-modal .is-valid`).removeClass('is-valid');
         $(`#bs-modal .field`).addClass('is-valid');
         $('small.text').remove();
-        $.each(msg, function (i, v) {
+        $.each(msg, function(i, v) {
             $(`#bs-modal [name=${i}]`).addClass('is-invalid').after(`<small class="text text-danger mx-auto">${v}</small>`);
         });
     } else {
@@ -228,12 +228,12 @@ Bs.errors = function (errors) {
     }
 }
 
-Bs.init = function () {
+Bs.init = function() {
     Bs.drawTable();
     Bs.drawTableTrash();
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     Bs.init();
 
     $.ajaxSetup({

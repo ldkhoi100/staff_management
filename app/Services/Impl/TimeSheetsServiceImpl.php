@@ -171,14 +171,14 @@ class TimeSheetsServiceImpl implements TimeSheetsService
         if (!$timeSheets && $dates == $now) {
             $nhavien = $this->nhavien->getAll();
             $bs = $this->baseSalary->getAll()->first();
-            foreach($nhavien as $nv){
-                $nv->cham_cong()->create(['Ngay_Hien_Tai'=> $date, 'LuongCB'=>$bs->id]);
+            foreach ($nhavien as $nv) {
+                $nv->cham_cong()->create(['Ngay_Hien_Tai' => $date, 'LuongCB' => $bs->id]);
             }
         }
 
         $timeSheets = $this->timeSheetsRepository->getDay($date);
 
-        foreach($timeSheets as $no => $ts){
+        foreach ($timeSheets as $no => $ts) {
             $nv = $this->nhavien->findById($ts->MaNV);
             $timeSheets[$no]['NV'] = $nv->Ho_Ten;
             $timeSheets[$no]['Ca'] = $nv->ca_lam->Mo_Ta;
@@ -187,12 +187,12 @@ class TimeSheetsServiceImpl implements TimeSheetsService
         return $timeSheets;
     }
 
-    public function holiday($status,$date)
+    public function holiday($status, $date)
     {
         $timeSheets = $this->timeSheetsRepository->getDay($date);
 
-        foreach($timeSheets as $ts){
-            $ud = $this->timeSheetsRepository->update($status,$ts);
+        foreach ($timeSheets as $ts) {
+            $ud = $this->timeSheetsRepository->update($status, $ts);
         }
 
         $timeSheets = $this->timeSheetsRepository->getDay($date);
@@ -200,16 +200,32 @@ class TimeSheetsServiceImpl implements TimeSheetsService
         return $timeSheets;
     }
 
-    public function baseSalary($base,$date)
+    public function baseSalary($base, $date)
     {
         $timeSheets = $this->timeSheetsRepository->getDay($date);
 
-        foreach($timeSheets as $ts){
-            $ud = $this->timeSheetsRepository->update($base,$ts);
+        foreach ($timeSheets as $ts) {
+            $ud = $this->timeSheetsRepository->update($base, $ts);
         }
 
         $timeSheets = $this->timeSheetsRepository->getDay($date);
 
         return $timeSheets;
+    }
+
+    public function findMaNV($i, $month)
+    {
+        $timeSheets = $this->timeSheetsRepository->findMaNV($i, $month);
+        $status = 200;
+
+        if (!$timeSheets)
+            $status = 404;
+
+        $data = [
+            'status' => $status,
+            'data' => $timeSheets
+        ];
+
+        return $data;
     }
 }

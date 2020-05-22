@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\BaseSalary;
+use App\Model\DonXinPhep;
 use App\Model\NhanVien;
 use App\Model\TimeSheets;
 use App\Services\BaseSalaryService;
@@ -34,16 +35,24 @@ class TimeSheetsController extends Controller
 
     public function holiday($status, $date)
     {
-        $status = ['Ngay_Le'=>$status];
-        $timeSheets = $this->timeSheetsService->holiday($status,$date);
+        $status = ['Ngay_Le' => $status];
+        $timeSheets = $this->timeSheetsService->holiday($status, $date);
+
+        return response()->json($timeSheets);
+    }
+
+    public function sabbatical($id, $status)
+    {
+        $status = ['Nghi_Phep' => $status];
+        $timeSheets = $this->timeSheetsService->update($status, $id);
 
         return response()->json($timeSheets);
     }
 
     public function baseSalary($base, $date)
     {
-    $base = ['LuongCB'=>$base];
-        $timeSheets = $this->timeSheetsService->baseSalary($base,$date);
+        $base = ['LuongCB' => $base];
+        $timeSheets = $this->timeSheetsService->baseSalary($base, $date);
 
         return response()->json($timeSheets);
     }

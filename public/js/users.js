@@ -95,35 +95,6 @@ user.modalEdit = function(id) {
     });
 };
 
-user.create = function() {
-    let data = $("#modal-create").serialize();
-    $.ajax({
-        url: "/users",
-        type: "POST",
-        data: data,
-        success: function(response) {
-            swal("Created", `Created new user ${response.username}!`, "success");
-            // toastr.success(`Created new user ${response.username}!`);
-            $(".btn-create").prop("disabled", true);
-            $("#ShowModal").modal("hide");
-            $(".reset_form").click();
-            $(".create_modal")
-                .removeClass("is-invalid")
-                .removeClass("is-valid");
-            user.drawTable();
-        },
-        error: function(data) {
-            if (data.status == 401) {
-                swal("Unauthorized", "You don't have permission !", "error");
-                $("#ShowModal").modal("hide");
-                // toastr.error("You don't have permission !");
-            } else if (data.status == 422) {
-                user.printErrorMsg(data.responseJSON.errors);
-            }
-        },
-    });
-};
-
 user.update = function() {
     let data = $("#modal-update").serialize();
     data += `&hash=${user.hash}`;
@@ -133,7 +104,8 @@ user.update = function() {
         type: "PUT",
         data: data,
         success: function(response) {
-            swal("Updated", `Updated user ${response.username}!`, "success");
+            toastr.success(`Updated user ${response.username} !`);
+            // swal("Updated", `Updated user ${response.username}!`, "success");
             $("#ShowModal").modal("hide");
             $(".edit_modal").removeClass("is-invalid").removeClass("is-valid");
             $(".btn-edit").prop("disabled", true);
@@ -165,7 +137,8 @@ user.destroy = function(id, username) {
                 success: function() {
                     user.trashTable();
                     user.drawTable();
-                    swal('Removed!', `User ${username} are successfully removed!`, 'success');
+                    toastr.success(`User ${username} are successfully removed!`);
+                    // swal('Removed!', `User ${username} are successfully removed!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -174,7 +147,7 @@ user.destroy = function(id, username) {
                 }
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            // swal("Cancelled", "This user is safe :)", "error");
         }
     });
 };
@@ -194,7 +167,8 @@ user.restore = function(id, username) {
                 success: function() {
                     user.trashTable();
                     user.drawTable();
-                    swal('Restored!', `Restored user ${username}!`, 'success');
+                    toastr.success(`User ${username} are successfully restored!`);
+                    // swal('Restored!', `Restored user ${username}!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -203,7 +177,7 @@ user.restore = function(id, username) {
                 }
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            // swal("Cancelled", "This user is safe :)", "error");
         }
     });
 };
@@ -223,7 +197,8 @@ user.forceDelete = function(id, username) {
                 success: function() {
                     user.trashTable();
                     user.drawTable();
-                    swal('Deleted!', `Deleted user ${username} forever!`, 'success');
+                    toastr.success(`Deleted user ${username} forever!`);
+                    // swal('Deleted!', `Deleted user ${username} forever!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -232,7 +207,7 @@ user.forceDelete = function(id, username) {
                 }
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            // swal("Cancelled", "This user is safe :)", "error");
         }
     });
 };
@@ -252,7 +227,8 @@ user.block = function(id, username) {
                 success: function() {
                     user.trashTable();
                     user.drawTable();
-                    swal('Success!', `Changed column block of user ${username}!`, 'success');
+                    toastr.success(`Changed column block of user ${username} !`);
+                    // swal('Success!', `Changed column block of user ${username}!`, 'success');
                 },
                 error: function(data) {
                     if (data.status == 401) {
@@ -261,7 +237,7 @@ user.block = function(id, username) {
                 }
             });
         } else {
-            swal("Cancelled", "This user is safe :)", "error");
+            // swal("Cancelled", "This user is safe :)", "error");
         }
     });
 };

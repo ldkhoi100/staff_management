@@ -139,6 +139,10 @@ class NhanVienController extends Controller
         }
         $data = $this->staffService->update($requestData, $id, $request->hash);
 
+        if ($request->Ngay_Nghi_Viec != null) {
+            $this->staffService->destroy($id);
+        }
+
         return response()->json($data['data'], $data['statusCode']);
     }
 
