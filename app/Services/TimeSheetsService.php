@@ -29,4 +29,6 @@ interface TimeSheetsService
     public function baseSalary($base, $date);
 
     public function findMaNV($i, $month);
+
+    public function monthStatistic($month, $year);
 }

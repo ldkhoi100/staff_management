@@ -229,4 +229,12 @@ class TimeSheetsServiceImpl implements TimeSheetsService
 
         return $data;
     }
+
+
+    public function monthStatistic($month, $year)
+    {
+        $statistic = $this->timeSheetsRepository->monthStatistic($month, $year);
+
+        return $statistic;
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Repositories\Impl;
 use App\Model\TimeSheets;
 use App\Repositories\Eloquent\EloquentRepository;
 use App\Repositories\TimeSheetsRepository;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class TimeSheetsRepositoryImpl extends EloquentRepository implements TimeSheetsRepository
 {
@@ -33,6 +33,12 @@ class TimeSheetsRepositoryImpl extends EloquentRepository implements TimeSheetsR
     public function getDay($date)
     {
         $result = $this->model->where('Ngay_Hien_Tai', $date)->get();
+
+        return $result;
+    }
+
+    public function monthStatistic($month, $year){
+        $result = $this->model->whereMonth("Ngay_Hien_Tai", $month)->whereYear("Ngay_Hien_Tai", $year)->get();
 
         return $result;
     }

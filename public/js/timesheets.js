@@ -24,7 +24,7 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                 return jsons.map(obj => {
                     return {
                         no: ++i,
-                        col1: "Id: NV" + obj.id + "<br>" + obj.NV,
+                        col1: "Id: NV" + obj.MaNV + "<br>" + obj.NV,
                         col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
@@ -199,6 +199,26 @@ Ts.init = function() {
     Ts.day();
     Ts.holiday();
 };
+
+Ts.statistic = function() {
+    $('#statistic').modal('show');
+    let date = $('#month').val();
+    let month = date.slice(5, 7);
+    let year = date.slice(0, 4);
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
+        $("#statistic_table tbody").empty();
+        let no = 1;
+        $.each(data, function(i, v) {
+            let tr = `<tr><td>${no++}</td><td>${i}</td>`
+            for (let k = 1; k <= 31; k++) {
+                // console.log(v['day'][k]);
+                tr += `<td>${v['day'][k]}</td>`;
+            }
+            tr += `<td>$${v['total'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td></tr>`;
+            $("#statistic_table tbody").append(tr);
+        });
+    });
+}
 
 $(document).ready(function() {
     Ts.init();
