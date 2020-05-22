@@ -20,6 +20,7 @@ class ProfileController extends Controller
     public function __construct(UserService $userService, NhanVienService $nhanVienService, DonXinPhepService $donXinPhep, TimeSheetsService $timeSheetsService)
     {
         $this->middleware("auth");
+        $this->middleware('AjaxRequest')->except('index');
         $this->userService = $userService;
         $this->nhanVienService = $nhanVienService;
         $this->donXinPhep = $donXinPhep;
@@ -61,12 +62,19 @@ class ProfileController extends Controller
             }
         }
 
+        $check_chamCong = TimeSheets::where("MaNV", Auth::id())->where("Ngay_Hien_Tai", date("Y-m-d"))->first();
+        if ($check_chamCong != null) {
+            $base_salary = $check_chamCong->luongCB->Tien_Luong;
+        } else {
+            $base_salary = "Not Update";
+        }
+
         $selectMonth = $month_year;
 
         if ($request->month != null) {
             return view('Profile.ajax.index', compact('result', 'total', 'selectMonth', 'count'));
         } else {
-            return view('Profile.index', compact('staff', 'nghiPhep', 'result', 'total', 'selectMonth', 'count'));
+            return view('Profile.index', compact('staff', 'nghiPhep', 'result', 'total', 'selectMonth', 'count', 'base_salary'));
         }
     }
 

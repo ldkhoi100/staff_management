@@ -1,16 +1,30 @@
 let Ts = {} || Ts;
 
 Ts.table;
-Ts.listCustomer = function (url = $('#current-day').val()) {
+Ts.listCustomer = function(url = $('#current-day').val()) {
+    $.ajax({
+        url: `/timesheets/${url}/get`,
+        method: 'get',
+        success: function(data) {
+            if (data) {
+                let obj = data[0];
+                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
+                if (obj.Ngay_Le) {
+                    $('#holiday').attr('checked', "");
+                }
+            }
+        }
+    });
+
     Ts.table = $('#bang-chamcong').DataTable({
         ajax: {
             url: `/timesheets/${url}/get`,
-            dataSrc: function (jsons) {
+            dataSrc: function(jsons) {
                 let i = 0;
                 return jsons.map(obj => {
                     return {
                         no: ++i,
-                        col1: "NV" + obj.id + "<br>" + obj.NV,
+                        col1: "Id: NV" + obj.MaNV + "<br>" + obj.NV,
                         col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
@@ -44,81 +58,64 @@ Ts.listCustomer = function (url = $('#current-day').val()) {
             }
         },
         columns: [{
-                data: 'no'
-            },
-            {
-                data: 'col1'
-            },
-            {
-                data: 'col6'
-            },
-            {
-                data: 'col2'
-            },
-            {
-                data: 'col5'
-            },
-            {
-                data: 'col3'
-            },
-            {
-                data: 'col4'
-            }
-        ]
-    });
-    $.ajax({
-        url: `/timesheets/${url}/get`,
-        method: 'get',
-        success: function (data) {
-            if (data) {
-                let obj = data[0];
-                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
-                if (obj.Ngay_Le) {
-                    $('#holiday').attr('checked', "");
-                }
-            }
-        }
+            data: 'no'
+        }, {
+            data: 'col1'
+        }, {
+            data: 'col6'
+        }, {
+            data: 'col2'
+        }, {
+            data: 'col5'
+        }, {
+            data: 'col3'
+        }, {
+            data: 'col4'
+        }]
     });
 };
 
-Ts.base = function () {
+Ts.base = function() {
     $.ajax({
         url: '/base-salary/all',
         method: 'get',
-        success: function (data) {
+        success: function(data) {
             data.forEach(bs => {
                 $('#baseSalary').append(`<option value="${bs.id}">${bs.Tien_Luong}</option>`);
             });
         }
     });
-}
+};
 
-Ts.updateBaseSalary = function (base) {
+Ts.updateBaseSalary = function(base) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${base}/${day}/basesalary`,
         method: 'put',
-        success: function () {
-            // alert('thành công');
+        success: function() {
+            toastr.success(`Updated Base Salary !`);
         }
     });
-}
+};
 
-Ts.description = function (id) {
+Ts.description = function(id) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'get',
-        success: function (obj) {
+        success: function(obj) {
             $("#mota-chitiet").val(obj.Ghi_Chu);
             $('#them-mota').modal('show');
-            $('#luu-them-mota').unbind('click').bind('click', function () {
+            $('#luu-them-mota').unbind('click').bind('click', function() {
                 $.ajax({
                     url: `timesheets/${obj.id}/`,
                     method: 'put',
                     data: {
                         'Ghi_Chu': $("#mota-chitiet").val()
                     },
-                    success: function () {
+                    success: function() {
+                        if ($("#mota-chitiet").val() != null) {
+                            toastr.success(`Updated Description !`);
+                        }
                         $('#them-mota').modal('hide');
                         Ts.table.ajax.reload(null, false);
                     }
@@ -128,96 +125,102 @@ Ts.description = function (id) {
     });
 };
 
-Ts.sabbatical = function (id) {
+Ts.sabbatical = function(id) {
     if (!$(`:checkbox#sabbatical${id}`).prop('checked')) {
         Ts.updateSabbatical(0, id);
         Ts.updateSalary(id, 100);
         Ts.table.ajax.reload(null, false);
+        toastr.success(`Updated Sabbatical of this staff to NO !`);
     } else {
         Ts.updateSabbatical(1, id);
         Ts.updateSalary(id, 0);
         Ts.table.ajax.reload(null, false);
+        toastr.success(`Updated Sabbatical of this staff to YES !`);
     }
 };
 
-Ts.updateSabbatical = function (id, status) {
+Ts.updateSabbatical = function(id, status) {
     $.ajax({
         url: `/timesheets/${status}/${id}/sabbatical`,
         method: 'put',
-        success: function () {
+        success: function() {
             // console.log('Wow gâu gâu');
         }
     });
 };
 
-Ts.holiday = function () {
-    $('#holiday').click(function () {
+Ts.holiday = function() {
+    $('#holiday').click(function() {
         if (!$(this).prop('checked')) {
             Ts.updateHoliday(0);
+            toastr.success(`Updated Holiday to NO !`);
         } else {
             Ts.updateHoliday(1);
+            toastr.warning(`Updated Holiday to YES !`);
         }
     });
 };
 
-Ts.updateHoliday = function (status) {
+Ts.updateHoliday = function(status) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${status}/${day}/holiday`,
         method: 'put',
-        success: function () {
+        success: function() {
             // alert('thành công');
         }
     });
 };
 
-Ts.updateSalary = function (id, value) {
+Ts.updateSalary = function(id, value) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'put',
         data: {
             'Luong': value
         },
-        success: function () {
+        success: function() {
             // console.log('Wow gâu gâu');
         }
     });
 }
 
-Ts.day = function () {
-    $('#current-day').change(function () {
+Ts.day = function() {
+    $('#current-day').change(function() {
         Ts.table.destroy();
         let day = $(this).val();
         Ts.listCustomer(day);
     });
 }
 
-Ts.init = function () {
+Ts.init = function() {
     Ts.base();
     Ts.listCustomer();
     Ts.day();
     Ts.holiday();
 };
 
-Ts.statistic = function () {
+Ts.statistic = function() {
     $('#statistic').modal('show');
-    let month = $('#month').val();
-    let year = $('#year').val();
-    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function (data) {
+    let date = $('#month').val();
+    let month = date.slice(5, 7);
+    let year = date.slice(0, 4);
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
+        $("#statistic_table tbody").empty();
         let no = 1;
-        $.each(data, function (i, v) {
+        $.each(data, function(i, v) {
             let tr = `<tr><td>${no++}</td><td>${i}</td>`
             for (let k = 1; k <= 31; k++) {
-                console.log(v['day'][k]);
+                // console.log(v['day'][k]);
                 tr += `<td>${v['day'][k]}</td>`;
             }
-            tr += `<td>${v['total']}</td></tr>`;
+            tr += `<td>$${v['total'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td></tr>`;
             $("#statistic_table tbody").append(tr);
         });
     });
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     Ts.init();
     $.ajaxSetup({
         headers: {

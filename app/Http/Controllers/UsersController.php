@@ -83,6 +83,9 @@ class UsersController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
+        if ($request->roles[0] == "2") {
+            $request->roles = null;
+        }
         $requestData = $request->except('id', 'block', 'roles');
         $requestData['block'] = $request->block ? 1 : 0;
         $data = $this->userService->update([$requestData, $request->roles], $id, $request->hash);

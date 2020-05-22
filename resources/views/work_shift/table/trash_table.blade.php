@@ -3,6 +3,7 @@
         <tr>
             <th>#</th>
             <th>Factor Salary</th>
+            <th>Work Time</th>
             <th>Description</th>
             <th>Deleted At</th>
             <th>Action</th>
@@ -14,6 +15,7 @@
         <tr>
             <th>#</th>
             <th>Factor Salary</th>
+            <th>Work Time</th>
             <th>Description</th>
             <th>Deleted At</th>
             <th>Action</th>

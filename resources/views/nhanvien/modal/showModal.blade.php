@@ -376,7 +376,7 @@
             </div>
             <div class="modal-body">
                 <h3>
-                    <table>
+                    <table id="showId">
                         <tr>
                             <td>Full Name:</td>
                             <td for="" id="Ho_Ten"></td>
@@ -384,47 +384,47 @@
 
                         <tr>
                             <td>Username:</td>
-                            <td for="" id="username"></td>
+                            <td for="" id="Username"></td>
                         </tr>
 
                         <tr>
                             <td>Position:</td>
-                            <td for="" id="position"></td>
+                            <td for="" id="MaCV_name"></td>
                         </tr>
 
                         <tr>
                             <td>Shift work:</td>
-                            <td for="" id="salary"></td>
+                            <td for="" id="Ca_Lam_Name"></td>
                         </tr>
 
                         <tr>
                             <td>Date Of Birth:</td>
-                            <td for="" id="dob"></td>
+                            <td for="" id="Ngay_Sinh"></td>
                         </tr>
 
                         <tr>
                             <td>Gender:</td>
-                            <td for="" id="gender"></td>
+                            <td for="" id="Gioi_Tinh"></td>
                         </tr>
 
                         <tr>
                             <td>Phone Number:</td>
-                            <td for="" id="phone"></td>
+                            <td for="" id="So_Dien_Thoai"></td>
                         </tr>
 
                         <tr>
                             <td>Address:</td>
-                            <td for="" id="Dia_Chi_Show"></td>
+                            <td for="" id="Dia_Chi"></td>
                         </tr>
 
                         <tr>
                             <td>Starting date:</td>
-                            <td for="" id="Ngay_Bat_Dau_Lam_Show"></td>
+                            <td for="" id="Ngay_Bat_Dau_Lam"></td>
                         </tr>
 
                         <tr>
                             <td>End date:</td>
-                            <td for="" id="Ngay_Nghi_Viec_Show"></td>
+                            <td for="" id="Ngay_Nghi_Viec"></td>
                         </tr>
 
                         <tr>

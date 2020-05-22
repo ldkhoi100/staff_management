@@ -2,18 +2,13 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title d-flex" id="my-modal-title">
-                    Select Month<select id="month" class="form-control" onchange="Ts.statistic()">
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option @if($i == date('m')) selected @endif value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                    Select Year
-                    <select id="year" class="form-control" onchange="Ts.statistic()">
-                        @for ($i = 2020; $i <= date('Y'); $i++)
-                            <option @if($i == date('Y')) selected @endif value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
+                <div>
+                    <h3>Statistic</h3>
+                </div>
+
+                <div class="modal-title d-flex ml-auto over" id="my-modal-title">
+                    <span style="word-wrap: normal;">Select Month: </span><input type="month" class="form-control"
+                        value="{{ date("Y-m") }}" id="month" onchange="Ts.statistic()">
                 </div>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -25,18 +20,28 @@
                         <tr>
                             <th>#</th>
                             <th>Employee Name</th>
-                            @for ($i = 1; $i <= 31; $i++)
-                                <th>{{ $i }}</th>
-                            @endfor
-                            <th>Total</th>
+                            @for ($i = 1; $i <= 31; $i++) <th>{{ $i }}</th>
+                                @endfor
+                                <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer">
-                Footer
+            <div class="modal-footer ">
+                <div class="mr-auto">
+                    <h4 style="color:blue">Note:</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>A : Full Working</span> <br>
+                            <span>N : Absent</span> <br>
+                            <span>L : Holiday</span> <br>
+                            <span>B : Bonus </span> <br>
+                            <span>X : Deduction Of Salary</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

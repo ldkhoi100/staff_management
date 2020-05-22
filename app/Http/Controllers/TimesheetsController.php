@@ -66,8 +66,8 @@ class TimeSheetsController extends Controller
      */
     public function baseSalary($base, $date)
     {
-        $base = ['LuongCB'=>$base];
-        $timeSheets = $this->timeSheetsService->baseSalary($base,$date);
+        $base = ['LuongCB' => $base];
+        $timeSheets = $this->timeSheetsService->baseSalary($base, $date);
 
         return response()->json($timeSheets);
     }
@@ -86,51 +86,46 @@ class TimeSheetsController extends Controller
      * Thống kê tháng
      */
 
-     public function monthStatistic(Request $request)
-     {
+    public function monthStatistic(Request $request)
+    {
         $statistic = $this->timeSheetsService->monthStatistic($request->month, $request->year);
         $stt = [];
-        foreach($statistic as $st){
+        foreach ($statistic as $st) {
             $days = $st->Ngay_Hien_Tai;
-            $day = explode("-",$days)[2];
-            if($st->Ngay_Le == 1){
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "L";
-            }elseif($st->Luong == 0){
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] ="V";
-            }elseif($st->Luong == 100){
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "A";
-            }elseif($st->Luong > 100){
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "Th";
-            }else{
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "Tr";
+            $day = explode("-", $days)[2];
+            if ($st->Nghi_Phep == 1) {
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "N"; // Vắng
+            } elseif ($st->Ngay_Le == 1) {
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "L"; // Lễ
+            }
+            // elseif ($st->Luong == 0) {
+            //     $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
+            // } 
+            elseif ($st->Luong == 100) {
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "A"; // Đi đầy đủ
+            } elseif ($st->Luong > 100) {
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "B"; // Thưởng + đi đầy đủ
+            } else {
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "X"; // Trừ lương
             }
 
             if (isset($stt[$st->nhan_vien->Ho_Ten]['total'])) {
-                $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->Luong;
-            }else{
-                $stt[$st->nhan_vien->Ho_Ten]['total'] = $st->Luong;
+                $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong;
+            } else {
+                $stt[$st->nhan_vien->Ho_Ten]['total'] = $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong;
             }
         }
-        foreach($stt as $key => $nv){
-            for ($i=1; $i <=31 ; $i++) {
+
+        foreach ($stt as $key => $nv) {
+            for ($i = 1; $i <= 31; $i++) {
                 if (!array_key_exists($i, $nv['day'])) {
                     $stt[$key]['day'][$i] = "-";
                 }
             }
         }
 
-        // $nhanvien = [];
-        // $count = 0;
-        // foreach($stt as $nv){
-        //     dd($nv);
-        //     $day = $days;
-        //     $nglv = implode('-',$nv->Ngay_Hien_Tai)[2];
-        //     // if();
-        //     // $nhanvien[$nv->nhan_vien->Ho_Ten][];
-        // }
-        // $nv;
         return response()->json($stt, 200);
-     }
+    }
 
     /**
      * Chưa sử dụng

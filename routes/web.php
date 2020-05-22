@@ -33,7 +33,7 @@ Route::get('/orther', 'AdminController@orther')->name('orther');
 /**
  * Table chuc-vu
  */
-Route::group(['prefix' => '/chuc-vu'], function () {
+Route::group(['prefix' => '/chuc-vu', 'middleware' => ['auth', 'role:ROLE_SUPERADMIN']], function () {
     Route::get('/', "ChucvuController@index")->name('cv.index');
     Route::get('/all', "ChucvuController@getAll")->name('cv.getAll');
     Route::get('/show/{id}', 'ChucvuController@show');
@@ -146,13 +146,13 @@ Route::group(['prefix' => '/base-salary', 'middleware' => ['auth', 'role:ROLE_AD
 /**
  * Table roles
  */
-Route::group(['prefix' => '/role'], function () {
-    Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');
-    Route::view('/view', 'Role.list');
-    Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
-    Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
-    Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
-});
+// Route::group(['prefix' => '/role'], function () {
+//     Route::get('/trash', 'RoleController@getSoftDeletes')->name('role.trash');
+//     Route::view('/view', 'Role.list');
+//     Route::resource('/', 'RoleController')->names('role')->parameter('', 'id');
+//     Route::put('/{id}/restore', 'RoleController@restore')->name('role.restore');
+//     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
+// });
 
 
 /**
@@ -203,6 +203,3 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
         Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
     });
 });
-
-// Route::get('/profile', "ProfileController@index")->name("profile.index");
-// Route::get('/history/leave', "ProfileController@lichSuNghi");

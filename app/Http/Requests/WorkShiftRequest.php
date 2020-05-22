@@ -24,9 +24,9 @@ class WorkShiftRequest extends FormRequest
     public function rules()
     {
         return [
-            'Ca' => ['required', 'integer', 'min:1','max:100000',"unique:ca_lam,Ca,$this->id,id"],
-            'He_So' => ['required', 'numeric','min:1', 'max:10'],
-            'Mo_Ta' => ['required', 'string', 'min:11', 'max:6500', "unique:ca_lam,Mo_Ta,$this->id,id"]
+            'Ca' => ['required', 'integer', 'min:1', 'max:100000', "unique:ca_lam,Ca,$this->id,id"],
+            'Mo_Ta' => ['required', 'string', 'min:11', 'max:6500', "unique:ca_lam,Mo_Ta,$this->id,id"],
+            'Gio_Lam' => ['required', 'string', 'min:2', 'max:250']
         ];
     }
 

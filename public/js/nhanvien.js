@@ -59,20 +59,11 @@ staff.modalEdit = function(id) {
         url: "/staff/" + id,
         success: function(response) {
             staff.hash = response.hash;
-            $("#ShowModal")
-                .find("#EditStaff")
-                .html(`Edit Staff ${response.Ho_Ten}`);
-            $("#ShowModal").find("#id").val(response.id);
-            $("#ShowModal").find("#Ho_Ten").val(response.Ho_Ten);
-            $("#ShowModal").find("#Ngay_Sinh").val(response.Ngay_Sinh);
-            $("#ShowModal").find("#So_Dien_Thoai").val(response.So_Dien_Thoai);
-            $("#ShowModal").find("#Dia_Chi").val(response.Dia_Chi);
-            $("#ShowModal")
-                .find("#Ngay_Bat_Dau_Lam")
-                .val(response.Ngay_Bat_Dau_Lam);
-            $("#ShowModal")
-                .find("#Ngay_Nghi_Viec")
-                .val(response.Ngay_Nghi_Viec);
+            $.each(response, (key, data) => {
+                $(`#modal-update [name=${key}]`).not(`#modal-update [name=Anh_Dai_Dien]`).val(data);
+            });
+            $("#ShowModal").find("#EditStaff").html(`Edit Staff ${response.Ho_Ten}`);
+
             if (response.Gioi_Tinh == "Male") {
                 $("#Gioi_Tinh3").prop("checked", true);
             } else if (response.Gioi_Tinh == "Female") {
@@ -82,15 +73,7 @@ staff.modalEdit = function(id) {
             staff.selectMaCVUpdate(response.MaCV);
             staff.selectHSLUpdate(response.Ca_Lam);
             $("#ShowModal").modal("show");
-            if (response.Anh_Dai_Dien != null) {
-                $("#ShowModal")
-                    .find("#zoomEdit")
-                    .attr("src", `img/${response.Anh_Dai_Dien}`);
-            } else {
-                $("#ShowModal")
-                    .find("#zoomEdit")
-                    .attr("src", "#");
-            }
+            response.Anh_Dai_Dien != null ? $("#zoomEdit").attr("src", `img/${response.Anh_Dai_Dien}`) : $("#zoomEdit").attr("src", "#");
         },
         error: function() {
             if ((data.status = 401)) {
@@ -112,7 +95,6 @@ staff.create = function(btn) {
         dataType: "json",
         success: function(response) {
             toastr.success(`Created new staff ${response.Ho_Ten} !`);
-            // swal("Created", `Created new staff ${response.Ho_Ten}!`, "success");
             $(".btn-create").prop("disabled", true);
             $("#ShowModal").modal("hide");
             $(".reset_form").click();
@@ -143,7 +125,6 @@ staff.update = function(btn) {
         dataType: "json",
         success: function(response) {
             toastr.success(`Updated staff ${response.Ho_Ten} !`);
-            // swal("Updated", `Updated staff ${response.Ho_Ten}!`, "success");
             $("#ShowModal").modal("hide");
             $(".btn-edit").prop("disabled", true);
             staff.init();
@@ -166,28 +147,18 @@ staff.modalShow = function(id) {
         success: function(response) {
             response_query = response["data"];
             response_table = response["data"]["data"];
-            $("#ShowStaff")
-                .text(`STAFF ${response_table.Ho_Ten}`);
-            $("#Ho_Ten").text(response_table.Ho_Ten);
-            $("#username").text(response_query.Username);
-            $("#position").text(response_query.MaCV_name);
-            $("#salary").text(response_query.Ca_Lam_Name);
-            $("#dob").text(response_table.Ngay_Sinh);
-            $("#gender").text(response_table.Gioi_Tinh);
-            $("#phone").text("0" + response_table.So_Dien_Thoai);
-            $("#Dia_Chi_Show").text(response_table.Dia_Chi);
-            $("#Ngay_Bat_Dau_Lam_Show").text(response_table.Ngay_Bat_Dau_Lam);
-            console.log(response_table.Ngay_Nghi_Viec);
-            $("#Ngay_Nghi_Viec_Show").text(response_table.Ngay_Nghi_Viec);
+            $("#ShowStaff").text(`STAFF ${response_table.Ho_Ten}`);
+            $.each(response_query, (key, data) => {
+                $(`#showId #${key}`).text(data);
+            });
+            $.each(response_table, (key, data) => {
+                $(`#showId #${key}`).text(data);
+            });
             $("#ShowIdModal").modal("show");
-            if (response_table.Anh_Dai_Dien != null) {
-                $("#ImageShow").attr("src", `img/${response_table.Anh_Dai_Dien}`);
-            } else {
-                $("#ImageShow").attr("src", "#");
-            }
+            response_table.Anh_Dai_Dien != null ? $("#ImageShow").attr("src", `img/${response_table.Anh_Dai_Dien}`) : $("#ImageShow").attr("src", "#");
         },
         error: function() {
-            if ((data.status = 401)) {
+            if (data.status = 401) {
                 toastr.error("You don't have permission !");
             }
         },
@@ -209,19 +180,10 @@ staff.destroy = function(id, username) {
                 success: function() {
                     staff.init();
                     toastr.success(`Staff ${username} are successfully removed!`);
-                    // swal(
-                    //     "Removed!",
-                    //     `Staff ${username} are successfully removed!`,
-                    //     "success"
-                    // );
                 },
                 error: function(data) {
                     if (data.status == 401) {
-                        swal(
-                            "Unauthorized",
-                            "You don't have permission !",
-                            "error"
-                        );
+                        swal("Unauthorized", "You don't have permission !", "error");
                     }
                 },
             });
@@ -249,16 +211,12 @@ staff.restore = function(id, username) {
                 },
                 error: function(data) {
                     if (data.status == 401) {
-                        swal(
-                            "Unauthorized",
-                            "You don't have permission !",
-                            "error"
-                        );
+                        swal("Unauthorized", "You don't have permission !", "error");
                     }
                 },
             });
         } else {
-            swal("Cancelled", "This staff is safe :)", "error");
+            // swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
@@ -281,16 +239,12 @@ staff.forceDelete = function(id, username) {
                 },
                 error: function(data) {
                     if (data.status == 401) {
-                        swal(
-                            "Unauthorized",
-                            "You don't have permission !",
-                            "error"
-                        );
+                        swal("Unauthorized", "You don't have permission !", "error");
                     }
                 },
             });
         } else {
-            swal("Cancelled", "This staff is safe :)", "error");
+            // swal("Cancelled", "This staff is safe :)", "error");
         }
     });
 };
@@ -389,7 +343,6 @@ function readURL(event) {
             let output = document.getElementById("zoom");
             output.src = reader.result;
         };
-
         reader.readAsDataURL(event.target.files[0]);
     }
 }
@@ -403,7 +356,6 @@ function readURLEdit(event) {
             let output = document.getElementById("zoomEdit");
             output.src = reader.result;
         };
-
         reader.readAsDataURL(event.target.files[0]);
     }
 }
