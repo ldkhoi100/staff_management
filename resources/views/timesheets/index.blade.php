@@ -103,6 +103,9 @@
         </div>
     </div>
 </div>
+<div class="d-none" id="data-export">
+    @include('timesheets.export.table')
+</div>
 @include('timesheets.modal.timesheet_statistic_modal')
 @endsection
 
