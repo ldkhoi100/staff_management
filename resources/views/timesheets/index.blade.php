@@ -32,6 +32,7 @@
             </li>
 
             <li class="nav-item mx-auto">
+                <button type="button" class="btn btn-info" onclick="Ts.statistic()">TimeSheets Statistic</button>
             </li>
 
             <li class="nav-item">
@@ -102,7 +103,7 @@
         </div>
     </div>
 </div>
-
+@include('timesheets.modal.timesheet_statistic_modal')
 @endsection
 
 @push('CRUD')

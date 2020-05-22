@@ -16,4 +16,6 @@ interface TimeSheetsRepository extends Repository
     public function getDay($date);
 
     public function findMaNV($i, $month);
+
+    public function monthStatistic($month, $year);
 }

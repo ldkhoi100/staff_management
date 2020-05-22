@@ -187,6 +187,7 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
     // Route::group(['prefix' => '/timesheets'], function () {
     Route::get('/', "TimeSheetsController@index")->name('ts.index');
     Route::get('/all', "TimeSheetsController@getAll")->name('ts.getAll');
+    Route::get('/statistic', "TimeSheetsController@monthStatistic")->name('ts.monthStatistic');
     Route::get('/trash', "TimeSheetsController@getTrash")->name('ts.getTrash');
     Route::get('/{date}/get', "TimeSheetsController@getDay")->name('ts.getDay');
     Route::get('/{id}/trash', "TimeSheetsController@findTrashById")->name('ts.findTrashById');
