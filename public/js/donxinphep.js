@@ -9,10 +9,10 @@ Dxp.drawTable = function() {
         ajax: {
             url: '/donxinphep/all',
             dataSrc: function(jsons) {
-                let i = 1;
+                let i = 0;
                 return jsons.map(json => {
                     return {
-                        Key: i++,
+                        Key: ++i,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
@@ -55,9 +55,10 @@ Dxp.drawTableTrash = function() {
         ajax: {
             url: '/donxinphep/trash',
             dataSrc: function(jsons) {
+                let i = 0;
                 return jsons.map(json => {
                     return {
-                        Key: i++,
+                        Key: ++i,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
                         Cv2: json.NoiDung,
@@ -106,7 +107,6 @@ Dxp.trash = function(id) {
         });
     }
 }
-
 
 Dxp.edit = function(id) {
     $.get(`/donxinphep/${id}`).done(function(Obj) {

@@ -141,8 +141,8 @@
 
                         <tr>
                             <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#SLH">Sabbatical Leave History</button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#SLH"
+                                    onclick="profile.nghiPhep()">Sabbatical Leave History</button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal"

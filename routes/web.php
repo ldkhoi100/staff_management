@@ -98,7 +98,6 @@ Route::group(['prefix' => '/staff', 'middleware' => ['auth', 'role:ROLE_ADMIN|RO
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
         Route::get('/select/maCV', 'NhanVienController@selectMaCV')->name("nhanvien.selectMaCV");
         Route::get('/select/HSL', 'NhanVienController@selectHSL')->name("nhanvien.selectHSL");
-        Route::get('/block/{id}', 'NhanVienController@block')->name('nhanvien.block');
         Route::get('/restore/{id}', 'NhanVienController@restore')->name('nhanvien.restore');
         Route::get('/delete/{id}', 'NhanVienController@delete')->name('nhanvien.delete');
         Route::post('/', 'NhanVienController@store')->name('nhanvien.store');
@@ -174,11 +173,11 @@ Route::group(['prefix' => '/work-shift', 'middleware' => ['auth', 'role:ROLE_ADM
     });
 });
 
+
 Route::group(['prefix' => '/profile'], function () {
-    Route::get('/', "ProfileController@index");
+    Route::get('/', "ProfileController@index")->name("profile.index");
     Route::get('/nghiPhep', "ProfileController@nghiPhep");
-    Route::post('/select/month', "ProfileController@select_month")->name("select.month");
-    Route::post('/month', "ProfileController@changeMonth")->name("select.changeMonth");
+    Route::post('/select/month', "ProfileController@index")->name("select.month");
 });
 
 /**
@@ -197,11 +196,12 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
         Route::post('/', "TimeSheetsController@create")->name('ts.create');
         Route::put('/{id}', "TimeSheetsController@update")->name('ts.update');
         Route::put('/{id}/restore', "TimeSheetsController@restore")->name('ts.restore');
+        Route::put('/{status}/{id}/sabbatical', "TimeSheetsController@sabbatical")->name('ts.sabbatical');
         Route::delete('/{id}', "TimeSheetsController@moveToTrash")->name('ts.moveToTrash');
         Route::delete('/{id}/delete', "TimeSheetsController@delete")->name('ts.delete');
         Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
     });
 });
 
-Route::get('/profile', "ProfileController@index");
-Route::get('/history/leave', "ProfileController@lichSuNghi");
+// Route::get('/profile', "ProfileController@index")->name("profile.index");
+// Route::get('/history/leave', "ProfileController@lichSuNghi");

@@ -58,6 +58,7 @@
 <script src="js/toastr.min.js"></script>
 <script src="js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
 @stack('CRUD')
 @stack('jquery-api')

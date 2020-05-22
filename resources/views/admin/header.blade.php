@@ -30,6 +30,7 @@
     <link data-require="sweet-alert@*" data-semver="0.4.2" rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
@@ -168,27 +169,45 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('table') }}">
+                <a class="nav-link" href="{{ route('nhanvien.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Customer</span></a>
+                    <span>Staff Manager</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link" href="{{ route('ts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
-                </a>
-                <div id="collapseTable" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="">Sản phẩm</a>
-                        <a class="collapse-item" href="">Loại sản phẩm</a>
-                        {{--                        <a class="collapse-item" href="{{ route('cv.index') }}">Chức
-                        vụ</a>--}}
-                    </div>
-                </div>
+                    <span>Timesheets</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('ws.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Work Shift</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cv.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Position</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Manager User</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('bs.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Base Salary</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dxp.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Sabbatical Leave</span></a>
             </li>
 
             <!-- Divider -->

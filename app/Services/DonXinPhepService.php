@@ -10,8 +10,6 @@ interface DonXinPhepService
 
     public function findMaNV();
 
-    public function findWithDatePicker($i, $month);
-
     public function create($request);
 
     public function update($request, $id);

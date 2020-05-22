@@ -1,6 +1,6 @@
 var profile = profile || {};
 
-profile.workHistory = function(month) {
+profile.workHistory = function() {
     let data = $("input[name=month]").val();
     $.ajax({
         url: "/profile/select/month",
@@ -9,21 +9,8 @@ profile.workHistory = function(month) {
             month: data
         },
         success: function(response) {
-            $("#work_history").empty();
-            $("#work_history").html(response);
-        }
-    });
-
-    $.ajax({
-        url: "/profile/month",
-        type: "POST",
-        data: {
-            month: data
-        },
-        success: function(res) {
-            let total = res.total;
-            $("#selectMonth").text("Month: " + res.month);
-            $("#totalSalary").text("Total Salary: $" + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+            $("#WorkHistory_body").empty();
+            $("#WorkHistory_body").html(response);
         }
     });
 };

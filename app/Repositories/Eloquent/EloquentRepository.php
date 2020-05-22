@@ -31,6 +31,7 @@ abstract class EloquentRepository implements Repository
     public function getAll()
     {
         $result = $this->model->all();
+
         return $result;
     }
 
@@ -48,6 +49,7 @@ abstract class EloquentRepository implements Repository
         } catch (\Exception $e) {
             return null;
         }
+
         return $object;
     }
 
@@ -65,6 +67,7 @@ abstract class EloquentRepository implements Repository
     public function getSoftDeletes()
     {
         $result = $this->model->onlyTrashed()->get();
+
         return $result;
     }
 

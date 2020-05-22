@@ -22,7 +22,7 @@ class DonXinPhepRepositoryImpl extends EloquentRepository  implements DonXinPhep
 
     public function findOnlyTrashed($id)
     {
-        $result = $this->model->onlyTrashed($id)->where('id', $id)->first();
+        $result = $this->model->onlyTrashed()->find($id);
 
         return $result;
     }
@@ -30,13 +30,6 @@ class DonXinPhepRepositoryImpl extends EloquentRepository  implements DonXinPhep
     public function findMaNV()
     {
         $result = $this->model->withTrashed()->where("MaNV", Auth::id())->orderBy("created_at", "DESC")->get();
-
-        return $result;
-    }
-
-    public function findWithDatePicker($i, $month)
-    {
-        $result = $this->model->withTrashed()->whereDay("created_at", $i)->whereMonth("created_at", $month)->where("MaNV", Auth::id())->first();
 
         return $result;
     }

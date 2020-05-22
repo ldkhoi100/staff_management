@@ -7,7 +7,7 @@
                 Statistic Of Leave</a>
         </li>
         <li class="nav-item mx-auto">
-            <a class="nav-link btn-info btn" onclick="Dxp.create()">Create</a>
+            {{-- <a class="nav-link btn-info btn" onclick="Dxp.create()">Create</a> --}}
         </li>
         <li class="nav-item">
             <a class="nav-link btn-block btn btn-outline-secondary" data-toggle="pill"

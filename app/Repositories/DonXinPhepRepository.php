@@ -13,6 +13,4 @@ interface DonXinPhepRepository extends Repository
     public function findOnlyTrashed($id);
 
     public function findMaNV();
-
-    public function findWithDatePicker($i, $month);
 }
