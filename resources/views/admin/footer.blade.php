@@ -15,9 +15,9 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
+{{--  <a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
     <i class="fas fa-angle-up"></i>
-</a>
+</a>  --}}
 
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

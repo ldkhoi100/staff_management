@@ -102,7 +102,7 @@ class TimeSheetsController extends Controller
             //     $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
             // } 
             elseif ($st->Luong == 100) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "A"; // Đi đầy đủ
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "F"; // Đi đầy đủ
             } elseif ($st->Luong > 100) {
                 $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "B"; // Thưởng + đi đầy đủ
             } else {

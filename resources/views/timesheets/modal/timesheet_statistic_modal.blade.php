@@ -33,8 +33,8 @@
                 <div class="mr-auto">
                     <h4 style="color:blue">Note:</h4>
                     <div class="row">
-                        <div class="col-6">
-                            <span>A : Full Working</span> <br>
+                        <div>
+                            <span>F : Full Working</span> <br>
                             <span>N : Absent</span> <br>
                             <span>L : Holiday</span> <br>
                             <span>B : Bonus </span> <br>

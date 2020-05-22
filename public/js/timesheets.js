@@ -214,7 +214,7 @@ Ts.statistic = function() {
                 // console.log(v['day'][k]);
                 tr += `<td>${v['day'][k]}</td>`;
             }
-            tr += `<td>$${v['total'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td></tr>`;
+            tr += `<td><b>$${v['total'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</b></td></tr>`;
             $("#statistic_table tbody").append(tr);
         });
     });
