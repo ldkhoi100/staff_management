@@ -14,6 +14,7 @@ Ws.drawTable = function() {
                     return {
                         key: i++,
                         ca: json.Ca,
+                        gio: json.Gio_Lam,
                         mt: json.Mo_Ta,
                         crt: json.created_at,
                         action: `
@@ -29,9 +30,11 @@ Ws.drawTable = function() {
             },
             {
                 data: "ca"
-            },{
+            }, {
+                data: "gio"
+            }, {
                 data: "mt"
-            },{
+            }, {
                 data: "crt"
             },
             {
@@ -67,9 +70,9 @@ Ws.drawTableTrash = function() {
                 data: "key"
             }, {
                 data: "ca"
-            },{
+            }, {
                 data: "mt"
-            },{
+            }, {
                 data: "dlt"
             },
             {
