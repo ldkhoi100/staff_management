@@ -34,11 +34,11 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                                 `,
                         col3: `
                         <select class="form-control salary" onchange="Ts.updateSalary(${obj.id},this.value)">
-                            <option value="50"  ${obj.Luong==150?'selected':''}>150%</option>
-                            <option value="40"  ${obj.Luong==140?'selected':''}>140%</option>
-                            <option value="30"  ${obj.Luong==130?'selected':''}>130%</option>
-                            <option value="20"  ${obj.Luong==120?'selected':''}>120%</option>
-                            <option value="10"  ${obj.Luong==110?'selected':''}>110%</option>
+                            <option value="150"  ${obj.Luong==150?'selected':''}>150%</option>
+                            <option value="140"  ${obj.Luong==140?'selected':''}>140%</option>
+                            <option value="130"  ${obj.Luong==130?'selected':''}>130%</option>
+                            <option value="120"  ${obj.Luong==120?'selected':''}>120%</option>
+                            <option value="110"  ${obj.Luong==110?'selected':''}>110%</option>
                             <option value="100" ${obj.Luong==100?'selected':''}>100%</option>
                             <option value="90"  ${obj.Luong==90?'selected':''}>90%</option>
                             <option value="80"  ${obj.Luong==80?'selected':''}>80%</option>
