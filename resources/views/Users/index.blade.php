@@ -41,12 +41,12 @@
         <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <div class="card-body" id="reload_table">
-                    @include('users.ajax.list')
+                    @include('Users.ajax.list')
                 </div>
             </div>
             <div class="tab-pane fade" id="trash">
                 <div class="card-body" id="reload_trash">
-                    @include('users.ajax.trash')
+                    @include('Users.ajax.trash')
                 </div>
             </div>
         </div>
