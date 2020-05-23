@@ -3,8 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div>
-                    <h3>Statistic</h3>
+                    <h1 class="modal-title w-100 text-center" style="text-shadow: 1px 1px #ee4d2d; color: #ee4d2d">
+                        Timekeeping Statistic
+                    </h1>
                 </div>
+
 
                 <div class="modal-title d-flex ml-auto over" id="my-modal-title">
                     <span style="word-wrap: normal;">Select Month: </span><input type="month" class="form-control"
@@ -29,23 +32,21 @@
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer ">
-                <div class="clearfix">
-                    <div class="float-left mr-auto">
-                        <h4 style="color:blue">Note:</h4>
-                        <div class="row">
-                            <div class="col">
-                                <span>A : Full Working</span> <br>
-                                <span>N : Absent</span> <br>
-                                <span>L : Holiday</span> <br>
-                                <span>B : Bonus </span> <br>
-                                <span>X : Deduction Of Salary</span>
-                            </div>
+            <div class="modal-footer">
+                <div class="mr-auto">
+                    <h4 style="color:blue">Note:</h4>
+                    <div class="row">
+                        <div class="col">
+                            <span>F : Full Working</span> <br>
+                            <span>V : Absent</span> <br>
+                            <span>L : Holiday</span> <br>
+                            <span>B : Bonus </span> <br>
+                            <span>X : Deduction Of Salary</span>
                         </div>
                     </div>
-                    <div class="float-right">
-                        <a href="javascript:void(0)" class="btn btn-primary" onclick="Ts.exportSalary()">Export</a>
-                    </div>
+                </div>
+                <div class="float-right">
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="Ts.exportSalary()">Export Excel</a>
                 </div>
             </div>
         </div>

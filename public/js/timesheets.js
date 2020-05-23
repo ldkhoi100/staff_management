@@ -1,11 +1,11 @@
 let Ts = {} || Ts;
 
 Ts.table;
-Ts.listCustomer = function (url = $('#current-day').val()) {
+Ts.listCustomer = function(url = $('#current-day').val()) {
     $.ajax({
         url: `/timesheets/${url}/get`,
         method: 'get',
-        success: function (data) {
+        success: function(data) {
             if (data) {
                 let obj = data[0];
                 $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
@@ -19,7 +19,7 @@ Ts.listCustomer = function (url = $('#current-day').val()) {
     Ts.table = $('#bang-chamcong').DataTable({
         ajax: {
             url: `/timesheets/${url}/get`,
-            dataSrc: function (jsons) {
+            dataSrc: function(jsons) {
                 let i = 0;
                 return jsons.map(obj => {
                     return {
@@ -75,11 +75,11 @@ Ts.listCustomer = function (url = $('#current-day').val()) {
     });
 };
 
-Ts.base = function () {
+Ts.base = function() {
     $.ajax({
         url: '/base-salary/all',
         method: 'get',
-        success: function (data) {
+        success: function(data) {
             data.forEach(bs => {
                 $('#baseSalary').append(`<option value="${bs.id}">${bs.Tien_Luong}</option>`);
             });
@@ -87,32 +87,32 @@ Ts.base = function () {
     });
 };
 
-Ts.updateBaseSalary = function (base) {
+Ts.updateBaseSalary = function(base) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${base}/${day}/basesalary`,
         method: 'put',
-        success: function () {
+        success: function() {
             toastr.success(`Updated Base Salary !`);
         }
     });
 };
 
-Ts.description = function (id) {
+Ts.description = function(id) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'get',
-        success: function (obj) {
+        success: function(obj) {
             $("#mota-chitiet").val(obj.Ghi_Chu);
             $('#them-mota').modal('show');
-            $('#luu-them-mota').unbind('click').bind('click', function () {
+            $('#luu-them-mota').unbind('click').bind('click', function() {
                 $.ajax({
                     url: `timesheets/${obj.id}/`,
                     method: 'put',
                     data: {
                         'Ghi_Chu': $("#mota-chitiet").val()
                     },
-                    success: function () {
+                    success: function() {
                         if ($("#mota-chitiet").val() != null) {
                             toastr.success(`Updated Description !`);
                         }
@@ -125,7 +125,7 @@ Ts.description = function (id) {
     });
 };
 
-Ts.sabbatical = function (id) {
+Ts.sabbatical = function(id) {
     if (!$(`:checkbox#sabbatical${id}`).prop('checked')) {
         Ts.updateSabbatical(0, id);
         Ts.updateSalary(id, 100);
@@ -139,18 +139,18 @@ Ts.sabbatical = function (id) {
     }
 };
 
-Ts.updateSabbatical = function (id, status) {
+Ts.updateSabbatical = function(id, status) {
     $.ajax({
         url: `/timesheets/${status}/${id}/sabbatical`,
         method: 'put',
-        success: function () {
+        success: function() {
             // console.log('Wow gâu gâu');
         }
     });
 };
 
-Ts.holiday = function () {
-    $('#holiday').click(function () {
+Ts.holiday = function() {
+    $('#holiday').click(function() {
         if (!$(this).prop('checked')) {
             Ts.updateHoliday(0);
             toastr.success(`Updated Holiday to NO !`);
@@ -161,54 +161,46 @@ Ts.holiday = function () {
     });
 };
 
-Ts.updateHoliday = function (status) {
+Ts.updateHoliday = function(status) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${status}/${day}/holiday`,
         method: 'put',
-        success: function () {
+        success: function() {
             // alert('thành công');
         }
     });
 };
 
-Ts.updateSalary = function (id, value) {
+Ts.updateSalary = function(id, value) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'put',
         data: {
             'Luong': value
         },
-        success: function () {
+        success: function() {
             // console.log('Wow gâu gâu');
         }
     });
-}
+};
 
-Ts.day = function () {
-    $('#current-day').change(function () {
+Ts.day = function() {
+    $('#current-day').change(function() {
         Ts.table.destroy();
         let day = $(this).val();
         Ts.listCustomer(day);
     });
 }
 
-Ts.init = function () {
-    Ts.base();
-    Ts.listCustomer();
-    Ts.day();
-    Ts.holiday();
-};
-
-Ts.statistic = function () {
-    $('#statistic').modal('show');
+Ts.statistic = function() {
     let date = $('#month').val();
     let month = date.slice(5, 7);
     let year = date.slice(0, 4);
-    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function (data) {
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
         $("#statistic_table tbody").empty();
         let no = 1;
-        $.each(data, function (i, v) {
+        $.each(data, function(i, v) {
             let tr = `<tr><td>${no++}</td><td>${i}</td>`
             for (let k = 1; k <= 31; k++) {
                 // console.log(v['day'][k]);
@@ -218,19 +210,19 @@ Ts.statistic = function () {
             $("#statistic_table tbody").append(tr);
         });
     });
-}
+    $('#statistic').modal('show');
+};
 
-Ts.exportSalary = function () {
+Ts.exportSalary = function() {
     let date = $('#month').val();
     let month = date.slice(5, 7);
     let year = date.slice(0, 4);
-    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function (data) {
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
         $("#data-export tbody").empty();
         let no = 1;
-        $.each(data, function (i, v) {
+        $.each(data, function(i, v) {
             let tr = `<tr><td>${no++}</td><td>${i}</td>`
             for (let k = 1; k <= 31; k++) {
-                // console.log(v['day'][k]);
                 tr += `<td>${v['day'][k]}</td>`;
             }
             tr += `<td>$${v['total'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td></tr>`;
@@ -241,9 +233,16 @@ Ts.exportSalary = function () {
         $('#month-salary-data').val(dataexport);
         $('#month-salary-form').submit();
     });
-}
+};
 
-$(document).ready(function () {
+Ts.init = function() {
+    Ts.base();
+    Ts.listCustomer();
+    Ts.day();
+    Ts.holiday();
+};
+
+$(document).ready(function() {
     Ts.init();
     $.ajaxSetup({
         headers: {

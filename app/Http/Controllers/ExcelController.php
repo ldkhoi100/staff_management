@@ -12,6 +12,6 @@ class ExcelController extends Controller
 
     public function monthSalary(Request $request)
     {
-        return Excel::download(new MonthSalaryExport($request->data), 'data.xlsx');
+        return Excel::download(new MonthSalaryExport($request->data), date("Y-m") . '-Statistic.xlsx');
     }
 }

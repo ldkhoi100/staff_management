@@ -94,7 +94,7 @@ class TimeSheetsController extends Controller
             $days = $st->Ngay_Hien_Tai;
             $day = explode("-", $days)[2];
             if ($st->Nghi_Phep == 1) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "N"; // Vắng
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
             } elseif ($st->Ngay_Le == 1) {
                 $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "L"; // Lễ
             }
@@ -102,7 +102,7 @@ class TimeSheetsController extends Controller
             //     $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
             // } 
             elseif ($st->Luong == 100) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "A"; // Đi đầy đủ
+                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "F"; // Đi đầy đủ
             } elseif ($st->Luong > 100) {
                 $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "B"; // Thưởng + đi đầy đủ
             } else {

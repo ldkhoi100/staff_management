@@ -169,7 +169,7 @@
                     {{ Auth::user()->username }}
                     @endif
                 </span>
-                @if((Auth::user())->nhanvien->Anh_Dai_Dien != null)
+                @if(isset(Auth::user()->nhanvien->Anh_Dai_Dien))
                 <img class="img-profile rounded-circle" src="img/{{ (Auth::user())->nhanvien->Anh_Dai_Dien }}">
                 @else
                 <img class="img-profile rounded-circle" src="#">

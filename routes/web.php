@@ -47,9 +47,6 @@ Route::group(['prefix' => '/chuc-vu', 'middleware' => ['auth', 'role:ROLE_SUPERA
     Route::delete('/{id}/delete', "ChucvuController@delete")->name('cv.delete');
 });
 
-Route::get('/export_excel', 'ExcelController@index');
-Route::get('/export_excel/excel', 'ExcelController@excel')->name('export_excel.excel');
-
 /**
  * Table donxinphep
  */
@@ -204,6 +201,9 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
     });
 });
 
-
-
-Route::post('/export/month-salary', "ExcelController@monthSalary")->name('export.monthsalary');
+/**
+ * Export Excel
+ */
+Route::group(['prefix' => '/', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
+    Route::post('/export/month-salary', "ExcelController@monthSalary")->name('export.monthsalary');
+});

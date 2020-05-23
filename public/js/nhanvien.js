@@ -271,7 +271,7 @@ staff.selectHSL = function() {
         $(".HSL").empty();
         $.each(data, function(key, value) {
             $(".HSL").append(
-                `<option value="${value.id}">${value.Ca}</option>`
+                `<option value="${value.id}">${value.Mo_Ta + " (" + value.Gio_Lam + ")"}</option>`
             );
         });
     });
@@ -302,8 +302,8 @@ staff.selectHSLUpdate = function(hsl) {
         $.each(data, function(key, value) {
             $(".HSLEdit").append(
                 hsl != null && hsl == value.id ?
-                `<option value="${value.id}" selected>${value.Ca}</option>` :
-                `<option value="${value.id}">${value.Ca}</option>`
+                `<option value="${value.id}" selected>${value.Mo_Ta + " (" + value.Gio_Lam + ")"}</option>` :
+                `<option value="${value.id}">${value.Mo_Ta + " (" + value.Gio_Lam + ")"}</option>`
             );
         });
     });
