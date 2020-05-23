@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('users.modal.showModal')
+@include('Users.modal.showModal')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
