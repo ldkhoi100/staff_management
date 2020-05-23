@@ -31,14 +31,14 @@ class UsersController extends Controller
     {
         $users = $this->userService->getAll();
 
-        return view('users.index', compact('users'));
+        return view('Users.index', compact('users'));
     }
 
     public function indexAjax()
     {
         $users = $this->userService->getAll();
 
-        return view('users.ajax.list', compact('users'));
+        return view('Users.ajax.list', compact('users'));
     }
 
 
@@ -105,7 +105,7 @@ class UsersController extends Controller
     {
         $users = $this->userService->getSoftDeletes();
 
-        return view('users.ajax.trash', compact('users'));
+        return view('Users.ajax.trash', compact('users'));
     }
 
     public function restore($id)
