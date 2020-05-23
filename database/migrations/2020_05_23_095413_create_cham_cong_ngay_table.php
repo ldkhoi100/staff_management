@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChamCongNgayTable extends Migration {
+class CreateChamCongNgayTable extends Migration
+{
 
 	/**
 	 * Run the migrations.
@@ -12,10 +13,9 @@ class CreateChamCongNgayTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cham_cong_ngay', function(Blueprint $table)
-		{
+		Schema::create('cham_cong_ngay', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('MaNV')->unsigned()->index('MaNV');
+			$table->integer('MaNV')->unsigned()->index('MaNV1');
 			$table->integer('LuongCB')->unsigned()->index('LuongCB');
 			$table->date('Ngay_Hien_Tai')->nullable();
 			$table->boolean('Ngay_Le')->default(0);
@@ -37,5 +37,4 @@ class CreateChamCongNgayTable extends Migration {
 	{
 		Schema::drop('cham_cong_ngay');
 	}
-
 }

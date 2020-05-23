@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNhanVienTable extends Migration {
+class CreateNhanVienTable extends Migration
+{
 
 	/**
 	 * Run the migrations.
@@ -12,11 +13,10 @@ class CreateNhanVienTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('nhan_vien', function(Blueprint $table)
-		{
+		Schema::create('nhan_vien', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('hash')->nullable();
-			$table->integer('MaCV')->unsigned()->index('MaCV');
+			$table->integer('MaCV')->unsigned()->index('MaCV1');
 			$table->string('Anh_Dai_Dien')->nullable();
 			$table->string('Ho_Ten');
 			$table->date('Ngay_Sinh');
@@ -41,5 +41,4 @@ class CreateNhanVienTable extends Migration {
 	{
 		Schema::drop('nhan_vien');
 	}
-
 }
