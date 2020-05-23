@@ -29,9 +29,9 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
-        // if (count(Auth::user()->roles) > 0 && Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
-        //     return \abort(401);
-        // }
+        if (count(Auth::user()->roles) > 0 && Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
+            return redirect()->back();
+        }
 
         $staff = $this->nhanVienService->findIdAuth()['data'];
         $nghiPhep = $this->donXinPhep->findMaNV(Auth::id());

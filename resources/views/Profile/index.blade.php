@@ -40,8 +40,13 @@
                         <tr>
                             <td></td>
                             <td>
+                                @if(isset($staff->Anh_Dai_Dien))
                                 <img id="zoom" src="img/{{ $staff->Anh_Dai_Dien }}" alt="No Image" srcset="" width="150"
                                     style=" border: 1px solid #d9d9d9;" class="img-thumbnail">
+                                @else
+                                <img id="zoom" src="#" alt="No Image" srcset="" width="150"
+                                    style=" border: 1px solid #d9d9d9;" class="img-thumbnail">
+                                @endif
                             </td>
                             <td></td>
                         </tr>

@@ -63,25 +63,6 @@
 @stack('CRUD')
 @stack('jquery-api')
 @stack('script')
-<script>
-    // Script Ckeditor 4
-    // CKEDITOR.replace("content");
-
-    //Image onchange
-    function readURL(event) {
-        if (event.target.files && event.target.files[0]) {
-        let reader = new FileReader();
-
-        reader.onload = function () {
-        let output = document.getElementById('zoom');
-        output.src = reader.result;
-        }
-
-        reader.readAsDataURL(event.target.files[0]);
-        }
-    }
-
-</script>
 
 </body>
 

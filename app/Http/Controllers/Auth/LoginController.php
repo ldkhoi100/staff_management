@@ -45,7 +45,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->back()->with('toast', 'Thanks for visiting, See you again...');
+        return redirect()->route('login');
+        // return redirect()->back()->with('toast', 'Thanks for visiting, See you again...');
         // return redirect()->route('home')->with('toast', 'Thanks for visiting, See you again...');
     }
 
