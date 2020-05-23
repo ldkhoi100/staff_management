@@ -43,6 +43,7 @@ staff.modalCreate = function() {
     $("#show-edit-modal").css("display", "none");
     $(".create_modal").removeClass("is-invalid").removeClass("is-valid");
     $(".btn-create").prop("disabled", false);
+    $("#zoom").attr("src", "#");
     staff.selectMaCV();
     staff.selectHSL();
 };
