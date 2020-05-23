@@ -40,7 +40,7 @@
                 <td>{{ ucwords($staff->Ho_Ten) }}</td>
                 <td>{{ $staff->user->username }}</td>
                 <td>{{ $staff->chuc_vu->Ten_CV }}</td>
-                <td>{{ $staff->ca_lam->Ca }}</td>
+                <td>{{ $staff->ca_lam->Mo_Ta }}</td>
                 @if($staff->Anh_Dai_Dien != null)
                 <td><img src="img/{{ $staff->Anh_Dai_Dien }}" alt="" width="100"></td>
                 @else
