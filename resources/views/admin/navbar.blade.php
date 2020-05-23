@@ -172,7 +172,8 @@
                 @if(isset(Auth::user()->nhanvien->Anh_Dai_Dien))
                 <img class="img-profile rounded-circle" src="img/{{ (Auth::user())->nhanvien->Anh_Dai_Dien }}">
                 @else
-                <img class="img-profile rounded-circle" src="#">
+                <img class="img-profile rounded-circle"
+                    src="https://pickaface.net/gallery/avatar/20140912_221622_3328_admin.png">
                 @endif
             </a>
             <!-- Dropdown - User Information -->
