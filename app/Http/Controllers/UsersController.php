@@ -83,7 +83,7 @@ class UsersController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
-        if ($request->roles[0] == "2") {
+        if ($request->roles != null && $request->roles[0] == "2") {
             $request->roles = null;
         }
         $requestData = $request->except('id', 'block', 'roles');
