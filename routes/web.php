@@ -15,7 +15,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 // Admin manager layouts
-Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
+Route::get('/', 'AdminController@dashboard')->name('dashboard');
 Route::get('/errors', 'AdminController@error404')->name('error404');
 // Route::get('/blank', 'AdminController@blank')->name('blank');
 // Route::get('/button', 'AdminController@button')->name('button');
