@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ChucvuService;
 use App\Http\Requests\ChucvuRequest;
+
 class ChucvuController extends Controller
 {
 
@@ -12,7 +13,7 @@ class ChucvuController extends Controller
 
     public function __construct(ChucvuService $chucvuService)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         // $this->middleware('role:admin|superAdmin')->except(['create', 'delete','restore', 'moveToTrash']);
         // $this->middleware('role:superAdmin')->only(['create', 'delete','restore', 'moveToTrash']);
         // $this->middleware('AjaxRequest')->except('index');
