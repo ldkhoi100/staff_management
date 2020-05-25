@@ -13,6 +13,8 @@
     }
 </style>
 <!-- Breadcrumb Section Begin -->
+
+@can('user')
 <div class="breacrumb-section">
     <div class="container">
         <div class="row">
@@ -25,6 +27,7 @@
         </div>
     </div>
 </div>
+@endcan
 <!-- Breadcrumb Form Section Begin -->
 
 <!-- Section Begin -->

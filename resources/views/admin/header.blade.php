@@ -56,6 +56,8 @@
 
 </head>
 
+@can('user')
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -131,7 +133,6 @@
     <div class="sidebar-heading">
         Manager
     </div>
-
     <!-- Nav Item - Pages Collapse Menu -->
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
@@ -222,3 +223,5 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
+
+        @endcan
