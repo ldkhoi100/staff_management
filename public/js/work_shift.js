@@ -228,7 +228,7 @@ Ws.errors = function(errors) {
 Ws.init = function() {
     Ws.drawTable();
     Ws.drawTableTrash();
-}
+};
 
 $(document).ready(function() {
     Ws.init();
