@@ -107,7 +107,7 @@ Ws.edit = function(id) {
     }).fail(function(errors) {
         Ws.errors(errors);
     });
-}
+};
 
 Ws.openModal = function(edit = null) {
     if (edit) {
