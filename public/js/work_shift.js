@@ -15,8 +15,8 @@ Ws.drawTable = function() {
                         key: i++,
                         ca: json.Ca,
                         gio: json.Gio_Lam,
+                        nhanvien: json.count_staff,
                         mt: json.Mo_Ta,
-                        crt: json.created_at,
                         action: `
                             <a class="btn btn-secondary text-light" onclick="Ws.edit(${json.id})">Edit</a>
                             <a class="btn btn-warning text-dark" onclick="Ws.trash(${json.id})">Trash</a>
@@ -32,9 +32,9 @@ Ws.drawTable = function() {
         }, {
             data: "gio"
         }, {
-            data: "mt"
+            data: "nhanvien"
         }, {
-            data: "crt"
+            data: "mt"
         }, {
             data: "action"
         }]

@@ -94,8 +94,12 @@
 
                         <tr>
                             <td><label for="name">Current Basic Salary (Each Shift): &nbsp;</label> </td>
-                            <td><span
-                                    class="borderSpan">${{ number_format($base_salary * $staff->chuc_vu->Bac_Luong, 0) }}</span>
+                            <td><span class="borderSpan">
+                                    @if($base_salary != "Not Update")
+                                    ${{ number_format($base_salary * $staff->chuc_vu->Bac_Luong, 0) }}</span>
+                                @else
+                                <span>{{ $base_salary }}</span>
+                                @endif
                             </td>
                             <td></td>
                         </tr>
