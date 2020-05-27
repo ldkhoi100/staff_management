@@ -15,7 +15,6 @@ Dxp.drawTable = function() {
                         Key: ++i,
                         Cv: json.nhanvien_name,
                         Cv1: json.TieuDe,
-                        Cv2: json.NoiDung,
                         Cv3: json.created_at,
                         action: `
                             <a class="btn btn-success text-light" onclick="Dxp.show(${json.id})">Show</a>
@@ -27,25 +26,16 @@ Dxp.drawTable = function() {
             }
         },
         columns: [{
-                data: "Key"
-            },
-            {
-                data: "Cv"
-            },
-            {
-                data: "Cv1"
-            },
-            {
-                data: "Cv2"
-            },
-            {
-                data: "Cv3"
-            },
-            {
-                data: "action"
-            }
-        ]
-
+            data: "Key"
+        }, {
+            data: "Cv"
+        }, {
+            data: "Cv1"
+        }, {
+            data: "Cv3"
+        }, {
+            data: "action"
+        }]
     });
 };
 
