@@ -15,7 +15,7 @@ class CreateDonXinPhepTable extends Migration
 	{
 		Schema::create('don_xin_phep', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('MaNV')->unsigned()->index('MaNV2');
+			$table->integer('MaNV')->unsigned()->index();
 			$table->string('TieuDe');
 			$table->text('NoiDung', 65535);
 			$table->timestamps();
