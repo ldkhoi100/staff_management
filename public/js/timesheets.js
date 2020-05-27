@@ -33,7 +33,7 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                                 </div>
                                 `,
                         col3: `
-                        <select class="form-control salary" onchange="Ts.updateSalary(${obj.id},this.value)">
+                        <select class="form-control salary" ${obj.Nghi_Phep ? "disabled": ""} onchange="Ts.updateSalary(${obj.id},this.value)">
                             <option value="150"  ${obj.Luong==150?'selected':''}>150%</option>
                             <option value="140"  ${obj.Luong==140?'selected':''}>140%</option>
                             <option value="130"  ${obj.Luong==130?'selected':''}>130%</option>

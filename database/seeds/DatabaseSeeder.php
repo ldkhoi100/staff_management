@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
                 $this->call(CaLamTableSeeder::class);
                 $this->call(ChucVuTableSeeder::class);
                 $this->call(LuongCoBanTableSeeder::class);
-            $this->call(NhanVienTableSeeder::class);
+                $this->call(NhanVienTableSeeder::class);
     }
 }
