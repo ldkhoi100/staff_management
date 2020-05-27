@@ -19,23 +19,6 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
         return $model;
     }
 
-    // public function getAll()
-    // {
-    //     if (Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
-    //         $result = User::where('id', '<>', Auth::user()->id)->get();
-    //     } elseif (Auth::user()->roles[0]->name == "ROLE_ADMIN") {
-    //         $users = $this->model->where('id', '<>', Auth::user()->id)->get();
-    //         $result = [];
-    //         foreach ($users as $user) {
-    //             if (count($user->roles) == 0) {
-    //                 $result[] = $user;
-    //             }
-    //         }
-    //     }
-    //     // $result = User::all();
-    //     return $result;
-    // }
-
     public function findOnlyTrashed($id)
     {
         $result = $this->model->onlyTrashed()->find($id);
@@ -76,6 +59,7 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
         $object->cham_cong()->delete();
         $object->don_xin_phep()->delete();
         $object->delete();
+        $object->user()->delete();
     }
 
     public function restore($object)
@@ -83,6 +67,7 @@ class NhanVienRepositoryImpl extends EloquentRepository implements NhanVienRepos
         $object->cham_cong()->restore();
         $object->don_xin_phep()->restore();
         $object->restore();
+        $object->user()->restore();
     }
 
     public function delete($object)

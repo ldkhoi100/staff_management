@@ -9,13 +9,14 @@ Cv.drawTable = function() {
         ajax: {
             url: '/chuc-vu/all',
             dataSrc: function(jsons) {
-                let i = 0;
+                let i = 1;
                 return jsons.map(json => {
                     return {
-                        no: ++i,
+                        no: i++,
                         Cv: json.Ten_CV,
                         Cv1: json.Cong_Viec,
                         Cv2: json.Bac_Luong,
+                        nhanvien: json.count_staff,
                         action: `
                             <a class="btn btn-success text-light" onclick="Cv.show(${json.id})">Show</a>
                             <a class="btn btn-secondary text-light" onclick="Cv.edit(${json.id})">Edit</a>
@@ -36,6 +37,8 @@ Cv.drawTable = function() {
             },
             {
                 data: "Cv2"
+            }, {
+                data: "nhanvien"
             },
             {
                 data: "action"

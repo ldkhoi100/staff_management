@@ -14,9 +14,6 @@ class ChucvuController extends Controller
     public function __construct(ChucvuService $chucvuService)
     {
         $this->middleware('auth');
-        // $this->middleware('role:admin|superAdmin')->except(['create', 'delete','restore', 'moveToTrash']);
-        // $this->middleware('role:superAdmin')->only(['create', 'delete','restore', 'moveToTrash']);
-        // $this->middleware('AjaxRequest')->except('index');
         $this->chucvuService = $chucvuService;
     }
 
@@ -28,11 +25,12 @@ class ChucvuController extends Controller
     public function getAll()
     {
         $factorSalaries = $this->chucvuService->getAll();
+        foreach ($factorSalaries as $value) {
+            $value['count_staff'] = count($value->nhan_vien);
+        }
 
         return response()->json($factorSalaries);
     }
-
-
 
     public function show($id)
     {
@@ -41,8 +39,6 @@ class ChucvuController extends Controller
 
         return response()->json(['data' => $data], 200);
     }
-
-
 
     public function findById($id)
     {
@@ -64,7 +60,6 @@ class ChucvuController extends Controller
 
         return response()->json($chucvu['data'], $chucvu['status']);
     }
-
 
     public function moveToTrash($id)
     {

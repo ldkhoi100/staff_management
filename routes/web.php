@@ -139,7 +139,6 @@ Route::group(['prefix' => '/base-salary', 'middleware' => ['auth', 'role:ROLE_AD
 //     Route::delete('/{id}/delete', 'RoleController@delete')->name('role.delete');
 // });
 
-
 /**
  * Table ca lam
  */
