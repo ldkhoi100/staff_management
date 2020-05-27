@@ -176,7 +176,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('ts.index') }}">
+        <a class="nav-link" href="/timesheets">
             <i class="fas fa-fw fa-table"></i>
             <span>Timesheets</span></a>
     </li>
