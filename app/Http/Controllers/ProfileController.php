@@ -41,7 +41,8 @@ class ProfileController extends Controller
         $year = $request->month ? $year = date("Y", strtotime($request->month)) : date("Y");
         $month_year = $request->month ? date("m-Y", strtotime($request->month)) : date("m-Y");
 
-        $date_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $date_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+        // $date_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $result = [];
         $total = 0;
         $count = 0;
