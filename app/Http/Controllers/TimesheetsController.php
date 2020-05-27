@@ -110,9 +110,9 @@ class TimeSheetsController extends Controller
             }
 
             if (isset($stt[$st->nhan_vien->Ho_Ten]['total'])) {
-                $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong;
+                $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
             } else {
-                $stt[$st->nhan_vien->Ho_Ten]['total'] = $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong;
+                $stt[$st->nhan_vien->Ho_Ten]['total'] = $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
             }
         }
 
