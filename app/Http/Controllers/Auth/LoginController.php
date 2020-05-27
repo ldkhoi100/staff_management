@@ -78,10 +78,15 @@ class LoginController extends Controller
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) {
-            if (session('link')) {
-                return redirect(session('link'))->with('toast', "Welcome back !");
+            // if (session('link')) {
+            //     return redirect(session('link'))->with('toast', "Welcome back !");
+            // } else {
+            //     return back()->with('toast', "Welcome back !");
+            // }
+            if (count(Auth::user()->roles) == 0) {
+                return redirect()->route("profile.index");
             } else {
-                return back()->with('toast', "Welcome back !");
+                return redirect()->route("dashboard");
             }
         } else {
             return redirect()->route('login')->with('error', 'Username/email or password you entered are incorrect');

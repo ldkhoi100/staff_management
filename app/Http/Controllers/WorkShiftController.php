@@ -24,6 +24,10 @@ class WorkShiftController extends Controller
     public function getAll()
     {
         $workShift = $this->workShiftService->getAll();
+        foreach ($workShift as $value) {
+            $value['count_staff'] = count($value->nhan_vien);
+        }
+        // dd($workShift);
 
         return response()->json($workShift);
     }

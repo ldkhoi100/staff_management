@@ -4,8 +4,8 @@
             <th>#</th>
             <th>Work Shift</th>
             <th>Work Time</th>
+            <th>Number Of Staff</th>
             <th>Description</th>
-            <th>Created At</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -16,8 +16,8 @@
             <th>#</th>
             <th>Work Shift</th>
             <th>Work Time</th>
+            <th>Number Of Staff</th>
             <th>Description</th>
-            <th>Created At</th>
             <th>Action</th>
         </tr>
     </tfoot>
