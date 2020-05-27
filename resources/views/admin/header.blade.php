@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <base href="{{ asset('') }}">
+    <base href="http://staff-managerment.herokuapp.com/">
 
     <!-- Custom fonts for this template-->
     <link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
