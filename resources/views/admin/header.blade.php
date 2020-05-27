@@ -31,6 +31,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <!-- jsDeliver -->
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}

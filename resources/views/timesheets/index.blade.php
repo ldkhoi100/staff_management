@@ -74,6 +74,17 @@
                                 <th>Description</th>
                             </tr>
                         </thead>
+                        <tfoot>
+                            <tr>
+                                <th width="1%">#</th>
+                                <th>Full Name</th>
+                                <th>Position</th>
+                                <th width="20%">Work Shift</th>
+                                <th>Sabbatical Leave</th>
+                                <th width="11%">Salary</th>
+                                <th>Description</th>
+                            </tr>
+                        </tfoot>
                         <tbody>
                         </tbody>
                     </table>

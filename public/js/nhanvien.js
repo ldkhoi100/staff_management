@@ -324,6 +324,7 @@ staff.init = function() {
     staff.trashTable();
     $(".select2").select2();
     staff.selectMaCV();
+    $(".lazy").Lazy();
 };
 
 $(document).ready(function() {

@@ -16,7 +16,28 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
         }
     });
 
+    $('#bang-chamcong tfoot th').each(function() {
+        var title = $(this).text();
+        if (title == "Full Name" || title == "Position" || title == "Work Shift") {
+            $(this).html('<input type="text" size="10" class="form-control font-font-weight-lighter" placeholder="Search ' + title + '" />');
+        }
+    });
+
     Ts.table = $('#bang-chamcong').DataTable({
+        initComplete: function() {
+            // Apply the search
+            this.api().columns().every(function() {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        },
         ajax: {
             url: `/timesheets/${url}/get`,
             dataSrc: function(jsons) {
@@ -34,22 +55,22 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                                 `,
                         col3: `
                         <select class="form-control salary" ${obj.Nghi_Phep ? 'disabled' : ''} onchange="Ts.updateSalary(${obj.id},this.value)">
-                            <option value="150"  ${obj.Luong==150?'selected':''}>150%</option>
-                            <option value="140"  ${obj.Luong==140?'selected':''}>140%</option>
-                            <option value="130"  ${obj.Luong==130?'selected':''}>130%</option>
-                            <option value="120"  ${obj.Luong==120?'selected':''}>120%</option>
-                            <option value="110"  ${obj.Luong==110?'selected':''}>110%</option>
-                            <option value="100" ${obj.Luong==100?'selected':''}>100%</option>
-                            <option value="90"  ${obj.Luong==90?'selected':''}>90%</option>
-                            <option value="80"  ${obj.Luong==80?'selected':''}>80%</option>
-                            <option value="70"  ${obj.Luong==70?'selected':''}>70%</option>
-                            <option value="60"  ${obj.Luong==60?'selected':''}>60%</option>
-                            <option value="50"  ${obj.Luong==50?'selected':''}>50%</option>
-                            <option value="40"  ${obj.Luong==40?'selected':''}>40%</option>
-                            <option value="30"  ${obj.Luong==30?'selected':''}>30%</option>
-                            <option value="20"  ${obj.Luong==20?'selected':''}>20%</option>
-                            <option value="10"  ${obj.Luong==10?'selected':''}>10%</option>
-                            <option value="0"   ${obj.Luong==0?' selected':''}>0%</option>
+                            <option value="150"  ${obj.Luong==150 ? 'selected':''}>150%</option>
+                            <option value="140"  ${obj.Luong==140 ? 'selected':''}>140%</option>
+                            <option value="130"  ${obj.Luong==130 ? 'selected':''}>130%</option>
+                            <option value="120"  ${obj.Luong==120 ? 'selected':''}>120%</option>
+                            <option value="110"  ${obj.Luong==110 ? 'selected':''}>110%</option>
+                            <option value="100"  ${obj.Luong==100 ? 'selected':''}>100%</option>
+                            <option value="90"   ${obj.Luong==90  ? 'selected':''}>90%</option>
+                            <option value="80"   ${obj.Luong==80  ? 'selected':''}>80%</option>
+                            <option value="70"   ${obj.Luong==70  ? 'selected':''}>70%</option>
+                            <option value="60"   ${obj.Luong==60  ? 'selected':''}>60%</option>
+                            <option value="50"   ${obj.Luong==50  ? 'selected':''}>50%</option>
+                            <option value="40"   ${obj.Luong==40  ? 'selected':''}>40%</option>
+                            <option value="30"   ${obj.Luong==30  ? 'selected':''}>30%</option>
+                            <option value="20"   ${obj.Luong==20  ? 'selected':''}>20%</option>
+                            <option value="10"   ${obj.Luong==10  ? 'selected':''}>10%</option>
+                            <option value="0"    ${obj.Luong==0   ?  'selected':''}>0%</option>
                         </select>
                         `,
                         col4: `<input type="button" class="btn btn-success" value="Description" onclick="Ts.description(${obj.id})"> ${obj.Ghi_Chu ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times" style="color:#ee4d2d"></i>'}`,
