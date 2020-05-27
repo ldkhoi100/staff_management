@@ -52,7 +52,7 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
                             <option value="0"   ${obj.Luong==0?' selected':''}>0%</option>
                         </select>
                         `,
-                        col4: `<input type="button" class="btn btn-success" value="Description" onclick="Ts.description(${obj.id})"> ${obj.Ghi_Chu ? '<i class="fas fa-check"></i>' : '<i class="far fa-calendar-times"></i>'}`,
+                        col4: `<input type="button" class="btn btn-success" value="Description" onclick="Ts.description(${obj.id})"> ${obj.Ghi_Chu ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times" style="color:#ee4d2d"></i>'}`,
                     };
                 });
             }

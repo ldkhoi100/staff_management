@@ -14,7 +14,7 @@
     }
 </style>
 
-<div class="container-fluid my-5">
+<div class="container-fluid">
     <nav class="nav">
         <li class="nav-item">
             <div class="form-group">
@@ -41,43 +41,43 @@
             </div>
         </li>
     </nav>
-</div>
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-            <span style="float: left">Manager Timesheets<br>
-                Your role:<span style="color: brown">
-                    @if(count(Auth::user()->roles) > 0)
-                    {{ Auth::user()->roles[0]->name }}
-                    @endif
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <span style="float: left">Manager Timesheets<br>
+                    Your role:<span style="color: brown">
+                        @if(count(Auth::user()->roles) > 0)
+                        {{ Auth::user()->roles[0]->name }}
+                        @endif
+                    </span>
                 </span>
-            </span>
-            <div class="form-group" style="float: right">
-                <label> Current Day</label>
-                <input type="date" class="form-control" value="{{ date('Y-m-d') }}" id="current-day">
-            </div>
-        </h6>
+                <div class="form-group" style="float: right">
+                    <label>Current Day</label>
+                    <input type="date" class="form-control" value="{{ date('Y-m-d') }}" id="current-day">
+                </div>
+            </h6>
 
-    </div>
+        </div>
 
-    <div class="tab-content">
-        <div class="tab-pane active" id="home">
-            <div class="card-body" id="reload_table">
-                <table id="bang-chamcong" class="table table-striped mt-2" style="text-align: center">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th width="1%">#</th>
-                            <th>Full Name</th>
-                            <th>Position</th>
-                            <th width="20%">Work Shift</th>
-                            <th>Sabbatical Leave</th>
-                            <th width="10%">Salary</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+        <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <div class="card-body" id="reload_table">
+                    <table id="bang-chamcong" class="table table-striped mt-2" style="text-align: center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="1%">#</th>
+                                <th>Full Name</th>
+                                <th>Position</th>
+                                <th width="20%">Work Shift</th>
+                                <th>Sabbatical Leave</th>
+                                <th width="11%">Salary</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -104,7 +104,9 @@
         @include('timesheets.export.table')
     </div>
 </div>
+
 @include('timesheets.modal.timesheet_statistic_modal')
+
 @endsection
 
 @push('CRUD')
