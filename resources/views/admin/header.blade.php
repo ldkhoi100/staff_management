@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <base href="http://staff-managerment.herokuapp.com/">
+    <base href="{{ asset('/') }}">
 
     <!-- Custom fonts for this template-->
     <link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -176,7 +176,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="/timesheets">
+        <a class="nav-link" href="{{ route('ts.index') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Timesheets</span></a>
     </li>
