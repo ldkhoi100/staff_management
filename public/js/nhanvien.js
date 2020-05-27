@@ -64,7 +64,6 @@ staff.modalEdit = function(id) {
                 $(`#modal-update [name=${key}]`).not(`#modal-update [name=Anh_Dai_Dien]`).val(data);
             });
             $("#ShowModal").find("#EditStaff").html(`Edit Staff ${response.Ho_Ten}`);
-
             if (response.Gioi_Tinh == "Male") {
                 $("#Gioi_Tinh3").prop("checked", true);
             } else if (response.Gioi_Tinh == "Female") {
@@ -324,6 +323,7 @@ staff.init = function() {
     staff.drawTable();
     staff.trashTable();
     $(".select2").select2();
+    staff.selectMaCV();
 };
 
 $(document).ready(function() {

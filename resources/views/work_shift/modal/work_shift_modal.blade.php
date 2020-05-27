@@ -4,9 +4,8 @@
             <form>
                 <div class="modal-header">
                     <h5 class="modal-title text-center" id="ws-modal-title">Create Factor Salary</h5>
-                    <button class="btn btn-dark" type="button"
-                        onclick="confirm('Close modal this')?$('#ws-modal').modal('hide'):''">
-                        <span>&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body container">

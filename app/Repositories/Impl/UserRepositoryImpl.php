@@ -126,4 +126,16 @@ class UserRepositoryImpl extends EloquentRepository implements UserRepository
 
         return $object;
     }
+
+    public function destroy($object)
+    {
+        $object->nhanvien()->delete();
+        $object->delete();
+    }
+
+    public function restore($object)
+    {
+        $object->nhanvien()->restore();
+        $object->restore();
+    }
 }

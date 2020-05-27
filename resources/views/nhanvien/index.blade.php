@@ -28,13 +28,15 @@
 
     <!-- DataTales -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex">
             <h6 class="m-0 font-weight-bold text-primary">Manager staff -
                 Your role:<span style="color: brown">
                     @if(count(Auth::user()->roles) > 0)
                     {{ Auth::user()->roles[0]->name }}
                     @endif
                 </span>
+            </h6>
+            <h6 class="ml-5">
             </h6>
         </div>
 

@@ -7,7 +7,6 @@ use App\Services\ChucvuService;
 use App\Services\FactorSalaryService;
 use App\Services\UserService;
 use Str;
-use Validator;
 use App\User;
 use Hash;
 use Illuminate\Support\Facades\Auth;
@@ -29,8 +28,8 @@ class NhanVienController extends Controller
 
     public function __construct(NhanVienService $staffService, ChucvuService $chucVuService, WorkShiftService $workShiftService, UserService $userService)
     {
-        // $this->middleware('auth');
-        // $this->middleware('AjaxRequest')->except('index');
+        $this->middleware('auth');
+        $this->middleware('AjaxRequest')->except('index');
         $this->staffService = $staffService;
         $this->chucVuService = $chucVuService;
         $this->workShiftService = $workShiftService;

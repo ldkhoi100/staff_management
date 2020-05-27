@@ -16,13 +16,14 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <table id="fs-table" class="table table-borderless table-hover" width="100%">
+            <table id="fs-table" class="table table-bordered table-hover" width="100%">
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
                         <th>Name Position</th>
                         <th>Job</th>
                         <th>Coefficients Salary</th>
+                        <th>Number Of Staff</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <th>Name Position</th>
                         <th>Job</th>
                         <th>Coefficients Salary</th>
+                        <th>Number Of Staff</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -70,8 +72,7 @@
                     <form>
                         <div class="modal-header">
                             <h5>Create Factor Salary</h5>
-                            <button class="btn btn-dark" type="button" aria-label="Close"
-                                onclick="confirm()?$('#fs-modal').modal('hide'):''">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

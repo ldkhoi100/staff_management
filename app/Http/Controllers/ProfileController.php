@@ -30,7 +30,8 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         if (count(Auth::user()->roles) > 0 && Auth::user()->roles[0]->name == "ROLE_SUPERADMIN") {
-            return redirect()->back();
+            $error = "Access area for staff and management";
+            return response()->json($error, 401);
         }
 
         $staff = $this->nhanVienService->findIdAuth()['data'];
