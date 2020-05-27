@@ -178,13 +178,13 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
     Route::put('/{status}/{date}/holiday', "TimeSheetsController@holiday")->name('ts.holiday');
     Route::put('/{base}/{date}/basesalary', "TimeSheetsController@baseSalary")->name('ts.baseSalary');
     Route::group(['middleware' => 'role:ROLE_SUPERADMIN'], function () {
+        Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
         Route::post('/', "TimeSheetsController@create")->name('ts.create');
         Route::put('/{id}', "TimeSheetsController@update")->name('ts.update');
         Route::put('/{id}/restore', "TimeSheetsController@restore")->name('ts.restore');
         Route::put('/{status}/{id}/sabbatical', "TimeSheetsController@sabbatical")->name('ts.sabbatical');
         Route::delete('/{id}', "TimeSheetsController@moveToTrash")->name('ts.moveToTrash');
         Route::delete('/{id}/delete', "TimeSheetsController@delete")->name('ts.delete');
-        Route::get('/{id}', "TimeSheetsController@findById")->name('ts.findById');
     });
 });
 

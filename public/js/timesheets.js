@@ -121,7 +121,7 @@ Ts.updateBaseSalary = function(base) {
 
 Ts.description = function(id) {
     $.ajax({
-        url: `/timesheets/${id}`,
+        url: `timesheets/${id}`,
         method: 'get',
         success: function(obj) {
             $("#mota-chitiet").val(obj.Ghi_Chu);
