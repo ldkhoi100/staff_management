@@ -36,7 +36,12 @@ class TimeSheetsController extends Controller
     {
         $timeSheets = $this->timeSheetsService->getDay($date);
 
-        return response()->json($timeSheets, 200);
+        $month = explode('-', $date)[1];
+        $now = date('m');
+        if ($month != $now)
+            return response()->json(['data' => $timeSheets, 'edit' => false], 200);
+
+        return response()->json(['data' => $timeSheets, 'edit' => true], 200);
     }
 
     /**
@@ -93,34 +98,19 @@ class TimeSheetsController extends Controller
         foreach ($statistic as $st) {
             $days = $st->Ngay_Hien_Tai;
             $day = explode("-", $days)[2];
-            if ($st->Nghi_Phep == 1) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
-            } elseif ($st->Ngay_Le == 1) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "L"; // Lễ
-            }
-            // elseif ($st->Luong == 0) {
-            //     $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
-            // } 
-            elseif ($st->Luong == 100) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "F"; // Đi đầy đủ
-            } elseif ($st->Luong > 100) {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "B"; // Thưởng + đi đầy đủ
-            } else {
-                $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "X"; // Trừ lương
-            }
+            if ($st->Nghi_Phep == 1)    $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "V"; // Vắng
+            elseif ($st->Ngay_Le == 1)  $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "L"; // Lễ
+            elseif ($st->Luong == 100)  $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "F"; // Đi đầy đủ
+            elseif ($st->Luong > 100)   $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "B"; // Thưởng + đi đầy đủ
+            else                        $stt[$st->nhan_vien->Ho_Ten]['day'][$day] = "X"; // Trừ lương
 
-            if (isset($stt[$st->nhan_vien->Ho_Ten]['total'])) {
-                $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
-            } else {
-                $stt[$st->nhan_vien->Ho_Ten]['total'] = $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
-            }
+            if (isset($stt[$st->nhan_vien->Ho_Ten]['total']))   $stt[$st->nhan_vien->Ho_Ten]['total'] += $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
+            else $stt[$st->nhan_vien->Ho_Ten]['total'] =        $st->luongCB->Tien_Luong * ($st->Luong / 100) * $st->nhan_vien->chuc_vu->Bac_Luong * ($st->Ngay_Le + 1);
         }
 
         foreach ($stt as $key => $nv) {
             for ($i = 1; $i <= 31; $i++) {
-                if (!array_key_exists($i, $nv['day'])) {
-                    $stt[$key]['day'][$i] = "-";
-                }
+                if (!array_key_exists($i, $nv['day'])) $stt[$key]['day'][$i] = "-";
             }
         }
 
@@ -137,14 +127,29 @@ class TimeSheetsController extends Controller
         return response()->json($timeSheets['data'], $timeSheets['status']);
     }
 
-    /**
-     * Chưa sử dụng
-     */
     public function create(Request $request)
     {
-        $timeSheets = $this->timeSheetsService->create($request->all());
 
-        return response()->json($timeSheets['data'], $timeSheets['status']);
+        $date = $request->date;
+        $month = explode('-', $date)[1];
+        $day = strtotime($date);
+
+        $now_day = strtotime(date("Y-m-d"));
+        $now_month = date('m');
+
+        $current_timesheets = $this->timeSheetsService->getDay($date);
+
+        if ((count($current_timesheets) > 0) && $month == $now_month && $day <= $now_day) {
+            return response()->json("This date has been created before", 403);
+        }
+
+        if ($month == $now_month && $day <= $now_day) {
+            $timeSheets = $this->timeSheetsService->create($date);
+            return response()->json($timeSheets['data'], $timeSheets['status']);
+        } elseif ($day > $now_day || $month != $now_month) {
+            return response()->json("You can't create this day (Create new days in the month or past days)", 403);
+        }
+        return response()->json("You can't create this day (Create new days in the month or past days)", 403);
     }
 
     /**

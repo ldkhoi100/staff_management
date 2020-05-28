@@ -32,6 +32,7 @@
 
         <li class="nav-item mx-auto">
             <button type="button" class="btn btn-info" onclick="Ts.statistic()">TimeSheets Statistic</button>
+            <button type="button" class="btn btn-info" onclick="Ts.create()">Create Date</button>
         </li>
 
         <li class="nav-item">
@@ -122,6 +123,10 @@
 
 @push('CRUD')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js">
+</script>
 <script src="js/timesheets.js"></script>
 
 @endpush

@@ -2,20 +2,6 @@ let Ts = {} || Ts;
 
 Ts.table;
 Ts.listCustomer = function(url = $('#current-day').val()) {
-    $.ajax({
-        url: `/timesheets/${url}/get`,
-        method: 'get',
-        success: function(data) {
-            if (data) {
-                let obj = data[0];
-                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
-                if (obj.Ngay_Le) {
-                    $('#holiday').attr('checked', "");
-                }
-            }
-        }
-    });
-
     $('#bang-chamcong tfoot th').each(function() {
         var title = $(this).text();
         if (title == "Full Name" || title == "Position" || title == "Work Shift") {
@@ -28,7 +14,6 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
             // Apply the search
             this.api().columns().every(function() {
                 var that = this;
-
                 $('input', this.footer()).on('keyup change clear', function() {
                     if (that.search() !== this.value) {
                         that
@@ -42,19 +27,29 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
             url: `/timesheets/${url}/get`,
             dataSrc: function(jsons) {
                 let i = 0;
-                return jsons.map(obj => {
+                let edit = jsons.edit ? '' : 'disabled';
+                if (!jsons.edit) {
+                    $('#holiday').attr('disabled', "");
+                    $('#baseSalary').attr('disabled', "");
+                    $('#luu-them-mota').attr('hidden', "");
+                } else {
+                    $('#holiday').removeAttr('disabled');
+                    $('#baseSalary').removeAttr('disabled');
+                    $('#luu-them-mota').removeAttr('hidden');
+                }
+                return jsons.data.map(obj => {
                     return {
                         no: ++i,
                         col1: "Id: NV" + obj.MaNV + "<br>" + obj.NV,
                         col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="sabbatical${obj.id}" onclick="Ts.sabbatical(${obj.id})" ${obj.Nghi_Phep ? 'checked' : ''}>
+                                <input type="checkbox" class="custom-control-input" ${edit} id="sabbatical${obj.id}" onclick="Ts.sabbatical(${obj.id})" ${obj.Nghi_Phep ? 'checked' : ''}>
                                 <label class="custom-control-label" for="sabbatical${obj.id}"></label>
                                 </div>
                                 `,
                         col3: `
-                        <select class="form-control salary" ${obj.Nghi_Phep ? 'disabled' : ''} onchange="Ts.updateSalary(${obj.id},this.value)">
+                        <select class="form-control salary" ${obj.Nghi_Phep ? 'disabled' : ''} ${edit} onchange="Ts.updateSalary(${obj.id},this.value)">
                             <option value="150"  ${obj.Luong==150 ? 'selected':''}>150%</option>
                             <option value="140"  ${obj.Luong==140 ? 'selected':''}>140%</option>
                             <option value="130"  ${obj.Luong==130 ? 'selected':''}>130%</option>
@@ -93,6 +88,64 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
         }, {
             data: 'col4'
         }]
+    });
+
+    $.ajax({
+        url: `/timesheets/${url}/get`,
+        method: 'get',
+        success: function(data) {
+
+            if (data.data.lenght > 0) {
+                let obj = data.data[0];
+                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
+                if (obj.Ngay_Le) {
+                    $('#holiday').attr('checked', "");
+                }
+            }
+        }
+    });
+};
+
+Ts.create = function() {
+    let day = $('#current-day').val();
+    swal({
+        title: `Do you want create new Timesheets of date ${day} ?`,
+        text: `Date ${day} will be create !`,
+        icon: "warning",
+        buttons: ["No, cancel it!", "Yes, I am sure!"],
+        dangerMode: true,
+    }).then(function(isConfirm) {
+        if (isConfirm) {
+            $.ajax({
+                url: '/timesheets',
+                method: 'post',
+                data: {
+                    'date': `${day}`
+                },
+                success: function(data) {
+                    Ts.table.ajax.reload();
+                    toastr.success(`Timesheets of date ${day} created!`);
+                },
+                error: function(res) {
+                    console.log(res)
+                    if (res.status == 403)
+                        toastr.error(res.responseJSON);
+                }
+            });
+        } else {
+            // swal("Cancelled", "This staff is safe :)", "error");
+        }
+    });
+};
+
+Ts.error = function(msg) {
+    $.toast({
+        heading: "error",
+        text: msg,
+        hideAfter: 5000,
+        position: 'bottom-right',
+        showHideTransition: 'slide',
+        icon: 'error'
     });
 };
 
