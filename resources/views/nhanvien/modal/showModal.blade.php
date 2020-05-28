@@ -193,7 +193,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="reset" class="btn btn-warning reset_form">Reset</button>
-                <button type="button" class="btn btn-primary btn-create" onclick="staff.create(this)">Create</button>
+                <button type="button" class="btn btn-primary btn-create" id="create-button"
+                    onclick="staff.create(this)">Create</button>
                 </form>
             </div>
 
@@ -353,7 +354,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-edit" onclick="staff.update(this)">Save
+                <button type="button" class="btn btn-primary btn-edit" id="edit-button"
+                    onclick="staff.update(this)">Save
                     Changes</button>
                 </form>
             </div>
