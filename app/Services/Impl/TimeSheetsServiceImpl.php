@@ -46,20 +46,30 @@ class TimeSheetsServiceImpl implements TimeSheetsService
         return $data;
     }
 
-    public function create($request)
+    public function create($date)
     {
-        $timeSheets = $this->timeSheetsRepository->create($request);
+        $timeSheets = $this->timeSheetsRepository->getDay($date)->first();
+        $dates = strtotime($date);
 
-        $status = 201;
-        if (!$timeSheets)
-            $status = 500;
+        $now = strtotime(date('Y-m-d'));
+        if (!$timeSheets && $dates <= $now) {
+            $nhavien = $this->nhavien->getAll();
+            $bs = $this->baseSalary->getAll()->first();
+            foreach ($nhavien as $nv) {
+                $nv->cham_cong()->create(['Ngay_Hien_Tai' => $date, 'LuongCB' => $bs->id]);
+            }
+        }
 
-        $data = [
-            'status' => $status,
-            'data' => $timeSheets
-        ];
+        $timeSheets = $this->timeSheetsRepository->getDay($date);
 
-        return $data;
+        foreach ($timeSheets as $no => $ts) {
+            $nv = $this->nhavien->findById($ts->MaNV);
+            $timeSheets[$no]['NV'] = $nv->Ho_Ten;
+            $timeSheets[$no]['Ca'] = $nv->ca_lam->Mo_Ta;
+            $timeSheets[$no]['CV'] = $nv->chuc_vu->Ten_CV;
+        }
+
+        return ['data'=>$timeSheets, 'status'=>201];
     }
 
     public function update($request, $id)

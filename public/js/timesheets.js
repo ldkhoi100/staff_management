@@ -1,22 +1,9 @@
 let Ts = {} || Ts;
 
 Ts.table;
-Ts.listCustomer = function(url = $('#current-day').val()) {
-    $.ajax({
-        url: `/timesheets/${url}/get`,
-        method: 'get',
-        success: function(data) {
-            if (data) {
-                let obj = data[0];
-                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
-                if (obj.Ngay_Le) {
-                    $('#holiday').attr('checked', "");
-                }
-            }
-        }
-    });
+Ts.listCustomer = function (url = $('#current-day').val()) {
 
-    $('#bang-chamcong tfoot th').each(function() {
+    $('#bang-chamcong tfoot th').each(function () {
         var title = $(this).text();
         if (title == "Full Name" || title == "Position" || title == "Work Shift") {
             $(this).html('<input type="text" size="10" class="form-control font-font-weight-lighter" placeholder="Search ' + title + '" />');
@@ -24,12 +11,12 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
     });
 
     Ts.table = $('#bang-chamcong').DataTable({
-        initComplete: function() {
+        initComplete: function () {
             // Apply the search
-            this.api().columns().every(function() {
+            this.api().columns().every(function () {
                 var that = this;
 
-                $('input', this.footer()).on('keyup change clear', function() {
+                $('input', this.footer()).on('keyup change clear', function () {
                     if (that.search() !== this.value) {
                         that
                             .search(this.value)
@@ -40,21 +27,31 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
         },
         ajax: {
             url: `/timesheets/${url}/get`,
-            dataSrc: function(jsons) {
+            dataSrc: function (jsons) {
                 let i = 0;
-                return jsons.map(obj => {
+                let edit = jsons.edit ? '' : 'disabled';
+                if (!jsons.edit) {
+                    $('#holiday').attr('disabled', "");
+                    $('#baseSalary').attr('disabled', "");
+                    $('#luu-them-mota').attr('hidden', "");
+                } else {
+                    $('#holiday').removeAttr('disabled');
+                    $('#baseSalary').removeAttr('disabled');
+                    $('#luu-them-mota').removeAttr('hidden');
+                }
+                return jsons.data.map(obj => {
                     return {
                         no: ++i,
                         col1: "Id: NV" + obj.MaNV + "<br>" + obj.NV,
                         col6: obj.CV,
                         col2: obj.Ca,
                         col5: ` <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="sabbatical${obj.id}" onclick="Ts.sabbatical(${obj.id})" ${obj.Nghi_Phep ? 'checked' : ''}>
+                                <input type="checkbox" class="custom-control-input" ${edit} id="sabbatical${obj.id}" onclick="Ts.sabbatical(${obj.id})" ${obj.Nghi_Phep ? 'checked' : ''}>
                                 <label class="custom-control-label" for="sabbatical${obj.id}"></label>
                                 </div>
                                 `,
                         col3: `
-                        <select class="form-control salary" ${obj.Nghi_Phep ? 'disabled' : ''} onchange="Ts.updateSalary(${obj.id},this.value)">
+                        <select class="form-control salary" ${obj.Nghi_Phep ? 'disabled' : ''} ${edit} onchange="Ts.updateSalary(${obj.id},this.value)">
                             <option value="150"  ${obj.Luong==150 ? 'selected':''}>150%</option>
                             <option value="140"  ${obj.Luong==140 ? 'selected':''}>140%</option>
                             <option value="130"  ${obj.Luong==130 ? 'selected':''}>130%</option>
@@ -94,13 +91,59 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
             data: 'col4'
         }]
     });
+
+    $.ajax({
+        url: `/timesheets/${url}/get`,
+        method: 'get',
+        success: function (data) {
+
+            if (data.data.lenght > 0) {
+                let obj = data.data[0];
+                $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
+                if (obj.Ngay_Le) {
+                    $('#holiday').attr('checked', "");
+                }
+            }
+        }
+    });
 };
 
-Ts.base = function() {
+Ts.create = function () {
+    let day = $('#current-day').val();
+    console.log(day);
+    $.ajax({
+        url: '/timesheets',
+        method: 'post',
+        data: {
+            'date': `${day}`
+        },
+        success: function (data) {
+            Ts.table.ajax.reload();
+        },
+        error: function (res) {
+            if(res.status == 403)
+                Ts.error("Qua từ đời nào rồi");
+            console.log(res);
+        }
+    });
+}
+
+Ts.error = function(msg) {
+    $.toast({
+        heading: "error",
+        text: msg,
+        hideAfter: 5000,
+        position: 'bottom-right',
+        showHideTransition: 'slide',
+        icon: 'error'
+    });
+}
+
+Ts.base = function () {
     $.ajax({
         url: '/base-salary/all',
         method: 'get',
-        success: function(data) {
+        success: function (data) {
             data.forEach(bs => {
                 $('#baseSalary').append(`<option value="${bs.id}">${bs.Tien_Luong}</option>`);
             });
@@ -108,32 +151,32 @@ Ts.base = function() {
     });
 };
 
-Ts.updateBaseSalary = function(base) {
+Ts.updateBaseSalary = function (base) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${base}/${day}/basesalary`,
         method: 'put',
-        success: function() {
+        success: function () {
             toastr.success(`Updated Base Salary !`);
         }
     });
 };
 
-Ts.description = function(id) {
+Ts.description = function (id) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'get',
-        success: function(obj) {
+        success: function (obj) {
             $("#mota-chitiet").val(obj.Ghi_Chu);
             $('#them-mota').modal('show');
-            $('#luu-them-mota').unbind('click').bind('click', function() {
+            $('#luu-them-mota').unbind('click').bind('click', function () {
                 $.ajax({
                     url: `timesheets/${obj.id}/`,
                     method: 'put',
                     data: {
                         'Ghi_Chu': $("#mota-chitiet").val()
                     },
-                    success: function() {
+                    success: function () {
                         if ($("#mota-chitiet").val() != null) {
                             toastr.success(`Updated Description !`);
                         }
@@ -146,7 +189,7 @@ Ts.description = function(id) {
     });
 };
 
-Ts.sabbatical = function(id) {
+Ts.sabbatical = function (id) {
     if (!$(`:checkbox#sabbatical${id}`).prop('checked')) {
         Ts.updateSabbatical(0, id);
         Ts.updateSalary(id, 100);
@@ -160,18 +203,18 @@ Ts.sabbatical = function(id) {
     }
 };
 
-Ts.updateSabbatical = function(id, status) {
+Ts.updateSabbatical = function (id, status) {
     $.ajax({
         url: `/timesheets/${status}/${id}/sabbatical`,
         method: 'put',
-        success: function() {
+        success: function () {
             // console.log('Wow gâu gâu');
         }
     });
 };
 
-Ts.holiday = function() {
-    $('#holiday').click(function() {
+Ts.holiday = function () {
+    $('#holiday').click(function () {
         if (!$(this).prop('checked')) {
             Ts.updateHoliday(0);
             toastr.success(`Updated Holiday to NO !`);
@@ -182,46 +225,46 @@ Ts.holiday = function() {
     });
 };
 
-Ts.updateHoliday = function(status) {
+Ts.updateHoliday = function (status) {
     let day = $('#current-day').val();
     $.ajax({
         url: `/timesheets/${status}/${day}/holiday`,
         method: 'put',
-        success: function() {
+        success: function () {
             // alert('thành công');
         }
     });
 };
 
-Ts.updateSalary = function(id, value) {
+Ts.updateSalary = function (id, value) {
     $.ajax({
         url: `/timesheets/${id}`,
         method: 'put',
         data: {
             'Luong': value
         },
-        success: function() {
+        success: function () {
             // console.log('Wow gâu gâu');
         }
     });
 };
 
-Ts.day = function() {
-    $('#current-day').change(function() {
+Ts.day = function () {
+    $('#current-day').change(function () {
         Ts.table.destroy();
         let day = $(this).val();
         Ts.listCustomer(day);
     });
 }
 
-Ts.statistic = function() {
+Ts.statistic = function () {
     let date = $('#month').val();
     let month = date.slice(5, 7);
     let year = date.slice(0, 4);
-    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function (data) {
         $("#statistic_table tbody").empty();
         let no = 1;
-        $.each(data, function(i, v) {
+        $.each(data, function (i, v) {
             let tr = `<tr><td>${no++}</td><td>${i}</td>`
             for (let k = 1; k <= 31; k++) {
                 // console.log(v['day'][k]);
@@ -234,14 +277,14 @@ Ts.statistic = function() {
     $('#statistic').modal('show');
 };
 
-Ts.exportSalary = function() {
+Ts.exportSalary = function () {
     let date = $('#month').val();
     let month = date.slice(5, 7);
     let year = date.slice(0, 4);
-    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function(data) {
+    $.get(`/timesheets/statistic?month=${month}&year=${year}`, function (data) {
         $("#data-export tbody").empty();
         let no = 1;
-        $.each(data, function(i, v) {
+        $.each(data, function (i, v) {
             let tr = `<tr><td>${no++}</td><td>${i}</td>`
             for (let k = 1; k <= 31; k++) {
                 tr += `<td>${v['day'][k]}</td>`;
@@ -256,14 +299,14 @@ Ts.exportSalary = function() {
     });
 };
 
-Ts.init = function() {
+Ts.init = function () {
     Ts.base();
     Ts.listCustomer();
     Ts.day();
     Ts.holiday();
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     Ts.init();
     $.ajaxSetup({
         headers: {
