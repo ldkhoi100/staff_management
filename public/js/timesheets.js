@@ -94,7 +94,6 @@ Ts.listCustomer = function(url = $('#current-day').val()) {
         url: `/timesheets/${url}/get`,
         method: 'get',
         success: function(data) {
-
             if (data.data.lenght > 0) {
                 let obj = data.data[0];
                 $(`#baseSalary>option[value=${obj.LuongCB}]`).attr('selected', "");
@@ -180,6 +179,7 @@ Ts.description = function(id) {
             $("#mota-chitiet").val(obj.Ghi_Chu);
             $('#them-mota').modal('show');
             $('#luu-them-mota').unbind('click').bind('click', function() {
+                $("#luu-them-mota").text("Saving . . .").prop("disabled", true);
                 $.ajax({
                     url: `timesheets/${obj.id}/`,
                     method: 'put',
@@ -191,7 +191,11 @@ Ts.description = function(id) {
                             toastr.success(`Updated Description !`);
                         }
                         $('#them-mota').modal('hide');
+                        $("#luu-them-mota").text("Save").prop("disabled", false);
                         Ts.table.ajax.reload(null, false);
+                    },
+                    error: function() {
+                        $("#luu-them-mota").text("Save").prop("disabled", false);
                     }
                 });
             });
@@ -225,12 +229,15 @@ Ts.updateSabbatical = function(id, status) {
 
 Ts.holiday = function() {
     $('#holiday').click(function() {
+        $("#holiday").prop("disabled", true);
         if (!$(this).prop('checked')) {
             Ts.updateHoliday(0);
             toastr.success(`Updated Holiday to NO !`);
+            $("#holiday").prop("disabled", false);
         } else {
             Ts.updateHoliday(1);
             toastr.warning(`Updated Holiday to YES !`);
+            $("#holiday").prop("disabled", false);
         }
     });
 };

@@ -84,7 +84,7 @@ staff.modalEdit = function(id) {
 };
 
 staff.create = function(btn) {
-    $("#create-button").text("Creating . . .").prop("disabled", true);
+    $("#create-button").text("Creating . . .").prop("disabled", true).addClass("button-clicked");
 
     let data = new FormData(btn.form);
     $.ajax({
@@ -97,14 +97,14 @@ staff.create = function(btn) {
         dataType: "json",
         success: function(response) {
             toastr.success(`Created new staff ${response.Ho_Ten} !`);
-            $(".btn-create").prop("disabled", true).prop("disabled", false);
+            $(".btn-create").prop("disabled", true).prop("disabled", false).removeClass("button-clicked");
             $("#ShowModal").modal("hide");
             $(".reset_form").click();
             $("#create-button").text("Create");
             staff.init();
         },
         error: function(data) {
-            $("#create-button").text("Create").prop("disabled", false);
+            $("#create-button").text("Create").prop("disabled", false).removeClass("button-clicked");
             if (data.status == 401) {
                 swal("Unauthorized", "You don't have permission !", "error");
                 $("#ShowModal").modal("hide");
@@ -116,7 +116,7 @@ staff.create = function(btn) {
 };
 
 staff.update = function(btn) {
-    $("#edit-button").text("Saving . . .").prop("disabled", true);
+    $("#edit-button").text("Saving . . .").prop("disabled", true).addClass("button-clicked");
     let data = new FormData(btn.form);
     data.append("hash", `${staff.hash}`);
     var id = $("input[name='id']").val();
@@ -129,14 +129,14 @@ staff.update = function(btn) {
         processData: false,
         dataType: "json",
         success: function(response) {
-            $("#edit-button").text("Save Changes").prop("disabled", false);
+            $("#edit-button").text("Save Changes").prop("disabled", false).removeClass("button-clicked");
             toastr.success(`Updated staff ${response.Ho_Ten} !`);
             $("#ShowModal").modal("hide");
             $(".btn-edit").prop("disabled", true);
             staff.init();
         },
         error: function(data) {
-            $("#edit-button").text("Save Changes").prop("disabled", false);
+            $("#edit-button").text("Save Changes").prop("disabled", false).removeClass("button-clicked");
             if (data.status == 401) {
                 swal("Unauthorized", "You don't have permission !", "error");
             } else if (data.status == 422) {

@@ -194,7 +194,7 @@ Dxp.save = function(btn) {
         }
     } else {
         if (confirm('Save this data')) {
-            $("#btn-save").text("Sending mail, please wait . . .");
+            $("#btn-save").text("Sending mail, please wait . . .").prop("disabled", true).addClass("button-clicked");
             $.ajax({
                 url: `/donxinphep`,
                 method: 'post',
@@ -203,12 +203,12 @@ Dxp.save = function(btn) {
                     Dxp.table.ajax.reload();
                     $('#fs-modal').modal("hide");
                     Dxp.success("Create success");
-                    $("#btn-save").text("Send Mail");
+                    $("#btn-save").text("Send Mail").prop("disabled", false).removeClass("button-clicked");
                     profile.init();
                 },
                 error: function(errors) {
                     Dxp.errors(errors);
-                    $("#btn-save").text("Send Mail");
+                    $("#btn-save").text("Send Mail").prop("disabled", false).removeClass("button-clicked");
                 }
             });
         }

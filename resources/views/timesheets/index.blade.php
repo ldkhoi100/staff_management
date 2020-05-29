@@ -32,7 +32,7 @@
 
         <li class="nav-item mx-auto">
             <button type="button" class="btn btn-info" onclick="Ts.statistic()">TimeSheets Statistic</button>
-            <button type="button" class="btn btn-info" onclick="Ts.create()">Create Date</button>
+            <button type="button" class="btn btn-success" onclick="Ts.create()">Create Date</button>
         </li>
 
         <li class="nav-item">

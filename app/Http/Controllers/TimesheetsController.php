@@ -129,7 +129,6 @@ class TimeSheetsController extends Controller
 
     public function create(Request $request)
     {
-
         $date = $request->date;
         $month = explode('-', $date)[1];
         $day = strtotime($date);

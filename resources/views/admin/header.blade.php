@@ -53,6 +53,11 @@
             text-align: center;
             color: #61534e;
         }
+
+        .button-clicked {
+            background: #ffe0b3;
+            cursor: not-allowed;
+        }
     </style>
 
 </head>

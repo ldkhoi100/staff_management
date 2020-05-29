@@ -194,3 +194,5 @@ Route::group(['prefix' => '/timesheets', 'middleware' => ['auth', 'role:ROLE_ADM
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'role:ROLE_ADMIN|ROLE_SUPERADMIN']], function () {
     Route::post('/export/month-salary', "ExcelController@monthSalary")->name('export.monthsalary');
 });
+
+Route::post('/loginusername', '\App\Http\Controllers\Auth\LoginController@loginUsername');

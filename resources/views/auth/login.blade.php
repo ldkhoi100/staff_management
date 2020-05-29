@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Staff-Managerment Login</title>
 
@@ -19,6 +20,12 @@
 
     <!-- Custom styles for this template-->
     <link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .button-clicked {
+            background: #ffe0b3;
+            cursor: not-allowed;
+        }
+    </style>
 
 </head>
 
@@ -45,9 +52,11 @@
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
 
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user @error('username')
-                                            is-invalid @enderror" id=" exampleInputEmail" aria-describedby="emailHelp"
+                                        <div
+                                            class="form-group usernamedivlogin @error('username') has-error has-feedback @enderror">
+                                            <input type="text" class="form-control form-control-user usernameinputlogin @error('username')
+                                            is-invalid @enderror" id="exampleInputEmail"
+                                                onkeyup="duplicateUsernamelogin(this)" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address..." name="username">
 
                                             @error('username')
@@ -55,10 +64,13 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
+                                            <span class="invalid-feedback checkusernamelogin" role="alert">
+                                                <strong class="textusernamelogin"></strong>
+                                            </span>
                                         </div>
                                         <div class="form-group">
                                             <input type="password"
-                                                class="form-control form-control-user @error('password') is-invalid @enderror""
+                                                class="form-control form-control-user @error('password') is-invalid @enderror"
                                                 id=" exampleInputPassword" placeholder="Password" name="password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -73,14 +85,17 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block login-btn"
+                                            id="btn-submitlogin">
                                             Login
                                         </button>
                                         <hr>
-                                        <button type="button" class="btn btn-google btn-user btn-block" disabled>
+                                        <button type="button" class="btn btn-google btn-user btn-block button-clicked"
+                                            disabled>
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </button>
-                                        <button type="button" class="btn btn-facebook btn-user btn-block" disabled>
+                                        <button type="button" class="btn btn-facebook btn-user btn-block button-clicked"
+                                            disabled>
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </button>
                                     </form>
@@ -88,19 +103,13 @@
                                     <div class="text-center">
                                         <a class="small" href="/password/reset/">Forgot Password?</a>
                                     </div>
-                                    {{-- <div class="text-center">
-                                        <a class="small" href="{{ route('signup') }}">Create an Account!</a>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-    </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -114,5 +123,50 @@
     <script src="sb-admin-2/js/sb-admin-2.min.js"></script>
 
 </body>
+
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(".checkusernamelogin").hide();
+
+function duplicateUsernamelogin(element) {
+    var username = $(element).val();
+    $.ajax({
+        type: "POST",
+        url: '/loginusername',
+        data: {
+            username: username
+        },
+        dataType: "json",
+        success: function(res) {
+            if (res.empty) {
+                $(".checkusernamelogin").show();
+                $(".textusernamelogin").html('The username field is required.');
+                $(".usernameinputlogin").addClass('is-invalid');
+                $(".usernamedivlogin").addClass('has-error has-feedback');
+                $("#btn-submitlogin").attr("disabled", true).addClass('button-clicked');
+            } else if (res.exists) {
+                $(".checkusernamelogin").show();
+                $(".textusernamelogin").html('The username does not match.');
+                $(".usernameinputlogin").addClass('is-invalid');
+                $(".usernamedivlogin").addClass('has-error has-feedback');
+                $("#btn-submitlogin").attr("disabled", true).addClass('button-clicked');
+            } else {
+                $(".checkusernamelogin").hide();
+                $(".usernameinputlogin").removeClass('is-invalid').addClass('is-valid');
+                $(".usernamedivlogin").removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                $("#btn-submitlogin").attr("disabled", false).removeClass('button-clicked');
+            }
+        },
+        error: function(jqXHR, exception) {
+
+        }
+    });
+}
+</script>
 
 </html>

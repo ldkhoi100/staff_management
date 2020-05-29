@@ -92,4 +92,19 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error', 'Username/email or password you entered are incorrect');
         }
     }
+
+    public function loginUsername(Request $request)
+    {
+        $username = request('username');
+        if (empty($username)) {
+            return response()->json(array("empty" => true));
+        }
+
+        $isExists = User::where('username', $username)->orWhere('email', $username)->first();
+        if ($isExists == true) {
+            return response()->json(array("exists" => false));
+        } else {
+            return response()->json(array("exists" => true));
+        }
+    }
 }
